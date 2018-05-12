@@ -10,6 +10,7 @@ const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeM
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
+const convertToSassMap = require('./sass/convert-to-sass-map');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
@@ -98,7 +99,7 @@ module.exports = {
 
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-      'react-native': 'react-native-web',
+      'react-native': 'react-native-web'
     },
     plugins: [
       new TsconfigPathsPlugin({ configFile: paths.appTsConfig }),
@@ -190,7 +191,10 @@ module.exports = {
                 },
               },
               {
-                loader: require.resolve('sass-loader')
+                loader: require.resolve('sass-loader'),
+                options: {
+                  data: `$g-theme: ${convertToSassMap(require('../public/theme.json'))};`
+                }
               },
             ],
           },

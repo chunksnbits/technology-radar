@@ -1,0 +1,25 @@
+
+@import '~styles/animation';
+@import '~styles/colors';
+
+.c-technology-details {
+  @include transition--default(opacity);
+
+  position: absolute;
+  left: auto;
+  right: 0;
+  bottom: 0;
+  width: 510px;
+  height: 270px;
+
+  opacity: 0;
+
+  margin: 20px;
+
+  background: $g-color__primary;
+}
+
+.c-technology-details[open] {
+  opacity: 1;
+  pointer-events: all;
+}

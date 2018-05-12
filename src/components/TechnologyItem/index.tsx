@@ -49,16 +49,7 @@ export class TechnologyItem extends Component<TechnologyItemProps> {
           width: `${translation}%`,
         }}>
         <button className='c-technology-item__item'
-          style={{
-            transform: [
-              `rotate(${-1 * rotation}deg)`
-            ].join(' ')
-          }}
-          onClick={ () => this.props.onSelect(technology) }>
-          <span className='c-technology-item__label'>
-            { /** technology.name */ }
-          </span>
-        </button>
+          onClick={ () => this.props.onSelect(technology) } />
       </div>
     );
   }

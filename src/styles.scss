@@ -1,0 +1,63 @@
+@import '~styles/typo';
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  @include typo-default;
+
+  background: $g-color__background;
+  margin: 0;
+  padding: 0;
+
+  overflow: hidden;
+}
+
+html,
+body,
+root {
+  width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+ul, li {
+  @include typo-default;
+}
+
+h1 {
+  font-size: 4.8rem;
+  font-weight: $g-typo__font-weight--light;
+  text-transform: uppercase;
+  letter-spacing: 0.66rem;
+}
+
+h3 {
+  font-size: 1.6rem;
+  font-weight: $g-typo__font-weight--light;
+  letter-spacing: 0.66rem;
+}
+
+p {
+  font-size: 1.4rem;
+  font-weight: $g-typo__font-weight--light;
+}

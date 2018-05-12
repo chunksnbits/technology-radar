@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { TechnologyRadar } from './index';
-import { TechnologyItem } from 'components/Technology-Item';
+import { TechnologyItem } from 'components/TechnologyItem';
 import { Legend } from 'components/Legend';
 
 jest.mock('public/data.json', () => ({
@@ -24,14 +24,20 @@ const mockGroup: any = {
 
 it('renders without crashing', () => {
   const element = shallow(
-    <TechnologyRadar technologies={ [] } groups={[]} />
+    <TechnologyRadar
+      applicationState={ null }
+      technologies={ [] }
+      groups={[]} />
   );
   expect(element.find('.c-technology-radar')).toBeTruthy();
 });
 
 it('renders legend', () => {
   const element = shallow(
-    <TechnologyRadar technologies={ [mockTechnology] } groups={ [mockGroup] } />
+    <TechnologyRadar
+      applicationState={ null }
+      technologies={ [mockTechnology] }
+      groups={ [mockGroup] } />
   );
 
   expect(element.find(Legend).length).toBe(1);
@@ -39,7 +45,10 @@ it('renders legend', () => {
 
 it('renders technology a single technology', () => {
   const element = shallow(
-    <TechnologyRadar technologies={ [mockTechnology] } groups={ [mockGroup] } />
+    <TechnologyRadar
+      applicationState={ null }
+      technologies={ [mockTechnology] }
+      groups={ [mockGroup] } />
   );
 
   expect(element.find(TechnologyItem).length).toBe(1);
@@ -48,6 +57,7 @@ it('renders technology a single technology', () => {
 it('renders technology a multiple technologoes', () => {
   const element = shallow(
     <TechnologyRadar
+      applicationState={ null }
       technologies={ [mockTechnology, Object.assign({}, mockTechnology, { id: 'other' })] }
       groups={ [mockGroup] } />
   );

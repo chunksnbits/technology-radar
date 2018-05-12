@@ -6,7 +6,7 @@ import * as React from 'react';
 import { classNames } from 'utils/dom';
 
 import './styles.scss';
-import { TechnologyItem } from 'components/Technology-Item';
+import { TechnologyItem } from 'components/TechnologyItem';
 import { Legend } from 'components/Legend';
 
 // ----------------------------------------------------------------------------- Configuration
@@ -14,6 +14,7 @@ export interface TechnologyRadarProps {
   className?: string;
   technologies: Technology[];
   groups: Group[];
+  applicationState: ApplicationState;
 }
 
 // ----------------------------------------------------------------------------- Implementation
@@ -38,6 +39,11 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
     );
   }
 
+  // ----------------------------------------------------------------------------- Event handler methods
+  handleSelect = (selected: Technology) => {
+    this.props.applicationState.selectTechnology(selected);
+  }
+
   // ----------------------------------------------------------------------------- Helpers methods
   private renderTechnologies(technologies: Technology[]) {
 
@@ -52,7 +58,7 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
           technologies={ technologies }
           maxLevel={ maxLevel }
           group={ this.findGroup(technology, this.props.groups) }
-          onSelect={ (event) => window.console.log('+++ onSelect', event) } />
+          onSelect={ this.handleSelect } />
       )
     });
   }

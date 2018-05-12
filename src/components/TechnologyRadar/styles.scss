@@ -6,14 +6,12 @@
 
   position: absolute;
 
-  top: 0;
-  left: 50%;
   width: 100vmin;
   height: 100vmin;
 
-  transform: translateX(-50%);
-
   pointer-events: none;
+
+  transform: rotateZ(80deg);
 }
 
 .c-technology-radar__legend,

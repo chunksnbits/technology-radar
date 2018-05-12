@@ -1,0 +1,69 @@
+
+@import './colors';
+
+$g-typo__font-weight--light: 300;
+$g-typo__font-weight--regular: 400;
+$g-typo__font-weight--bold: 700;
+
+$g-typo__font-family: 'Roboto Condensed', sans-serif;
+$g-typo__font-size: 1.4rem;
+$g-typo__font-weight: $g-typo__font-weight--light;
+
+$g-typo__font-size--small: 1.1rem;
+$g-typo__font-size--default: 1.4rem;
+$g-typo__font-size--section-heading: 3.6rem;
+$g-typo__font-size--block-heading: 2.4rem;
+$g-typo__font-size--copy: 1.4rem;
+
+$g-typo__line-height-ratio: 1.61803399;
+
+@mixin typo-default {
+  font-family: $g-typo__font-family;
+  font-weight: $g-typo__font-weight--light;
+
+  font-size: $g-typo__font-size--default;
+  line-height: $g-typo__line-height-ratio;
+
+  color: $g-color__primary;
+
+  letter-spacing: 0.05rem;
+}
+
+@mixin typo-section-heading {
+  font-family: $g-typo__font-family;
+  font-weight: $g-typo__font-weight--regular;
+
+  font-size: $g-typo__font-size--section-heading;
+  line-height: $g-typo__line-height-ratio;
+}
+
+@mixin typo-block-heading {
+  font-family: $g-typo__font-family;
+  font-weight: $g-typo__font-weight--regular;
+
+  font-size: $g-typo__font-size--block-heading;
+  line-height: $g-typo__line-height-ratio;
+}
+
+@mixin typo-group-heading {
+  font-family: $g-typo__font-family;
+  font-weight: $g-typo__font-weight--regular;
+
+  font-size: $g-typo__font-size--copy;
+  line-height: $g-typo__line-height-ratio;
+  letter-spacing: 0.2rem;
+}
+
+@mixin typo-copy {
+  font-family: $g-typo__font-family;
+  font-weight: $g-typo__font-weight--light;
+
+  font-size: $g-typo__font-size--copy;
+  line-height: $g-typo__line-height-ratio;
+}
+
+@mixin typo-copy--small {
+  @include typo-default();
+
+  font-size: $g-typo__font-size--small;
+}

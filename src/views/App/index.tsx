@@ -1,14 +1,13 @@
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { TechnologyRadar } from 'components/Technology-Radar';
+import { TechnologyRadar } from 'components/TechnologyRadar';
+import { TechnologyDetails } from 'components/TechnologyDetails';
+import { applicationState } from 'store';
 
-import imported from 'public/data.json';
+import data from 'public/data.json';
 
 import './styles.scss';
-
-// ----------------------------------------------------------------------------- Configuration
-const data: Data = imported as Data;
 
 import logo from './logo.svg';
 
@@ -22,7 +21,15 @@ export class App extends React.Component {
           <h1 className='c-app__title'>Welcome to React</h1>
         </header>
 
-        <TechnologyRadar technologies={ data.technologies } groups={ data.groups }  />
+        <main className='c-app__main'>
+          <TechnologyRadar
+            technologies={ data.technologies }
+            groups={ data.groups }
+            applicationState={ applicationState } />
+
+          <TechnologyDetails
+            applicationState={ applicationState } />
+        </main>
       </div>
     );
   }

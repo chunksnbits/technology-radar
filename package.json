@@ -22,6 +22,8 @@
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "2.29.0",
     "jest": "22.1.4",
+    "mobx": "^4.2.1",
+    "mobx-react": "^5.1.2",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
@@ -93,6 +95,8 @@
       "^components/(.*)$": "<rootDir>/src/components/$1",
       "^views/(.*)$": "<rootDir>/src/views/$1",
       "^utils/(.*)$": "<rootDir>/src/utils/$1",
+      "^store/(.*)$": "<rootDir>/src/store/$1",
+      "^store": "<rootDir>/src/store/index.ts",
       "^public/(.*)$": "<rootDir>/private/$1"
     },
     "moduleFileExtensions": [

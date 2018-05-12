@@ -1,7 +1,25 @@
 
+.c-app {
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
+}
+
+.c-app__main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;;
+}
+
 .c-app__header {
   display: flex;
   align-items: center;
+
+  position: absolute;
 }
 
 .c-app__logo {
@@ -11,5 +29,14 @@
 
 .c-app__title {
   display: inline-block;
-  font-size: 1.5em;
+  font-size: 2.4rem;
+}
+
+#g-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
 }
