@@ -2,25 +2,7 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { Legend } from './index';
 
-jest.mock('public/data.json', () => ({
-  default: {
-    groups: [],
-    technologies: [],
-  }
-}));
-
-const mockTechnology = (patch = {}) => Object.assign({
-  id: 'any',
-  level: 1,
-  group: 0,
-  name: 'Test',
-}, patch) as any;
-
-const mockGroup = (patch = {}) => Object.assign({
-  id: 'any',
-  name: 'Group',
-  group: 0
-}, patch) as any;
+import { mockTechnology, mockGroup } from 'mocks';
 
 it('renders without crashing', () => {
   const element = shallow(

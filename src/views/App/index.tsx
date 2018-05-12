@@ -1,18 +1,32 @@
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
+
+import { observer } from 'mobx-react';
+
 import { TechnologyRadar } from 'components/TechnologyRadar';
 import { TechnologyDetails } from 'components/TechnologyDetails';
-import { applicationState } from 'store';
-
-import data from 'public/data.json';
+import { Modal } from 'components/Modal';
 
 import './styles.scss';
 
 import logo from './logo.svg';
 
+// ----------------------------------------------------------------------------- Configuration
+export interface AppProps {
+  applicationState: ApplicationState;
+}
+
 // ----------------------------------------------------------------------------- Implementation
-export class App extends React.Component {
+@observer
+export class App extends React.Component<AppProps> {
+
+  // ----------------------------------------------------------------------------- Event handler methods
+  handleDeselectTechnology = () => {
+    this.props.applicationState.selectTechnology(null);
+  }
+
+  // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
     return (
       <div className='c-app'>
@@ -22,13 +36,13 @@ export class App extends React.Component {
         </header>
 
         <main className='c-app__main'>
-          <TechnologyRadar
-            technologies={ data.technologies }
-            groups={ data.groups }
-            applicationState={ applicationState } />
+          <TechnologyRadar applicationState={ this.props.applicationState } />
 
-          <TechnologyDetails
-            applicationState={ applicationState } />
+          <Modal open={ Boolean(this.props.applicationState.selectedTechnology) }
+            onClose={ this.handleDeselectTechnology }>
+            <TechnologyDetails
+              selectedTechnology={ this.props.applicationState.selectedTechnology } />
+          </Modal>
         </main>
       </div>
     );

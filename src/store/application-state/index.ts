@@ -2,13 +2,21 @@
 // ----------------------------------------------------------------------------- Dependencies
 import { observable } from 'mobx';
 
-class ApplicationState {
+export class ApplicationState {
   @observable
-  selectedTechnology: Technology;
+  selectedTechnology: Technology = null;
+
+  @observable
+  technologies: Technology[] = [];
+
+  @observable
+  groups: Group[] = [];
+
+  constructor(innitialState: any = {}) {
+    Object.assign(this, innitialState);
+  }
 
   selectTechnology(selected: Technology) {
     this.selectedTechnology = selected;
   }
 }
-
-export const applicationState = new ApplicationState();
