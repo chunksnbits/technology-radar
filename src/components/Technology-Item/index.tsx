@@ -39,27 +39,27 @@ export class TechnologyItem extends Component<TechnologyItemProps> {
     const translation = (level / maxLevel) * range + offset + variation;
 
     return (
-        <div
-          key={ technology.id }
-          className={ classNames('c-technology-item', this.props.className, ...modifiers) }
+      <div
+        key={ technology.id }
+        className={ classNames('c-technology-item', this.props.className, ...modifiers) }
+        style={{
+          transform: [
+            `rotate(${rotation}deg)`
+          ].join(' '),
+          width: `${translation}%`,
+        }}>
+        <button className='c-technology-item__item'
           style={{
             transform: [
-              `rotate(${rotation}deg)`
-            ].join(' '),
-            width: `${translation}%`,
-          }}>
-          <button className='c-technology-item__item'
-            style={{
-              transform: [
-                `rotate(${-1 * rotation}deg)`
-              ].join(' ')
-            }}
-            onClick={ () => this.props.onSelect(technology) }>
-            <span className='c-technology-item__label'>
-              { /** technology.name */ }
-            </span>
-          </button>
-        </div>
+              `rotate(${-1 * rotation}deg)`
+            ].join(' ')
+          }}
+          onClick={ () => this.props.onSelect(technology) }>
+          <span className='c-technology-item__label'>
+            { /** technology.name */ }
+          </span>
+        </button>
+      </div>
     );
   }
 
@@ -77,8 +77,6 @@ export class TechnologyItem extends Component<TechnologyItemProps> {
     }
 
     const variation = ((2 - index % 3) - 1) * 3.25;
-
-    window.console.log('+++ variation', 3 - index, 2 - index % 3, variation);
 
     return variation;
   }

@@ -12,33 +12,12 @@
   height: 100vmin;
 
   transform: translateX(-50%);
+
+  pointer-events: none;
 }
 
-.c-technology-radar__level {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
-  transform: translate(-50%, -50%);
-
-  border: 1px solid grey;
-  border-radius: 100vmin;
-}
-
-.c-technology-radar__group {
-  position: absolute;
-  top: 50%;
-  left: 25%;
-  width: 100%;
-
-  border-top: 1px solid grey;
-
-  transform-origin: 0;
-}
-
-.c-technology-radar__levels,
-.c-technology-radar__technologies,
-.c-technology-radar__groups {
+.c-technology-radar__legend,
+.c-technology-radar__technologies {
   position: absolute;
 
   top: 0;

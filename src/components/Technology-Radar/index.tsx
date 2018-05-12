@@ -7,6 +7,7 @@ import { classNames } from 'utils/dom';
 
 import './styles.scss';
 import { TechnologyItem } from 'components/Technology-Item';
+import { Legend } from 'components/Legend';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyRadarProps {
@@ -26,12 +27,8 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
 
     return (
       <div className={ classNames('c-technology-radar', this.props.className, ...modifiers) }>
-        <div className='c-technology-radar__groups'>
-          { this.renderGroups(this.props.groups) }
-        </div>
-
-        <div className='c-technology-radar__levels'>
-          { this.renderLevels(this.props.technologies) }
+        <div className='c-technology-radar__legend'>
+          <Legend technologies={ this.props.technologies } groups={ this.props.groups } />
         </div>
 
         <div className='c-technology-radar__technologies'>
@@ -49,48 +46,13 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
     return technologies.map((technology) => {
       return (
         <TechnologyItem
+          className='c-technology-radar__item'
           key={ technology.id }
           technology={ technology }
           technologies={ technologies }
           maxLevel={ maxLevel }
           group={ this.findGroup(technology, this.props.groups) }
           onSelect={ (event) => window.console.log('+++ onSelect', event) } />
-      )
-    });
-  }
-
-  private renderLevels(technologies: Technology[]) {
-    const maxLevel = this.getMaxLevel(technologies);
-    const step = 100 / maxLevel;
-
-    return new Array(maxLevel).fill(null).map((_, index) => {
-      const level = index + 1;
-
-      return (
-        <div key={index}
-          className='c-technology-radar__level'
-          style={{
-            height: `${level * step}vmin`,
-            width: `${level * step}vmin`,
-          }} />
-      )
-    });
-  }
-
-  private renderGroups(groups: Group[]) {
-    const baseAngle = 360 / groups.length;
-
-    return groups.map((_, index) => {
-      return (
-        <div key={index}
-          className='c-technology-radar__group'
-          style={{
-            transform: [
-              'translateX(25vmin)',
-              // `rotateZ(${ -1 * baseAngle }deg)`,
-              `rotateZ(${ index * baseAngle }deg)`
-            ].join(' ')
-          }} />
       )
     });
   }

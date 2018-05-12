@@ -1,0 +1,43 @@
+
+.c-legend {
+  pointer-events: none;
+}
+
+.c-legend__level {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border: 1px solid grey;
+  border-radius: 100vmin;
+}
+
+.c-legend__group {
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  width: 100%;
+
+  border-top: 1px solid grey;
+
+  transform-origin: 0;
+
+  text-align: left;
+}
+
+.c-legend__group-name {
+  position: absolute;
+  padding: 20px;
+}
+
+.c-legend__label {
+  font-size: 0.14rem;
+  fill: red;
+  text-anchor: middle;
+  transform-origin: center;
+  overflow: visible;
+
+  pointer-events: all;
+}

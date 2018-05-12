@@ -26,6 +26,11 @@ declare module "*.json" {
   export default value;
 }
 
+declare module "*.scss" {
+  const value: any;
+  export default value;
+}
+
 declare module "public/data.json" {
   const value: Data;
   export default value;
