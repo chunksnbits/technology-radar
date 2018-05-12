@@ -10,53 +10,69 @@ import './styles.scss';
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyItemProps {
   className?: string;
-  maxLevel: number;
   technology: Technology;
-  technologies: Technology[];
   group: Group;
+  technologies: Technology[];
+  groups: Group[];
   onSelect: (technology: Technology) => any;
 }
 
 // ----------------------------------------------------------------------------- Implementation
 export class TechnologyItem extends Component<TechnologyItemProps> {
 
+  propagateClick = () => {
+    this.props.onSelect(this.props.technology)
+  };
+
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
+    const modifiers = [];
+    const { group } = this.props;
 
-    const modifiers = [
+    return (
+      <div
+        key={ this.props.technology.id }
+        className={ classNames('c-technology-item', this.props.className, ...modifiers) }
+        style={ this.calculateTransforms(this.props) }>
 
-    ];
+        <button
+          className='c-technology-item__item'
+          onClick={ this.propagateClick }
+          style={{
+            borderColor: group.color
+          }
+        } />
+      </div>
+    );
+  }
 
-    const { technology, technologies, maxLevel } = this.props;
+  // ----------------------------------------------------------------------------- Helpers methods
+  private calculateTransforms(props: TechnologyItemProps): { transform: string, width: string} {
+    const { technology, technologies, groups, group } = props;
+
+    const maxLevel = this.getMaxLevel(technologies);
+    const groupIndex = groups.findIndex(acc => acc.id === group.id);
 
     const offset = 12.5;
     const range = 50;
     const level = maxLevel - technology.level;
     const [count, index] = this.positionInGroup(technologies, technology);
     const baseAngle = 90 / count;
-    const rotation = 90 + technology.group * 90 + (index * baseAngle) + 0.5 * baseAngle;
+
+    const rotation = 90 + groupIndex * 90 + (index * baseAngle) + 0.5 * baseAngle;
     const variation = this.calculateVariation(index, count, level === 0);
     const translation = (level / maxLevel) * range + offset + variation;
 
-    return (
-      <div
-        key={ technology.id }
-        className={ classNames('c-technology-item', this.props.className, ...modifiers) }
-        style={{
-          transform: [
-            `rotate(${rotation}deg)`
-          ].join(' '),
-          width: `${translation}%`,
-        }}>
-        <button className='c-technology-item__item'
-          onClick={ () => this.props.onSelect(technology) } />
-      </div>
-    );
+    return {
+      transform: [
+        `rotate(${rotation}deg)`
+      ].join(' '),
+      width: `${translation}%`,
+    };
   }
 
-  // ----------------------------------------------------------------------------- Helpers methods
   private positionInGroup(technologies: Technology[], technology: Technology): [number, number] {
-    const grouped = technologies.filter(acc => acc.group === technology.group && acc.level === technology.level);
+    const grouped = technologies.filter(acc => acc.groupId === technology.groupId && acc.level === technology.level);
     const index = grouped.findIndex(acc => acc.id === technology.id);
 
     return [grouped.length, index];
@@ -70,5 +86,9 @@ export class TechnologyItem extends Component<TechnologyItemProps> {
     const variation = ((2 - index % 3) - 1) * 3.25;
 
     return variation;
+  }
+
+  private getMaxLevel(technologies: Technology[]): number {
+    return technologies.reduce((result, technology) => Math.max(result, technology.level), 0);
   }
 }

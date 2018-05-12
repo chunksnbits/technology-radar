@@ -4,7 +4,6 @@ declare interface Technology {
   name: string;
   description?: string;
   logo?: string;
-  group: number;
   groupId: string;
   level: number;
 }
@@ -14,6 +13,7 @@ declare interface Group {
   group?: number;
   name: string;
   description?: string;
+  color?: string;
 }
 
 declare interface Data {

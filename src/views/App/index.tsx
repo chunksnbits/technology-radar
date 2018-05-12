@@ -28,6 +28,8 @@ export class App extends React.Component<AppProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
+    const { selectedTechnology, groups } = this.props.applicationState;
+
     return (
       <div className='c-app'>
         <header className='c-app__header'>
@@ -38,10 +40,11 @@ export class App extends React.Component<AppProps> {
         <main className='c-app__main'>
           <TechnologyRadar applicationState={ this.props.applicationState } />
 
-          <Modal open={ Boolean(this.props.applicationState.selectedTechnology) }
+          <Modal open={ Boolean(selectedTechnology) }
             onClose={ this.handleDeselectTechnology }>
             <TechnologyDetails
-              selectedTechnology={ this.props.applicationState.selectedTechnology } />
+              selectedTechnology={ selectedTechnology }
+              groups={ groups } />
           </Modal>
         </main>
       </div>

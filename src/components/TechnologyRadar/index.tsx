@@ -44,28 +44,21 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
 
   // ----------------------------------------------------------------------------- Helpers methods
   private renderTechnologies(technologies: Technology[], groups: Group[]): ReactNode[] {
-
-    const maxLevel = this.getMaxLevel(technologies);
-
     return technologies.map((technology) => {
       return (
         <TechnologyItem
           className='c-technology-radar__item'
           key={ technology.id }
           technology={ technology }
+          group={ this.findGroupForTechnology(technology, groups) }
           technologies={ technologies }
-          maxLevel={ maxLevel }
-          group={ this.findGroup(technology, groups) }
+          groups={ groups }
           onSelect={ this.handleSelect } />
       )
     });
   }
 
-  private getMaxLevel(technologies: Technology[]): number {
-    return technologies.reduce((result, technology) => Math.max(result, technology.level), 0);
-  }
-
-  private findGroup(technology: Technology, groups: Group[]): Group {
+  private findGroupForTechnology(technology: Technology, groups: Group[]): Group {
     return groups.find(group => group.id === technology.groupId);
   }
 }
