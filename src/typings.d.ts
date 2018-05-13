@@ -24,6 +24,7 @@ declare interface Group {
 declare interface Data {
   technologies: Technology[];
   groups: Group[];
+  settings: TechnologyRadarSettings;
 }
 
 declare module "*.json" {

@@ -1,0 +1,74 @@
+{
+  "type": "object",
+  "properties": {
+    "settings": {
+      "type": "object",
+      "properties": {
+        "innerRadiusDegrees": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 50
+        },
+        "outerRadiusDegrees": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 50
+        }
+      }
+    },
+    "groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "technologies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "level": {
+            "type": "number"
+          },
+          "groupId": {
+            "type": "string"
+          },
+          "logo": {
+            "type": "string"
+          },
+          "website": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "href": {
+                "type": "string"
+              }
+            }
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
