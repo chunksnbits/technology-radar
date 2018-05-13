@@ -93,7 +93,7 @@
     "moduleNameMapper": {
       "^react-native$": "react-native-web",
       "^components/(.*)$": "<rootDir>/src/components/$1",
-      "^views/(.*)$": "<rootDir>/src/views/$1",
+      "^ui/(.*)$": "<rootDir>/src/ui/$1",
       "^utils/(.*)$": "<rootDir>/src/utils/$1",
       "^store/(.*)$": "<rootDir>/src/store/$1",
       "^store": "<rootDir>/src/store/index.ts",

@@ -1,7 +1,7 @@
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { shallow, render, mount } from 'enzyme';
+import { shallow, render } from 'enzyme';
 import { Modal } from './index';
 
 // ----------------------------------------------------------------------------- Helpers methods

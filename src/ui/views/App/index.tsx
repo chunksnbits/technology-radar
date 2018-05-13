@@ -4,9 +4,9 @@ import * as React from 'react';
 
 import { observer } from 'mobx-react';
 
-import { TechnologyRadar } from 'components/TechnologyRadar';
-import { TechnologyDetails } from 'components/TechnologyDetails';
-import { Modal } from 'components/Modal';
+import { TechnologyRadar } from 'ui/modules/TechnologyRadar';
+import { TechnologyDetails } from 'ui/modules/TechnologyDetails';
+import { Modal } from 'ui/components/Modal';
 
 import './styles.scss';
 

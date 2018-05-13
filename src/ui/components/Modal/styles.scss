@@ -1,6 +1,6 @@
 
-@import '~styles/animation';
-@import '~styles/colors';
+@import '~utils/scss/animation';
+@import '~utils/scss/colors';
 
 .c-modal {
   @include transition--default(opacity);

@@ -1,0 +1,37 @@
+
+@import '~utils/scss/input';
+
+$g-transition__duration--default: 0.25s;
+$g-transition__timing--default: ease;
+$g-transition__delay--default: 0s;
+
+$transition-defaults: (
+  duration: $g-transition__duration--default,
+  timing: $g-transition__timing--default,
+  delay: $g-transition__delay--default
+);
+
+@function create-transition($name, $options: $transition-defaults) {
+  $merged: map-merge($transition-defaults, $options);
+
+  @return $name map-get($merged, duration) map-get($merged, timing) map-get($merged, delay);
+}
+
+@mixin transition--default($names, $options: $transition-defaults) {
+  $transitions: ();
+
+  @if type-of($names) == string {
+    $transitions: create-transition($names, $options);
+  }
+  @else {
+    @each $name in $names {
+      $transitions: $transitions, create-transition($name, $options);
+    }
+  }
+
+  transition: $transitions;
+
+  @include what-input(keyboard) {
+    transition: none;
+  }
+}

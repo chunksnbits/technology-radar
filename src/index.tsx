@@ -3,7 +3,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { App } from 'views/App';
+import { App } from 'ui/views/App';
 import { ApplicationState } from 'store';
 
 import registerServiceWorker from './registerServiceWorker';

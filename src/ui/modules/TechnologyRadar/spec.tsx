@@ -3,8 +3,8 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { TechnologyRadar } from './index';
-import { TechnologyItem } from 'components/TechnologyItem';
-import { Legend } from 'components/Legend';
+import { TechnologyItem } from './components/TechnologyItem';
+import { Legend } from './components/Legend';
 import { mockApplicationState, mockTechnology, mockGroup } from 'mocks';
 
 // ----------------------------------------------------------------------------- Implementation

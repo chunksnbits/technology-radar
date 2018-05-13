@@ -5,8 +5,8 @@ import * as React from 'react';
 import { observer } from 'mobx-react';
 
 import { classNames } from 'utils/dom';
-import { TechnologyItem } from 'components/TechnologyItem';
-import { Legend } from 'components/Legend';
+import { TechnologyItem } from './components/TechnologyItem';
+import { Legend } from './components/Legend';
 
 import './styles.scss';
 
