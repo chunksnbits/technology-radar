@@ -14,24 +14,51 @@ export interface ModalProps {
   children: ReactNode;
   className?: string;
   open?: boolean;
+  position?: 'document' | 'parent'; // defaults to 'document'
   onClose: () => any;
 }
 
 // ----------------------------------------------------------------------------- Implementation
 export class Modal extends Component<ModalProps> {
 
+  private rootClassName: string = 'c-modal';
+
   // ----------------------------------------------------------------------------- Lifecycle methods
+  componentDidUpdate() {
+    if (Boolean(this.props.open)) {
+      document.addEventListener('click', this.handleDocumentClick);
+    } else {
+      document.removeEventListener('click', this.handleDocumentClick);
+    }
+  }
+
   render() {
-    if (!canUseDOM() || document.getElementById('g-modal') === null) {
+    if (this.props.position !== 'parent' && (!canUseDOM() || document.getElementById('g-modal') === null)) {
       return null;
+    }
+
+    if (this.props.position === 'parent') {
+      return this.renderDialog(this.props);
     }
 
     return createPortal(this.renderDialog(this.props), document.getElementById('g-modal'));
   }
 
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleDocumentClick);
+  }
+
   // ----------------------------------------------------------------------------- Event handler methods
   handleClose = () => {
     this.props.onClose();
+  }
+
+  handleDocumentClick = (event: MouseEvent) => {
+    const source = event.target as HTMLElement;
+
+    if (!source.closest(`.${ this.rootClassName }`)) {
+      this.props.onClose();
+    }
   }
 
   // ----------------------------------------------------------------------------- Helpers methods
@@ -40,7 +67,7 @@ export class Modal extends Component<ModalProps> {
 
     return (
       <dialog
-        className={ classNames('c-modal', props.className, ...modifiers) }
+        className={ classNames(this.rootClassName, props.className, ...modifiers) }
         open={ Boolean(props.open) }>
         <nav className='c-modal__nav'>
           <button onClick={ this.handleClose } className='c-modal__nav-action c-modal__nav-action--close'>

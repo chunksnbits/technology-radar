@@ -2,6 +2,7 @@
 // ----------------------------------------------------------------------------- Dependencies
 import { Component } from 'react';
 import * as React from 'react';
+import { classNames } from 'utils/dom';
 
 import './styles.scss';
 
@@ -14,7 +15,6 @@ export interface TechnologyDetailsProps {
 
 // ----------------------------------------------------------------------------- Implementation
 export class TechnologyDetails extends Component<TechnologyDetailsProps> {
-
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
     const { selectedTechnology, groups } = this.props;
@@ -23,10 +23,12 @@ export class TechnologyDetails extends Component<TechnologyDetailsProps> {
       return null;
     }
 
+    const modifiers = [];
+
     const group = this.findGroupForTechnology(selectedTechnology, groups);
 
     return (
-      <div className='c-technology-details'>
+      <div className={ classNames('c-technology-details', this.props.className, ...modifiers) }>
         <div className='c-technology-details__header'>
           <h3 className='c-technology-details__name'>
             { this.props.selectedTechnology.name }
@@ -50,6 +52,7 @@ export class TechnologyDetails extends Component<TechnologyDetailsProps> {
       </div>
     );;
   }
+
 
   // ----------------------------------------------------------------------------- Helpers methods
   private findGroupForTechnology(technology: Technology, groups: Group[]): Group {
