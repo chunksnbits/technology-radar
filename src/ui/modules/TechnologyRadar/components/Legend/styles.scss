@@ -34,10 +34,25 @@
   padding: 20px;
 }
 
+.c-legend__labels-background {
+  fill: none;
+  stroke: $g-color__secondary;
+  stroke-width: 2rem;
+}
+
+.c-legend__labels {
+  margin: -1.7vmin;
+}
+
+.c-legend__labels-element {
+  overflow: visible;
+}
+
 .c-legend__label {
   font-size: 0.18rem;
-  fill: $g-color__primary;
-  text-anchor: middle;
+  fill: $g-color__background;
+  font-weight: bold;
+  text-anchor:middle;
   transform-origin: center;
   overflow: visible;
 

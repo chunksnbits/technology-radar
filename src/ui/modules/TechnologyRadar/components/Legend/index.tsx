@@ -33,10 +33,12 @@ export class Legend extends Component<LegendProps> {
     return (
       <div className={ classNames('c-legend', this.props.className, ...modifiers) }>
         <div className='c-legend__labels'>
-          <svg viewBox='0 0 100 100'>
+          <svg viewBox='0 0 100 100' className='c-legend__labels-element'>
             <defs>
               <path d={ 'M0,50a50,50 0 1,0 100,0a50,50 0 1,0 -100,0' } id='c-legend__text-path' fill='none' />
             </defs>
+
+            <circle cx='50' cy='50' r='49.45' className='c-legend__labels-background' vectorEffect='non-scaling-stroke' />
 
             { this.renderLabels(this.props.groups) }
           </svg>
@@ -65,11 +67,13 @@ export class Legend extends Component<LegendProps> {
         <text key={group.id}
           className='c-legend__label'
           style={{
-            transform: `rotateZ(${index * baseAngleDegree + 0.5 * baseAngleDegree}deg)`
+            transform: [
+              `rotateZ(${index * baseAngleDegree + 0.5 * baseAngleDegree}deg)`
+            ].join(' ')
           }}
           onClick={ this.propagateSelectGroup(group) }>
           <textPath
-            alignmentBaseline='text-after-edge'
+            alignmentBaseline='baseline'
             xlinkHref='#c-legend__text-path'
             startOffset={ String(offset) }>
             { group.name }
@@ -91,8 +95,8 @@ export class Legend extends Component<LegendProps> {
         <div key={index}
           className='c-legend__level'
           style={{
-            height: `${size}vmin`,
-            width: `${size}vmin`,
+            height: `${size}%`,
+            width: `${size}%`,
           }} />
       );
     });
@@ -107,7 +111,7 @@ export class Legend extends Component<LegendProps> {
           className='c-legend__group'
           style={{
             transform: [
-              'translateX(25vmin)',
+              'translateX(25%)',
               `rotateZ(${ index * baseAngleDegree }deg)`
             ].join(' ')
           }} />

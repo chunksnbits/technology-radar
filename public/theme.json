@@ -1,5 +1,6 @@
 {
   "primary": "rgba(255, 255, 255, 1.0)",
+  "primaryInverse": "rgba(0, 0, 0, 1.0)",
   "secondary": "rgba(175, 175, 175, 1.0)",
   "accent": "rgba(139, 218, 224, 1.0)",
   "base": "rgba(42, 42, 42, 1.0)",

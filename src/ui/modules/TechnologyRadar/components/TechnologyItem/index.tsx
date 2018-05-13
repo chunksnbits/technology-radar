@@ -64,29 +64,30 @@ export class TechnologyItem extends Component<TechnologyItemProps> {
     // Angle for each group segment in the dataset.
     const groupBaseAngleDegree = 360 / groups.length;
     // Angle for each item in the item's level range within that group.
-    const itemBaseAngleDegree = groupBaseAngleDegree / count
+    const itemBaseAngleDegree = groupBaseAngleDegree / (count + 1);
     // Rotate to fit item into parent group.
     const groupRotationDegree = groupBaseAngleDegree + groupIndex * groupBaseAngleDegree;
     // Rotate item within group
     const itemRotationDegree = index * itemBaseAngleDegree + 0.5 * itemBaseAngleDegree;
     // Final rotation calculated by adding total rotation base on item-group
     // and item rotation within group.
-    const rotationDegree = groupRotationDegree + itemRotationDegree;
+    const rotationDegree = groupRotationDegree + itemRotationDegree + 0.5 * itemBaseAngleDegree;
 
+    console.log('+++ count', count);
 
     // Adds shift in translation to prevent overlap between neighbouring items.
     const levelRangeRatio = 1 / maxLevel;
     // Shift to middle of current level
     const offsetPercent = settings.innerRadiusPercent + levelRangeRatio * 0.5 * radiusPercent;
     // Calculate base translation for each level
-    const levelBaseTranslationPercent = levelRangeRatio * radiusPercent;
+    const levelBaseTranslationPercent = levelRangeRatio * (settings.outerRadiusPercent - settings.innerRadiusPercent);
     // Add some variation with alternating between -1, 0, 1 to keep items from overlapping
-    const variation = (2 - index % 3) - 1;
+    const variation = count < 2 ? 0 : (index % 2 === 0 ? 1 : -1);
     const translationVariationPercent = variation * 0.25 * offsetPercent;
 
-  // console.log('+++ o', offsetPercent, levelBaseTranslationPercent, translationVariationPercent);
+  console.log('+++ o', level, levelBaseTranslationPercent, settings.innerRadiusPercent);
 
-    const translationPercent = offsetPercent + (level - 1) * levelBaseTranslationPercent + translationVariationPercent;
+    const translationPercent = settings.innerRadiusPercent + (level - 1) * levelBaseTranslationPercent + 0.5 * levelBaseTranslationPercent + translationVariationPercent;
 
     return {
       transform: [

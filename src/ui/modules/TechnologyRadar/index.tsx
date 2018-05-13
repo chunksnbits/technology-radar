@@ -31,17 +31,18 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
     return (
       <div className={ classNames('c-technology-radar', this.props.className, ...modifiers) }
         style={ this.calculateTransforms(selectedGroup, groups) }>
+        <div className='c-technology-radar__content'>
+          <div className='c-technology-radar__legend'>
+            <Legend
+              technologies={ technologies }
+              groups={ groups }
+              settings={ settings }
+              onSelectGroup={ this.handleSelectGroup }/>
+          </div>
 
-        <div className='c-technology-radar__legend'>
-          <Legend
-            technologies={ technologies }
-            groups={ groups }
-            settings={ settings }
-            onSelectGroup={ this.handleSelectGroup }/>
-        </div>
-
-        <div className='c-technology-radar__technologies'>
-          { this.renderTechnologies(technologies, groups, settings) }
+          <div className='c-technology-radar__technologies'>
+            { this.renderTechnologies(technologies, groups, settings) }
+          </div>
         </div>
       </div>
     );

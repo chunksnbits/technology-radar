@@ -2,7 +2,15 @@
 // ----------------------------------------------------------------------------- Dependencies
 import { observable } from 'mobx';
 
+import logo from 'public/assets/logo.svg';
+
 export class ApplicationState {
+  @observable
+  title: string = 'Technology Radar';
+
+  @observable
+  logo: string = logo;
+
   @observable
   selectedTechnology: Technology = null;
 

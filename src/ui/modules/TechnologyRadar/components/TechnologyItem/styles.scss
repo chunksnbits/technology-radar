@@ -1,5 +1,5 @@
 
-$c-technology-item__item--size: 25px;
+$c-technology-item__item--size: 2.5vmin;
 
 .c-technology-item {
   display: flex;
@@ -8,18 +8,21 @@ $c-technology-item__item--size: 25px;
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 100vmin;
+  width: 50%;
+  height: 0;
 
   transform-origin: 0;
 
   pointer-events: none;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .c-technology-item__item {
   position: relative;
 
   top: -0.5 * $c-technology-item__item--size;
-  right: 0.5 * $c-technology-item__item--size;
+  right: -0.5 * $c-technology-item__item--size;
 
   width: $c-technology-item__item--size;
   height: $c-technology-item__item--size;
@@ -28,7 +31,7 @@ $c-technology-item__item--size: 25px;
   margin: 0;
 
   border-radius: $c-technology-item__item--size;
-  border: 3px solid yellowgreen;
+  border: 0.35vmin solid yellowgreen;
   outline: none;
   background: none;
 

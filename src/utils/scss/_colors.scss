@@ -7,6 +7,7 @@ $g-color__border: map-get($g-theme, 'dividers');
 $g-color__border--light: lighten($g-color__border, 10);
 
 $g-color__primary: map-get($g-theme, 'primary');
+$g-color__primary--inverse: map-get($g-theme, 'primaryInverse');
 $g-color__primary--hover: rgba($g-color__primary, 0.75);
 
 $g-color__secondary: map-get($g-theme, 'secondary');

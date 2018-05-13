@@ -1,5 +1,8 @@
 
 declare interface ApplicationState {
+  title: string;
+  logo: string;
+
   selectedTechnology: Technology;
   selectedGroup: Group;
 
