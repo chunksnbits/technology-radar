@@ -14,6 +14,7 @@ export interface TechnologyItemProps {
   group: Group;
   technologies: Technology[];
   groups: Group[];
+  settings: TechnologyRadarSettings;
   onSelect: (technology: Technology) => any;
 }
 
@@ -48,44 +49,60 @@ export class TechnologyItem extends Component<TechnologyItemProps> {
 
   // ----------------------------------------------------------------------------- Helpers methods
   private calculateTransforms(props: TechnologyItemProps): { transform: string, width: string} {
-    const { technology, technologies, groups, group } = props;
+    const { technology, technologies, groups, group, settings } = props;
 
     const maxLevel = this.getMaxLevel(technologies);
     const groupIndex = groups.findIndex(acc => acc.id === group.id);
 
-    const offset = 12.5;
-    const range = 50;
-    const level = maxLevel - technology.level;
-    const [count, index] = this.positionInGroup(technologies, technology);
-    const baseAngle = 90 / count;
+    const radiusPercent = settings.outerRadiusPercent;
 
-    const rotation = 90 + groupIndex * 90 + (index * baseAngle) + 0.5 * baseAngle;
-    const variation = this.calculateVariation(index, count, level === 0);
-    const translation = (level / maxLevel) * range + offset + variation;
+    const level = (maxLevel + 1) - technology.level;
+
+    const index = this.calculateIndexForLevelAndGroup(technologies, technology);
+    const count = this.calculateNumberOfItemsForLevelAndGroup(technologies, technology);
+
+    // Angle for each group segment in the dataset.
+    const groupBaseAngleDegree = 360 / groups.length;
+    // Angle for each item in the item's level range within that group.
+    const itemBaseAngleDegree = groupBaseAngleDegree / count
+    // Rotate to fit item into parent group.
+    const groupRotationDegree = groupBaseAngleDegree + groupIndex * groupBaseAngleDegree;
+    // Rotate item within group
+    const itemRotationDegree = index * itemBaseAngleDegree + 0.5 * itemBaseAngleDegree;
+    // Final rotation calculated by adding total rotation base on item-group
+    // and item rotation within group.
+    const rotationDegree = groupRotationDegree + itemRotationDegree;
+
+
+    // Adds shift in translation to prevent overlap between neighbouring items.
+    const levelRangeRatio = 1 / maxLevel;
+    // Shift to middle of current level
+    const offsetPercent = settings.innerRadiusPercent + levelRangeRatio * 0.5 * radiusPercent;
+    // Calculate base translation for each level
+    const levelBaseTranslationPercent = levelRangeRatio * radiusPercent;
+    // Add some variation with alternating between -1, 0, 1 to keep items from overlapping
+    const variation = (2 - index % 3) - 1;
+    const translationVariationPercent = variation * 0.25 * offsetPercent;
+
+  // console.log('+++ o', offsetPercent, levelBaseTranslationPercent, translationVariationPercent);
+
+    const translationPercent = offsetPercent + (level - 1) * levelBaseTranslationPercent + translationVariationPercent;
 
     return {
       transform: [
-        `rotate(${rotation}deg)`
+        `rotate(${rotationDegree}deg)`
       ].join(' '),
-      width: `${translation}%`,
+      width: `${translationPercent}%`,
     };
   }
 
-  private positionInGroup(technologies: Technology[], technology: Technology): [number, number] {
-    const grouped = technologies.filter(acc => acc.groupId === technology.groupId && acc.level === technology.level);
-    const index = grouped.findIndex(acc => acc.id === technology.id);
-
-    return [grouped.length, index];
+  private calculateNumberOfItemsForLevelAndGroup(technologies: Technology[], technology: Technology): number {
+    return technologies.filter(acc => acc.groupId === technology.groupId && acc.level === technology.level).length;
   }
 
-  private calculateVariation(index: number, count: number, maxLevel: boolean): number {
-    if (count === 1) {
-      return 0;
-    }
-
-    const variation = ((2 - index % 3) - 1) * 3.25;
-
-    return variation;
+  private calculateIndexForLevelAndGroup(technologies: Technology[], technology: Technology): number  {
+    const grouped = technologies.filter(acc => acc.groupId === technology.groupId && acc.level === technology.level);
+    return grouped.findIndex(acc => acc.id === technology.id);
   }
 
   private getMaxLevel(technologies: Technology[]): number {

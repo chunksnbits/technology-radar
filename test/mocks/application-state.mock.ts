@@ -19,3 +19,8 @@ export const mockGroup = (patch = {}) => Object.assign({}, {
     name: 'Any',
     color: 'red'
 }, patch) as any;
+
+export const mockSettings = (patch = {}) => Object.assign({}, {
+    innerRadius: 10,
+    outerRadius: 50
+}, patch) as any;

@@ -12,14 +12,21 @@ it('initializes application state', () => {
   expect(isObservableArray(state.technologies)).toBeTruthy();
   expect(isObservableArray(state.groups)).toBeTruthy();
   expect(state.selectedTechnology).toBeNull();
+  expect(state.selectedGroup).toBeNull();
 });
 
 it('applies initialState', () => {
   const technologies = [mockTechnology()];
   const groups = [mockGroup()];
-  const selectedTechnology = technologies[0];
+  const [selectedTechnology] = technologies;
+  const [selectedGroup] = groups;
 
-  const state = new ApplicationState({ technologies, groups, selectedTechnology });
+  const state = new ApplicationState({
+    technologies,
+    groups,
+    selectedTechnology,
+    selectedGroup
+  });
 
   expect(state.technologies.length).toBe(1);
   expect(state.technologies[0]).toEqual(technologies[0]);
@@ -28,6 +35,7 @@ it('applies initialState', () => {
   expect(state.groups[0]).toEqual(groups[0]);
 
   expect(state.selectedTechnology).toEqual(selectedTechnology);
+  expect(state.selectedGroup).toEqual(selectedGroup);
 });
 
 it('updates selectedTechnology on selectTechnology', () => {
@@ -40,4 +48,16 @@ it('updates selectedTechnology on selectTechnology', () => {
   state.selectTechnology(selected);
 
   expect(state.selectedTechnology.id).toBe(selected.id);
-})
+});
+
+it('updates selectedGroup on selectGroup', () => {
+  const groups = [mockGroup()];
+  const [selected] = groups;
+  const state = new ApplicationState({ groups });
+
+  expect(state.selectedGroup).toBeNull();
+
+  state.selectGroup(selected);
+
+  expect(state.selectedGroup.id).toBe(selected.id);
+});

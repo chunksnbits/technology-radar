@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component } from 'react';
+import { Component, ReactNode } from 'react';
 import * as React from 'react';
 
 import { classNames } from 'utils/dom';
@@ -12,25 +12,30 @@ export interface LegendProps {
   className?: string;
   technologies: Technology[];
   groups: Group[];
+  settings: TechnologyRadarSettings;
+  onSelectGroup: (group: Group) => any;
 }
 
 // ----------------------------------------------------------------------------- Implementation
 export class Legend extends Component<LegendProps> {
 
+  // ----------------------------------------------------------------------------- Event handler methods
+  propagateSelectGroup: (group: Group) => () => void = (group: Group) => {
+    return () => {
+      this.props.onSelectGroup(group);
+    };
+  }
+
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const modifiers = [
-
-    ];
-
-    const d = 'M0,50a50,50 0 1,0 100,0a50,50 0 1,0 -100,0';
+    const modifiers = [];
 
     return (
       <div className={ classNames('c-legend', this.props.className, ...modifiers) }>
         <div className='c-legend__labels'>
           <svg viewBox='0 0 100 100'>
             <defs>
-              <path d={ d } id='c-legend__text-path' fill='none' />
+              <path d={ 'M0,50a50,50 0 1,0 100,0a50,50 0 1,0 -100,0' } id='c-legend__text-path' fill='none' />
             </defs>
 
             { this.renderLabels(this.props.groups) }
@@ -42,7 +47,7 @@ export class Legend extends Component<LegendProps> {
         </div>
 
         <div className='c-legend__levels'>
-          { this.renderLevels(this.props.technologies) }
+          { this.renderLevels(this.props.technologies, this.props.settings) }
         </div>
       </div>
     );
@@ -50,6 +55,7 @@ export class Legend extends Component<LegendProps> {
 
   // ----------------------------------------------------------------------------- Helpers methods
   private renderLabels(groups: Group[]) {
+    const baseAngleDegree = 360 / groups.length;
     const circumference = 2 * Math.PI * 50;
     const offset = circumference / groups.length;
 
@@ -59,8 +65,9 @@ export class Legend extends Component<LegendProps> {
         <text key={group.id}
           className='c-legend__label'
           style={{
-            transform: `rotateZ(${index * 90 + 45}deg)`
-          }}>
+            transform: `rotateZ(${index * baseAngleDegree + 0.5 * baseAngleDegree}deg)`
+          }}
+          onClick={ this.propagateSelectGroup(group) }>
           <textPath
             alignmentBaseline='text-after-edge'
             xlinkHref='#c-legend__text-path'
@@ -72,26 +79,27 @@ export class Legend extends Component<LegendProps> {
     });
   }
 
-  private renderLevels(technologies: Technology[]) {
+  private renderLevels(technologies: Technology[], settings: TechnologyRadarSettings): ReactNode {
     const maxLevel = this.getMaxLevel(technologies);
-    const step = 100 / maxLevel;
+    const step = 2 * (settings.outerRadiusPercent - settings.innerRadiusPercent) / maxLevel;
 
     return new Array(maxLevel).fill(null).map((_, index) => {
       const level = index + 1;
+      const size = 2 * settings.innerRadiusPercent + level * step;
 
       return (
         <div key={index}
           className='c-legend__level'
           style={{
-            height: `${level * step}vmin`,
-            width: `${level * step}vmin`,
+            height: `${size}vmin`,
+            width: `${size}vmin`,
           }} />
-      )
+      );
     });
   }
 
   private renderGroups(groups: Group[]) {
-    const baseAngle = 360 / groups.length;
+    const baseAngleDegree = 360 / groups.length;
 
     return groups.map((group, index) => {
       return (
@@ -100,7 +108,7 @@ export class Legend extends Component<LegendProps> {
           style={{
             transform: [
               'translateX(25vmin)',
-              `rotateZ(${ index * baseAngle }deg)`
+              `rotateZ(${ index * baseAngleDegree }deg)`
             ].join(' ')
           }} />
       )
