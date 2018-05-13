@@ -90,16 +90,14 @@
     "transformIgnorePatterns": [
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|ts|tsx)$"
     ],
+    "modulePaths": [
+      "src",
+      "test",
+      "node_modules",
+      ""
+    ],
     "moduleNameMapper": {
-      "^react-native$": "react-native-web",
-      "^components/(.*)$": "<rootDir>/src/components/$1",
-      "^ui/(.*)$": "<rootDir>/src/ui/$1",
-      "^utils/(.*)$": "<rootDir>/src/utils/$1",
-      "^store/(.*)$": "<rootDir>/src/store/$1",
-      "^store": "<rootDir>/src/store/index.ts",
-      "^public/(.*)$": "<rootDir>/private/$1",
-      "^mocks/(.*)$": "<rootDir>/test/mocks/$2",
-      "^mocks$": "<rootDir>/test/mocks"
+      "^react-native$": "react-native-web"
     },
     "moduleFileExtensions": [
       "web.ts",
