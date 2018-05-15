@@ -115,3 +115,57 @@ it('updates technologies on updateTechnology', () => {
 
   expect(state.technologies[0].name).toEqual('Changed');
 });
+
+it('adds group on addGroup', () => {
+  const state = new ApplicationState({ data: { groups: [mockGroup()] } });
+
+  state.setEditMode(true);
+  state.addGroup();
+
+  expect(state.groups.length).toEqual(2);
+});
+
+it('sets new group as selected on addGroup', () => {
+  const state = new ApplicationState({ data: { technologies: [], groups: [] } });
+
+  state.setEditMode(true);
+  state.addGroup();
+
+  expect(state.selectedGroup.id).toEqual(state.groups[0].id);
+});
+
+it('adds technology on addTechnology', () => {
+  const state = new ApplicationState({ data: { technologies: [mockTechnology()], groups: [mockGroup()] } });
+
+  state.setEditMode(true);
+  state.addTechnology(state.groups[0]);
+
+  expect(state.technologies.length).toEqual(2);
+});
+
+it('sets new technology as selected on addTechnology', () => {
+  const state = new ApplicationState({ data: { technologies: [], groups: [mockGroup()] } });
+
+  state.setEditMode(true);
+  state.addTechnology(state.groups[0]);
+
+  expect(state.selectedTechnology.id).toEqual(state.technologies[0].id);
+});
+
+it('removes all groups and technologies on clearAll', () => {
+  const state = new ApplicationState({ data: { technologies: [mockTechnology()], groups: [mockGroup()] } });
+
+  state.setEditMode(true);
+  state.clearAll();
+
+  expect(state.groups.length).toEqual(0);
+  expect(state.technologies.length).toEqual(0);
+});
+
+it('throws error when attempting to alter state outside edit mode', () => {
+  const state = new ApplicationState({ data: { technologies: [mockTechnology()], groups: [mockGroup()] } });
+
+  expect(() => state.addGroup()).toThrow();
+  expect(() => state.addTechnology(state.groups[0])).toThrow();
+  expect(() => state.clearAll()).toThrow();
+});

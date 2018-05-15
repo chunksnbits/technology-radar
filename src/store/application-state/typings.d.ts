@@ -20,4 +20,8 @@ declare interface ApplicationState {
 
   updateGroup: (group: Group, key: string, value: any) => void;
   updateTechnology: (technology: Technology, key: string, value: any) => void;
+
+  addGroup: () => void;
+  addTechnology: (group: Group) => void;
+  clearAll: () => void;
 }

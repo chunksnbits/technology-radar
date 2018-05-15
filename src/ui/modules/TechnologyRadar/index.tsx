@@ -23,6 +23,14 @@ const BASE_TRANSFORM_ROTATE_DEGREES = -10;
 export class TechnologyRadar extends Component<TechnologyRadarProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
+  componentDidUpdate() {
+    if (Boolean(this.props.applicationState.selectedGroup)) {
+      return document.body.addEventListener('click', this.handleDeselectGroup);
+    }
+
+    document.body.removeEventListener('click', this.handleDeselectGroup);
+  }
+
   render() {
     const { technologies, selectedGroup, groups, settings } = this.props.applicationState;
 
@@ -48,6 +56,7 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
     );
   }
 
+
   // ----------------------------------------------------------------------------- Event handler methods
   private handleSelectItem = (selected: Technology): void => {
     this.props.applicationState.selectTechnology(selected);
@@ -55,6 +64,10 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
 
   private handleSelectGroup = (selected: Group): void => {
     this.props.applicationState.selectGroup(selected);
+  }
+
+  private handleDeselectGroup = (): void => {
+    this.props.applicationState.selectGroup(null);
   }
 
   // ----------------------------------------------------------------------------- Helpers methods

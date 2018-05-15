@@ -2,6 +2,7 @@
 // ----------------------------------------------------------------------------- Dependencies
 import { Component, ChangeEvent } from 'react';
 import * as React from 'react';
+import { observer } from 'mobx-react';
 
 import { classNames } from 'utils/dom';
 import { FormGroup } from 'ui/components/FormGroup';
@@ -19,6 +20,7 @@ export interface ItemPanelProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
+@observer
 export class ItemPanel extends Component<ItemPanelProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
@@ -48,6 +50,14 @@ export class ItemPanel extends Component<ItemPanelProps> {
                 type='text'
                 name='group'
                 value={ this.props.technology.groupId}
+                onChange={ this.propagateValueChange } />
+            </FormGroup>
+            <FormGroup label='Group'>
+              <input
+                type='number'
+                name='level'
+                min='1'
+                value={ this.props.technology.level}
                 onChange={ this.propagateValueChange } />
             </FormGroup>
             <FormGroup label='Description'>
