@@ -2,6 +2,7 @@
 // ----------------------------------------------------------------------------- Dependencies
 import { Component } from 'react';
 import * as React from 'react';
+import { observer } from 'mobx-react';
 
 import { classNames } from 'utils/dom';
 
@@ -19,6 +20,7 @@ export interface TechnologyItemProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
+@observer
 export class TechnologyItem extends Component<TechnologyItemProps> {
 
   propagateClick = () => {

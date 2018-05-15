@@ -1,3 +1,4 @@
+@import '~utils/scss/colors';
 
 .c-app {
   width: 100vw;
@@ -32,11 +33,12 @@
   font-size: 2.4rem;
 }
 
-#g-modal {
-  position: fixed;
-  top: 0;
+.c-app__footer {
+  position: absolute;
+
+  bottom: 0;
   left: 0;
-  height: 100%;
-  width: 100%;
-  pointer-events: none;
+  right: 0;
+
+  background: rgba($g-color__background, 0.5);
 }

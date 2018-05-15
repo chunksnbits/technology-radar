@@ -1,0 +1,25 @@
+@import '~utils/scss/colors';
+
+.c-item-panel__header {
+  display: block;
+  width: 100%;
+  text-align: left;
+  appearance: none;
+  border: 0;
+  border-bottom: 1px solid $g-color__border;
+  background: none;
+
+  outline: none;
+
+  padding: 10px 0;
+
+  cursor: pointer;
+}
+
+.c-item-panel__body {
+  display: none;
+}
+
+.c-item-panel--active .c-item-panel__body {
+  display: block;
+}

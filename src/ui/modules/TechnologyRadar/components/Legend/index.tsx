@@ -2,6 +2,7 @@
 // ----------------------------------------------------------------------------- Dependencies
 import { Component, ReactNode } from 'react';
 import * as React from 'react';
+import { observer } from 'mobx-react';
 
 import { classNames } from 'utils/dom';
 
@@ -16,7 +17,13 @@ export interface LegendProps {
   onSelectGroup: (group: Group) => any;
 }
 
+// SVG follows a different coordinate system.
+// Thus add some static adjustment to labels to match them up with rendered items.
+//
+const SVG_ROTATION_SOURCE_ADJUSTMENT_DEGREES = -90;
+
 // ----------------------------------------------------------------------------- Implementation
+@observer
 export class Legend extends Component<LegendProps> {
 
   // ----------------------------------------------------------------------------- Event handler methods
@@ -40,7 +47,13 @@ export class Legend extends Component<LegendProps> {
 
             <circle cx='50' cy='50' r='49.45' className='c-legend__labels-background' vectorEffect='non-scaling-stroke' />
 
-            { this.renderLabels(this.props.groups) }
+            <g className='c-legend__labels-group'
+              style={{
+                transform: `rotateZ(${SVG_ROTATION_SOURCE_ADJUSTMENT_DEGREES}deg)`,
+                transformOrigin: 'center'
+              }}>
+              { this.renderLabels(this.props.groups) }
+            </g>
           </svg>
         </div>
 

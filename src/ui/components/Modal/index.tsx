@@ -14,6 +14,7 @@ export interface ModalProps {
   children: ReactNode;
   className?: string;
   open?: boolean;
+  type?: 'sidebar';
   position?: 'document' | 'parent'; // defaults to 'document'
   onClose: () => any;
 }
@@ -63,7 +64,9 @@ export class Modal extends Component<ModalProps> {
 
   // ----------------------------------------------------------------------------- Helpers methods
   private renderDialog(props: ModalProps) {
-    const modifiers = [];
+    const modifiers = [
+      typeof this.props.type === 'string' && `c-modal--${ this.props.type }`
+    ];
 
     return (
       <dialog

@@ -1,0 +1,11 @@
+
+.c-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.c-form-group__input,
+.c-form-group__label {
+  display: flex;
+  width: 100%;
+}
