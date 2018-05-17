@@ -1,9 +1,4 @@
 
-declare interface TechnologyRadarSettings {
-  innerRadiusPercent: number;
-  outerRadiusPercent: number;
-}
-
 declare interface Technology {
   id?: string;
   name: string;

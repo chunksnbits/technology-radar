@@ -1,16 +1,14 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { ApplicationState } from './index';
+import { ApplicationStateImpl } from './index';
 import { mockTechnology, mockGroup } from 'mocks';
-import { isObservableArray } from 'mobx';
+import { TechnologyRadarImpl } from '../technology-radar';
 
 // ----------------------------------------------------------------------------- Implementation
 it('initializes application state', () => {
-  const state = new ApplicationState();
+  const state = new ApplicationStateImpl();
 
-
-  expect(isObservableArray(state.technologies)).toBeTruthy();
-  expect(isObservableArray(state.groups)).toBeTruthy();
+  expect(state.technologyRadar instanceof TechnologyRadarImpl).toBeTruthy();
   expect(state.selectedTechnology).toBeNull();
   expect(state.selectedGroup).toBeNull();
 });
@@ -21,7 +19,7 @@ it('applies initialState', () => {
   const [selectedTechnology] = technologies;
   const [selectedGroup] = groups;
 
-  const state = new ApplicationState({
+  const state = new ApplicationStateImpl({
     data: {
       technologies,
       groups,
@@ -31,22 +29,21 @@ it('applies initialState', () => {
     editMode: false
   });
 
-  expect(state.technologies.length).toBe(1);
-  expect(state.technologies[0]).toEqual(technologies[0]);
-
-  expect(state.groups.length).toBe(1);
-  expect(state.groups[0]).toEqual(groups[0]);
-
   expect(state.selectedTechnology).toEqual(selectedTechnology);
   expect(state.selectedGroup).toEqual(selectedGroup);
 
+  expect(state.technologyRadar.technologies).toEqual(technologies);
+  expect(state.technologyRadar.groups).toEqual(groups);
+
   expect(state.editMode).toEqual(false);
+
+  expect(state.technologyRadar).not.toBeNull();
 });
 
 it('updates selectedTechnology on selectTechnology', () => {
   const technologies = [mockTechnology()];
   const [selected] = technologies;
-  const state = new ApplicationState({ data: { technologies } });
+  const state = new ApplicationStateImpl({ data: { technologies } });
 
   expect(state.selectedTechnology).toBeNull();
 
@@ -58,7 +55,7 @@ it('updates selectedTechnology on selectTechnology', () => {
 it('updates selectedGroup on selectGroup', () => {
   const groups = [mockGroup()];
   const [selected] = groups;
-  const state = new ApplicationState({ data: { groups } });
+  const state = new ApplicationStateImpl({ data: { groups } });
 
   expect(state.selectedGroup).toBeNull();
 
@@ -68,104 +65,40 @@ it('updates selectedGroup on selectGroup', () => {
 });
 
 it('updates editMode on setEditMode', () => {
-  const state = new ApplicationState({ editMode: false });
+  const state = new ApplicationStateImpl({ editMode: false });
 
   state.setEditMode(true);
 
   expect(state.editMode).toEqual(true);
 });
 
-it('inializes edited data on setEditMode', () => {
-  const state = new ApplicationState({
-    editMode: false,
-    data: {
-      groups: [mockGroup()],
-      technologies: [mockTechnology()]
+it('sets new group as selected on addGroup', () => {
+  const state = new ApplicationStateImpl({
+    technologyRadar: {
+      technologies: [],
+      groups: []
     }
   });
 
-  const [group] = state.groups;
-
   state.setEditMode(true);
+  state.technologyRadar.addGroup();
 
-  state.updateGroup(group, 'name', 'Changed');
-
-  expect(state.groups[0].name).toEqual('Changed');
-  expect(group.name).not.toEqual('Changed');
+  expect(state.selectedGroup.id).toEqual(state.technologyRadar.groups[0].id);
 });
 
-it('updates group on updateGroup', () => {
-  const state = new ApplicationState({ data: { groups: [mockGroup()] } });
-
-  const [group] = state.groups;
-
-  state.setEditMode(true);
-  state.updateGroup(group, 'name', 'Changed');
-
-  expect(state.groups[0].name).toEqual('Changed');
-});
-
-it('updates technologies on updateTechnology', () => {
-  const state = new ApplicationState({ data: { technologies: [mockTechnology()] } });
-
-  const [technology] = state.technologies;
-
-  state.setEditMode(true);
-  state.updateTechnology(technology, 'name', 'Changed');
-
-  expect(state.technologies[0].name).toEqual('Changed');
-});
-
-it('adds group on addGroup', () => {
-  const state = new ApplicationState({ data: { groups: [mockGroup()] } });
-
-  state.setEditMode(true);
-  state.addGroup();
-
-  expect(state.groups.length).toEqual(2);
-});
-
-it('sets new group as selected on addGroup', () => {
-  const state = new ApplicationState({ data: { technologies: [], groups: [] } });
-
-  state.setEditMode(true);
-  state.addGroup();
-
-  expect(state.selectedGroup.id).toEqual(state.groups[0].id);
-});
-
-it('adds technology on addTechnology', () => {
-  const state = new ApplicationState({ data: { technologies: [mockTechnology()], groups: [mockGroup()] } });
-
-  state.setEditMode(true);
-  state.addTechnology(state.groups[0]);
-
-  expect(state.technologies.length).toEqual(2);
-});
 
 it('sets new technology as selected on addTechnology', () => {
-  const state = new ApplicationState({ data: { technologies: [], groups: [mockGroup()] } });
+  const state = new ApplicationStateImpl({
+    technologyRadar: {
+      technologies: [],
+      groups: [mockGroup()]
+    }
+  });
+
+  const [group] = state.technologyRadar.groups;
 
   state.setEditMode(true);
-  state.addTechnology(state.groups[0]);
+  state.technologyRadar.addTechnology(group);
 
-  expect(state.selectedTechnology.id).toEqual(state.technologies[0].id);
-});
-
-it('removes all groups and technologies on clearAll', () => {
-  const state = new ApplicationState({ data: { technologies: [mockTechnology()], groups: [mockGroup()] } });
-
-  state.setEditMode(true);
-  state.clearAll();
-
-  expect(state.groups.length).toEqual(0);
-  expect(state.technologies.length).toEqual(0);
-});
-
-it('throws error when attempting to alter state outside edit mode', () => {
-  const state = new ApplicationState({ data: { technologies: [mockTechnology()], groups: [mockGroup()] } });
-
-  expect(() => state.addGroup()).toThrow();
-  expect(() => state.addTechnology(state.groups[0])).toThrow();
-  expect(() => state.clearAll()).toThrow();
+  expect(state.selectedTechnology.id).toEqual(state.technologyRadar.technologies[0].id);
 });

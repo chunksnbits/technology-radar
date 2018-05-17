@@ -32,7 +32,8 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
   }
 
   render() {
-    const { technologies, selectedGroup, groups, settings } = this.props.applicationState;
+    const { selectedGroup } = this.props.applicationState
+    const { technologies, groups, settings } = this.props.applicationState.technologyRadar;
 
     const modifiers = [];
 

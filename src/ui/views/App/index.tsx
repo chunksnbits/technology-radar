@@ -32,7 +32,8 @@ export class App extends React.Component<AppProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const { selectedTechnology, groups, title, logo, editMode } = this.props.applicationState;
+    const { selectedTechnology, technologyRadar, title, logo, editMode } = this.props.applicationState;
+    const { groups } = technologyRadar;
 
     return (
       <div className='c-app'>

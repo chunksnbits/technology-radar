@@ -38,7 +38,7 @@ export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelSt
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
 
-    const { groups, technologies } = this.props.applicationState;
+    const { groups, technologies } = this.props.applicationState.technologyRadar;
 
     const modifiers = [];
 
@@ -78,24 +78,24 @@ export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelSt
   }
 
   private bindHandleAddTechnology(group: Group) {
-    return () => this.props.applicationState.addTechnology(group);
+    return () => this.props.applicationState.technologyRadar.addTechnology(group);
   }
 
 
   private handleGroupValueChange = (group: Group, key: string, value: string) => {
-    this.props.applicationState.updateGroup(group, key, value);
+    this.props.applicationState.technologyRadar.updateGroup(group, key, value);
   }
 
   private handleItemValueChange = (item: Technology, key: string, value: string) => {
-    this.props.applicationState.updateTechnology(item, key, value);
+    this.props.applicationState.technologyRadar.updateTechnology(item, key, value);
   }
 
   private handleClearAll = () => {
-    this.props.applicationState.clearAll();
+    this.props.applicationState.technologyRadar.clearAll();
   }
 
   private handleAddGroup = () => {
-    this.props.applicationState.addGroup();
+    this.props.applicationState.technologyRadar.addGroup();
   }
 
 
