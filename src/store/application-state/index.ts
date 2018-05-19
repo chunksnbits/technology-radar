@@ -47,7 +47,6 @@ export class ApplicationStateImpl implements ApplicationState {
       reaction(() => Date.now, () => {
         const mounted = (boundProvider as any).isMounted;
 
-        console.log('+++ autorun', mounted);
         if (!mounted) {
           return;
         }

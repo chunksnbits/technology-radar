@@ -98,7 +98,6 @@ export class TechnologyRadarSettings extends Component<TechnologyRadarSettingsPr
 
     if (!this.handlers[name]) {
       this.handlers[name] = (active: boolean) => {
-        console.log('+++ toggle', group.name, active);
         return this.setState({ activeGroup: active ? group : null });
       };
     }
