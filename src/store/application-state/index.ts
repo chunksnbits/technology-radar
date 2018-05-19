@@ -1,9 +1,9 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { createContext } from 'react';
+import { createContext, Component } from 'react';
 import { observable, action, autorun, reaction } from 'mobx';
 import { canUseSessionStorage } from 'utils/dom';
-import { restoreState, persistState, applyInitialData } from 'utils/store';
+import { persistState, applyInitialData } from 'utils/store';
 import { TechnologyRadarImpl } from '../technology-radar';
 import { last } from 'utils/collection';
 
@@ -28,8 +28,8 @@ export class ApplicationStateImpl implements ApplicationState {
   @observable
   technologyRadar = new TechnologyRadarImpl();
 
-  constructor(initialState: any = {}) {
-    initialState = Object.assign(initialState, restoreState(SESSION_STORAGE_KEY) || {});
+  constructor(initialState: any = {}, boundProvider?: Component) {
+    initialState = Object.assign({}, initialState);
 
     applyInitialData(this, initialState, {
       technologyRadar: (data) => {
@@ -40,6 +40,18 @@ export class ApplicationStateImpl implements ApplicationState {
     if (canUseSessionStorage()) {
       autorun(() => {
         persistState(SESSION_STORAGE_KEY, this);
+      });
+    }
+
+    if (Boolean(boundProvider)) {
+      reaction(() => Date.now, () => {
+        const mounted = (boundProvider as any).isMounted;
+
+        console.log('+++ autorun', mounted);
+        if (!mounted) {
+          return;
+        }
+        boundProvider.setState(this);
       });
     }
 

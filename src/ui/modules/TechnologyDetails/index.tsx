@@ -2,6 +2,8 @@
 // ----------------------------------------------------------------------------- Dependencies
 import { Component } from 'react';
 import * as React from 'react';
+import { observer } from 'mobx-react';
+
 import { classNames } from 'utils/dom';
 
 import { ApplicationState } from 'store/application-state';
@@ -14,8 +16,14 @@ export interface TechnologyDetailsProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
+@observer
 export class TechnologyDetails extends Component<TechnologyDetailsProps> {
   // ----------------------------------------------------------------------------- Lifecycle methods
+
+  shouldComponentUpdate(props: TechnologyDetailsProps) {
+    return true;
+  }
+
   render() {
     return (
       <ApplicationState.Consumer>{ ({ selectedTechnology, technologyRadar }) => {

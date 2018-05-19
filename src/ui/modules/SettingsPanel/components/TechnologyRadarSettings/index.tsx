@@ -52,7 +52,7 @@ export class TechnologyRadarSettings extends Component<TechnologyRadarSettingsPr
           <GroupPanel
             key={ group.id }
             group={ group }
-            active={ this.state.activeGroup === group.id }
+            active={ this.state.activeGroup === group }
             onToggleGroup={ this.bindToggleActiveGroup(group) }
             onGroupValueChange={ this.props.onGroupValueChange }>
 
@@ -60,7 +60,7 @@ export class TechnologyRadarSettings extends Component<TechnologyRadarSettingsPr
               <TechnologyPanel
                 key={ technologie.id }
                 technology={ technologie }
-                active={ this.state.activeTechnology === technologie.id }
+                active={ this.state.activeTechnology === technologie }
                 onToggleItem={ this.bindToggleActiveTechnology(technologie) }
                 onItemValueChange={ this.props.onTechnologyValueChange } />
             }</Iterator>
@@ -98,6 +98,7 @@ export class TechnologyRadarSettings extends Component<TechnologyRadarSettingsPr
 
     if (!this.handlers[name]) {
       this.handlers[name] = (active: boolean) => {
+        console.log('+++ toggle', group.name, active);
         return this.setState({ activeGroup: active ? group : null });
       };
     }
