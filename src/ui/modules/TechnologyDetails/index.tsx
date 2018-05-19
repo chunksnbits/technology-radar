@@ -6,16 +6,18 @@ import { observer } from 'mobx-react';
 
 import { classNames } from 'utils/dom';
 
-import { ApplicationState } from 'store/application-state';
+import { ApplicationState, consume } from 'store';
 
 import './styles.scss';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyDetailsProps {
   className?: string;
+  applicationState?: ApplicationState;
 }
 
 // ----------------------------------------------------------------------------- Implementation
+@consume(ApplicationState, { bindTo: 'applicationState' })
 @observer
 export class TechnologyDetails extends Component<TechnologyDetailsProps> {
   // ----------------------------------------------------------------------------- Lifecycle methods
@@ -25,40 +27,38 @@ export class TechnologyDetails extends Component<TechnologyDetailsProps> {
   }
 
   render() {
+    const { selectedTechnology, technologyRadar } = this.props.applicationState;
+
+    const modifiers = [
+      selectedTechnology && 'c-technology-details--active'
+    ];
+
+    const group = this.findGroupForTechnology(selectedTechnology, technologyRadar.groups);
+
     return (
-      <ApplicationState.Consumer>{ ({ selectedTechnology, technologyRadar }) => {
-        const modifiers = [
-          selectedTechnology && 'c-technology-details--active'
-        ];
+      <div className={ classNames('c-technology-details', this.props.className, ...modifiers) }>
+        <div className='c-technology-details__header'>
+          <h3 className='c-technology-details__name'>
+            { selectedTechnology && selectedTechnology.name }
+          </h3>
 
-        const group = this.findGroupForTechnology(selectedTechnology, technologyRadar.groups);
+          <div className='c-technology-details__group'>
+            <span className='c-technology-details__group-color'
+              style={{
+                borderColor: group ? group.color : 'transparent'
+              }} />
 
-        return (
-          <div className={ classNames('c-technology-details', this.props.className, ...modifiers) }>
-            <div className='c-technology-details__header'>
-              <h3 className='c-technology-details__name'>
-                { selectedTechnology && selectedTechnology.name }
-              </h3>
-
-              <div className='c-technology-details__group'>
-                <span className='c-technology-details__group-color'
-                  style={{
-                    borderColor: group ? group.color : 'transparent'
-                  }} />
-
-                <span className='c-technology-details__group-name'>
-                  { group ? group.name : null }
-                </span>
-              </div>
-            </div>
-
-            <p className='c-technology-details__description'>
-              { selectedTechnology && selectedTechnology.description }
-            </p>
+            <span className='c-technology-details__group-name'>
+              { group ? group.name : null }
+            </span>
           </div>
-        );
-      }}</ApplicationState.Consumer>
-    );;
+        </div>
+
+        <p className='c-technology-details__description'>
+          { selectedTechnology && selectedTechnology.description }
+        </p>
+      </div>
+    );
   }
 
   // ----------------------------------------------------------------------------- Helpers methods

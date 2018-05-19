@@ -1,6 +1,7 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { PureComponent } from 'react';
+import { Component } from 'react';
+import { observer } from 'mobx-react';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface IteratorProps {
@@ -9,7 +10,8 @@ export interface IteratorProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class Iterator extends PureComponent<IteratorProps> {
+@observer
+export class Iterator extends Component<IteratorProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {

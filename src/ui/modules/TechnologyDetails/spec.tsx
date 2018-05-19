@@ -2,10 +2,10 @@
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { TechnologyDetails } from './index';
 import { mockTechnology, mockGroup } from 'mocks';
+import { ApplicationState } from 'store';
 
-import { ApplicationState } from 'store/application-state';
+import { TechnologyDetails } from './index';
 
 // ----------------------------------------------------------------------------- Configuration
 const groups = [mockGroup({ id: 'any' })]

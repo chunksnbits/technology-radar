@@ -7,12 +7,11 @@ import { observer } from 'mobx-react';
 import { classNames } from 'utils/dom';
 import { last } from 'utils/collection';
 
-import { ApplicationState } from 'store/application-state';
+import { ApplicationState, consume } from 'store';
 
 import { TechnologyRadarSettings } from './components/TechnologyRadarSettings';
 
 import './styles.scss';
-import { consume } from 'store';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface SettingsPanelProps {
@@ -26,8 +25,8 @@ export interface SettingsPanelState {
 }
 
 // ----------------------------------------------------------------------------- Implementation
+@consume(ApplicationState, { bindTo: 'applicationState' })
 @observer
-@consume(ApplicationState, { bindToProp: 'applicationState' })
 export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelState> {
 
   private handlers: BoundHandlers = {};

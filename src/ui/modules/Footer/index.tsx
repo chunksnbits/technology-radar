@@ -2,8 +2,9 @@
 // ----------------------------------------------------------------------------- Dependencies
 import { Component } from 'react';
 import * as React from 'react';
+import { observer } from 'mobx-react';
 
-import { ApplicationState } from 'store/application-state';
+import { ApplicationState, consume } from 'store';
 
 import { classNames } from 'utils/dom';
 
@@ -12,25 +13,28 @@ import './styles.scss';
 // ----------------------------------------------------------------------------- Configuration
 export interface FooterProps {
   className?: string;
+  applicationState?: ApplicationState;
 }
 
 // ----------------------------------------------------------------------------- Implementation
+@consume(ApplicationState, { bindTo: 'applicationState' })
+@observer
 export class Footer extends Component<FooterProps> {
 
   handlers: BoundHandlers = {};
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
+    const { setEditMode } = this.props.applicationState;
+
     return (
-      <ApplicationState.Consumer>{ ({ setEditMode }) =>
-        <footer className={ classNames('c-footer', this.props.className) }>
-          <button
-            className='c-footer__action c-footer__action--edit-mode'
-            onClick={ this.bindEnableEditMode(setEditMode) }>
-            Create your own
-          </button>
-        </footer>
-      }</ApplicationState.Consumer>
+      <footer className={ classNames('c-footer', this.props.className) }>
+        <button
+          className='c-footer__action c-footer__action--edit-mode'
+          onClick={ this.bindEnableEditMode(setEditMode) }>
+          Create your own
+        </button>
+      </footer>
     );
   }
 

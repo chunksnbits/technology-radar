@@ -2,6 +2,7 @@
 // ----------------------------------------------------------------------------- Dependencies
 import { Component, Children, cloneElement } from 'react';
 import * as React from 'react';
+import { observer } from 'mobx-react';
 
 import { classNames } from 'utils/dom';
 
@@ -15,6 +16,7 @@ export interface FormGroupProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
+@observer
 export class FormGroup extends Component<FormGroupProps> {
 
   private id = `form-group-${ Math.floor(Math.random() * 1000) }`;
