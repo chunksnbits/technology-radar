@@ -12,10 +12,12 @@ import { ApplicationState } from 'store/application-state';
 import { TechnologyRadarSettings } from './components/TechnologyRadarSettings';
 
 import './styles.scss';
+import { consume } from 'store';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface SettingsPanelProps {
   className?: string;
+  applicationState?: ApplicationState;
 }
 
 export interface SettingsPanelState {
@@ -25,6 +27,7 @@ export interface SettingsPanelState {
 
 // ----------------------------------------------------------------------------- Implementation
 @observer
+@consume(ApplicationState, { bindToProp: 'applicationState' })
 export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelState> {
 
   private handlers: BoundHandlers = {};
@@ -40,22 +43,23 @@ export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelSt
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
+    const { technologyRadar } = this.props.applicationState;
+    const { groups, clearAll, technologies, updateGroup, updateTechnology } = technologyRadar;
+
     return (
-      <ApplicationState.Consumer>{ state =>
-        <div className={ classNames('c-settings-panel', this.props.className) }>
-          <h4>Groups</h4>
-          <div className='c-settings-panel__groups'>
-            <TechnologyRadarSettings
-              groups={ state.technologyRadar.groups }
-              technologies={ state.technologyRadar.technologies }
-              onAddTechnology={ this.bindAddTechnology(state) }
-              onAddGroup={ this.bindAddGroup(state) }
-              onClearAll={ state.technologyRadar.clearAll }
-              onGroupValueChange={ state.technologyRadar.updateGroup }
-              onTechnologyValueChange={ state.technologyRadar.updateTechnology } />
-          </div>
+      <div className={ classNames('c-settings-panel', this.props.className) }>
+        <h4>Groups</h4>
+        <div className='c-settings-panel__groups'>
+          <TechnologyRadarSettings
+            groups={ groups }
+            technologies={ technologies }
+            onAddTechnology={ this.bindAddTechnology(this.props.applicationState) }
+            onAddGroup={ this.bindAddGroup(this.props.applicationState) }
+            onClearAll={ clearAll }
+            onGroupValueChange={ updateGroup }
+            onTechnologyValueChange={ updateTechnology } />
         </div>
-      }</ApplicationState.Consumer>
+      </div>
     );
   }
 
