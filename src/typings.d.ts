@@ -22,6 +22,10 @@ declare interface Data {
   settings: TechnologyRadarSettings;
 }
 
+declare interface BoundHandlers {
+  [key: string]: Function;
+}
+
 declare module "*.json" {
   const value: any;
   export default value;

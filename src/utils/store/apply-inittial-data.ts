@@ -11,20 +11,20 @@ interface Reactions {
 
 // ----------------------------------------------------------------------------- Implementation
 export function applyInitialData<T>(context: T, data: any = {}, reactions: Reactions = {}): T {
-    Object.entries(data).forEach(([key, value]) => {
-      if (!Object(context).hasOwnProperty(key)) {
-        return;
-      }
+  Object.entries(data).forEach(([key, value]) => {
+    if (!Object(context).hasOwnProperty(key)) {
+      return;
+    }
 
-      const reaction = reactions[key];
+    const reaction = reactions[key];
 
-      if (typeof reaction === 'function') {
-        return set(context, key, reaction(value));
-      }
+    if (typeof reaction === 'function') {
+      return set(context, key, reaction(value));
+    }
 
-      set(context, key, value);
-    }, {});
+    set(context, key, value);
+  });
 
 
-    return context;
-  }
+  return context;
+}

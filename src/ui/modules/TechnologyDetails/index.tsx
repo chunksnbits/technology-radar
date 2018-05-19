@@ -4,58 +4,61 @@ import { Component } from 'react';
 import * as React from 'react';
 import { classNames } from 'utils/dom';
 
+import { ApplicationState } from 'store/application-state';
+
 import './styles.scss';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyDetailsProps {
   className?: string;
-  selectedTechnology: Technology;
-  groups: Group[];
 }
 
 // ----------------------------------------------------------------------------- Implementation
 export class TechnologyDetails extends Component<TechnologyDetailsProps> {
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const { selectedTechnology, groups } = this.props;
-
-    if (!Boolean(selectedTechnology)) {
-      return null;
-    }
-
-    const modifiers = [];
-
-    const group = this.findGroupForTechnology(selectedTechnology, groups);
-
     return (
-      <div className={ classNames('c-technology-details', this.props.className, ...modifiers) }>
-        <div className='c-technology-details__header'>
-          <h3 className='c-technology-details__name'>
-            { this.props.selectedTechnology.name }
-          </h3>
+      <ApplicationState.Consumer>{ ({ selectedTechnology, technologyRadar }) => {
+        const modifiers = [
+          selectedTechnology && 'c-technology-details--active'
+        ];
 
-          <div className='c-technology-details__group'>
-            <span className='c-technology-details__group-color'
-              style={{
-                borderColor: group ? group.color : 'transparent'
-              }} />
+        const group = this.findGroupForTechnology(selectedTechnology, technologyRadar.groups);
 
-            <span className='c-technology-details__group-name'>
-              { group ? group.name : null }
-            </span>
+        return (
+          <div className={ classNames('c-technology-details', this.props.className, ...modifiers) }>
+            <div className='c-technology-details__header'>
+              <h3 className='c-technology-details__name'>
+                { selectedTechnology && selectedTechnology.name }
+              </h3>
+
+              <div className='c-technology-details__group'>
+                <span className='c-technology-details__group-color'
+                  style={{
+                    borderColor: group ? group.color : 'transparent'
+                  }} />
+
+                <span className='c-technology-details__group-name'>
+                  { group ? group.name : null }
+                </span>
+              </div>
+            </div>
+
+            <p className='c-technology-details__description'>
+              { selectedTechnology && selectedTechnology.description }
+            </p>
           </div>
-        </div>
-
-        <p className='c-technology-details__description'>
-          { this.props.selectedTechnology.description }
-        </p>
-      </div>
+        );
+      }}</ApplicationState.Consumer>
     );;
   }
 
-
   // ----------------------------------------------------------------------------- Helpers methods
   private findGroupForTechnology(technology: Technology, groups: Group[]): Group {
+    if (!technology) {
+      return null;
+    }
+
     return groups.find(group => group.id === technology.groupId);
   }
 }

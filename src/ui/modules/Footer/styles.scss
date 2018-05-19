@@ -1,0 +1,12 @@
+
+@import '~utils/scss/colors';
+
+.c-footer {
+  position: absolute;
+
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  background: rgba($g-color__background, 0.5);
+}

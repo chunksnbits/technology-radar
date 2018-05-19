@@ -16,7 +16,7 @@ export interface ModalProps {
   open?: boolean;
   type?: 'sidebar';
   position?: 'document' | 'parent'; // defaults to 'document'
-  onClose: () => any;
+  onClose: Function;
 }
 
 // ----------------------------------------------------------------------------- Implementation

@@ -1,5 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
+import { createContext } from 'react';
 import { observable, action, autorun, reaction } from 'mobx';
 import { canUseSessionStorage } from 'utils/dom';
 import { restoreState, persistState, applyInitialData } from 'utils/store';
@@ -10,28 +11,30 @@ const SESSION_STORAGE_KEY = 'cnb--application-state';
 
 export class ApplicationStateImpl implements ApplicationState {
   @observable
-  title: string = 'Technology Radar';
+  title = 'Technology Radar';
 
   @observable
-  logo: string = require('public/assets/logo.svg');
+  logo = require('public/assets/logo.svg');
 
   @observable
-  editMode: boolean = false;
+  editMode = false;
 
   @observable
-  selectedTechnology: Technology = null;
+  selectedTechnology = null;
 
   @observable
-  selectedGroup: Group = null;
+  selectedGroup = null;
 
   @observable
-  technologyRadar: TechnologyRadar = new TechnologyRadarImpl();
+  technologyRadar = new TechnologyRadarImpl();
 
   constructor(initialState: any = {}) {
-    initialState = Object.assign(initialState, restoreState(SESSION_STORAGE_KEY));
+    initialState = Object.assign(initialState, restoreState(SESSION_STORAGE_KEY) || {});
 
     applyInitialData(this, initialState, {
-      technologyRadar: (data) => new TechnologyRadarImpl(data)
+      technologyRadar: (data) => {
+        return new TechnologyRadarImpl(data);
+      }
     });
 
     if (canUseSessionStorage()) {
@@ -79,3 +82,5 @@ export class ApplicationStateImpl implements ApplicationState {
     });
   }
 }
+
+export const ApplicationState = createContext(new ApplicationStateImpl());

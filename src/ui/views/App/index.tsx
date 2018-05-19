@@ -4,9 +4,13 @@ import * as React from 'react';
 
 import { observer } from 'mobx-react';
 
+import { ApplicationState } from 'store/application-state';
+
 import { TechnologyRadar } from 'ui/modules/TechnologyRadar';
 import { TechnologyDetails } from 'ui/modules/TechnologyDetails';
 import { SettingsPanel } from 'ui/modules/SettingsPanel';
+import { Header } from 'ui/modules/Header';
+import { Footer } from 'ui/modules/Footer';
 
 import { Modal } from 'ui/components/Modal';
 
@@ -14,59 +18,59 @@ import './styles.scss';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface AppProps {
-  applicationState: ApplicationState;
+  className?: string;
 }
 
 // ----------------------------------------------------------------------------- Implementation
 @observer
 export class App extends React.Component<AppProps> {
 
-  // ----------------------------------------------------------------------------- Event handler methods
-  handleDeselectTechnology = () => {
-    this.props.applicationState.selectTechnology(null);
-  }
-
-  bindSetEditModeHandler = (value: boolean) => {
-    return () => this.props.applicationState.setEditMode(value);
-  }
+  private handlers: BoundHandlers = {};
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const { selectedTechnology, technologyRadar, title, logo, editMode } = this.props.applicationState;
-    const { groups } = technologyRadar;
-
     return (
-      <div className='c-app'>
-        <header className='c-app__header'>
-          <img className='c-app__logo' src={ logo } />
-          <h1 className='c-app__title'>{ title }</h1>
-        </header>
+      <ApplicationState.Consumer>{({ selectedTechnology, editMode, selectTechnology, setEditMode }) =>
+        <div className='c-app'>
+          <Header />
 
-        <main className='c-app__main'>
-          <TechnologyRadar applicationState={ this.props.applicationState } />
+          <main className='c-app__main'>
+            <TechnologyRadar />
 
-          <Modal
-            open={ editMode }
-            type='sidebar'
-            onClose={ this.bindSetEditModeHandler(false) }>
-            <SettingsPanel applicationState={ this.props.applicationState } />
-          </Modal>
+            <Modal
+              open={ editMode }
+              type='sidebar'
+              onClose={ this.bindDisableEditMode(setEditMode) }>
+              <SettingsPanel />
+            </Modal>
 
-          <Modal
-            open={ Boolean(selectedTechnology) }
-            onClose={ this.handleDeselectTechnology }>
-            <TechnologyDetails
-              selectedTechnology={ selectedTechnology }
-              groups={ groups } />
-          </Modal>
-        </main>
+            <Modal
+              open={ Boolean(selectedTechnology) }
+              onClose={ this.bindDeselectTechnology(selectTechnology) }>
+              <TechnologyDetails />
+            </Modal>
+          </main>
 
-        <footer className='c-app__footer'>
-          <button className='c-app__action c-app__action--edit-mode' onClick={ this.bindSetEditModeHandler(true) }>
-            Create your own
-          </button>
-        </footer>
-      </div>
+          <Footer />
+        </div>
+      }</ApplicationState.Consumer>
     );
+  }
+
+  // ----------------------------------------------------------------------------- Event handler methods
+  private bindDeselectTechnology(selectTechnology: Function) {
+    if (!this.handlers.deselect) {
+      this.handlers.deselect = () => selectTechnology(null);
+    }
+
+    return this.handlers.deselect;
+  }
+
+  private bindDisableEditMode(setEditMode: Function) {
+    if (!this.handlers.disableEdit) {
+      this.handlers.disableEdit = () => setEditMode(false);
+    }
+
+    return this.handlers.disableEdit as any;
   }
 }

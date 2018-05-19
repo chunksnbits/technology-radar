@@ -17,8 +17,8 @@ export interface GroupPanelProps {
 
   children?: ReactNode;
 
-  onToggleGroup: (active: boolean) => any;
-  onGroupValueChange: (group: Group, key: string, value: string) => any;
+  onToggleGroup: Function;
+  onGroupValueChange: Function;
 }
 
 // ----------------------------------------------------------------------------- Implementation
@@ -29,16 +29,17 @@ export class GroupPanel extends Component<GroupPanelProps> {
   render() {
 
     const modifiers = [
-      this.props.active && 'c-group-panel--active'
+      this.props.active && 'c-group-panels--active'
     ];
 
     return (
-      <div className={ classNames('c-group-panel', this.props.className, ...modifiers) }>
+      <div className={ classNames('c-group-panels', this.props.className, ...modifiers) }>
 
-        <button className='c-group-panel__header' onClick={ this.propagateToggle }>
+        <button className='c-group-panels__header' onClick={ this.propagateToggle }>
           { this.props.group.name }(id: { this.props.group.id })
         </button>
-        <div className='c-group-panel__body'>
+
+        <div className='c-group-panels__body'>
           <form>
             <FormGroup label='Name'>
               <input
@@ -62,7 +63,7 @@ export class GroupPanel extends Component<GroupPanelProps> {
                 onChange={ this.propagateValueChange } />
             </FormGroup>
           </form>
-          <div className='c-group-panel__items'>
+          <div className='c-group-panels__items'>
             { this.props.children }
           </div>
         </div>

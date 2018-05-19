@@ -10,33 +10,34 @@ import { FormGroup } from 'ui/components/FormGroup';
 import './styles.scss';
 
 // ----------------------------------------------------------------------------- Configuration
-export interface ItemPanelProps {
+export interface TechnologyPanelProps {
   className?: string;
   active: boolean;
   technology: Technology;
 
-  onToggleItem: (active: boolean) => any;
-  onItemValueChange: (item: Technology, key: string, value: string) => any;
+  onToggleItem: Function;
+  onItemValueChange: Function;
 }
 
 // ----------------------------------------------------------------------------- Implementation
 @observer
-export class ItemPanel extends Component<ItemPanelProps> {
+export class TechnologyPanel extends Component<TechnologyPanelProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
 
     const modifiers = [
-      this.props.active && 'c-item-panel--active'
+      this.props.active && 'c-technology-panel--active'
     ];
 
     return (
-      <div className={ classNames('c-item-panel', this.props.className, ...modifiers) }>
+      <div className={ classNames('c-technology-panel', this.props.className, ...modifiers) }>
 
-        <button className='c-item-panel__header' onClick={ this.propagateToggle }>
+        <button className='c-technology-panel__header' onClick={ this.propagateToggle }>
           { this.props.technology.name }(id: { this.props.technology.id })
         </button>
-        <div className='c-item-panel__body'>
+
+        <div className='c-technology-panel__body'>
           <form>
             <FormGroup label='Name'>
               <input

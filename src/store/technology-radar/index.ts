@@ -1,9 +1,11 @@
 
 // ----------------------------------------------------------------------------- Dependencies
+import { createContext } from 'react';
 import { observable, action, set } from 'mobx';
 import { applyInitialData } from 'utils/store';
 import { defaultTechnology, defaultGroup } from './constants';
 
+// ----------------------------------------------------------------------------- Implementation
 export class TechnologyRadarImpl implements TechnologyRadar {
 
   @observable
@@ -67,3 +69,5 @@ export class TechnologyRadarImpl implements TechnologyRadar {
     this.edited = true;
   }
 }
+
+export const TechnologyRadarState = createContext(new TechnologyRadarImpl());

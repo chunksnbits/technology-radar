@@ -1,10 +1,15 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component, ReactNode } from 'react';
+import { Component } from 'react';
 import * as React from 'react';
 import { observer } from 'mobx-react';
 
 import { classNames } from 'utils/dom';
+
+import { ApplicationState } from 'store/application-state';
+
+import { Iterator } from 'ui/components/Iterator';
+
 import { TechnologyItem } from './components/TechnologyItem';
 import { Legend } from './components/Legend';
 
@@ -13,7 +18,6 @@ import './styles.scss';
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyRadarProps {
   className?: string;
-  applicationState: ApplicationState;
 }
 
 const BASE_TRANSFORM_ROTATE_DEGREES = -10;
@@ -21,54 +25,71 @@ const BASE_TRANSFORM_ROTATE_DEGREES = -10;
 // ----------------------------------------------------------------------------- Implementation
 @observer
 export class TechnologyRadar extends Component<TechnologyRadarProps> {
+  private handlers: BoundHandlers = {};
 
   // ----------------------------------------------------------------------------- Lifecycle methods
-  componentDidUpdate() {
-    if (Boolean(this.props.applicationState.selectedGroup)) {
-      return document.body.addEventListener('click', this.handleDeselectGroup);
-    }
-
-    document.body.removeEventListener('click', this.handleDeselectGroup);
-  }
-
   render() {
-    const { selectedGroup } = this.props.applicationState
-    const { technologies, groups, settings } = this.props.applicationState.technologyRadar;
 
     const modifiers = [];
 
     return (
-      <div className={ classNames('c-technology-radar', this.props.className, ...modifiers) }
-        style={ this.calculateTransforms(selectedGroup, groups) }>
-        <div className='c-technology-radar__content'>
-          <div className='c-technology-radar__legend'>
-            <Legend
-              technologies={ technologies }
-              groups={ groups }
-              settings={ settings }
-              onSelectGroup={ this.handleSelectGroup }/>
-          </div>
+      <ApplicationState.Consumer>{({ selectedGroup, selectTechnology, selectGroup,technologyRadar }) => {
+        const { groups, technologies, settings } = technologyRadar;
 
-          <div className='c-technology-radar__technologies'>
-            { this.renderTechnologies(technologies, groups, settings) }
+        this.registerGroupDeselectListener(selectedGroup, selectGroup as any);
+
+        return (
+          <div className={ classNames('c-technology-radar', this.props.className, ...modifiers) }
+            style={ this.calculateTransforms(selectedGroup, groups) }>
+            <div className='c-technology-radar__content'>
+              <div className='c-technology-radar__legend'>
+                <Legend
+                  technologies={ technologies }
+                  groups={ groups }
+                  settings={ settings }
+                  onSelectGroup={ selectGroup }/>
+              </div>
+
+              <div className='c-technology-radar__technologies'>
+                <Iterator collection={ technologies }>{ (technology: Technology) =>
+                  <TechnologyItem
+                    className='c-technology-radar__item'
+                    key={ technology.id }
+                    technology={ technology }
+                    group={ this.findGroupForTechnology(technology, groups) }
+                    technologies={ technologies }
+                    groups={ groups }
+                    settings={ settings }
+                    onSelect={ this.bindSelectItem(selectTechnology) } />
+                }</Iterator>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        );
+
+      }}</ApplicationState.Consumer>
     );
   }
 
 
   // ----------------------------------------------------------------------------- Event handler methods
-  private handleSelectItem = (selected: Technology): void => {
-    this.props.applicationState.selectTechnology(selected);
+  registerGroupDeselectListener(selectedGroup: Group, selectGroup: EventListenerObject) {
+    if (Boolean(selectedGroup)) {
+      return document.body.addEventListener('click', selectGroup);
+    }
+
+    document.body.removeEventListener('click', selectGroup);
   }
 
-  private handleSelectGroup = (selected: Group): void => {
-    this.props.applicationState.selectGroup(selected);
-  }
 
-  private handleDeselectGroup = (): void => {
-    this.props.applicationState.selectGroup(null);
+  private bindSelectItem(selectTechnology: Function): Function {
+    if (!this.handlers.selectItem) {
+      this.handlers.selectItem = (selected: Technology): void => {
+        selectTechnology(selected);
+      }
+    }
+
+    return this.handlers.selectItem;
   }
 
   // ----------------------------------------------------------------------------- Helpers methods
@@ -95,22 +116,6 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
         `rotateZ(${ BASE_TRANSFORM_ROTATE_DEGREES }deg)`,
       ].join(' ')
     }
-  }
-
-  private renderTechnologies(technologies: Technology[], groups: Group[], settings: TechnologyRadarSettings): ReactNode[] {
-    return technologies.map((technology) => {
-      return (
-        <TechnologyItem
-          className='c-technology-radar__item'
-          key={ technology.id }
-          technology={ technology }
-          group={ this.findGroupForTechnology(technology, groups) }
-          technologies={ technologies }
-          groups={ groups }
-          settings={ settings }
-          onSelect={ this.handleSelectItem } />
-      )
-    });
   }
 
   private findGroupForTechnology(technology: Technology, groups: Group[]): Group {

@@ -12,6 +12,7 @@
     "member-access": [true, "no-public"],
     "jsx-no-lambda": false,
     "object-literal-sort-keys": false,
-    "quotemark": [true, "single"]
+    "quotemark": [true, "single"],
+    "ban-types": false
   }
 }

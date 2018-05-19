@@ -3,16 +3,16 @@
 import { canUseSessionStorage } from 'utils/dom';
 
 // ----------------------------------------------------------------------------- Implementation
-export function restoreState<T>(key: string): T | {} {
+export function restoreState<T>(key: string): T {
   if (!canUseSessionStorage()) {
-    return {};
+    return null;
   }
 
   try {
     const state = sessionStorage.getItem(key);
 
     if (!Boolean(state)) {
-      return {};
+      return null;
     }
 
     return JSON.parse(state) as T;
@@ -21,5 +21,5 @@ export function restoreState<T>(key: string): T | {} {
     console.warn(`SESSION_STORAGE_NOT_AVAILABLE: Failed to restore application state. '${ key }'`);
   }
 
-  return {};
+  return null;
 }

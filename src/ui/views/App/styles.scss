@@ -15,30 +15,3 @@
   width: 100%;
   height: 100%;;
 }
-
-.c-app__header {
-  display: flex;
-  align-items: center;
-
-  position: absolute;
-}
-
-.c-app__logo {
-  display: inline-block;
-  width: 46px;
-}
-
-.c-app__title {
-  display: inline-block;
-  font-size: 2.4rem;
-}
-
-.c-app__footer {
-  position: absolute;
-
-  bottom: 0;
-  left: 0;
-  right: 0;
-
-  background: rgba($g-color__background, 0.5);
-}

@@ -1,0 +1,17 @@
+
+.c-header {
+  display: flex;
+  align-items: center;
+
+  position: absolute;
+}
+
+.c-header__logo {
+  display: inline-block;
+  width: 46px;
+}
+
+.c-header__title {
+  display: inline-block;
+  font-size: 2.4rem;
+}

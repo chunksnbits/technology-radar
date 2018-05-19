@@ -16,7 +16,7 @@ export interface TechnologyItemProps {
   technologies: Technology[];
   groups: Group[];
   settings: TechnologyRadarSettings;
-  onSelect: (technology: Technology) => any;
+  onSelect: Function;
 }
 
 // ----------------------------------------------------------------------------- Implementation

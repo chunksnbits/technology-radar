@@ -30,7 +30,6 @@ declare interface TechnologyRadar {
   groups: Group[];
 
   edited: boolean;
-
   settings: TechnologyRadarSettings;
 
   addGroup: () => void;
