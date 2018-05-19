@@ -5,10 +5,16 @@ $g-transition__duration--default: 0.25s;
 $g-transition__timing--default: ease;
 $g-transition__delay--default: 0s;
 
+$g-transition__duration--faster: 0.1s;
+
 $transition-defaults: (
   duration: $g-transition__duration--default,
   timing: $g-transition__timing--default,
   delay: $g-transition__delay--default
+);
+
+$transition-defaults--faster: (
+  duration: $g-transition__duration--faster
 );
 
 @function create-transition($name, $options: $transition-defaults) {
@@ -34,4 +40,10 @@ $transition-defaults: (
   @include what-input(keyboard) {
     transition: none;
   }
+}
+
+@mixin transition--faster($names, $options: $transition-defaults--faster) {
+  $merged: map-merge($transition-defaults--faster, $options);
+
+  @include transition--default($names, $merged);
 }

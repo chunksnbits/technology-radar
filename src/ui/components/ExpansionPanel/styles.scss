@@ -1,0 +1,56 @@
+
+@import '~utils/scss/colors';
+@import '~utils/scss/animation';
+@import '~utils/scss/typo';
+
+.c-expansion-panel__header {
+  @include typo-group-heading;
+
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+
+  width: 100%;
+  text-align: left;
+  appearance: none;
+  border: 0;
+  background: none;
+
+  outline: none;
+
+  padding: 12px 0;
+
+  cursor: pointer;
+}
+
+.c-expansion-panel__header-title {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+
+.c-expansion-panel__icon.c-expansion-panel__icon {
+  @include transition--faster(transform);
+  display: flex;
+  align-items: center;
+
+  width: 14px;
+  height: 14px;
+
+  transform: scaleY(1);
+}
+
+.c-expansion-panel--active .c-expansion-panel__icon {
+  transform: scaleY(-1);
+}
+
+.c-expansion-panel__body {
+  display: none;
+
+  padding: 12px 16px;
+}
+
+.c-expansion-panel--active .c-expansion-panel__body {
+  display: block;
+}

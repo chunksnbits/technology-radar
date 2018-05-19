@@ -1,29 +1,17 @@
-@import '~utils/scss/colors';
 
-.c-group-panel__header {
-  display: block;
-  width: 100%;
-  text-align: left;
-  appearance: none;
-  border: 0;
-  border-bottom: 1px solid $g-color__border;
-  background: none;
+$c-group-panel__group-indicator--size: 18px;
 
-  outline: none;
-
-  padding: 10px 0;
-
-  cursor: pointer;
-}
-
-.c-group-panel__body {
-  display: none;
-}
-
-.c-group-panel--active .c-group-panel__body {
+.c-group-panel {
   display: block;
 }
 
-.c-group-panel__items {
-  padding: 10px 0 10px 20px;
+.c-group-panel__group-indicator {
+  display: inline-block;
+
+  width: $c-group-panel__group-indicator--size;
+  height: $c-group-panel__group-indicator--size;
+
+  border-radius: $c-group-panel__group-indicator--size;
+
+  margin-right: 10px;
 }
