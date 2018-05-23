@@ -2,21 +2,21 @@
 // ----------------------------------------------------------------------------- Dependencies
 import { Component } from 'react';
 import * as React from 'react';
-import { observer } from 'mobx-react';
 
+import { TechnologyRadarContext } from 'store';
+
+import { consume } from 'utils/store';
 import { classNames } from 'utils/dom';
-import { last } from 'utils/collection';
 
-import { ApplicationState, consume } from 'store';
-
-import { TechnologyRadarSettings } from './components/TechnologyRadarSettings';
+import { Groups } from './components/Groups';
+import { Technologies } from './components/Technologies';
 
 import './styles.scss';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface SettingsPanelProps {
   className?: string;
-  applicationState?: ApplicationState;
+  technologyRadar?: TechnologyRadar & TechnologyRadarActions;
 }
 
 export interface SettingsPanelState {
@@ -25,8 +25,7 @@ export interface SettingsPanelState {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-@consume(ApplicationState, { bindTo: 'applicationState' })
-@observer
+@consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
 export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelState> {
 
   private handlers: BoundHandlers = {};
@@ -42,43 +41,45 @@ export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelSt
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const { technologyRadar } = this.props.applicationState;
-    const { groups, clearAll, technologies, updateGroup, updateTechnology } = technologyRadar;
+    const { groups, clearAll, technologies, updateGroup, updateTechnology, removeGroup, removeTechnology } = this.props.technologyRadar;
 
     return (
       <div className={ classNames('c-settings-panel', this.props.className) }>
         <h4>Groups</h4>
-        <div className='c-settings-panel__groups'>
-          <TechnologyRadarSettings
-            groups={ groups }
-            technologies={ technologies }
-            onAddTechnology={ this.bindAddTechnology(this.props.applicationState) }
-            onAddGroup={ this.bindAddGroup(this.props.applicationState) }
-            onClearAll={ clearAll }
-            onGroupValueChange={ updateGroup }
-            onTechnologyValueChange={ updateTechnology } />
-        </div>
+
+        <Groups className='c-settings-panel__groups'
+          groups={ groups }
+          onAddGroup={ this.bindAddGroup() }
+          onClear={ clearAll }
+          onGroupValueChange={ updateGroup }
+          onDelete={ removeGroup } />
+
+        <Technologies className='c-settings-panel__technologies'
+          technologies={ technologies }
+          groups={ groups }
+          onAddTechnology={ this.bindAddTechnology() }
+          onClear={ clearAll }
+          onTechnologyValueChange={ updateTechnology }
+          onDelete={ removeTechnology } />
       </div>
     );
   }
 
   // ----------------------------------------------------------------------------- Event handler methods
-  bindAddTechnology = (state: ApplicationState) => {
+  bindAddTechnology = () => {
     if (!this.handlers.technologies) {
       this.handlers.technologies = (group) =>  {
-        state.technologyRadar.addTechnology(group);
-        state.selectGroup(last(state.technologyRadar.technologies));
+        this.props.technologyRadar.addTechnology(group);
       };
     }
 
     return this.handlers.technologies;
   }
 
-  bindAddGroup = (state: ApplicationState) => {
+  bindAddGroup = () => {
     if (!this.handlers.groups) {
       this.handlers.groups = () =>  {
-        state.technologyRadar.addGroup();
-        state.selectGroup(last(state.technologyRadar.technologies));
+        this.props.technologyRadar.addGroup();
       };
     }
 

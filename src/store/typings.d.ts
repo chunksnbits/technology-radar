@@ -16,14 +16,16 @@ declare interface ApplicationState {
   selectedGroup: Group;
 
   editMode: boolean;
+}
 
-  technologyRadar: TechnologyRadar;
-
+declare interface ApplicationStateActions {
   selectTechnology: (selected: Technology) => void;
   selectGroup: (selected: Group) => void;
 
   setEditMode: (value: boolean) => void;
 }
+
+declare type ApplicationStateStore = ApplicationState & ApplicationStateActions;
 
 declare interface TechnologyRadar {
   technologies: Technology[];
@@ -31,7 +33,10 @@ declare interface TechnologyRadar {
 
   edited: boolean;
   settings: TechnologyRadarSettings;
+}
 
+
+declare interface TechnologyRadarActions {
   addGroup: () => void;
   addTechnology: (group: Group) => void;
 
@@ -43,3 +48,5 @@ declare interface TechnologyRadar {
 
   clearAll: () => void;
 }
+
+declare type TechnologyRadarStore = TechnologyRadar & TechnologyRadarActions;

@@ -2,7 +2,6 @@
 // ----------------------------------------------------------------------------- Dependencies
 import { Component, ReactNode } from 'react';
 import * as React from 'react';
-import { observer } from 'mobx-react';
 
 import { classNames } from 'utils/dom';
 
@@ -23,7 +22,6 @@ export interface LegendProps {
 const SVG_ROTATION_SOURCE_ADJUSTMENT_DEGREES = -90;
 
 // ----------------------------------------------------------------------------- Implementation
-@observer
 export class Legend extends Component<LegendProps> {
 
   // ----------------------------------------------------------------------------- Event handler methods

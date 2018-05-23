@@ -2,10 +2,10 @@
 // ----------------------------------------------------------------------------- Dependencies
 import { Component } from 'react';
 import * as React from 'react';
-import { observer } from 'mobx-react';
 
-import { ApplicationState, consume } from 'store';
+import { ApplicationStateContext } from 'store';
 
+import { consume } from 'utils/store';
 import { classNames } from 'utils/dom';
 
 import './styles.scss';
@@ -13,25 +13,22 @@ import './styles.scss';
 // ----------------------------------------------------------------------------- Configuration
 export interface FooterProps {
   className?: string;
-  applicationState?: ApplicationState;
+  applicationState?: ApplicationStateStore;
 }
 
 // ----------------------------------------------------------------------------- Implementation
-@consume(ApplicationState, { bindTo: 'applicationState' })
-@observer
+@consume(ApplicationStateContext, { bindTo: 'applicationState' })
 export class Footer extends Component<FooterProps> {
 
   handlers: BoundHandlers = {};
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const { setEditMode } = this.props.applicationState;
-
     return (
       <footer className={ classNames('c-footer', this.props.className) }>
         <button
           className='c-footer__action c-footer__action--edit-mode'
-          onClick={ this.bindEnableEditMode(setEditMode) }>
+          onClick={ this.bindEnableEditMode() }>
           Create your own
         </button>
       </footer>
@@ -39,9 +36,10 @@ export class Footer extends Component<FooterProps> {
   }
 
   // ----------------------------------------------------------------------------- Helpers methods
-  private bindEnableEditMode(setEditMode: Function) {
+  private bindEnableEditMode() {
+    console.log('+++ props', this.props.applicationState);
     if (!this.handlers.enableEdit) {
-      this.handlers.enableEdit = () => setEditMode(true);
+      this.handlers.enableEdit = () => this.props.applicationState.setEditMode(true);
     }
 
     return this.handlers.enableEdit as any;

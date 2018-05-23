@@ -2,7 +2,8 @@
 // ----------------------------------------------------------------------------- Dependencies
 import { Component, ReactNode } from 'react';
 import * as React from 'react';
-import { observer } from 'mobx-react';
+
+import { Button } from '@material-ui/core';
 
 import { classNames } from 'utils/dom';
 import { FormGroup } from 'ui/components/FormGroup';
@@ -18,12 +19,12 @@ export interface GroupPanelProps {
 
   children?: ReactNode;
 
-  onToggleGroup: Function;
-  onGroupValueChange: Function;
+  onToggle: Function;
+  onValueChange: Function;
+  onDelete: Function;
 }
 
 // ----------------------------------------------------------------------------- Implementation
-@observer
 export class GroupPanel extends Component<GroupPanelProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
@@ -31,7 +32,7 @@ export class GroupPanel extends Component<GroupPanelProps> {
     return (
       <ExpansionPanel
         active={ this.props.active }
-        onToggleGroup={ this.props.onToggleGroup }
+        onToggle={ this.props.onToggle }
         className={ classNames('c-group-panel', this.props.className) }>
 
         <ExpansionPanelHeader>
@@ -64,8 +65,10 @@ export class GroupPanel extends Component<GroupPanelProps> {
                 onChange={ this.propagateValueChange } />
             </FormGroup>
           </form>
-          <div className='c-group-panel__items'>
-            { this.props.children }
+          <div className='c-group-panel__actions'>
+            <Button onClick={ () => this.props.onDelete } color='primary' variant='raised'>
+              remove
+            </Button>
           </div>
         </ExpansionPanelBody>
       </ExpansionPanel>
@@ -76,6 +79,6 @@ export class GroupPanel extends Component<GroupPanelProps> {
   private propagateValueChange = (event: any) => {
     const target = event.target as HTMLInputElement;
 
-    this.props.onGroupValueChange(this.props.group, target.name, target.value);
+    this.props.onValueChange(this.props.group, target.name, target.value);
   }
 }

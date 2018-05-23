@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ReactNode } from 'react';
 
 import { shallow, ShallowWrapper } from 'enzyme';
-import { ApplicationState } from 'store/application-state';
+import { ApplicationStateContext } from 'store/application-state';
 
 export const mockApplicationState = (patch = {}) => Object.assign({}, {
   title: 'Any',
@@ -38,8 +38,8 @@ export const mockSettings = (patch = {}) => Object.assign({}, {
 
 export const shallowWithApplicationState = (children: ReactNode, data: any = {}): ShallowWrapper<any, any> => {
   return shallow(
-    <ApplicationState.Provider value={ data }>
+    <ApplicationStateContext.Provider value={ data }>
       { children }
-    </ApplicationState.Provider>
+    </ApplicationStateContext.Provider>
   );
 }

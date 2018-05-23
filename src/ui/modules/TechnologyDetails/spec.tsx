@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { mockTechnology, mockGroup } from 'mocks';
-import { ApplicationState } from 'store';
+import { ApplicationStateContext } from 'store';
 
 import { TechnologyDetails } from './index';
 
@@ -12,9 +12,9 @@ const groups = [mockGroup({ id: 'any' })]
 
 const renderWithData = (value: any) => {
   return shallow(
-    <ApplicationState.Provider value={ value }>
+    <ApplicationStateContext.Provider value={ value }>
       <TechnologyDetails />
-    </ApplicationState.Provider>
+    </ApplicationStateContext.Provider>
   )
 }
 

@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { Context, ComponentClass, StatelessComponent } from 'react';
+import { ComponentClass, StatelessComponent, Context } from 'react';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface BoundComponentOptions {
@@ -8,7 +8,7 @@ export interface BoundComponentOptions {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export function consume<Props, State>(Provider: Context<any>, options: BoundComponentOptions): any {
+export function consume<Props, State>(context: Context<Props>, options: BoundComponentOptions = { bindTo: 'applicationState' }): any {
   const key = options.bindTo || 'value';
 
   interface InjectedProps {
@@ -20,9 +20,9 @@ export function consume<Props, State>(Provider: Context<any>, options: BoundComp
       render() {
         const InnerComponent = WrappedComponent as any;
         return (
-          <Provider.Consumer>{ value =>
-            <InnerComponent {...Object.assign({}, this.props, { [key]: value })} />
-          }</Provider.Consumer>
+          <context.Consumer>{ value =>
+            <InnerComponent { ...Object.assign({}, this.props, { [key]: value })} />
+          }</context.Consumer>
         )
       }
     };

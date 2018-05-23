@@ -2,11 +2,11 @@
 // ----------------------------------------------------------------------------- Dependencies
 import { Component } from 'react';
 import * as React from 'react';
-import { observer } from 'mobx-react';
 
+import { ApplicationStateContext, TechnologyRadarContext } from 'store';
+
+import { consume } from 'utils/store';
 import { classNames } from 'utils/dom';
-
-import { ApplicationState, consume } from 'store';
 
 import { Iterator } from 'ui/components/Iterator';
 
@@ -18,14 +18,15 @@ import './styles.scss';
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyRadarProps {
   className?: string;
-  applicationState?: ApplicationState;
+  applicationState?: ApplicationStateStore;
+  technologyRadar?: TechnologyRadarStore;
 }
 
 const BASE_TRANSFORM_ROTATE_DEGREES = -10;
 
 // ----------------------------------------------------------------------------- Implementation
-@observer
-@consume(ApplicationState, { bindTo: 'applicationState' })
+@consume(ApplicationStateContext, { bindTo: 'applicationState' })
+@consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
 export class TechnologyRadar extends Component<TechnologyRadarProps> {
   private handlers: BoundHandlers = {};
 
@@ -40,8 +41,8 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
     document.body.removeEventListener('click', this.handleDeselectGroup);  }
 
   render() {
-    const { selectedGroup, selectTechnology, selectGroup,technologyRadar } = this.props.applicationState;
-    const { groups, technologies, settings } = technologyRadar;
+    const { selectedGroup, selectTechnology, selectGroup } = this.props.applicationState;
+    const { groups, technologies, settings } = this.props.technologyRadar;
 
     return (
       <div className={ classNames('c-technology-radar', this.props.className) }

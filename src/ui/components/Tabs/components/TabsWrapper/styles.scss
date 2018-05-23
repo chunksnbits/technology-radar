@@ -1,0 +1,30 @@
+
+@import '~utils/scss/animation';
+@import '~utils/scss/colors';
+
+$c-tabs-wrapper__header--height: 48px;
+
+.c-tabs-wrapper {
+  position: relative;
+  height: 100%;
+  overflow: auto;
+}
+
+.c-tabs-wrapper--fixed .c-tabs-wrapper__header {
+  position: sticky;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+
+  background: $g-color__background--inverse;
+  z-index: 1;
+}
+
+.c-tabs-wrapper__body {
+  @include transition--default(transform);
+
+  display: flex;
+  flex-wrap: nowrap;
+  position: relative;
+}

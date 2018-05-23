@@ -1,104 +1,104 @@
 
-// ----------------------------------------------------------------------------- Dependencies
-import { ApplicationStateImpl } from './index';
-import { mockTechnology, mockGroup } from 'mocks';
-import { TechnologyRadarImpl } from '../technology-radar';
+// // ----------------------------------------------------------------------------- Dependencies
+// import { ApplicationStateImpl } from './index';
+// import { mockTechnology, mockGroup } from 'mocks';
+// import { TechnologyRadarImpl } from '../technology-radar';
 
-// ----------------------------------------------------------------------------- Implementation
-it('initializes application state', () => {
-  const state = new ApplicationStateImpl();
+// // ----------------------------------------------------------------------------- Implementation
+// it('initializes application state', () => {
+//   const state = new ApplicationStateImpl();
 
-  expect(state.technologyRadar instanceof TechnologyRadarImpl).toBeTruthy();
-  expect(state.selectedTechnology).toBeNull();
-  expect(state.selectedGroup).toBeNull();
-});
+//   expect(state.technologyRadar instanceof TechnologyRadarImpl).toBeTruthy();
+//   expect(state.selectedTechnology).toBeNull();
+//   expect(state.selectedGroup).toBeNull();
+// });
 
-it('applies initialState', () => {
-  const technologies = [mockTechnology()];
-  const groups = [mockGroup()];
-  const [selectedTechnology] = technologies;
-  const [selectedGroup] = groups;
+// it('applies initialState', () => {
+//   const technologies = [mockTechnology()];
+//   const groups = [mockGroup()];
+//   const [selectedTechnology] = technologies;
+//   const [selectedGroup] = groups;
 
-  const state = new ApplicationStateImpl({
-    data: {
-      technologies,
-      groups,
-    },
-    selectedTechnology,
-    selectedGroup,
-    editMode: false
-  });
+//   const state = new ApplicationStateImpl({
+//     data: {
+//       technologies,
+//       groups,
+//     },
+//     selectedTechnology,
+//     selectedGroup,
+//     editMode: false
+//   });
 
-  expect(state.selectedTechnology).toEqual(selectedTechnology);
-  expect(state.selectedGroup).toEqual(selectedGroup);
+//   expect(state.selectedTechnology).toEqual(selectedTechnology);
+//   expect(state.selectedGroup).toEqual(selectedGroup);
 
-  expect(state.technologyRadar.technologies).toEqual(technologies);
-  expect(state.technologyRadar.groups).toEqual(groups);
+//   expect(state.technologyRadar.technologies).toEqual(technologies);
+//   expect(state.technologyRadar.groups).toEqual(groups);
 
-  expect(state.editMode).toEqual(false);
+//   expect(state.editMode).toEqual(false);
 
-  expect(state.technologyRadar).not.toBeNull();
-});
+//   expect(state.technologyRadar).not.toBeNull();
+// });
 
-it('updates selectedTechnology on selectTechnology', () => {
-  const technologies = [mockTechnology()];
-  const [selected] = technologies;
-  const state = new ApplicationStateImpl({ data: { technologies } });
+// it('updates selectedTechnology on selectTechnology', () => {
+//   const technologies = [mockTechnology()];
+//   const [selected] = technologies;
+//   const state = new ApplicationStateImpl({ data: { technologies } });
 
-  expect(state.selectedTechnology).toBeNull();
+//   expect(state.selectedTechnology).toBeNull();
 
-  state.selectTechnology(selected);
+//   state.selectTechnology(selected);
 
-  expect(state.selectedTechnology.id).toBe(selected.id);
-});
+//   expect(state.selectedTechnology.id).toBe(selected.id);
+// });
 
-it('updates selectedGroup on selectGroup', () => {
-  const groups = [mockGroup()];
-  const [selected] = groups;
-  const state = new ApplicationStateImpl({ data: { groups } });
+// it('updates selectedGroup on selectGroup', () => {
+//   const groups = [mockGroup()];
+//   const [selected] = groups;
+//   const state = new ApplicationStateImpl({ data: { groups } });
 
-  expect(state.selectedGroup).toBeNull();
+//   expect(state.selectedGroup).toBeNull();
 
-  state.selectGroup(selected);
+//   state.selectGroup(selected);
 
-  expect(state.selectedGroup.id).toBe(selected.id);
-});
+//   expect(state.selectedGroup.id).toBe(selected.id);
+// });
 
-it('updates editMode on setEditMode', () => {
-  const state = new ApplicationStateImpl({ editMode: false });
+// it('updates editMode on setEditMode', () => {
+//   const state = new ApplicationStateImpl({ editMode: false });
 
-  state.setEditMode(true);
+//   state.setEditMode(true);
 
-  expect(state.editMode).toEqual(true);
-});
+//   expect(state.editMode).toEqual(true);
+// });
 
-it('sets new group as selected on addGroup', () => {
-  const state = new ApplicationStateImpl({
-    technologyRadar: {
-      technologies: [],
-      groups: []
-    }
-  });
+// it('sets new group as selected on addGroup', () => {
+//   const state = new ApplicationStateImpl({
+//     technologyRadar: {
+//       technologies: [],
+//       groups: []
+//     }
+//   });
 
-  state.setEditMode(true);
-  state.technologyRadar.addGroup();
+//   state.setEditMode(true);
+//   state.technologyRadar.addGroup();
 
-  expect(state.selectedGroup.id).toEqual(state.technologyRadar.groups[0].id);
-});
+//   expect(state.selectedGroup.id).toEqual(state.technologyRadar.groups[0].id);
+// });
 
 
-it('sets new technology as selected on addTechnology', () => {
-  const state = new ApplicationStateImpl({
-    technologyRadar: {
-      technologies: [],
-      groups: [mockGroup()]
-    }
-  });
+// it('sets new technology as selected on addTechnology', () => {
+//   const state = new ApplicationStateImpl({
+//     technologyRadar: {
+//       technologies: [],
+//       groups: [mockGroup()]
+//     }
+//   });
 
-  const [group] = state.technologyRadar.groups;
+//   const [group] = state.technologyRadar.groups;
 
-  state.setEditMode(true);
-  state.technologyRadar.addTechnology(group);
+//   state.setEditMode(true);
+//   state.technologyRadar.addTechnology(group);
 
-  expect(state.selectedTechnology.id).toEqual(state.technologyRadar.technologies[0].id);
-});
+//   expect(state.selectedTechnology.id).toEqual(state.technologyRadar.technologies[0].id);
+// });

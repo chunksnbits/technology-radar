@@ -1,0 +1,16 @@
+
+.c-tab-container {
+  display: inline-flex;
+
+  min-width: 100%;
+  flex: 1;
+  flex-direction: column;
+
+  padding: 10px 0;
+
+  height: 0;
+}
+
+.c-tab-container--active {
+  height: auto;
+}

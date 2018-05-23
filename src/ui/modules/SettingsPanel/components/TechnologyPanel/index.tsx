@@ -2,7 +2,8 @@
 // ----------------------------------------------------------------------------- Dependencies
 import { Component, ChangeEvent } from 'react';
 import * as React from 'react';
-import { observer } from 'mobx-react';
+
+import { Button } from '@material-ui/core';
 
 import { classNames } from 'utils/dom';
 import { FormGroup } from 'ui/components/FormGroup';
@@ -15,12 +16,12 @@ export interface TechnologyPanelProps {
   active: boolean;
   technology: Technology;
 
-  onToggleItem: Function;
-  onItemValueChange: Function;
+  onToggle: Function;
+  onValueChange: Function;
+  onDelete: Function;
 }
 
 // ----------------------------------------------------------------------------- Implementation
-@observer
 export class TechnologyPanel extends Component<TechnologyPanelProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
@@ -69,6 +70,12 @@ export class TechnologyPanel extends Component<TechnologyPanelProps> {
                 onChange={ this.propagateValueChange } />
             </FormGroup>
           </form>
+
+          <div className='c-technology-panel__actions'>
+            <Button onClick={ () => this.props.onDelete } color='primary' variant='raised'>
+              remove
+            </Button>
+          </div>
         </div>
       </div>
     );
@@ -76,11 +83,11 @@ export class TechnologyPanel extends Component<TechnologyPanelProps> {
 
   // ----------------------------------------------------------------------------- Event handler methods
   private propagateToggle = () => {
-    return this.props.onToggleItem(!this.props.active);
+    return this.props.onToggle(!this.props.active);
   }
 
   private propagateValueChange = (event: ChangeEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;
-    this.props.onItemValueChange(this.props.technology, target.name, target.value);
+    this.props.onValueChange(this.props.technology, target.name, target.value);
   }
 }

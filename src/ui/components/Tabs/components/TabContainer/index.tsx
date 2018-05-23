@@ -3,35 +3,30 @@
 import { Component } from 'react';
 import * as React from 'react';
 
-import { ApplicationStateContext } from 'store';
-
-import { consume } from 'utils/store';
 import { classNames } from 'utils/dom';
 
 import './styles.scss';
 
 // ----------------------------------------------------------------------------- Configuration
-export interface HeaderProps {
+export interface TabContainerProps {
   className?: string;
-  applicationState?: ApplicationState;
+  active: boolean;
 }
 
 // ----------------------------------------------------------------------------- Implementation
-@consume(ApplicationStateContext, { bindTo: 'applicationState' })
-export class Header extends Component<HeaderProps> {
+export class TabContainer extends Component<TabContainerProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const { logo, title } = this.props.applicationState;
+
+    const modifiers = [
+      this.props.active && 'c-tab-container--active'
+    ];
 
     return (
-      <header className={ classNames('c-header', this.props.className) }>
-        <img className='c-header__logo' src={ logo } />
-
-        <h1 className='c-header__title'>
-          { title }
-        </h1>
-      </header>
+      <div className={ classNames('c-tab-container', this.props.className, ...modifiers) }>
+        { this.props.children }
+      </div>
     );
   }
 }

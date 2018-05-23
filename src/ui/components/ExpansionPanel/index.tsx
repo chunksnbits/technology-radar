@@ -23,7 +23,7 @@ export class ExpansionPanelFooter extends Component<Props<void>> {
 export interface ExpansionPanelProps {
   className?: string;
   active: boolean;
-  onToggleGroup: Function;
+  onToggle: Function;
 }
 
 // ----------------------------------------------------------------------------- Implementation
@@ -67,7 +67,7 @@ export class ExpansionPanel extends Component<ExpansionPanelProps> {
   }
   // ----------------------------------------------------------------------------- Helpers methods
   private propagateToggle = () => {
-    return this.props.onToggleGroup(!this.props.active);
+    return this.props.onToggle(!this.props.active);
   }
 
 }

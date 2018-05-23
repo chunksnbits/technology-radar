@@ -8,7 +8,6 @@ import * as React from 'react';
 import { classNames, canUseDOM } from 'utils/dom';
 
 import './styles.scss';
-import { observer } from 'mobx-react';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface ModalProps {
@@ -21,7 +20,6 @@ export interface ModalProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-@observer
 export class Modal extends Component<ModalProps> {
 
   private rootClassName: string = 'c-modal';

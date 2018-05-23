@@ -2,23 +2,24 @@
 // ----------------------------------------------------------------------------- Dependencies
 import { Component } from 'react';
 import * as React from 'react';
-import { observer } from 'mobx-react';
 
+import { ApplicationStateContext, TechnologyRadarContext } from 'store';
+
+import { consume } from 'utils/store';
 import { classNames } from 'utils/dom';
-
-import { ApplicationState, consume } from 'store';
 
 import './styles.scss';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyDetailsProps {
   className?: string;
-  applicationState?: ApplicationState;
+  applicationState?: ApplicationStateStore;
+  technologyRadar?: TechnologyRadarStore;
 }
 
 // ----------------------------------------------------------------------------- Implementation
-@consume(ApplicationState, { bindTo: 'applicationState' })
-@observer
+@consume(ApplicationStateContext, { bindTo: 'applicationState' })
+@consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
 export class TechnologyDetails extends Component<TechnologyDetailsProps> {
   // ----------------------------------------------------------------------------- Lifecycle methods
 
@@ -27,13 +28,14 @@ export class TechnologyDetails extends Component<TechnologyDetailsProps> {
   }
 
   render() {
-    const { selectedTechnology, technologyRadar } = this.props.applicationState;
+    const { selectedTechnology } = this.props.applicationState;
+    const { groups } = this.props.technologyRadar;
 
     const modifiers = [
       selectedTechnology && 'c-technology-details--active'
     ];
 
-    const group = this.findGroupForTechnology(selectedTechnology, technologyRadar.groups);
+    const group = this.findGroupForTechnology(selectedTechnology, groups);
 
     return (
       <div className={ classNames('c-technology-details', this.props.className, ...modifiers) }>

@@ -1,19 +1,22 @@
 
 // ----------------------------------------------------------------------------- Dependencies
 import { Component } from 'react';
+import * as React from 'react';
 
 // ----------------------------------------------------------------------------- Configuration
-export interface IteratorProps {
+export interface ExpansionPanelBaseComponentProps {
   className?: string;
-  collection: any[];
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class Iterator extends Component<IteratorProps> {
+export class ExpansionPanelBaseComponent extends Component<ExpansionPanelBaseComponentProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const renderFnc = this.props.children as any;
-    return this.props.collection.map((element) => renderFnc(element));
+    return (
+      <div className={ this.props.className }>
+        { this.props.children }
+      </div>
+    );
   }
 }
