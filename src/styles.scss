@@ -12,7 +12,7 @@ body {
 }
 
 html {
-  font-size: 10px;
+  font-size: $rem-base--size * 1px;
 }
 
 body {
@@ -45,17 +45,17 @@ ul, li {
 }
 
 h1 {
-  font-size: 4.8rem;
+  font-size: rem-size(48);
   font-weight: $g-typo__font-weight--light;
   text-transform: uppercase;
 }
 
 h3 {
-  font-size: 1.6rem;
+  font-size: rem-size(16);
   font-weight: $g-typo__font-weight--light;
 }
 
 p {
-  font-size: 1.4rem;
+  font-size: rem-size(14);
   font-weight: $g-typo__font-weight--light;
 }

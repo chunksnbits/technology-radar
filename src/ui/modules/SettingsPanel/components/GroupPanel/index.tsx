@@ -3,7 +3,7 @@
 import { Component, ReactNode } from 'react';
 import * as React from 'react';
 
-import { Button } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 
 import { classNames } from 'utils/dom';
 import { FormGroup } from 'ui/components/FormGroup';
@@ -45,22 +45,28 @@ export class GroupPanel extends Component<GroupPanelProps> {
         <ExpansionPanelBody>
           <form>
             <FormGroup label='Name'>
-              <input
+              <TextField
                 type='text'
                 name='name'
+                fullWidth={ true }
                 value={ this.props.group.name}
                 onChange={ this.propagateValueChange } />
             </FormGroup>
             <FormGroup label='Color'>
-              <input
+              <TextField
                 type='text'
                 name='color'
+                fullWidth={ true }
                 value={ this.props.group.color}
                 onChange={ this.propagateValueChange } />
             </FormGroup>
             <FormGroup label='Description'>
-              <textarea
+              <TextField
                 name='description'
+                multiline={ true }
+                rows='5'
+                rowsMax='10'
+                fullWidth={ true }
                 value={ this.props.group.description}
                 onChange={ this.propagateValueChange } />
             </FormGroup>

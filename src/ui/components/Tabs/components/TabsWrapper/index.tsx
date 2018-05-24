@@ -8,12 +8,13 @@ import { classNames } from 'utils/dom';
 
 import './styles.scss';
 import { Tabs } from '@material-ui/core';
-import { TabContainer } from '../TabContainer';
+import { TabBody } from '../TabContainer';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TabsWrapperProps {
   className?: string;
   fixed?: boolean;
+  sticky?: boolean;
 }
 
 // ----------------------------------------------------------------------------- Implementation
@@ -22,6 +23,7 @@ export class TabsWrapper extends Component<TabsWrapperProps> {
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
     const modifiers = [
+      this.props.sticky && 'c-tabs-wrapper--sticky',
       this.props.fixed && 'c-tabs-wrapper--fixed'
     ]
 
@@ -48,7 +50,7 @@ export class TabsWrapper extends Component<TabsWrapperProps> {
   }
 
   get tabsBody() {
-    return Children.toArray(this.props.children).filter(child => (child as any).type === TabContainer);
+    return Children.toArray(this.props.children).filter(child => (child as any).type === TabBody);
   }
 
   get activeTabIndex() {

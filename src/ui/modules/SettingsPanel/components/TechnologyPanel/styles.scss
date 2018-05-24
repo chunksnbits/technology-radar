@@ -1,25 +1,9 @@
 @import '~utils/scss/colors';
 
-.c-technology-panel__header {
+.c-technology-panel {
   display: block;
-  width: 100%;
-  text-align: left;
-  appearance: none;
-  border: 0;
-  border-bottom: 1px solid $g-color__border;
-  background: none;
-
-  outline: none;
-
-  padding: 10px 0;
-
-  cursor: pointer;
 }
 
-.c-technology-panel__body {
-  display: none;
-}
-
-.c-technology-panel--active .c-technology-panel__body {
-  display: block;
+.c-technology-panel__actions {
+  margin-top: 20px;
 }

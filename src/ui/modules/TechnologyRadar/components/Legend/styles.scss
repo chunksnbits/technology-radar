@@ -1,5 +1,6 @@
 
 @import '~utils/scss/colors';
+@import '~utils/scss/typo';
 
 .c-legend {
   pointer-events: none;
@@ -37,7 +38,7 @@
 .c-legend__labels-background {
   fill: none;
   stroke: $g-color__secondary;
-  stroke-width: 2rem;
+  stroke-width: rem-size(20);
 }
 
 .c-legend__labels {
@@ -49,7 +50,7 @@
 }
 
 .c-legend__label {
-  font-size: 0.18rem;
+  font-size: rem-size(1.8);
   fill: $g-color__background;
   font-weight: bold;
   text-anchor:middle;

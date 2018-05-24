@@ -14,7 +14,7 @@ export interface TabContainerProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class TabContainer extends Component<TabContainerProps> {
+export class TabBody extends Component<TabContainerProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {

@@ -45,6 +45,7 @@ export class Technologies extends Component<TechnologiesProps, TechnologiesState
           <TechnologyPanel
             key={ technologie.id }
             technology={ technologie }
+            groups={ this.props.groups }
             active={ this.state.activeTechnology === technologie }
             onToggle={ this.bindToggleActiveTechnology(technologie) }
             onValueChange={ this.props.onTechnologyValueChange }

@@ -9,6 +9,8 @@ import { consume } from 'utils/store';
 import { classNames } from 'utils/dom';
 
 import './styles.scss';
+import { Button } from '@material-ui/core';
+import { Icon } from 'ui/components/Icon';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface FooterProps {
@@ -26,18 +28,19 @@ export class Footer extends Component<FooterProps> {
   render() {
     return (
       <footer className={ classNames('c-footer', this.props.className) }>
-        <button
+        <Button
+          variant='fab'
           className='c-footer__action c-footer__action--edit-mode'
-          onClick={ this.bindEnableEditMode() }>
-          Create your own
-        </button>
+          onClick={ this.bindEnableEditMode() }
+          color='secondary'>
+          <Icon name='add' />
+        </Button>
       </footer>
     );
   }
 
   // ----------------------------------------------------------------------------- Helpers methods
   private bindEnableEditMode() {
-    console.log('+++ props', this.props.applicationState);
     if (!this.handlers.enableEdit) {
       this.handlers.enableEdit = () => this.props.applicationState.setEditMode(true);
     }

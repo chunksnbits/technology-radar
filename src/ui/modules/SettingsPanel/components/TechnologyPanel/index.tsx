@@ -3,10 +3,11 @@
 import { Component, ChangeEvent } from 'react';
 import * as React from 'react';
 
-import { Button } from '@material-ui/core';
+import { Button, TextField, Select, MenuItem } from '@material-ui/core';
 
 import { classNames } from 'utils/dom';
 import { FormGroup } from 'ui/components/FormGroup';
+import { ExpansionPanel, ExpansionPanelHeader, ExpansionPanelBody } from 'ui/components/ExpansionPanel';
 
 import './styles.scss';
 
@@ -15,6 +16,7 @@ export interface TechnologyPanelProps {
   className?: string;
   active: boolean;
   technology: Technology;
+  groups: Group[];
 
   onToggle: Function;
   onValueChange: Function;
@@ -32,40 +34,65 @@ export class TechnologyPanel extends Component<TechnologyPanelProps> {
     ];
 
     return (
-      <div className={ classNames('c-technology-panel', this.props.className, ...modifiers) }>
+      <ExpansionPanel
+        active={ this.props.active }
+        onToggle={ this.props.onToggle }
+        className={ classNames('c-technology-panel', this.props.className, ...modifiers) }>
 
-        <button className='c-technology-panel__header' onClick={ this.propagateToggle }>
-          { this.props.technology.name }(id: { this.props.technology.id })
-        </button>
+        <ExpansionPanelHeader>
+          { this.props.technology.name }
+        </ExpansionPanelHeader>
 
-        <div className='c-technology-panel__body'>
+        <ExpansionPanelBody>
           <form>
             <FormGroup label='Name'>
-              <input
+              <TextField
                 type='text'
                 name='name'
+                fullWidth={ true }
                 value={ this.props.technology.name}
                 onChange={ this.propagateValueChange } />
             </FormGroup>
-            <FormGroup label='Group'>
-              <input
+            <FormGroup label='Id'>
+              <TextField
                 type='text'
-                name='group'
-                value={ this.props.technology.groupId}
-                onChange={ this.propagateValueChange } />
+                name='id'
+                fullWidth={ true }
+                value={ this.props.technology.id}
+                onChange={ this.propagateValueChange }
+                disabled={ true } />
             </FormGroup>
             <FormGroup label='Group'>
-              <input
+              <Select
+                value={ this.props.technology.groupId }
+                onChange={ this.propagateGroupValueChange }
+                name='groupId'
+                fullWidth={ true }>
+                {
+                  this.props.groups.map((group) => {
+                    return (
+                      <MenuItem key={ group.id } value={ group.id }>{ group.name }</MenuItem>
+                    );
+                  })
+                }
+              </Select>
+            </FormGroup>
+            <FormGroup label='Group'>
+              <TextField
                 type='number'
                 name='level'
-                min='1'
+                fullWidth={ true }
                 value={ this.props.technology.level}
                 onChange={ this.propagateValueChange } />
             </FormGroup>
             <FormGroup label='Description'>
-              <input
+              <TextField
                 type='text'
                 name='description'
+                fullWidth={ true }
+                multiline={ true }
+                rows='5'
+                rowsMax='8'
                 value={ this.props.technology.description}
                 onChange={ this.propagateValueChange } />
             </FormGroup>
@@ -76,18 +103,19 @@ export class TechnologyPanel extends Component<TechnologyPanelProps> {
               remove
             </Button>
           </div>
-        </div>
-      </div>
+        </ExpansionPanelBody>
+      </ExpansionPanel>
     );
   }
 
   // ----------------------------------------------------------------------------- Event handler methods
-  private propagateToggle = () => {
-    return this.props.onToggle(!this.props.active);
-  }
-
   private propagateValueChange = (event: ChangeEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;
+    this.props.onValueChange(this.props.technology, target.name, target.value);
+  }
+
+  private propagateGroupValueChange = (event: React.ChangeEvent<HTMLSelectElement>, child: React.ReactNode) => {
+    const target = event.target as HTMLSelectElement;
     this.props.onValueChange(this.props.technology, target.name, target.value);
   }
 }

@@ -12,8 +12,7 @@ import assetsPath from './icon.symbols.svg';
 export interface IconProps {
   className?: string;
   name: string;
-  width?: number;
-  height?: number;
+  size?: number | string;
 }
 
 // ----------------------------------------------------------------------------- Implementation
@@ -31,11 +30,14 @@ export class Icon extends Component<IconProps> {
   }
 
   render() {
+    const size = this.isNumberLike(this.props.size) ? `${ this.props.size }px` : this.props.size;
     return (
       <svg className={ classNames('c-icon', this.props.className) }
         xmlns='http://www.w3.org/2000/svg'
-        width={ this.props.width }
-        height={ this.props.height }
+        style={{
+          width: size,
+          height: size
+        }}
         preserveAspectRatio='xMidYMin'
         viewBox='0 0 24 24'>
         <use xlinkHref={ `${assetsPath.replace(/^\//, '')}#${ this.props.name }` } />
@@ -43,4 +45,8 @@ export class Icon extends Component<IconProps> {
     );
   }
 
+  // ----------------------------------------------------------------------------- Helpers methods
+  private isNumberLike(value: number | string): boolean {
+    return !isNaN(Number(value));
+  }
 }

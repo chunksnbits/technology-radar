@@ -10,3 +10,9 @@
 
   background: rgba($g-color__background, 0.5);
 }
+
+.c-footer__action.c-footer__action--edit-mode {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}

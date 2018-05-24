@@ -1,19 +1,38 @@
 
 @import './colors';
 
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+}
+
+@function rem-size($size) {
+  @return (strip-unit($size) / $rem-base--size) * 1rem;
+}
+
+// The base size to be set as rem base.
+// All subsequent rem-sizes will be measured relative
+// to this.
+//
+$rem-base--size: 14;
+
 $g-typo__font-weight--light: 300;
 $g-typo__font-weight--regular: 400;
 $g-typo__font-weight--bold: 700;
 
 $g-typo__font-family: 'Roboto Condensed', sans-serif;
-$g-typo__font-size: 1.4rem;
+$g-typo__font-size: rem-size(14);
 $g-typo__font-weight: $g-typo__font-weight--light;
 
-$g-typo__font-size--small: 1.1rem;
-$g-typo__font-size--default: 1.4rem;
-$g-typo__font-size--section-heading: 3.6rem;
-$g-typo__font-size--block-heading: 2.4rem;
-$g-typo__font-size--copy: 1.4rem;
+$g-typo__font-size--small: rem-size(11);
+$g-typo__font-size--default: rem-size(14);
+$g-typo__font-size--section-heading: rem-size(36);
+$g-typo__font-size--block-heading: rem-size(24);
+$g-typo__font-size--copy-large: rem-size(18);
+$g-typo__font-size--copy: rem-size(14);
 
 $g-typo__line-height-ratio: 1.61803399;
 

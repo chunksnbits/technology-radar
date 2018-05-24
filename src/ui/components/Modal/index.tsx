@@ -8,6 +8,8 @@ import * as React from 'react';
 import { classNames, canUseDOM } from 'utils/dom';
 
 import './styles.scss';
+import { Button } from '@material-ui/core';
+import { Icon } from 'ui/components/Icon';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface ModalProps {
@@ -23,6 +25,7 @@ export interface ModalProps {
 export class Modal extends Component<ModalProps> {
 
   private rootClassName: string = 'c-modal';
+  private appClassName: string = 'c-app';
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   componentDidUpdate() {
@@ -57,6 +60,10 @@ export class Modal extends Component<ModalProps> {
   handleDocumentClick = (event: MouseEvent) => {
     const source = event.target as HTMLElement;
 
+    if (!source.closest(`.${ this.appClassName }`)) {
+      return;
+    }
+
     if (!source.closest(`.${ this.rootClassName }`)) {
       this.props.onClose();
     }
@@ -73,9 +80,11 @@ export class Modal extends Component<ModalProps> {
         className={ classNames(this.rootClassName, props.className, ...modifiers) }
         open={ Boolean(props.open) }>
         <nav className='c-modal__nav'>
-          <button onClick={ this.handleClose } className='c-modal__nav-action c-modal__nav-action--close'>
-            X
-          </button>
+          <Button onClick={ this.handleClose }
+            className='c-modal__nav-action c-modal__nav-action--close'
+            variant='flat'>
+            <Icon name='close' size={ 12 } />
+          </Button>
         </nav>
 
         <section className='c-modal__content'>

@@ -10,8 +10,9 @@ $c-tabs-wrapper__header--height: 48px;
   overflow: auto;
 }
 
-.c-tabs-wrapper--fixed .c-tabs-wrapper__header {
-  position: sticky;
+.c-tabs-wrapper--fixed .c-tabs-wrapper__header,
+.c-tabs-wrapper--sticky .c-tabs-wrapper__header {
+  position: fixed;
   top: 0;
   left: 0;
 
@@ -19,6 +20,14 @@ $c-tabs-wrapper__header--height: 48px;
 
   background: $g-color__background--inverse;
   z-index: 1;
+}
+
+.c-tabs-wrapper--fixed .c-tabs-wrapper__header {
+  position: fixed;
+}
+
+.c-tabs-wrapper--sticky .c-tabs-wrapper__header {
+  position: sticky;
 }
 
 .c-tabs-wrapper__body {

@@ -4,8 +4,6 @@
 @import '~utils/scss/typo';
 
 .c-expansion-panel__header {
-  @include typo-group-heading;
-
   display: flex;
   flex-direction: row;
 
@@ -25,6 +23,8 @@
 }
 
 .c-expansion-panel__header-title {
+  @include typo-group-heading;
+
   display: flex;
   flex: 1;
   align-items: center;
@@ -48,7 +48,7 @@
 .c-expansion-panel__body {
   display: none;
 
-  padding: 12px 16px;
+  padding: 12px 0;
 }
 
 .c-expansion-panel--active .c-expansion-panel__body {

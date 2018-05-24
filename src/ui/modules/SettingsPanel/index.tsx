@@ -7,6 +7,7 @@ import { TechnologyRadarContext } from 'store';
 
 import { consume } from 'utils/store';
 import { classNames } from 'utils/dom';
+import { Tabs, TabBody, TabHeader, Tab } from 'ui/components/Tabs';
 
 import { Groups } from './components/Groups';
 import { Technologies } from './components/Technologies';
@@ -22,6 +23,7 @@ export interface SettingsPanelProps {
 export interface SettingsPanelState {
   activeGroup: string;
   activeItem: string;
+  activeTab: string;
 }
 
 // ----------------------------------------------------------------------------- Implementation
@@ -35,7 +37,8 @@ export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelSt
 
     this.state = {
       activeItem: null,
-      activeGroup: null
+      activeGroup: null,
+      activeTab: 'groups'
     };
   }
 
@@ -45,27 +48,42 @@ export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelSt
 
     return (
       <div className={ classNames('c-settings-panel', this.props.className) }>
-        <h4>Groups</h4>
+        <Tabs sticky={ true }>
+          <TabHeader value={ this.state.activeTab } onChange={ this.handleSetActiveTab } fullWidth={ true }>
+            <Tab label='Group' value='groups' fullWidth={ true } />
+            <Tab label='Technologies' value='technologies' fullWidth={ true } />
+          </TabHeader>
 
-        <Groups className='c-settings-panel__groups'
-          groups={ groups }
-          onAddGroup={ this.bindAddGroup() }
-          onClear={ clearAll }
-          onGroupValueChange={ updateGroup }
-          onDelete={ removeGroup } />
+          <TabBody active={ this.state.activeTab === 'groups' }>
+            <Groups className='c-settings-panel__groups'
+              groups={ groups }
+              onAddGroup={ this.bindAddGroup() }
+              onClear={ clearAll }
+              onGroupValueChange={ updateGroup }
+              onDelete={ removeGroup } />
+          </TabBody>
 
-        <Technologies className='c-settings-panel__technologies'
-          technologies={ technologies }
-          groups={ groups }
-          onAddTechnology={ this.bindAddTechnology() }
-          onClear={ clearAll }
-          onTechnologyValueChange={ updateTechnology }
-          onDelete={ removeTechnology } />
+          <TabBody active={ this.state.activeTab === 'technologies' }>
+            <Technologies className='c-settings-panel__technologies'
+              technologies={ technologies }
+              groups={ groups }
+              onAddTechnology={ this.bindAddTechnology() }
+              onClear={ clearAll }
+              onTechnologyValueChange={ updateTechnology }
+              onDelete={ removeTechnology } />
+          </TabBody>
+        </Tabs>
       </div>
     );
   }
 
   // ----------------------------------------------------------------------------- Event handler methods
+  handleSetActiveTab = (_, tabName: string) => {
+    this.setState(() => ({
+      activeTab: tabName
+    }));
+  }
+
   bindAddTechnology = () => {
     if (!this.handlers.technologies) {
       this.handlers.technologies = (group) =>  {
