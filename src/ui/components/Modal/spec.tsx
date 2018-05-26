@@ -60,7 +60,7 @@ it('closes on navigation close button click', () => {
 
 it('closes on click outside modal', () => {
   const parent = shallow(
-    <div id='parent'>
+    <div>
       <Modal open={ true } onClose={ handleClose } position='parent'>{/* { } */}</Modal>
     </div>
   );

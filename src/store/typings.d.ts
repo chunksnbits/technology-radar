@@ -9,13 +9,13 @@ declare interface TechnologyRadarSettings {
 }
 
 declare interface ApplicationState {
-  title: string;
-  logo: string;
+  title?: string;
+  logo?: string;
 
-  selectedTechnology: Technology;
-  selectedGroup: Group;
+  selectedTechnology?: Technology;
+  selectedGroup?: Group;
 
-  editMode: boolean;
+  editMode?: boolean;
 }
 
 declare interface ApplicationStateActions {
@@ -28,11 +28,11 @@ declare interface ApplicationStateActions {
 declare type ApplicationStateStore = ApplicationState & ApplicationStateActions;
 
 declare interface TechnologyRadar {
-  technologies: Technology[];
-  groups: Group[];
+  technologies?: Technology[];
+  groups?: Group[];
 
-  edited: boolean;
-  settings: TechnologyRadarSettings;
+  edited?: boolean;
+  settings?: TechnologyRadarSettings;
 }
 
 

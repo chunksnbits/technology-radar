@@ -15,28 +15,18 @@ import './styles.scss';
 export interface GroupsProps {
   className?: string;
   groups: Group[];
-  onAddGroup: Function;
-  onGroupValueChange: Function;
+  activeGroup: Group;
+
+  onAdd: Function;
+  onToggle: Function;
+  onChange: Function;
   onClear: Function;
   onDelete: Function;
-}
-
-interface GroupsState {
-  activeGroup: Group;
+  onConfirm: Function;
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class Groups extends Component<GroupsProps, GroupsState> {
-  private handlers: BoundHandlers = {};
-
-  constructor(props: GroupsProps) {
-    super(props);
-
-    this.state = {
-      activeGroup: null
-    };
-  }
-
+export class Groups extends Component<GroupsProps> {
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
     return (
@@ -45,22 +35,23 @@ export class Groups extends Component<GroupsProps, GroupsState> {
           <GroupPanel
             key={ group.id }
             group={ group }
-            active={ this.state.activeGroup === group }
-            onToggle={ this.bindToggleActiveGroup(group) }
-            onValueChange={ this.props.onGroupValueChange }
-            onDelete={ this.bindDelete(group) } />
+            active={ this.isActive(group, this.props.activeGroup) }
+            onConfirm={ this.props.onConfirm }
+            onToggle={ this.props.onToggle }
+            onValueChange={ this.props.onChange }
+            onDelete={ this.props.onDelete } />
         )}
 
         <div className='c-groups__actions'>
           <Button
-            variant='raised'
-            onClick={ this.props.onAddGroup as any }
+            variant='flat'
+            onClick={ this.props.onAdd as any }
             className='c-groups__action c-groups__action--add-group'>
             Add Group
           </Button>
 
           <Button
-            variant='raised'
+            variant='flat'
             color='secondary'
             onClick={ this.props.onClear as any }
             className='c-groups__action c-groups__action--clear-all'>
@@ -71,28 +62,8 @@ export class Groups extends Component<GroupsProps, GroupsState> {
     );
   }
 
-  // ----------------------------------------------------------------------------- Event handler methods
-  private bindToggleActiveGroup(group: Group): Function {
-    const name = `toggle-group-${group.id}`;
-
-    if (!this.handlers[name]) {
-      this.handlers[name] = (active: boolean) => {
-        return this.setState({ activeGroup: active ? group : null });
-      };
-    }
-
-    return this.handlers[name];
-  }
-
-  private bindDelete(group: Group): Function {
-    const name = `delete-group-${group.id}`;
-
-    if (!this.handlers[name]) {
-      this.handlers[name] = (active: boolean) => {
-        return this.props.onDelete(group);
-      };
-    }
-
-    return this.handlers[name];
+  // ----------------------------------------------------------------------------- Helpers methods
+  private isActive(group: Group, activeGroup: Group): boolean {
+    return Boolean(activeGroup) && activeGroup.id === group.id;
   }
 }

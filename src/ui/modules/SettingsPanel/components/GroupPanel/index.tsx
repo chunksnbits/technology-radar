@@ -21,6 +21,7 @@ export interface GroupPanelProps {
 
   onToggle: Function;
   onValueChange: Function;
+  onConfirm: Function;
   onDelete: Function;
 }
 
@@ -32,7 +33,7 @@ export class GroupPanel extends Component<GroupPanelProps> {
     return (
       <ExpansionPanel
         active={ this.props.active }
-        onToggle={ this.props.onToggle }
+        onToggle={ this.propagateToggle }
         className={ classNames('c-group-panel', this.props.className) }>
 
         <ExpansionPanelHeader>
@@ -72,7 +73,10 @@ export class GroupPanel extends Component<GroupPanelProps> {
             </FormGroup>
           </form>
           <div className='c-group-panel__actions'>
-            <Button onClick={ () => this.props.onDelete } color='primary' variant='raised'>
+            <Button onClick={ this.propagateConfirm } variant='flat'>
+              Ok
+            </Button>
+            <Button onClick={ this.propagateDelete } variant='flat'>
               remove
             </Button>
           </div>
@@ -86,5 +90,17 @@ export class GroupPanel extends Component<GroupPanelProps> {
     const target = event.target as HTMLInputElement;
 
     this.props.onValueChange(this.props.group, target.name, target.value);
+  }
+
+  private propagateToggle = (active: boolean) => {
+    this.props.onToggle(this.props.group, active);
+  }
+
+  private propagateConfirm = () => {
+    this.props.onConfirm(this.props.group);
+  }
+
+  private propagateDelete = () => {
+    this.props.onDelete(this.props.group);
   }
 }

@@ -13,7 +13,7 @@
 
   transform: translate(-50%, -50%);
 
-  border: 1px solid $g-color__primary;
+  border: 1px solid rgba($g-color__primary, 0.4);
   border-radius: 100vmin;
 }
 
@@ -23,7 +23,7 @@
   left: 25%;
   width: 100%;
 
-  border-top: 1px solid $g-color__primary;
+  border-top: 3px solid darken($g-color__primary, 40);
 
   transform-origin: 0;
 
@@ -37,8 +37,7 @@
 
 .c-legend__labels-background {
   fill: none;
-  stroke: $g-color__secondary;
-  stroke-width: rem-size(20);
+  stroke: none;
 }
 
 .c-legend__labels {
@@ -50,9 +49,11 @@
 }
 
 .c-legend__label {
+  @include typo-default;
+
   font-size: rem-size(1.8);
-  fill: $g-color__background;
-  font-weight: bold;
+  fill: $g-color__primary;
+  font-weight: lighter;
   text-anchor:middle;
   transform-origin: center;
   overflow: visible;

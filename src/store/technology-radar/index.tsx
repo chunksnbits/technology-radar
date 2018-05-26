@@ -102,6 +102,7 @@ export class TechnologyRadarStore extends Component<TechnologyRadarStoreProps, T
   removeGroup(group: Group): void {
     this.setState(produce(this.state, (draftState: TechnologyRadar) => {
       draftState.groups = draftState.groups.filter((acc) => acc.id !== group.id);
+      draftState.technologies = draftState.technologies.filter((acc) => acc.groupId !== group.id);
 
       return draftState;
     }));

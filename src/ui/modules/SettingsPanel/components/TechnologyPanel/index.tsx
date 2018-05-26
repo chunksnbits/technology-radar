@@ -18,6 +18,7 @@ export interface TechnologyPanelProps {
   technology: Technology;
   groups: Group[];
 
+  onConfirm: Function;
   onToggle: Function;
   onValueChange: Function;
   onDelete: Function;
@@ -28,7 +29,6 @@ export class TechnologyPanel extends Component<TechnologyPanelProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-
     const modifiers = [
       this.props.active && 'c-technology-panel--active'
     ];
@@ -36,7 +36,7 @@ export class TechnologyPanel extends Component<TechnologyPanelProps> {
     return (
       <ExpansionPanel
         active={ this.props.active }
-        onToggle={ this.props.onToggle }
+        onToggle={ this.propagateToggle }
         className={ classNames('c-technology-panel', this.props.className, ...modifiers) }>
 
         <ExpansionPanelHeader>
@@ -99,7 +99,10 @@ export class TechnologyPanel extends Component<TechnologyPanelProps> {
           </form>
 
           <div className='c-technology-panel__actions'>
-            <Button onClick={ () => this.props.onDelete } color='primary' variant='raised'>
+              <Button onClick={ this.propagateConfirm } variant='flat'>
+                Ok
+              </Button>
+            <Button onClick={ this.propagateDelete } variant='flat'>
               remove
             </Button>
           </div>
@@ -117,5 +120,17 @@ export class TechnologyPanel extends Component<TechnologyPanelProps> {
   private propagateGroupValueChange = (event: React.ChangeEvent<HTMLSelectElement>, child: React.ReactNode) => {
     const target = event.target as HTMLSelectElement;
     this.props.onValueChange(this.props.technology, target.name, target.value);
+  }
+
+  private propagateToggle = (active: boolean) => {
+    this.props.onToggle(this.props.technology, active);
+  }
+
+  private propagateConfirm = () => {
+    this.props.onToggle(this.props.technology);
+  }
+
+  private propagateDelete = () => {
+    this.props.onDelete(this.props.technology);
   }
 }

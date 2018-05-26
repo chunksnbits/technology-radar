@@ -3,9 +3,13 @@
 }
 
 .c-groups__actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
   padding-top: 20px;
 }
 
 .c-groups__action.c-groups__action {
-  margin-right: 10px;
+  margin-left: 10px;
 }

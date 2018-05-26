@@ -59,8 +59,8 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
           <div className='c-technology-radar__technologies'>
             <Iterator collection={ technologies }>{ (technology: Technology) =>
               <TechnologyItem
+                key={ technology.id  }
                 className='c-technology-radar__item'
-                key={ technology.id }
                 technology={ technology }
                 group={ this.findGroupForTechnology(technology, groups) }
                 technologies={ technologies }

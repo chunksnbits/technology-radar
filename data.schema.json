@@ -4,12 +4,12 @@
     "settings": {
       "type": "object",
       "properties": {
-        "innerRadiusDegrees": {
+        "innerRadiusPercent": {
           "type": "number",
           "minimum": 0,
           "maximum": 50
         },
-        "outerRadiusDegrees": {
+        "outerRadiusPercent": {
           "type": "number",
           "minimum": 0,
           "maximum": 50

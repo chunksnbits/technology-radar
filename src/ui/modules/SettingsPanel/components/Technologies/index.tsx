@@ -15,8 +15,12 @@ export interface TechnologiesProps {
   className?: string;
   groups: Group[];
   technologies: Technology[];
-  onAddTechnology: Function;
-  onTechnologyValueChange: Function;
+  activeTechnology: Technology;
+
+  onAdd: Function;
+  onToggle: Function;
+  onChange: Function;
+  onConfirm: Function;
   onClear: Function;
   onDelete: Function;
 }
@@ -27,8 +31,6 @@ interface TechnologiesState {
 
 // ----------------------------------------------------------------------------- Implementation
 export class Technologies extends Component<TechnologiesProps, TechnologiesState> {
-  private handlers: BoundHandlers = {};
-
   constructor(props: TechnologiesProps) {
     super(props);
 
@@ -41,21 +43,22 @@ export class Technologies extends Component<TechnologiesProps, TechnologiesState
   render() {
     return (
       <div className={ classNames('c-technologies', this.props.className) }>{
-        this.props.technologies.map(technologie =>
+        this.props.technologies.map(technology =>
           <TechnologyPanel
-            key={ technologie.id }
-            technology={ technologie }
+            key={ technology.id }
+            technology={ technology }
             groups={ this.props.groups }
-            active={ this.state.activeTechnology === technologie }
-            onToggle={ this.bindToggleActiveTechnology(technologie) }
-            onValueChange={ this.props.onTechnologyValueChange }
-            onDelete={ this.bindDelete(technologie) } />
+            active={ this.isActive(technology, this.props.activeTechnology) }
+            onConfirm={ this.props.onConfirm }
+            onToggle={ this.props.onToggle }
+            onValueChange={ this.props.onChange }
+            onDelete={ this.props.onDelete } />
         )}
 
         <div className='c-technologies__actions'>
           <Button
             variant='raised'
-            onClick={ this.props.onAddTechnology as any }
+            onClick={ this.props.onAdd as any }
             className='c-technologies__action c-technologies__action--add-technology'>
             Add technology
           </Button>
@@ -71,28 +74,8 @@ export class Technologies extends Component<TechnologiesProps, TechnologiesState
     );
   }
 
-  // ----------------------------------------------------------------------------- Event handler methods
-  private bindToggleActiveTechnology(technology: Technology): Function {
-    const name = `toggle-technology-${technology.id}`;
-
-    if (!this.handlers[name]) {
-      this.handlers[name] = (active: boolean) => {
-        return this.setState({ activeTechnology: active ? technology : null });
-      };
-    }
-
-    return this.handlers[name];
-  }
-
-  private bindDelete(technology: Technology): Function {
-    const name = `delete-technology-${technology.id}`;
-
-    if (!this.handlers[name]) {
-      this.handlers[name] = (active: boolean) => {
-        return this.props.onDelete(technology);
-      };
-    }
-
-    return this.handlers[name];
+  // ----------------------------------------------------------------------------- Helpers methods
+  private isActive(technology: Technology, activeTechnology: Technology): boolean {
+    return Boolean(activeTechnology) && technology.id === activeTechnology.id;
   }
 }

@@ -21,8 +21,8 @@ export interface SettingsPanelProps {
 }
 
 export interface SettingsPanelState {
-  activeGroup: string;
-  activeItem: string;
+  activeGroup: Group;
+  activeTechnology: Technology;
   activeTab: string;
 }
 
@@ -30,13 +30,11 @@ export interface SettingsPanelState {
 @consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
 export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelState> {
 
-  private handlers: BoundHandlers = {};
-
   constructor(props: SettingsPanelProps) {
     super(props);
 
     this.state = {
-      activeItem: null,
+      activeTechnology: null,
       activeGroup: null,
       activeTab: 'groups'
     };
@@ -50,16 +48,19 @@ export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelSt
       <div className={ classNames('c-settings-panel', this.props.className) }>
         <Tabs sticky={ true }>
           <TabHeader value={ this.state.activeTab } onChange={ this.handleSetActiveTab } fullWidth={ true }>
-            <Tab label='Group' value='groups' fullWidth={ true } />
+            <Tab label='Groups' value='groups' fullWidth={ true } />
             <Tab label='Technologies' value='technologies' fullWidth={ true } />
           </TabHeader>
 
           <TabBody active={ this.state.activeTab === 'groups' }>
             <Groups className='c-settings-panel__groups'
               groups={ groups }
-              onAddGroup={ this.bindAddGroup() }
+              activeGroup={ this.state.activeGroup }
+              onToggle={ this.handleToggleGroup }
+              onAdd={ this.props.technologyRadar.addGroup }
               onClear={ clearAll }
-              onGroupValueChange={ updateGroup }
+              onConfirm={ this.handleConfirmGroup }
+              onChange={ updateGroup }
               onDelete={ removeGroup } />
           </TabBody>
 
@@ -67,9 +68,12 @@ export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelSt
             <Technologies className='c-settings-panel__technologies'
               technologies={ technologies }
               groups={ groups }
-              onAddTechnology={ this.bindAddTechnology() }
+              activeTechnology={ this.state.activeTechnology }
+              onToggle={ this.handleToggleTechnology }
+              onConfirm={ this.handleConfirmTechnology }
+              onAdd={ this.props.technologyRadar.addTechnology }
               onClear={ clearAll }
-              onTechnologyValueChange={ updateTechnology }
+              onChange={ updateTechnology }
               onDelete={ removeTechnology } />
           </TabBody>
         </Tabs>
@@ -84,23 +88,27 @@ export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelSt
     }));
   }
 
-  bindAddTechnology = () => {
-    if (!this.handlers.technologies) {
-      this.handlers.technologies = (group) =>  {
-        this.props.technologyRadar.addTechnology(group);
-      };
-    }
-
-    return this.handlers.technologies;
+  handleToggleTechnology = (technology: Technology, active: boolean) =>  {
+    this.setState({
+      activeTechnology: active ? technology : null
+    });
   }
 
-  bindAddGroup = () => {
-    if (!this.handlers.groups) {
-      this.handlers.groups = () =>  {
-        this.props.technologyRadar.addGroup();
-      };
-    }
+  handleConfirmTechnology = () =>  {
+    this.setState({
+      activeTechnology: null
+    });
+  }
 
-    return this.handlers.groups;
+  handleToggleGroup = (group: Group, active: boolean) =>  {
+    this.setState({
+      activeGroup: active ? group : null
+    });
+  }
+
+  handleConfirmGroup = () =>  {
+    this.setState({
+      activeGroup: null
+    });
   }
 }

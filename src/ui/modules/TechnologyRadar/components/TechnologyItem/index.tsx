@@ -32,7 +32,6 @@ export class TechnologyItem extends Component<TechnologyItemProps> {
 
     return (
       <div
-        key={ this.props.technology.id }
         className={ classNames('c-technology-item', this.props.className, ...modifiers) }
         style={ this.calculateTransforms(this.props) }>
 
@@ -53,7 +52,9 @@ export class TechnologyItem extends Component<TechnologyItemProps> {
     const { innerRadiusPercent, outerRadiusPercent } = settings;
 
     // The index of the item's group within the dataset's groups
-    const groupIndex = groups.findIndex(acc => acc.id === group.id);
+    const groupIndex = groups.findIndex(acc => {
+      return acc.id === group.id;
+    });
 
     // Calculate number of items and the current item's index only in relation
     // to their current group and level (i.e., disregard other item's within that group / level).
@@ -120,6 +121,7 @@ export class TechnologyItem extends Component<TechnologyItemProps> {
     // Add some variation with alternating between [-1, 1] to keep items from overlapping
     const variation = count < 2 ? 0 : (index % 2 === 0 ? 1 : -1);
     const translationVariationPercent = variation * 0.25 * centerShiftPercent;
+
     //
     // Final translation
     //

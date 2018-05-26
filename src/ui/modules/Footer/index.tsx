@@ -29,11 +29,12 @@ export class Footer extends Component<FooterProps> {
     return (
       <footer className={ classNames('c-footer', this.props.className) }>
         <Button
-          variant='fab'
+          variant='raised'
           className='c-footer__action c-footer__action--edit-mode'
           onClick={ this.bindEnableEditMode() }
-          color='secondary'>
-          <Icon name='add' />
+          color='inherit'>
+          { 'Create your own' }
+          <Icon name='add' className='c-footer__action-icon' />
         </Button>
       </footer>
     );

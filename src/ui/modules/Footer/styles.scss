@@ -11,8 +11,37 @@
   background: rgba($g-color__background, 0.5);
 }
 
+.c-footer__action.c-footer__action {
+  color: $g-color__primary;
+  background-color: transparent;
+}
+
+.c-footer__action.c-footer__action {
+  padding-top: 11px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: $g-color__primary;
+  background-color: transparent;
+}
+
+.c-footer__action:hover {
+  background-color: $g-color__primary;
+  color: $g-color__background;
+}
+
 .c-footer__action.c-footer__action--edit-mode {
   position: absolute;
   right: 10px;
   bottom: 10px;
+}
+
+.c-footer__action-icon {
+  width: 12px;
+
+  margin-left: 8px;
+  fill: $g-color__primary;
+}
+
+.c-footer__action:hover .c-footer__action-icon {
+  fill: $g-color__background;
 }

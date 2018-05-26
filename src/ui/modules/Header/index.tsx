@@ -26,11 +26,13 @@ export class Header extends Component<HeaderProps> {
 
     return (
       <header className={ classNames('c-header', this.props.className) }>
-        <img className='c-header__logo' src={ logo } />
+        <div className='c-header__logo'>
+          <img className='c-header__logo-image' src={ logo } />
 
-        <h1 className='c-header__title'>
-          { title }
-        </h1>
+          <h2 className='c-header__logo-title'>
+            { title }
+          </h2>
+        </div>
       </header>
     );
   }

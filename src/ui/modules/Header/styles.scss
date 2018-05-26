@@ -3,17 +3,33 @@
 
 .c-header {
   display: flex;
-  align-items: center;
+  justify-content: flex-end;
+  flex-direction: row;
 
   position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  pointer-events: none;
 }
 
 .c-header__logo {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 10px 20px;
+}
+
+.c-header__logo-image  {
   display: inline-block;
   width: 46px;
 }
 
-.c-header__title {
+.c-header__logo-title {
+  @include typo-block-heading;
+
   display: inline-block;
-  font-size: px-to-rem(24);
+  font-family: $g-typo__font-family;
+  font-weight: $g-typo__font-weight--light;
 }

@@ -40,7 +40,7 @@ export class Legend extends Component<LegendProps> {
         <div className='c-legend__labels'>
           <svg viewBox='0 0 100 100' className='c-legend__labels-element'>
             <defs>
-              <path d={ 'M0,50a50,50 0 1,0 100,0a50,50 0 1,0 -100,0' } id='c-legend__text-path' fill='none' />
+              <path d={ 'M0,50a50,50 0 1,0 100,0a50,50 0 1,0 -100,0' } fill='none' />
             </defs>
 
             <circle cx='50' cy='50' r='49.45' className='c-legend__labels-background' vectorEffect='non-scaling-stroke' />
@@ -75,7 +75,8 @@ export class Legend extends Component<LegendProps> {
     return groups.map((group, index) => {
 
       return (
-        <text key={group.id}
+        <text
+          key={ group.id }
           className='c-legend__label'
           style={{
             transform: [
@@ -103,7 +104,8 @@ export class Legend extends Component<LegendProps> {
       const size = 2 * settings.innerRadiusPercent + level * step;
 
       return (
-        <div key={index}
+        <div
+          key={ index.toString() }
           className='c-legend__level'
           style={{
             height: `${size}%`,
@@ -118,7 +120,8 @@ export class Legend extends Component<LegendProps> {
 
     return groups.map((group, index) => {
       return (
-        <h4 key={index}
+        <h4
+          key={ group.id }
           className='c-legend__group'
           style={{
             transform: [
