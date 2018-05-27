@@ -5,7 +5,7 @@ import * as React from 'react';
 
 import { ApplicationStateContext, TechnologyRadarContext } from 'store';
 
-import { consume } from 'utils/store';
+import { consume, compose } from 'utils/store';
 import { classNames } from 'utils/dom';
 
 import './styles.scss';
@@ -20,9 +20,8 @@ export interface FooterProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-@consume(ApplicationStateContext, { bindTo: 'applicationState' })
-@consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
-export class Footer extends Component<FooterProps> {
+// tslint:disable-next-line:class-name
+export class FooterComponent extends Component<FooterProps> {
 
   handlers: BoundHandlers = {};
 
@@ -47,7 +46,7 @@ export class Footer extends Component<FooterProps> {
           this.props.applicationState.editor && (
             <Button
               variant='raised'
-              className='c-footer__action c-footer__action--create-new'
+              className='c-footer__action c-footer__action--create'
               onClick={ this.bindCreateNew() }
               color='inherit'>
               <span className='c-footer__action-label'>
@@ -78,3 +77,8 @@ export class Footer extends Component<FooterProps> {
     return this.handlers.edit as any;
   }
 }
+
+export const Footer = compose(
+  consume(ApplicationStateContext, { bindTo: 'applicationState' }),
+  consume(TechnologyRadarContext, { bindTo: 'technologyRadar' }),
+)(FooterComponent);

@@ -23,14 +23,13 @@ export interface AppProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-@consume(ApplicationStateContext, { bindTo: 'applicationState' })
-export class App extends React.Component<AppProps> {
+// tslint:disable-next-line:class-name
+export class AppComponent extends React.Component<AppProps> {
 
   private handlers: BoundHandlers = {};
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-
     const { editMode, setEditMode, selectedTechnology, selectTechnology } = this.props.applicationState;
 
     return (
@@ -76,3 +75,5 @@ export class App extends React.Component<AppProps> {
     return this.handlers.disableEdit as any;
   }
 }
+
+export const App = consume(ApplicationStateContext, { bindTo: 'applicationState' })(AppComponent);

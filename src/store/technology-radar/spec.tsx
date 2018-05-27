@@ -2,7 +2,7 @@
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
 
-import { _TechnologyRadarStore as TechnologyRadarStore } from './index';
+import { TechnologyRadarStoreComponent as TechnologyRadarStore } from './index';
 import { ApplicationStateStore } from '../application-state';
 import { mockTechnology, mockGroup, noop } from 'mocks';
 import { shallow } from 'enzyme';

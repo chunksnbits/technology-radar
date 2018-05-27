@@ -14,19 +14,19 @@
   pointer-events: none;
 }
 
-.c-header__logo {
+.c-header__app-title {
   display: inline-flex;
   align-items: center;
 
   padding: 10px 20px;
 }
 
-.c-header__logo-image  {
+.c-header__logo  {
   display: inline-block;
   width: 46px;
 }
 
-.c-header__logo-title {
+.c-header__title {
   @include typo-block-heading;
 
   display: inline-block;

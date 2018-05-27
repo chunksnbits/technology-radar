@@ -17,8 +17,8 @@ export interface HeaderProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-@consume(ApplicationStateContext, { bindTo: 'applicationState' })
-export class Header extends Component<HeaderProps> {
+// tslint:disable-next-line:class-name
+export class HeaderComponent extends Component<HeaderProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
@@ -26,14 +26,19 @@ export class Header extends Component<HeaderProps> {
 
     return (
       <header className={ classNames('c-header', this.props.className) }>
-        <div className='c-header__logo'>
-          <img className='c-header__logo-image' src={ logo } />
-
-          <h2 className='c-header__logo-title'>
-            { title }
-          </h2>
+        <div className='c-header__app-title'>
+          { logo && (
+            <img className='c-header__logo' src={ logo } />
+          )}
+          { title && (
+            <h2 className='c-header__title'>
+              { title }
+            </h2>
+          )}
         </div>
       </header>
     );
   }
 }
+
+export const Header = consume(ApplicationStateContext, { bindTo: 'applicationState' })(HeaderComponent);

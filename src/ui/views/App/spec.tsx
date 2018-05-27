@@ -1,9 +1,12 @@
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { App } from './index';
+import { AppComponent as App } from './index';
 
 import { mockApplicationState, shallowWithApplicationState } from 'mocks';
+import { Header } from 'ui/modules/Header';
+import { TechnologyRadar } from 'ui/modules/TechnologyRadar';
+import { Footer } from 'ui/modules/Footer';
 
 
 // ----------------------------------------------------------------------------- Implementation
@@ -14,14 +17,17 @@ it('renders without crashing', () => {
   element.unmount();
 });
 
-it('shows technology radar', () => {
+it('renders technology radar', () => {
   const element = shallowWithApplicationState(<App />, mockApplicationState());
-  expect(element.find('.c-technology-radar')).toBeTruthy();
+  expect(element.containsMatchingElement(<TechnologyRadar />)).toEqual(true);
 });
 
-it('shows app title and logo', () => {
+it('renders header', () => {
   const element = shallowWithApplicationState(<App />, mockApplicationState());
+  expect(element.containsMatchingElement(<Header />)).toEqual(true);
+});
 
-  expect(element.find('.c-app__title').length).toBeTruthy();
-  expect(element.find('.c-app__logo').length).toBeTruthy();
+it('renders footer', () => {
+  const element = shallowWithApplicationState(<App />, mockApplicationState());
+  expect(element.containsMatchingElement(<Footer />)).toEqual(true);
 });

@@ -1,12 +1,10 @@
-import * as React from 'react';
-import { ReactNode } from 'react';
+import { cloneElement, ReactElement } from 'react';
 
-import { shallow, ShallowWrapper } from 'enzyme';
-import { ApplicationStateContext } from 'store/application-state';
+import { ShallowWrapper, mount, shallow, ReactWrapper } from 'enzyme';
 
 export const mockApplicationState = (patch = {}) => Object.assign({}, {
   title: 'Any',
-  logo: null,
+  logo: '//any.logo.svg',
   editMode: false,
   data: {
     technologies: [],
@@ -36,10 +34,10 @@ export const mockSettings = (patch = {}) => Object.assign({}, {
   outerRadius: 50
 }, patch) as any;
 
-export const shallowWithApplicationState = (children: ReactNode, data: any = {}): ShallowWrapper<any, any> => {
-  return shallow(
-    <ApplicationStateContext.Provider value={ data }>
-      { children }
-    </ApplicationStateContext.Provider>
-  );
+export const shallowWithApplicationState = (element: ReactElement<any>, applicationState: any = {}): ShallowWrapper<any, any> => {
+  return shallow(cloneElement(element, { applicationState }));
+}
+
+export const mountWithApplicationState = (element: ReactElement<any>, applicationState: any = {}): ReactWrapper<any, any> => {
+  return mount(cloneElement(element, { applicationState }));
 }

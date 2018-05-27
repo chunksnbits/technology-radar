@@ -21,7 +21,7 @@ export const TechnologyRadarContext: Context<TechnologyRadar & TechnologyRadarAc
 
 // ----------------------------------------------------------------------------- Implementation
 // tslint:disable-next-line:class-name
-export class _TechnologyRadarStore extends Component<TechnologyRadarStoreProps, TechnologyRadar & TechnologyRadarActions> implements TechnologyRadarActions {
+export class TechnologyRadarStoreComponent extends Component<TechnologyRadarStoreProps, TechnologyRadar & TechnologyRadarActions> implements TechnologyRadarActions {
 
   constructor(props: TechnologyRadarStoreProps) {
     super(props);
@@ -144,4 +144,4 @@ export class _TechnologyRadarStore extends Component<TechnologyRadarStoreProps, 
   }
 }
 
-export const TechnologyRadarStore = consume(ApplicationStateContext, { bindTo: 'applicationState' })(_TechnologyRadarStore);
+export const TechnologyRadarStore = consume(ApplicationStateContext, { bindTo: 'applicationState' })(TechnologyRadarStoreComponent);
