@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component, ReactNode } from 'react';
+import { PureComponent, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
 import * as React from 'react';
@@ -22,7 +22,7 @@ export interface ModalProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class Modal extends Component<ModalProps> {
+export class Modal extends PureComponent<ModalProps> {
 
   private rootClassName: string = 'c-modal';
   private appClassName: string = 'c-app';
