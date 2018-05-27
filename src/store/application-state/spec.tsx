@@ -24,7 +24,9 @@ it('applies initialState', () => {
   const element = shallow(<ApplicationStateStore initialState={{
     selectedTechnology,
     selectedGroup,
-    editMode: true
+    editMode: true,
+    editor: true,
+    owner: false
   }} />);
 
   const state = element.state();
@@ -32,6 +34,8 @@ it('applies initialState', () => {
   expect(state.selectedTechnology).toEqual(selectedTechnology);
   expect(state.selectedGroup).toEqual(selectedGroup);
   expect(state.editMode).toEqual(true);
+  expect(state.editor).toEqual(true);
+  expect(state.owner).toEqual(false);
 });
 
 it('updates selectedTechnology on selectTechnology', () => {
@@ -67,4 +71,13 @@ it('updates editMode on setEditMode', () => {
   state.setEditMode(true);
 
   expect(element.state().editMode).toEqual(true);
+});
+
+it('updates owner on setOwner', () => {
+  const element = shallow(<ApplicationStateStore initialState={{ owner: false }} />);
+  const state = element.state();
+
+  state.setOwner(true);
+
+  expect(element.state().owner).toEqual(true);
 });

@@ -25,13 +25,16 @@ export class ApplicationStateStore extends Component<ApplicationStateProps, Appl
     this.state = {
       ...defaultState,
       ...this.parseInitialState(props.initialState || {}),
-      ...this.restoreState(),
 
       selectTechnology: this.selectTechnology.bind(this),
       selectGroup: this.selectGroup.bind(this),
       setEditMode: this.setEditMode.bind(this),
       setOwner: this.setOwner.bind(this)
     };
+  }
+
+  componentWillMount() {
+    this.restoreState();
   }
 
   render() {
@@ -75,12 +78,14 @@ export class ApplicationStateStore extends Component<ApplicationStateProps, Appl
     }));
   }
 
-  private restoreState(): ApplicationState | {} {
-    if (canUseSessionStorage()) {
-      return restoreState(SESSION_STORAGE_KEY) || {};
+  private restoreState(): void {
+    if (!canUseSessionStorage()) {
+      return;
     }
 
-    return {};
+    this.setState(state => produce(state, (draftState: ApplicationState) => {
+      return Object.assign(draftState, restoreState(SESSION_STORAGE_KEY) || {});
+    }));
   }
 
   private parseInitialState(state: ApplicationState): ApplicationState {

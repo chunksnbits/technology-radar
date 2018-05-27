@@ -28,8 +28,6 @@ export class Footer extends Component<FooterProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    console.log('+++ owner', this.props.applicationState.owner);
-
     return (
       <footer className={ classNames('c-footer', this.props.className) }>
         <div className='c-footer__actions'>{

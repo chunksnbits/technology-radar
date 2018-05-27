@@ -20,14 +20,14 @@ export interface TechnologyRadarStoreProps {
 export const TechnologyRadarContext: Context<TechnologyRadar & TechnologyRadarActions> = createContext({} as any);
 
 // ----------------------------------------------------------------------------- Implementation
-@consume(ApplicationStateContext, { bindTo: 'applicationState' })
-export class TechnologyRadarStore extends Component<TechnologyRadarStoreProps, TechnologyRadar & TechnologyRadarActions> implements TechnologyRadarActions {
+// tslint:disable-next-line:class-name
+export class _TechnologyRadarStore extends Component<TechnologyRadarStoreProps, TechnologyRadar & TechnologyRadarActions> implements TechnologyRadarActions {
 
   constructor(props: TechnologyRadarStoreProps) {
     super(props);
 
     this.state = {
-      ...defaultState,
+      ...defaultState(),
       ...props.initialState || {},
 
       createNew: this.createNew.bind(this),
@@ -143,3 +143,5 @@ export class TechnologyRadarStore extends Component<TechnologyRadarStoreProps, T
     }));
   }
 }
+
+export const TechnologyRadarStore = consume(ApplicationStateContext, { bindTo: 'applicationState' })(_TechnologyRadarStore);

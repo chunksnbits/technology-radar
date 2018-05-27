@@ -10,7 +10,6 @@ declare interface ApplicationState {
   selectedGroup?: Group;
 
   editMode?: boolean;
-
   editor?: boolean;
   owner?: boolean;
 }
