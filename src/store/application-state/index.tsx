@@ -24,12 +24,13 @@ export class ApplicationStateStore extends Component<ApplicationStateProps, Appl
 
     this.state = {
       ...defaultState,
-      ...props.initialState || {},
+      ...this.parseInitialState(props.initialState || {}),
       ...this.restoreState(),
 
       selectTechnology: this.selectTechnology.bind(this),
       selectGroup: this.selectGroup.bind(this),
       setEditMode: this.setEditMode.bind(this),
+      setOwner: this.setOwner.bind(this)
     };
   }
 
@@ -43,7 +44,7 @@ export class ApplicationStateStore extends Component<ApplicationStateProps, Appl
 
   // ----------------------------------------------------------------------------- Action methods
   selectTechnology(selected: Technology): void {
-    this.setState(produce(this.state, (draftState: ApplicationState) => {
+    this.setState(state => produce(state, (draftState: ApplicationState) => {
       draftState.selectedTechnology = selected;
 
       return draftState;
@@ -51,15 +52,23 @@ export class ApplicationStateStore extends Component<ApplicationStateProps, Appl
   }
 
   selectGroup(selected: Group): void {
-    this.setState(produce(this.state, (draftState: ApplicationState) => {
+    this.setState(state => produce(state, (draftState: ApplicationState) => {
       draftState.selectedGroup = selected;
 
       return draftState;
     }));
   }
 
+  setOwner(value: boolean): void {
+    this.setState(state => produce(state, (draftState: ApplicationState) => {
+      draftState.owner = value;
+
+      return draftState;
+    }));
+  }
+
   setEditMode(value: boolean): void {
-    this.setState(produce(this.state, (draftState: ApplicationState) => {
+    this.setState(state => produce(state, (draftState: ApplicationState) => {
       draftState.editMode = value;
 
       return draftState;
@@ -73,5 +82,10 @@ export class ApplicationStateStore extends Component<ApplicationStateProps, Appl
 
     return {};
   }
-}
 
+  private parseInitialState(state: ApplicationState): ApplicationState {
+    return Object.assign(state, {
+      logo: typeof state.logo === 'string' ? state.logo.replace('%PUBLIC_URL%', '') : state.logo
+    });
+  }
+}

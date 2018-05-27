@@ -1,71 +1,123 @@
 {
   "type": "object",
+  "required": [
+    "application",
+    "technologyRadar"
+  ],
+  "additionalProperties": {},
   "properties": {
-    "settings": {
+    "application": {
       "type": "object",
+      "required": [
+        "title",
+        "logo",
+        "editor"
+      ],
+      "additionalProperties": {},
       "properties": {
-        "innerRadiusPercent": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 50
+        "title": {
+          "type": "string"
         },
-        "outerRadiusPercent": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 50
+        "logo": {
+          "type": "string"
+        },
+        "editor": {
+          "type": "string"
         }
       }
     },
-    "groups": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "color": {
-            "type": "string"
+    "technologyRadar": {
+      "type": "object",
+      "required": [
+        "settings",
+        "groups",
+        "technologies"
+      ],
+      "additionalProperties": {},
+      "properties": {
+        "settings": {
+          "type": "object",
+          "additionalProperties": {},
+          "properties": {
+            "innerRadiusPercent": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 50,
+              "default": 10
+            },
+            "outerRadiusPercent": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 50,
+              "default": 50
+            }
           }
-        }
-      }
-    },
-    "technologies": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "level": {
-            "type": "number"
-          },
-          "groupId": {
-            "type": "string"
-          },
-          "logo": {
-            "type": "string"
-          },
-          "website": {
+        },
+        "groups": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
             "type": "object",
+            "required": [
+              "id",
+              "name",
+              "color"
+            ],
             "properties": {
+              "id": {
+                "type": "string"
+              },
               "name": {
                 "type": "string"
               },
-              "href": {
+              "color": {
                 "type": "string"
               }
             }
-          },
-          "description": {
-            "type": "string"
+          }
+        },
+        "technologies": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "name",
+              "groupId",
+              "level"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "level": {
+                "type": "number"
+              },
+              "groupId": {
+                "type": "string"
+              },
+              "logo": {
+                "type": "string"
+              },
+              "website": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "href": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": {
+                "type": "string"
+              }
+            }
           }
         }
       }

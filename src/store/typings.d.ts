@@ -1,12 +1,6 @@
 
-declare interface Store {
-  applicationState: ApplicationState;
-}
-
-declare interface TechnologyRadarSettings {
-  innerRadiusPercent: number;
-  outerRadiusPercent: number;
-}
+declare type ApplicationStateStore = ApplicationState & ApplicationStateActions;
+declare type TechnologyRadarStore = TechnologyRadar & TechnologyRadarActions;
 
 declare interface ApplicationState {
   title?: string;
@@ -16,16 +10,18 @@ declare interface ApplicationState {
   selectedGroup?: Group;
 
   editMode?: boolean;
+
+  editor?: boolean;
+  owner?: boolean;
 }
 
 declare interface ApplicationStateActions {
   selectTechnology: (selected: Technology) => void;
   selectGroup: (selected: Group) => void;
 
+  setOwner: (value: boolean) => void;
   setEditMode: (value: boolean) => void;
 }
-
-declare type ApplicationStateStore = ApplicationState & ApplicationStateActions;
 
 declare interface TechnologyRadar {
   technologies?: Technology[];
@@ -35,8 +31,15 @@ declare interface TechnologyRadar {
   settings?: TechnologyRadarSettings;
 }
 
+declare interface TechnologyRadarSettings {
+  innerRadiusPercent: number;
+  outerRadiusPercent: number;
+}
 
 declare interface TechnologyRadarActions {
+  createNew: () => void;
+  edit: () => void;
+
   addGroup: () => void;
   addTechnology: (group: Group) => void;
 
@@ -48,5 +51,3 @@ declare interface TechnologyRadarActions {
 
   clearAll: () => void;
 }
-
-declare type TechnologyRadarStore = TechnologyRadar & TechnologyRadarActions;

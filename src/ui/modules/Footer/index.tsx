@@ -3,7 +3,7 @@
 import { Component } from 'react';
 import * as React from 'react';
 
-import { ApplicationStateContext } from 'store';
+import { ApplicationStateContext, TechnologyRadarContext } from 'store';
 
 import { consume } from 'utils/store';
 import { classNames } from 'utils/dom';
@@ -16,36 +16,67 @@ import { Icon } from 'ui/components/Icon';
 export interface FooterProps {
   className?: string;
   applicationState?: ApplicationStateStore;
+  technologyRadar?: TechnologyRadarStore;
 }
 
 // ----------------------------------------------------------------------------- Implementation
 @consume(ApplicationStateContext, { bindTo: 'applicationState' })
+@consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
 export class Footer extends Component<FooterProps> {
 
   handlers: BoundHandlers = {};
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
+    console.log('+++ owner', this.props.applicationState.owner);
+
     return (
       <footer className={ classNames('c-footer', this.props.className) }>
-        <Button
-          variant='raised'
-          className='c-footer__action c-footer__action--edit-mode'
-          onClick={ this.bindEnableEditMode() }
-          color='inherit'>
-          { 'Create your own' }
-          <Icon name='add' className='c-footer__action-icon' />
-        </Button>
+        <div className='c-footer__actions'>{
+          this.props.applicationState.owner && (
+            <Button
+              variant='raised'
+              className='c-footer__action c-footer__action--edit'
+              onClick={ this.bindEdit() }
+              color='inherit'>
+              <span className='c-footer__action-label'>
+                <Icon name='edit' className='c-footer__action-icon' />
+                { 'Edit' }
+              </span>
+            </Button>
+          )
+        } {
+          this.props.applicationState.editor && (
+            <Button
+              variant='raised'
+              className='c-footer__action c-footer__action--create-new'
+              onClick={ this.bindCreateNew() }
+              color='inherit'>
+              <span className='c-footer__action-label'>
+                <Icon name='add' className='c-footer__action-icon' />
+                { 'Create your own' }
+              </span>
+            </Button>
+          )
+        }</div>
       </footer>
     );
   }
 
   // ----------------------------------------------------------------------------- Helpers methods
-  private bindEnableEditMode() {
-    if (!this.handlers.enableEdit) {
-      this.handlers.enableEdit = () => this.props.applicationState.setEditMode(true);
+  private bindCreateNew() {
+    if (!this.handlers.createNew) {
+      this.handlers.createNew = () => this.props.technologyRadar.createNew();
     }
 
-    return this.handlers.enableEdit as any;
+    return this.handlers.createNew as any;
+  }
+
+  private bindEdit() {
+    if (!this.handlers.edit) {
+      this.handlers.edit = () => this.props.technologyRadar.edit();
+    }
+
+    return this.handlers.edit as any;
   }
 }

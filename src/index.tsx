@@ -6,7 +6,9 @@ import { configure } from 'mobx';
 
 import { App } from 'ui/views/App';
 import registerServiceWorker from './registerServiceWorker';
-import technologyRadar from 'public/data.json';
+import applicationConfig from 'public/data.json';
+
+const { application: applicationState, technologyRadar } = applicationConfig;
 
 import { ApplicationStateStore, TechnologyRadarStore } from 'store';
 
@@ -19,7 +21,7 @@ configure({ enforceActions: true });
 
 // ----------------------------------------------------------------------------- Implementation
 ReactDOM.render((
-  <ApplicationStateStore>
+  <ApplicationStateStore initialState={ applicationState }>
     <TechnologyRadarStore initialState={{ ...technologyRadar, edited: false }}>
       <App />
     </TechnologyRadarStore>

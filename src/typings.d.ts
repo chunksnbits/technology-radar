@@ -16,10 +16,9 @@ declare interface Group {
   color?: string;
 }
 
-declare interface Data {
-  technologies: Technology[];
-  groups: Group[];
-  settings: TechnologyRadarSettings;
+declare interface ApplicationConfig {
+  application: ApplicationState;
+  technologyRadar: TechnologyRadar;
 }
 
 declare interface BoundHandlers {
@@ -37,6 +36,6 @@ declare module "*.scss" {
 }
 
 declare module "public/data.json" {
-  const value: Data;
+  const value: ApplicationConfig;
   export default value;
 }

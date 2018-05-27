@@ -30,6 +30,8 @@ export class TechnologyRadarStore extends Component<TechnologyRadarStoreProps, T
       ...defaultState,
       ...props.initialState || {},
 
+      createNew: this.createNew.bind(this),
+      edit: this.edit.bind(this),
       addGroup: this.addGroup.bind(this),
       addTechnology: this.addTechnology.bind(this),
       updateGroup: this.updateGroup.bind(this),
@@ -49,8 +51,23 @@ export class TechnologyRadarStore extends Component<TechnologyRadarStoreProps, T
   }
 
   // ----------------------------------------------------------------------------- Action methods
+  createNew(): void {
+    this.setState(state => produce(state, (draftState: TechnologyRadar) => {
+      const newState = defaultState();
+
+      this.props.applicationState.setOwner(true);
+      this.props.applicationState.setEditMode(true);
+
+      return newState;
+    }));
+  }
+
+  edit(): void {
+    this.props.applicationState.setEditMode(true);
+  }
+
   addGroup(): void {
-    this.setState(produce(this.state, (draftState: TechnologyRadar) => {
+    this.setState(state => produce(state, (draftState: TechnologyRadar) => {
       const group = defaultGroup(draftState.groups.length);
 
       draftState.groups.push(group);
@@ -63,7 +80,7 @@ export class TechnologyRadarStore extends Component<TechnologyRadarStoreProps, T
   }
 
   addTechnology(group: Group): void {
-    this.setState(produce(this.state, (draftState: TechnologyRadar) => {
+    this.setState(state => produce(state, (draftState: TechnologyRadar) => {
       const technology = defaultTechnology(group);
 
       draftState.technologies.push(technology);
@@ -76,7 +93,7 @@ export class TechnologyRadarStore extends Component<TechnologyRadarStoreProps, T
   }
 
   updateGroup(group: Group, key: string, value: any): void {
-    this.setState(produce(this.state, (draftState: TechnologyRadar) => {
+    this.setState(state => produce(state, (draftState: TechnologyRadar) => {
       draftState.groups = draftState.groups.map(acc => {
         return group.id === acc.id ? { ...group, [key]: value } : acc
       });
@@ -88,7 +105,7 @@ export class TechnologyRadarStore extends Component<TechnologyRadarStoreProps, T
   }
 
   updateTechnology(technology: Technology, key: string, value: any): void {
-    this.setState(produce(this.state, (draftState: TechnologyRadar) => {
+    this.setState(state => produce(state, (draftState: TechnologyRadar) => {
       draftState.technologies = draftState.technologies.map(acc => {
         return technology.id === acc.id ? { ...technology, [key]: value } : acc
       });
@@ -100,7 +117,7 @@ export class TechnologyRadarStore extends Component<TechnologyRadarStoreProps, T
   }
 
   removeGroup(group: Group): void {
-    this.setState(produce(this.state, (draftState: TechnologyRadar) => {
+    this.setState(state => produce(state, (draftState: TechnologyRadar) => {
       draftState.groups = draftState.groups.filter((acc) => acc.id !== group.id);
       draftState.technologies = draftState.technologies.filter((acc) => acc.groupId !== group.id);
 
@@ -109,7 +126,7 @@ export class TechnologyRadarStore extends Component<TechnologyRadarStoreProps, T
   }
 
   removeTechnology(technology: Technology): void {
-    this.setState(produce(this.state, (draftState: TechnologyRadar) => {
+    this.setState(state => produce(state, (draftState: TechnologyRadar) => {
       draftState.technologies = draftState.technologies.filter((acc) => acc.id !== technology.id);
 
       return draftState;
@@ -117,7 +134,7 @@ export class TechnologyRadarStore extends Component<TechnologyRadarStoreProps, T
   }
 
   clearAll(): void {
-    this.setState(produce(this.state, (draftState: TechnologyRadar) => {
+    this.setState(state => produce(state, (draftState: TechnologyRadar) => {
       draftState.technologies = [];
       draftState.groups = [];
       draftState.edited = true;
