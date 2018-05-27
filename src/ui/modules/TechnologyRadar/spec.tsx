@@ -1,15 +1,23 @@
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { TechnologyRadar } from './index';
+import { TechnologyRadarComponent as TechnologyRadar } from './index';
 import { TechnologyItem } from './components/TechnologyItem';
 import { Legend } from './components/Legend';
-import { mockTechnology, mockGroup, shallowWithApplicationState } from 'mocks';
+import { mockTechnology, mockGroup } from 'mocks';
+import { shallow } from 'enzyme';
 
+const renderWithState = (props: any = {}) => {
+  return shallow(
+    <TechnologyRadar
+      applicationState={ props.applicationState || {} }
+      technologyRadar={ props.technologyRadar || {} }/>
+  )
+}
 
 // ----------------------------------------------------------------------------- Implementation
 it('renders without crashing', () => {
-  const element = shallowWithApplicationState(<TechnologyRadar />, {
+  const element = renderWithState({
     technologyRadar: {
       technologies: [mockTechnology()],
       groups: [mockGroup()]
@@ -20,7 +28,7 @@ it('renders without crashing', () => {
 });
 
 it('renders legend', () => {
-  const element = shallowWithApplicationState(<TechnologyRadar />, {
+  const element = renderWithState({
     technologyRadar: {
       technologies: []
     }
@@ -30,7 +38,7 @@ it('renders legend', () => {
 });
 
 it('renders technology a single technology', () => {
-  const element = shallowWithApplicationState(<TechnologyRadar />, {
+  const element = renderWithState({
     technologyRadar: {
       technologies: [mockTechnology()],
       groups: [mockGroup()]
@@ -41,7 +49,7 @@ it('renders technology a single technology', () => {
 });
 
 it('renders technology a multiple technologoes', () => {
-  const element = shallowWithApplicationState(<TechnologyRadar />, {
+  const element = renderWithState({
     technologyRadar: {
       technologies: [mockTechnology(), mockTechnology({ id: 'other' })],
       groups: [mockGroup()]

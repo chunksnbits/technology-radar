@@ -1,7 +1,7 @@
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { shallow, render } from 'enzyme';
+import { shallow } from 'enzyme';
 import { Modal } from './index';
 
 // ----------------------------------------------------------------------------- Helpers methods
@@ -17,7 +17,7 @@ it('renders without crashing', () => {
 });
 
 it('renders closed if open prop is false', () => {
-  const element = render(
+  const element = shallow(
     <Modal open={ false } onClose={ handleClose } position='parent'>{/* { } */}</Modal>
   );
 
@@ -25,7 +25,7 @@ it('renders closed if open prop is false', () => {
 });
 
 it('renders opened if open prop is set', () => {
-  const element = render(
+  const element = shallow(
     <Modal open={ true } onClose={ handleClose } position='parent'>{/* { } */}</Modal>
   );
 
@@ -33,7 +33,7 @@ it('renders opened if open prop is set', () => {
 });
 
 it('renders modal children as content', () => {
-  const element = render(
+  const element = shallow(
     <Modal open={ true } onClose={ handleClose } position='parent'>Test</Modal>
   );
 
@@ -41,7 +41,7 @@ it('renders modal children as content', () => {
 });
 
 it('renders navigation', () => {
-  const element = render(
+  const element = shallow(
     <Modal open={ true } onClose={ handleClose } position='parent'>Test</Modal>
   );
 

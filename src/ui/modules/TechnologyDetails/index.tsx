@@ -1,11 +1,11 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import * as React from 'react';
 
 import { ApplicationStateContext, TechnologyRadarContext } from 'store';
 
-import { consume } from 'utils/store';
+import { consume, compose } from 'utils/store';
 import { classNames } from 'utils/dom';
 
 import './styles.scss';
@@ -18,15 +18,8 @@ export interface TechnologyDetailsProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-@consume(ApplicationStateContext, { bindTo: 'applicationState' })
-@consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
-export class TechnologyDetails extends Component<TechnologyDetailsProps> {
+export class TechnologyDetailsComponent extends PureComponent<TechnologyDetailsProps> {
   // ----------------------------------------------------------------------------- Lifecycle methods
-
-  shouldComponentUpdate(props: TechnologyDetailsProps) {
-    return true;
-  }
-
   render() {
     const { selectedTechnology } = this.props.applicationState;
     const { groups } = this.props.technologyRadar;
@@ -72,3 +65,8 @@ export class TechnologyDetails extends Component<TechnologyDetailsProps> {
     return groups.find(group => group.id === technology.groupId);
   }
 }
+
+export const TechnologyDetails = compose(
+  consume(ApplicationStateContext, { bindTo: 'applicationState' }),
+  consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
+)(TechnologyDetailsComponent);

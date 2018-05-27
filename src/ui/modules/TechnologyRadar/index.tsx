@@ -5,10 +5,8 @@ import * as React from 'react';
 
 import { ApplicationStateContext, TechnologyRadarContext } from 'store';
 
-import { consume } from 'utils/store';
+import { consume, compose } from 'utils/store';
 import { classNames } from 'utils/dom';
-
-import { Iterator } from 'ui/components/Iterator';
 
 import { TechnologyItem } from './components/TechnologyItem';
 import { Legend } from './components/Legend';
@@ -25,9 +23,7 @@ export interface TechnologyRadarProps {
 const BASE_TRANSFORM_ROTATE_DEGREES = -10;
 
 // ----------------------------------------------------------------------------- Implementation
-@consume(ApplicationStateContext, { bindTo: 'applicationState' })
-@consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
-export class TechnologyRadar extends Component<TechnologyRadarProps> {
+export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
   private handlers: BoundHandlers = {};
 
   // ----------------------------------------------------------------------------- Lifecycle methods
@@ -56,8 +52,8 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
               onSelectGroup={ selectGroup }/>
           </div>
 
-          <div className='c-technology-radar__technologies'>
-            <Iterator collection={ technologies }>{ (technology: Technology) =>
+          <div className='c-technology-radar__technologies'>{
+            technologies.map((technology) =>
               <TechnologyItem
                 key={ technology.id  }
                 className='c-technology-radar__item'
@@ -67,8 +63,7 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
                 groups={ groups }
                 settings={ settings }
                 onSelect={ this.bindSelectItem(selectTechnology) } />
-            }</Iterator>
-          </div>
+          )}</div>
         </div>
       </div>
     );
@@ -120,3 +115,8 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
     return groups.find(group => group.id === technology.groupId);
   }
 }
+
+export const TechnologyRadar = compose(
+  consume(ApplicationStateContext, { bindTo: 'applicationState' }),
+  consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
+)(TechnologyRadarComponent);
