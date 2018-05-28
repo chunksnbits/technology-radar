@@ -1,6 +1,7 @@
 import { cloneElement, ReactElement } from 'react';
 
 import { ShallowWrapper, mount, shallow, ReactWrapper } from 'enzyme';
+import { uuid } from 'utils/uuid';
 
 export const mockApplicationState = (patch = {}) => Object.assign({}, {
   title: 'Any',
@@ -11,28 +12,30 @@ export const mockApplicationState = (patch = {}) => Object.assign({}, {
     groups: [],
   },
   selectedTechnology: null
-}, patch) as any;
+}, patch) as ApplicationState;
 
 export const mockTechnology = (patch = {}) => Object.assign({}, {
-  id: 'any',
+  id: uuid(),
   name: 'Any',
+  groupId: null,
   level: 2,
   group: 3,
   logo: '//any.logo.svg',
-  description: []
-}, patch) as any;
+  description: null
+}, patch) as Technology;
 
 export const mockGroup = (patch = {}) => Object.assign({}, {
-  id: 'any',
+  id: uuid(),
   group: 0,
   name: 'Any',
-  color: 'red'
-}, patch) as any;
+  color: 'red',
+  description: null
+}, patch) as Group;
 
 export const mockSettings = (patch = {}) => Object.assign({}, {
-  innerRadius: 10,
-  outerRadius: 50
-}, patch) as any;
+  innerRadiusPercent: 10,
+  outerRadiusPercent: 50
+}, patch) as TechnologyRadarSettings;
 
 export const shallowWithApplicationState = (element: ReactElement<any>, applicationState: any = {}): ShallowWrapper<any, any> => {
   return shallow(cloneElement(element, { applicationState }));

@@ -40,7 +40,9 @@ export class TechnologyPanel extends Component<TechnologyPanelProps> {
         className={ classNames('c-technology-panel', this.props.className, ...modifiers) }>
 
         <ExpansionPanelHeader>
-          { this.props.technology.name }
+          <span className='c-technology-panel__title'>
+            { this.props.technology.name }
+          </span>
         </ExpansionPanelHeader>
 
         <ExpansionPanelBody>
@@ -50,7 +52,7 @@ export class TechnologyPanel extends Component<TechnologyPanelProps> {
                 type='text'
                 name='name'
                 fullWidth={ true }
-                value={ this.props.technology.name}
+                value={ this.props.technology.name || '' }
                 onChange={ this.propagateValueChange } />
             </FormGroup>
             <FormGroup label='Id'>
@@ -58,13 +60,13 @@ export class TechnologyPanel extends Component<TechnologyPanelProps> {
                 type='text'
                 name='id'
                 fullWidth={ true }
-                value={ this.props.technology.id}
+                value={ this.props.technology.id || '' }
                 onChange={ this.propagateValueChange }
                 disabled={ true } />
             </FormGroup>
             <FormGroup label='Group'>
               <Select
-                value={ this.props.technology.groupId }
+                value={ this.props.technology.groupId || '' }
                 onChange={ this.propagateGroupValueChange }
                 name='groupId'
                 fullWidth={ true }>
@@ -77,12 +79,20 @@ export class TechnologyPanel extends Component<TechnologyPanelProps> {
                 }
               </Select>
             </FormGroup>
-            <FormGroup label='Group'>
+            <FormGroup label='Level'>
               <TextField
                 type='number'
                 name='level'
                 fullWidth={ true }
-                value={ this.props.technology.level}
+                value={ this.props.technology.level || 0 }
+                onChange={ this.propagateValueChange } />
+            </FormGroup>
+            <FormGroup label='Logo'>
+              <TextField
+                type='text'
+                name='logo'
+                fullWidth={ true }
+                value={ this.props.technology.logo || '' }
                 onChange={ this.propagateValueChange } />
             </FormGroup>
             <FormGroup label='Description'>
@@ -93,17 +103,17 @@ export class TechnologyPanel extends Component<TechnologyPanelProps> {
                 multiline={ true }
                 rows='5'
                 rowsMax='8'
-                value={ this.props.technology.description}
+                value={ this.props.technology.description || '' }
                 onChange={ this.propagateValueChange } />
             </FormGroup>
           </form>
 
           <div className='c-technology-panel__actions'>
-              <Button onClick={ this.propagateConfirm } variant='flat'>
-                Ok
-              </Button>
+            <Button onClick={ this.propagateConfirm } variant='flat'>
+              Ok
+            </Button>
             <Button onClick={ this.propagateDelete } variant='flat'>
-              remove
+              Remove
             </Button>
           </div>
         </ExpansionPanelBody>
@@ -127,7 +137,7 @@ export class TechnologyPanel extends Component<TechnologyPanelProps> {
   }
 
   private propagateConfirm = () => {
-    this.props.onToggle(this.props.technology);
+    this.props.onConfirm(this.props.technology);
   }
 
   private propagateDelete = () => {

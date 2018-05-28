@@ -6,7 +6,7 @@ import * as React from 'react';
 import { classNames, canUseDOM } from 'utils/dom';
 
 import './styles.scss';
-import assetsPath from './icon.symbols.svg';
+import './icon.symbols.svg';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface IconProps {
@@ -25,7 +25,6 @@ export class Icon extends Component<IconProps> {
     }
 
     const node = document.createElement('img');
-    node.setAttribute('src', assetsPath);
     document.body.appendChild(node);
   }
 
@@ -40,7 +39,7 @@ export class Icon extends Component<IconProps> {
         }}
         preserveAspectRatio='xMidYMin'
         viewBox='0 0 24 24'>
-        <use xlinkHref={ `${assetsPath.replace(/^\//, '')}#${ this.props.name }` } />
+        <use xlinkHref={ `/assets/icon.symbols.svg#${ this.props.name }` } />
       </svg>
     );
   }

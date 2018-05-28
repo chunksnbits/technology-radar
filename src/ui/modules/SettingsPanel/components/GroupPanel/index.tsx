@@ -38,7 +38,7 @@ export class GroupPanel extends Component<GroupPanelProps> {
 
         <ExpansionPanelHeader>
           <span className='c-group-panel__group-indicator' style={{ backgroundColor: this.props.group.color }} />
-          <span>
+          <span className='c-group-panel__group-title'>
             { this.props.group.name }
           </span>
         </ExpansionPanelHeader>
@@ -50,7 +50,15 @@ export class GroupPanel extends Component<GroupPanelProps> {
                 type='text'
                 name='name'
                 fullWidth={ true }
-                value={ this.props.group.name}
+                value={ this.props.group.name || '' }
+                onChange={ this.propagateValueChange } />
+            </FormGroup>
+            <FormGroup label='Id'>
+              <TextField
+                type='text'
+                name='id'
+                fullWidth={ true }
+                value={ this.props.group.id || '' }
                 onChange={ this.propagateValueChange } />
             </FormGroup>
             <FormGroup label='Color'>
@@ -58,7 +66,7 @@ export class GroupPanel extends Component<GroupPanelProps> {
                 type='text'
                 name='color'
                 fullWidth={ true }
-                value={ this.props.group.color}
+                value={ this.props.group.color  || '' }
                 onChange={ this.propagateValueChange } />
             </FormGroup>
             <FormGroup label='Description'>
@@ -68,7 +76,7 @@ export class GroupPanel extends Component<GroupPanelProps> {
                 rows='5'
                 rowsMax='10'
                 fullWidth={ true }
-                value={ this.props.group.description}
+                value={ this.props.group.description || ''}
                 onChange={ this.propagateValueChange } />
             </FormGroup>
           </form>
@@ -77,7 +85,7 @@ export class GroupPanel extends Component<GroupPanelProps> {
               Ok
             </Button>
             <Button onClick={ this.propagateDelete } variant='flat'>
-              remove
+              Remove
             </Button>
           </div>
         </ExpansionPanelBody>
@@ -88,7 +96,6 @@ export class GroupPanel extends Component<GroupPanelProps> {
   // ----------------------------------------------------------------------------- Event handler methods
   private propagateValueChange = (event: any) => {
     const target = event.target as HTMLInputElement;
-
     this.props.onValueChange(this.props.group, target.name, target.value);
   }
 

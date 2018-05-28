@@ -27,8 +27,7 @@ export interface SettingsPanelState {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-@consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
-export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelState> {
+export class SettingsPanelComponent extends Component<SettingsPanelProps, SettingsPanelState> {
 
   constructor(props: SettingsPanelProps) {
     super(props);
@@ -82,33 +81,64 @@ export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelSt
   }
 
   // ----------------------------------------------------------------------------- Event handler methods
-  handleSetActiveTab = (_, tabName: string) => {
+  private handleSetActiveTab = (_, tabName: string) => {
     this.setState(() => ({
       activeTab: tabName
     }));
   }
 
-  handleToggleTechnology = (technology: Technology, active: boolean) =>  {
+  private handleToggleTechnology = (technology: Technology, active: boolean) =>  {
+    active = active || !this.isActiveTechnology(technology);
+
     this.setState({
       activeTechnology: active ? technology : null
     });
   }
 
-  handleConfirmTechnology = () =>  {
+  private handleConfirmTechnology = () =>  {
     this.setState({
       activeTechnology: null
     });
   }
 
-  handleToggleGroup = (group: Group, active: boolean) =>  {
+  private handleToggleGroup = (group: Group, active?: boolean) =>  {
+    active = active || !this.isActiveGroup(group);
+
     this.setState({
       activeGroup: active ? group : null
     });
   }
 
-  handleConfirmGroup = () =>  {
+  private handleConfirmGroup = () =>  {
     this.setState({
       activeGroup: null
     });
   }
+
+  // ----------------------------------------------------------------------------- Helpers methods
+  private isActiveGroup(group: Group): boolean {
+    if (Boolean(group) && !Boolean(this.state.activeGroup)) {
+      return false;
+    }
+
+    if (!Boolean(group)) {
+      return false;
+    }
+
+    return this.state.activeGroup.id === group.id;
+  }
+
+  private isActiveTechnology(technology: Technology): boolean {
+    if (Boolean(technology) && !Boolean(this.state.activeTechnology)) {
+      return false;
+    }
+
+    if (!Boolean(technology)) {
+      return false;
+    }
+
+    return this.state.activeTechnology.id === technology.id;
+  }
 }
+
+export const SettingsPanel = consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })(SettingsPanelComponent);

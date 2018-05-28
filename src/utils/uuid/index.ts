@@ -1,8 +1,10 @@
 
-function s4() {
-  return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+function random() {
+  // tslint:disable-next-line:no-bitwise
+  const randomNumber = (Math.random() * 46656) | 0;
+  return `000${randomNumber.toString(36)}`;
 }
 
 export function uuid() {
-  return `${s4()}${s4()} ${s4()} ${s4()} ${s4()} ${s4()}${s4()}${s4()}`;
+  return `${ random().slice(-3) }${ random().slice(-3) }`;
 }
