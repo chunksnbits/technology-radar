@@ -21,10 +21,6 @@ export interface TechnologyItemProps {
 // ----------------------------------------------------------------------------- Implementation
 export class TechnologyItem extends Component<TechnologyItemProps> {
 
-  propagateClick = () => {
-    this.props.onSelect(this.props.technology)
-  };
-
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
     const modifiers = [];
@@ -37,7 +33,7 @@ export class TechnologyItem extends Component<TechnologyItemProps> {
 
         <button
           className='c-technology-item__item'
-          onClick={ this.propagateClick }
+          onClick={ this.propagateOnSelect }
           style={{
             borderColor: group.color
           }
@@ -45,6 +41,11 @@ export class TechnologyItem extends Component<TechnologyItemProps> {
       </div>
     );
   }
+
+  // ----------------------------------------------------------------------------- Event handler methods
+  propagateOnSelect = () => {
+    this.props.onSelect(this.props.technology)
+  };
 
   // ----------------------------------------------------------------------------- Helpers methods
   private calculateTransforms(props: TechnologyItemProps): { transform: string, width: string} {

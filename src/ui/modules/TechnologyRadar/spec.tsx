@@ -48,7 +48,7 @@ it('renders technology a single technology', () => {
   expect(element.find(TechnologyItem).length).toBe(1);
 });
 
-it('renders technology a multiple technologoes', () => {
+it('renders technology a multiple technologies', () => {
   const element = renderWithState({
     technologyRadar: {
       technologies: [mockTechnology(), mockTechnology({ id: 'other' })],
