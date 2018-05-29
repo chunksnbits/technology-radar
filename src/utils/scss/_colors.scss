@@ -5,6 +5,7 @@ $g-color__background: map-get($g-theme, 'base');
 $g-color__background--inverse: map-get($g-theme, 'baseInverse');
 
 $g-color__border: map-get($g-theme, 'dividers');
+$g-color__border--inverse: invert($g-color__border);
 $g-color__border--light: lighten($g-color__border, 10);
 
 $g-color__primary: map-get($g-theme, 'primary');

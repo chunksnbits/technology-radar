@@ -1,11 +1,11 @@
 {
-  "primary": "rgba(255, 255, 255, 1.0)",
-  "primaryInverse": "rgba(0, 0, 0, 1.0)",
-  "secondary": "rgba(175, 175, 175, 1.0)",
-  "accent": "rgba(139, 218, 224, 1.0)",
-  "base": "rgba(2, 22, 12, 1.0)",
-  "baseInserse": "rgba(255, 255, 255, 1.0)",
-  "dividers": "#6d6d6d",
+  "primary": "rgba(255, 255, 255, 1)",
+  "primaryInverse": "rgba(0, 0, 0, 1)",
+  "secondary": "rgba(175, 175, 175, 1)",
+  "accent": "rgba(139, 218, 224, 1)",
+  "base": "rgba(2, 22, 12, 1)",
+  "baseInserse": "rgba(255, 255, 255, 1)",
+  "dividers": "rgba(77, 77, 77, 1)",
   "colors": [{
     "default": "#FC6C73",
     "lighter": "#FC6C73",
@@ -19,7 +19,7 @@
     "lighter": "#FFDE70",
     "lightest": "#FFDE70"
   }],
-  "success": "rgba(76, 175, 79, 1.0)",
-  "error": "rgba(211, 47, 48, 1.0)",
+  "success": "rgba(76, 175, 79, 1)",
+  "error": "rgba(211, 47, 48, 1)",
   "a11yfocus": "#9c27b0"
 }

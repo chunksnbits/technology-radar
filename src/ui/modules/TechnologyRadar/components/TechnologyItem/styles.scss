@@ -1,3 +1,4 @@
+@import '~utils/scss/colors';
 
 $c-technology-item__item--size: 2.5vmin;
 
@@ -15,7 +16,7 @@ $c-technology-item__item--size: 2.5vmin;
 
   pointer-events: none;
 
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid $g-color__border;
 }
 
 .c-technology-item__item {
@@ -31,7 +32,7 @@ $c-technology-item__item--size: 2.5vmin;
   margin: 0;
 
   border-radius: $c-technology-item__item--size;
-  border: 0.1vmin solid yellowgreen;
+  border: 0.1vmin solid inherit;
   outline: none;
   background: none;
 

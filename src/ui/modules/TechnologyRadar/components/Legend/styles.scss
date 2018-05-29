@@ -23,7 +23,7 @@
   left: 25%;
   width: 100%;
 
-  border-top: 3px solid darken($g-color__primary, 40);
+  border-top: 1px solid $g-color__primary;
 
   transform-origin: 0;
 
@@ -41,7 +41,7 @@
 }
 
 .c-legend__labels {
-  margin: -1.7vmin;
+  margin: -2.7vmin
 }
 
 .c-legend__labels-group {
