@@ -4,7 +4,7 @@ import * as React from 'react';
 import { TechnologyRadarComponent as TechnologyRadar } from './index';
 import { TechnologyItem } from './components/TechnologyItem';
 import { Legend } from './components/Legend';
-import { mockTechnology, mockGroup } from 'mocks';
+import { mockTechnology, mockGroup, mockSettings } from 'mocks';
 import { shallow } from 'enzyme';
 
 const renderWithState = (props: any = {}) => {
@@ -57,4 +57,18 @@ it('renders technology a multiple technologies', () => {
   });
 
   expect(element.find(TechnologyItem).length).toBe(2);
+});
+
+it('applies base rotation', () => {
+  const group = mockGroup();
+
+  const element = renderWithState({
+    technologyRadar: {
+      technologies: [mockTechnology({ groupId: group.id }), mockTechnology({ groupId: group.id })],
+      groups: [group],
+      settings: mockSettings()
+    }
+  });
+
+  expect(element.find('.c-technology-radar').render().css('transform')).toContain('rotateZ(-10deg)');
 });

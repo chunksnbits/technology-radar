@@ -2,7 +2,7 @@
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
 import { SettingsPanelComponent } from './index';
-import { mockTechnology, mockGroup, noop } from 'mocks';
+import { mockTechnology, mockGroup } from 'mocks';
 import { mount, shallow } from 'enzyme';
 import { Tab, TabHeader } from 'ui/components/Tabs';
 import { GroupPanel } from './components/GroupPanel';

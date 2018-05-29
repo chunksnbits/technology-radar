@@ -102,7 +102,7 @@ export class TechnologyItem extends Component<TechnologyItemProps> {
     //
     // Final rotation
     //
-    return groupRotationDegree + itemRotationDegree + 0.5 * itemBaseAngleDegree;
+    return (groupRotationDegree + itemRotationDegree + 0.5 * itemBaseAngleDegree) % 360;
   }
 
   private calculateItemTranslationPercent(transformProperties: ItemTransformProperties): number {

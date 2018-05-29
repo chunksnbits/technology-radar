@@ -1,7 +1,7 @@
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { shallow, render } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import { TechnologyItem } from './index';
 
@@ -21,7 +21,6 @@ const createWithProps = (props: any = {}) => {
 }
 
 const shallowWithProps = (props: any = {}) => shallow(createWithProps(props));
-const renderWithProps = (props: any = {}) => render(createWithProps(props));
 
 // ----------------------------------------------------------------------------- Implementation
 it('renders without crashing', () => {
@@ -30,9 +29,11 @@ it('renders without crashing', () => {
 });
 
 it('renders item in right color', () => {
+  const group = mockGroup({ id: 'test', color: 'red' });
   const element = shallowWithProps({
     technology: mockTechnology({ id: 'test' }),
-    groups: [mockGroup({ id: 'test', color: 'red' })]
+    groups: [group],
+    group
   });
 
   const button = element.find('.c-technology-item__item').render();
@@ -43,10 +44,13 @@ it('renders item in right color', () => {
 it('triggers onSelect on item click', () => {
   const technology = mockTechnology({ id: 'test' });
   const onSelect = jasmine.createSpy();
+  const group = mockGroup({ id: 'test', color: 'red' });
 
   const element = shallowWithProps({
     technology,
-    onSelect
+    onSelect,
+    groups: [group],
+    group
   });
 
   const button = element.find('button');
@@ -65,22 +69,22 @@ it('renders item in right position', () => {
   element = shallowWithProps({
     technology,
     technologies: [mockTechnology(), technology],
-    groups: [mockGroup(), group]
+    groups: [mockGroup(), group],
+    group
   });
 
   button = element.find('.c-technology-item').render();
-  // 2 groups, 1 element in group
-  expect(button.css('transform')).toEqual(`rotateZ(${ 360 / 2 / 2 }deg)`);
+  expect(button.css('transform')).toEqual(`rotateZ(90deg)`);
 
   element = shallowWithProps({
     technology,
     technologies: [technology,mockTechnology({ groupId: group.id }), mockTechnology({ groupId: group.id })],
-    groups: [mockGroup(), group, mockGroup()]
+    groups: [mockGroup(), group, mockGroup()],
+    group
   });
 
   button = element.find('.c-technology-item').render();
-  // 3 groups, 3 elements in group
-  expect(button.css('transform')).toEqual(`rotateZ(${ 360 / 3 / 4 }deg)`);
+  expect(button.css('transform')).toEqual(`rotateZ(270deg)`);
 });
 
 it('offsets items within same group', () => {
@@ -93,20 +97,54 @@ it('offsets items within same group', () => {
   const sample = shallowWithProps({
     technology: technologies[0],
     technologies,
-    groups: [mockGroup(), group]
+    groups: [mockGroup(), group],
+    group
   });
 
-  const neighbor = shallowWithProps({
+  const other = shallowWithProps({
     technology: technologies[1],
     technologies,
-    groups: [mockGroup(), group]
+    groups: [mockGroup(), group],
+    group
   });
 
   const buttons = [
     sample.find('.c-technology-item').render(),
-    neighbor.find('.c-technology-item').render()
+    other.find('.c-technology-item').render()
   ];
 
   // 2 groups, 1 element in group
   expect(buttons[0].css('width')).not.toEqual(buttons[1].css('width'))
+});
+
+it('offsets items to the right base position same group', () => {
+  const groups = [
+    mockGroup({ id: 'group-one' }),
+    mockGroup({ id: 'group-two' })
+  ];
+
+  const technologies = [
+    mockTechnology({ id: 'one', groupId: 'group-one' }),
+    mockTechnology({ id: 'two', groupId: 'group-two' })
+  ];
+
+  const sample = shallowWithProps({
+    technology: technologies[0],
+    technologies,
+    group: groups[0],
+    groups
+  });
+
+  const other = shallowWithProps({
+    technology: technologies[1],
+    technologies,
+    group: groups[1],
+    groups
+  });
+
+  expect(sample.render().css('transform')).toContain('rotateZ(270deg)');
+  expect(other.render().css('transform')).toContain('rotateZ(90deg)');
+
+  // 2 groups, 1 element in group
+  // expect(buttons[0].css('width')).not.toEqual(buttons[1].css('width'))
 });
