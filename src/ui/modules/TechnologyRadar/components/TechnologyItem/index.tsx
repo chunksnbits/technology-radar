@@ -96,7 +96,7 @@ export class TechnologyItem extends Component<TechnologyItemProps> {
     // Angle for each item in the item's level range within that group.
     const itemBaseAngleDegree = groupBaseAngleDegree / (count + 1);
     // Rotate to fit item into parent group.
-    const groupRotationDegree = groupBaseAngleDegree + groupIndex * groupBaseAngleDegree;
+    const groupRotationDegree = groupIndex * groupBaseAngleDegree;
     // Rotate item within group
     const itemRotationDegree = index * itemBaseAngleDegree + 0.5 * itemBaseAngleDegree;
     //

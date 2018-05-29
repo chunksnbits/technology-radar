@@ -19,7 +19,7 @@ export interface LegendProps {
 // SVG follows a different coordinate system.
 // Thus add some static adjustment to labels to match them up with rendered items.
 //
-const SVG_ROTATION_SOURCE_ADJUSTMENT_DEGREES = -90;
+const SVG_ROTATION_SOURCE_ADJUSTMENT_DEGREES = -180;
 
 // ----------------------------------------------------------------------------- Implementation
 export class Legend extends Component<LegendProps> {
@@ -43,12 +43,12 @@ export class Legend extends Component<LegendProps> {
               <path d={ 'M0,50a50,50 0 1,0 100,0a50,50 0 1,0 -100,0' } fill='none' />
             </defs>
 
-            <circle cx='50' cy='50' r='49.45' className='c-legend__labels-background' vectorEffect='non-scaling-stroke' />
+            <path d={ 'M0,50a50,50 0 1,0 100,0a50,50 0 1,0 -100,0' } id='c-legend__text-path' fill='none' />
 
-            <g className='c-legend__labels-group'
+            <g
+              className='c-legend__labels-group'
               style={{
-                transform: `rotateZ(${SVG_ROTATION_SOURCE_ADJUSTMENT_DEGREES}deg)`,
-                transformOrigin: 'center'
+                transform: `rotateZ(${ SVG_ROTATION_SOURCE_ADJUSTMENT_DEGREES + (360 / this.props.groups.length)  }deg)`
               }}>
               { this.renderLabels(this.props.groups) }
             </g>
