@@ -124,9 +124,10 @@ export class Legend extends Component<LegendProps> {
           key={ group.id }
           className='c-legend__group'
           style={{
-            transform: [
-              'translateX(25%)',
-              `rotateZ(${ index * baseAngleDegree }deg)`
+            transform: [,
+              'translate(-50%, -50%)',
+              `rotateZ(${ index * baseAngleDegree }deg)`,
+              'translateX(50%)'
             ].join(' ')
           }} />
       )
