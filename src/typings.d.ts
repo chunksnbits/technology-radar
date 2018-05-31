@@ -39,3 +39,15 @@ declare module "public/data.json" {
   const value: ApplicationConfig;
   export default value;
 }
+
+declare interface CssCoreStyle {
+  transform?: string;
+  transformOrigin?: string;
+  width?: string;
+  height?: string;
+  top?: string;
+  left?: string;
+  right?: string;
+  bottom?: string;
+  position?: string;
+}

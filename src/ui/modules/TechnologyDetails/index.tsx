@@ -9,6 +9,7 @@ import { consume, compose } from 'utils/store';
 import { classNames } from 'utils/dom';
 
 import './styles.scss';
+import { GlobalBackground } from 'ui/components/GlobalBackground';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyDetailsProps {
@@ -24,14 +25,28 @@ export class TechnologyDetailsComponent extends PureComponent<TechnologyDetailsP
     const { selectedTechnology } = this.props.applicationState;
     const { groups } = this.props.technologyRadar;
 
+    const active = Boolean(selectedTechnology);
+
     const modifiers = [
-      selectedTechnology && 'c-technology-details--active'
+      active && 'c-technology-details--active'
     ];
 
     const group = this.findGroupForTechnology(selectedTechnology, groups);
 
     return (
       <div className={ classNames('c-technology-details', this.props.className, ...modifiers) }>
+        {
+          active && Boolean(selectedTechnology.logo) &&
+          <GlobalBackground>
+            <svg className={ 'c-technology-details__logo' }
+              xmlns='http://www.w3.org/2000/svg'
+              preserveAspectRatio='xMidYMin'
+              viewBox='0 0 24 24'
+              fill={ group && group.color }>
+              <use xlinkHref={ `/assets/logo.symbols.svg#${ selectedTechnology.logo }` } />
+            </svg>
+          </GlobalBackground>
+        }
         <div className='c-technology-details__header'>
           <h3 className='c-technology-details__name'>
             { selectedTechnology && selectedTechnology.name }
@@ -40,11 +55,11 @@ export class TechnologyDetailsComponent extends PureComponent<TechnologyDetailsP
           <div className='c-technology-details__group'>
             <span className='c-technology-details__group-color'
               style={{
-                borderColor: group ? group.color : 'transparent'
+                borderColor: Boolean(group) ? group.color : 'transparent'
               }} />
 
             <span className='c-technology-details__group-name'>
-              { group ? group.name : null }
+              { Boolean(group) ? group.name : null }
             </span>
           </div>
         </div>

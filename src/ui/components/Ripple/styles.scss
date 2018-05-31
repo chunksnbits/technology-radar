@@ -1,0 +1,40 @@
+@import "~utils/scss/animation";
+@import "~utils/scss/colors";
+
+@keyframes ripple-effect {
+  0% {
+    transform: translate(50%, -50%) scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(50%, -50%) scale(2);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate(50%, -50%) scale(4.5);
+    opacity: 0;
+  }
+}
+
+.c-ripple  {
+  position: relative;
+}
+
+.c-ripple__ripple {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  border: 1px solid $g-color__primary;
+  width: 20px;
+  height: 20px;
+
+  border-radius: 20px;
+
+  opacity: 0;
+}
+
+.c-ripple--active .c-ripple__ripple {
+  @include animation--default(ripple-effect);
+}

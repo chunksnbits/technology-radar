@@ -41,6 +41,20 @@ it('renders item in right color', () => {
   expect(button.css('border-color')).toEqual('red');
 });
 
+it('does not crash if technology has not been assigned a grup', () => {
+  const element = shallowWithProps({
+    technology: mockTechnology({ id: 'test' }),
+    groups: [mockGroup],
+    group: null
+  });
+
+  // Must be set explictely, since shallowWithProps, will add default values.
+  element.setProps({ group: undefined });
+
+  expect(element.exists).toBeTruthy();
+  expect(element.find('.c-technology-item').length).toBe(0);
+});
+
 it('triggers onSelect on item click', () => {
   const technology = mockTechnology({ id: 'test' });
   const onSelect = jasmine.createSpy();

@@ -2,10 +2,12 @@
   "type": "object",
   "required": [
     "application",
-    "technologyRadar"
+    "technologyRadar",
+    "$schema"
   ],
-  "additionalProperties": {},
+  "additionalProperties": false,
   "properties": {
+    "$schema": "string",
     "application": {
       "type": "object",
       "required": [
@@ -13,7 +15,7 @@
         "logo",
         "editor"
       ],
-      "additionalProperties": {},
+      "additionalProperties": false,
       "properties": {
         "title": {
           "type": "string"
@@ -22,7 +24,7 @@
           "type": "string"
         },
         "editor": {
-          "type": "string"
+          "type": "boolean"
         }
       }
     },
@@ -30,15 +32,19 @@
       "type": "object",
       "required": [
         "settings",
+        "levels",
         "groups",
         "technologies"
       ],
-      "additionalProperties": {},
+      "additionalProperties": false,
       "properties": {
         "settings": {
           "type": "object",
-          "additionalProperties": {},
+          "additionalProperties": false,
           "properties": {
+            "editable": {
+              "type": "boolean"
+            },
             "innerRadiusPercent": {
               "type": "number",
               "minimum": 0,
@@ -50,6 +56,25 @@
               "minimum": 0,
               "maximum": 50,
               "default": 50
+            }
+          }
+        },
+        "levels": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "name"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
             }
           }
         },

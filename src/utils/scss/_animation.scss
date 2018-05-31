@@ -5,6 +5,10 @@ $g-transition__duration--default: 0.25s;
 $g-transition__timing--default: ease;
 $g-transition__delay--default: 0s;
 
+$g-animation__duration--default: 0.45s;
+$g-animation__timing--default: linear;
+$g-animation__delay--default: 0s;
+
 $g-transition__duration--faster: 0.1s;
 
 $transition-defaults: (
@@ -15,6 +19,15 @@ $transition-defaults: (
 
 $transition-defaults--faster: (
   duration: $g-transition__duration--faster
+);
+
+$animation-defaults: (
+  duration: $g-animation__duration--default,
+  timing: $g-animation__timing--default,
+  delay: $g-animation__delay--default,
+  iteration-count: 1,
+  direction: normal,
+  fill-mode: both
 );
 
 @function create-transition($name, $options: $transition-defaults) {
@@ -46,4 +59,16 @@ $transition-defaults--faster: (
   $merged: map-merge($transition-defaults--faster, $options);
 
   @include transition--default($names, $merged);
+}
+
+@mixin animation--default($name, $options: $animation-defaults) {
+  $merged: map-merge($animation-defaults, $options);
+
+  animation: $name
+    map-get($merged, duration)
+    map-get($merged, timing)
+    map-get($merged, delay)
+    map-get($merged, iteration-count)
+    map-get($merged, direction)
+    map-get($merged, fill-mode);
 }

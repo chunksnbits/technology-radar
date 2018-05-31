@@ -6,6 +6,7 @@ import * as React from 'react';
 import { classNames } from 'utils/dom';
 
 import './styles.scss';
+import { calculateMaxLevel } from '../utils/math/max-level';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface LegendProps {
@@ -96,7 +97,7 @@ export class Legend extends Component<LegendProps> {
   }
 
   private renderLevels(technologies: Technology[], settings: TechnologyRadarSettings): ReactNode {
-    const maxLevel = this.getMaxLevel(technologies);
+    const maxLevel = calculateMaxLevel(technologies);
     const step = 2 * (settings.outerRadiusPercent - settings.innerRadiusPercent) / maxLevel;
 
     return new Array(maxLevel).fill(null).map((_, index) => {
@@ -132,9 +133,5 @@ export class Legend extends Component<LegendProps> {
           }} />
       )
     });
-  }
-
-  private getMaxLevel(technologies: Technology[]): number {
-    return technologies.reduce((result, technology) => Math.max(result, technology.level), 0);
   }
 }

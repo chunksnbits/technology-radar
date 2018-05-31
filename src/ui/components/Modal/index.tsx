@@ -29,11 +29,11 @@ export class Modal extends PureComponent<ModalProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   componentDidUpdate() {
-    if (Boolean(this.props.open)) {
-      document.addEventListener('click', this.handleDocumentClick);
-    } else {
-      document.removeEventListener('click', this.handleDocumentClick);
-    }
+    // if (Boolean(this.props.open)) {
+    //   document.addEventListener('click', this.handleDocumentClick);
+    // } else {
+    //   document.removeEventListener('click', this.handleDocumentClick);
+    // }
   }
 
   render() {

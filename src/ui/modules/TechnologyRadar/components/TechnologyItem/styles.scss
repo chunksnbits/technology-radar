@@ -32,10 +32,48 @@ $c-technology-item__item--size: 2.5vmin;
   margin: 0;
 
   border-radius: $c-technology-item__item--size;
-  border: 0.1vmin solid inherit;
+  border: 0.1vmin solid transparent;
+  border-color: inherit;
   outline: none;
   background: none;
 
   cursor: pointer;
   pointer-events: all;
+}
+
+// .c-technology-item::before,
+// .c-technology-item::after,
+.c-technology-item__item::before,
+.c-technology-item__item::after {
+  content: '';
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: $c-technology-item__item--size;
+  opacity: 0;
+}
+
+.c-technology-item--focused .c-technology-item__item::before,
+.c-technology-item:hover .c-technology-item__item::before {
+  opacity: 1;
+  z-index: 2;
+}
+
+.c-technology-item--focused .c-technology-item__item::before,
+.c-technology-item:hover .c-technology-item__item::before {
+  border-top: 0.1vmin solid $g-color__white;
+}
+
+.c-technology-item--focused .c-technology-item__item::after,
+.c-technology-item:hover .c-technology-item__item::after {
+  filter: blur(1px);
+  border: 0.15vmin solid transparent;
+  border-color: inherit;
+  opacity: 1;
 }

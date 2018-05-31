@@ -6,11 +6,14 @@ import * as React from 'react';
 import { classNames } from 'utils/dom';
 
 import './styles.scss';
+import { calculateMaxLevel } from '../utils/math/max-level';
+import { Ripple } from 'ui/components/Ripple';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyItemProps {
   className?: string;
   technology: Technology;
+  selectedTechnology?: Technology;
   group: Group;
   technologies: Technology[];
   groups: Group[];
@@ -23,21 +26,30 @@ export class TechnologyItem extends Component<TechnologyItemProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const modifiers = [];
-    const { group } = this.props;
+    const { group, selectedTechnology, technology } = this.props;
+
+    if (!Boolean(group)) {
+      return null;
+    }
+
+    const modifiers = [
+      selectedTechnology && selectedTechnology.id === technology.id && 'c-technology-item--focused'
+    ];
 
     return (
       <div
         className={ classNames('c-technology-item', this.props.className, ...modifiers) }
-        style={ this.calculateTransforms(this.props) }>
-
-        <button
-          className='c-technology-item__item'
-          onClick={ this.propagateOnSelect }
-          style={{
-            borderColor: group.color
-          }
-        } />
+        style={ this.calculateTransforms(this.props) }
+        custom-attribute={ [technology.name, selectedTechnology && selectedTechnology.name].join(', ') }>
+        <Ripple position='relative'>
+          <button
+            className='c-technology-item__item'
+            onClick={ this.propagateOnSelect }
+            style={{
+              borderColor: group.color
+            }
+          } />
+        </Ripple>
       </div>
     );
   }
@@ -49,6 +61,10 @@ export class TechnologyItem extends Component<TechnologyItemProps> {
 
   // ----------------------------------------------------------------------------- Helpers methods
   private calculateTransforms(props: TechnologyItemProps): { transform: string, width: string} {
+    if (typeof props.technology.groupId !== 'string') {
+      return null
+    }
+
     const { technology, technologies, groups, group, settings } = props;
     const { innerRadiusPercent, outerRadiusPercent } = settings;
 
@@ -62,9 +78,6 @@ export class TechnologyItem extends Component<TechnologyItemProps> {
     const count = this.calculateNumberOfItemsForLevelAndGroup(technologies, technology);
     const index = this.calculateIndexForLevelAndGroup(technologies, technology);
 
-    // The highest level set in the dataset
-    const maxLevel = this.getMaxLevel(technologies);
-
     const rotationDegrees = this.calculateItemRotationDegrees({
       groupIndex,
       groupSize: groups.length,
@@ -76,7 +89,7 @@ export class TechnologyItem extends Component<TechnologyItemProps> {
       index,
       count,
       level: technology.level,
-      maxLevel,
+      maxLevel: calculateMaxLevel(technologies),
       innerRadiusPercent,
       outerRadiusPercent
     });
@@ -136,9 +149,5 @@ export class TechnologyItem extends Component<TechnologyItemProps> {
   private calculateIndexForLevelAndGroup(technologies: Technology[], technology: Technology): number  {
     const grouped = technologies.filter(acc => acc.groupId === technology.groupId && acc.level === technology.level);
     return grouped.findIndex(acc => acc.id === technology.id);
-  }
-
-  private getMaxLevel(technologies: Technology[]): number {
-    return technologies.reduce((result, technology) => Math.max(result, technology.level), 0);
   }
 }
