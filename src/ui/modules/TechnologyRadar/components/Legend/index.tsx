@@ -6,7 +6,7 @@ import * as React from 'react';
 import { classNames } from 'utils/dom';
 
 import './styles.scss';
-import { calculateMaxLevel } from '../utils/math/max-level';
+import { calculateMaxLevel } from '../utils/math';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface LegendProps {

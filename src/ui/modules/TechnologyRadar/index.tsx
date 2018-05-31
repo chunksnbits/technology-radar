@@ -12,8 +12,7 @@ import { TechnologyItem } from './components/TechnologyItem';
 import { Legend } from './components/Legend';
 
 import './styles.scss';
-import { degreesToRadians, randomNumber } from 'utils/math';
-import { calculateMaxLevel } from './components/utils/math/max-level';
+import { calculateTechnologyRotationDegrees, calculateItemOffsetPercent, calculateGroupRotationDegrees } from './components/utils/math';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyRadarProps {
@@ -26,7 +25,6 @@ const BASE_TRANSFORM_ROTATE_DEGREES = -10;
 
 // ----------------------------------------------------------------------------- Implementation
 export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
-  private handlers: BoundHandlers = {};
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   componentDidUpdate() {
@@ -36,15 +34,16 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
       return document.body.addEventListener('click', this.handleDeselectGroup);
     }
 
-    document.body.removeEventListener('click', this.handleDeselectGroup);  }
+    document.body.removeEventListener('click', this.handleDeselectGroup);
+  }
 
   render() {
-    const { selectedGroup, selectedTechnology, selectTechnology, selectGroup } = this.props.applicationState;
+    const { selectGroup } = this.props.applicationState;
     const { groups, technologies, settings } = this.props.technologyRadar;
 
     return (
       <div className={ classNames('c-technology-radar', this.props.className) }
-        style={ this.calculateTransforms(selectedTechnology, selectedGroup, groups) }>
+        style={ this.calculateTransforms() }>
         <div className='c-technology-radar__content'>
           <div className='c-technology-radar__legend'>
             <Legend
@@ -59,13 +58,7 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
               <TechnologyItem
                 key={ technology.id  }
                 className='c-technology-radar__item'
-                technology={ technology }
-                selectedTechnology={ selectedTechnology }
-                group={ this.findGroupForTechnology(technology, groups) }
-                technologies={ technologies }
-                groups={ groups }
-                settings={ settings }
-                onSelect={ this.bindSelectItem(selectTechnology) } />
+                technology={ technology } />
           )}</div>
         </div>
       </div>
@@ -78,23 +71,15 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
     this.props.applicationState.selectGroup(null);
   }
 
-  private bindSelectItem(selectTechnology: Function): Function {
-    if (!this.handlers.selectItem) {
-      this.handlers.selectItem = (selected: Technology): void => {
-        selectTechnology(selected);
-      }
-    }
-
-    return this.handlers.selectItem;
-  }
-
   // ----------------------------------------------------------------------------- Helpers methods
-  private calculateTransforms(selectedTechnology: Technology, selectedGroup: Group, groups: Group[]): CSSProperties{
+  private calculateTransforms(): CSSProperties{
+    const { selectedTechnology, selectedGroup } = this.props.applicationState;
+
     if (Boolean(selectedTechnology)) {
-      return this.focusTechnology(selectedTechnology, groups);
+      return this.calculateFocusedTranfsformForSelectedTechnology();
     }
     if (Boolean(selectedGroup)) {
-      return this.focusOnGroup(selectedGroup, groups);
+      return this.calculateFocusedTranfsformForSelectedGroup();
     }
 
     return {
@@ -105,50 +90,39 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
     };
   }
 
-  private focusTechnology(selectedTechnology: Technology, groups: Group[]): CSSProperties{
-    const { innerRadiusPercent, outerRadiusPercent } = this.props.technologyRadar.settings;
+  private calculateFocusedTranfsformForSelectedTechnology(): CSSProperties{
+    const { selectedTechnology } = this.props.applicationState;
 
-    const index = groups.findIndex(acc => acc.id === selectedTechnology.groupId) - 1;
-    const baseAngleRadians = 360 / groups.length;
-    const angleRadians = degreesToRadians(index * baseAngleRadians);
-    const maxLevel = calculateMaxLevel(this.props.technologyRadar.technologies);
-    const level = selectedTechnology.level / maxLevel;
-    const offsetPercent = innerRadiusPercent / 50 * 100;
-    const levelPercent = offsetPercent + outerRadiusPercent - level * outerRadiusPercent;
+    const itemRotationDegrees = calculateTechnologyRotationDegrees(selectedTechnology, this.props.technologyRadar);
+    const itemOffsetPercent = calculateItemOffsetPercent(selectedTechnology, this.props.technologyRadar);
 
-    const x = Math.cos(angleRadians) * levelPercent;
-    const y = Math.sin(angleRadians) * levelPercent;
+    const rotationDegrees = 180 + 360 - itemRotationDegrees;
 
     return {
       transform: [
         'scale(4.5)',
-        `rotateZ(${ randomNumber(0, -2) * BASE_TRANSFORM_ROTATE_DEGREES }deg)`,
-        `translate(${ x }%, ${ y }%)`,
-      ].join(' '),
-      transformOrigin: `${ x }%, ${ y }%`
+        `translateX(${ itemOffsetPercent * 0.9 }%)`,
+        `rotateZ(${ rotationDegrees }deg)`,
+      ].join(' ')
     }
   }
 
-  private focusOnGroup(selectedGroup: Group, groups: Group[]): CSSProperties{
-    const index = groups.findIndex(acc => acc.id === selectedGroup.id) - 1;
-    const baseAngleRadians = 360 / groups.length;
-    const angleRadians = degreesToRadians(index * baseAngleRadians);
+  private calculateFocusedTranfsformForSelectedGroup(): CSSProperties{
+    const { selectedGroup } = this.props.applicationState;
+    const { groups } = this.props.technologyRadar;
 
-    const x = Math.cos(angleRadians) * 66;
-    const y = Math.sin(angleRadians) * 66;
+    const groupBaseRotationDegrees = 360 / groups.length;
+    const groupRotationDegrees = calculateGroupRotationDegrees(selectedGroup, this.props.technologyRadar);
+
+    const rotationDegrees = 180 + 360 - (groupRotationDegrees + 0.5 * groupBaseRotationDegrees);
 
     return {
       transform: [
-        `translate(${ x }%, ${ y }%)`,
-        // `rotateZ(${ BASE_TRANSFORM_ROTATE_DEGREES }deg)`,
-        'scale(2.5)'
-      ].join(' '),
-      transformOrigin: `${ x }%, ${ y }%`
+        'scale(2)',
+        `translateX(25%)`,
+        `rotateZ(${ rotationDegrees }deg)`,
+      ].join(' ')
     }
-  }
-
-  private findGroupForTechnology(technology: Technology, groups: Group[]): Group {
-    return groups.find(group => group.id === technology.groupId);
   }
 }
 
