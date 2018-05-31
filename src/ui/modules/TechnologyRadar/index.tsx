@@ -9,10 +9,12 @@ import { consume, compose } from 'utils/store';
 import { classNames } from 'utils/dom';
 
 import { TechnologyItem } from './components/TechnologyItem';
-import { Legend } from './components/Legend';
 
 import './styles.scss';
 import { calculateTechnologyRotationDegrees, calculateItemOffsetPercent, calculateGroupRotationDegrees } from './components/utils/math';
+import { LegendGroupLabels } from './components/LegendGroupLabels';
+import { LegendGroupSeparators } from './components/LegendGroupSeparators';
+import { LegendLevels } from './components/LegendLevels';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyRadarProps {
@@ -38,19 +40,16 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
   }
 
   render() {
-    const { selectGroup } = this.props.applicationState;
-    const { groups, technologies, settings } = this.props.technologyRadar;
+    const { technologies } = this.props.technologyRadar;
 
     return (
       <div className={ classNames('c-technology-radar', this.props.className) }
-        style={ this.calculateTransforms() }>
+        style={ this.calculateFocusTransforms() }>
         <div className='c-technology-radar__content'>
           <div className='c-technology-radar__legend'>
-            <Legend
-              technologies={ technologies }
-              groups={ groups }
-              settings={ settings }
-              onSelectGroup={ selectGroup }/>
+            <LegendGroupLabels />
+            <LegendGroupSeparators />
+            <LegendLevels />
           </div>
 
           <div className='c-technology-radar__technologies'>{
@@ -72,7 +71,7 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
   }
 
   // ----------------------------------------------------------------------------- Helpers methods
-  private calculateTransforms(): CSSProperties{
+  private calculateFocusTransforms(): CSSProperties{
     const { selectedTechnology, selectedGroup } = this.props.applicationState;
 
     if (Boolean(selectedTechnology)) {

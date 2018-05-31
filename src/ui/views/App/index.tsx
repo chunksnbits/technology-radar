@@ -26,7 +26,7 @@ export interface AppProps {
 // tslint:disable-next-line:class-name
 export class AppComponent extends React.Component<AppProps> {
 
-  private handlers: BoundHandlers = {};
+  private handlers: BoundHandlers<any> = {};
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {

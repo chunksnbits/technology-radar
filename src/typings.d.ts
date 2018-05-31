@@ -21,7 +21,7 @@ declare interface ApplicationConfig {
   technologyRadar: TechnologyRadar;
 }
 
-declare interface BoundHandlers {
+declare interface BoundHandlers<T> {
   [key: string]: Function;
 }
 

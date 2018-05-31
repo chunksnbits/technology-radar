@@ -13,6 +13,7 @@
     "jsx-no-lambda": false,
     "object-literal-sort-keys": false,
     "quotemark": [true, "single"],
-    "ban-types": false
+    "ban-types": false,
+    "no-use-before-declare": false
   }
 }

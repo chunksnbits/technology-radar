@@ -28,6 +28,10 @@ export class TechnologyItemComponent extends Component<TechnologyItemProps> {
     const { selectedTechnology } = applicationState;
     const { groups } = technologyRadar;
 
+    if (!Boolean(groups)) {
+      return null;
+    }
+
     const group = findGroupForTechnology(groups, technology);
 
     if (!Boolean(group)) {

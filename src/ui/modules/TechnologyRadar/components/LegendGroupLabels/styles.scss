@@ -1,0 +1,34 @@
+@import '~ui/components/Styles/colors';
+@import '~ui/components/Styles/typo';
+
+.c-legend-group-labels {
+  margin: -2.7vmin
+}
+
+.c-legend-group-labels__background {
+  fill: none;
+  stroke: none;
+}
+
+.c-legend-group-labels__group {
+  transform-origin: center;
+}
+
+.c-legend-group-labels__element {
+  overflow: visible;
+}
+
+.c-legend-group-labels__label {
+  @include typo-default;
+
+  font-size: rem-size(1.8);
+  fill: $g-color__primary;
+  font-weight: lighter;
+  text-anchor:middle;
+  transform-origin: center;
+  overflow: visible;
+
+  pointer-events: all;
+
+  cursor: pointer;
+}

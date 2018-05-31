@@ -1,13 +1,18 @@
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { TechnologyRadarComponent as TechnologyRadar } from './index';
-import { TechnologyItem } from './components/TechnologyItem';
-import { Legend } from './components/Legend';
-import { mockTechnology, mockGroup, mockSettings } from 'mocks';
 import { shallow } from 'enzyme';
 
-const renderWithState = (props: any = {}) => {
+import { mockTechnology, mockGroup, mockSettings } from 'mocks';
+
+import { LegendGroupLabels } from './components/LegendGroupLabels';
+import { TechnologyItem } from './components/TechnologyItem';
+import { LegendLevels } from './components/LegendLevels';
+import { LegendGroupSeparators } from './components/LegendGroupSeparators';
+
+import { TechnologyRadarComponent as TechnologyRadar } from './index';
+
+const shallowWithState = (props: any = {}) => {
   return shallow(
     <TechnologyRadar
       applicationState={ props.applicationState || {} }
@@ -17,7 +22,7 @@ const renderWithState = (props: any = {}) => {
 
 // ----------------------------------------------------------------------------- Implementation
 it('renders without crashing', () => {
-  const element = renderWithState({
+  const element = shallowWithState({
     technologyRadar: {
       technologies: [mockTechnology()],
       groups: [mockGroup()]
@@ -28,17 +33,19 @@ it('renders without crashing', () => {
 });
 
 it('renders legend', () => {
-  const element = renderWithState({
+  const element = shallowWithState({
     technologyRadar: {
       technologies: []
     }
   });
 
-  expect(element.find(Legend).length).toBe(1);
+  expect(element.find(LegendGroupLabels).length).toBe(1);
+  expect(element.find(LegendLevels).length).toBe(1);
+  expect(element.find(LegendGroupSeparators).length).toBe(1);
 });
 
 it('renders technology a single technology', () => {
-  const element = renderWithState({
+  const element = shallowWithState({
     technologyRadar: {
       technologies: [mockTechnology()],
       groups: [mockGroup()]
@@ -49,7 +56,7 @@ it('renders technology a single technology', () => {
 });
 
 it('renders technology a multiple technologies', () => {
-  const element = renderWithState({
+  const element = shallowWithState({
     technologyRadar: {
       technologies: [mockTechnology(), mockTechnology({ id: 'other' })],
       groups: [mockGroup()]
@@ -62,7 +69,7 @@ it('renders technology a multiple technologies', () => {
 it('applies base rotation', () => {
   const group = mockGroup();
 
-  const element = renderWithState({
+  const element = shallowWithState({
     technologyRadar: {
       technologies: [mockTechnology({ groupId: group.id }), mockTechnology({ groupId: group.id })],
       groups: [group],

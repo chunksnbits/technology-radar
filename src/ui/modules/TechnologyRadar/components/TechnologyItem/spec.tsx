@@ -3,20 +3,36 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { TechnologyItem } from './index';
+import { TechnologyItemComponent as TechnologyItem } from './index';
 
-import { mockTechnology, mockGroup, mockSettings, noop } from 'mocks';
+import {
+  mockTechnology,
+  mockGroup,
+  mockSettings,
+  noop,
+  mockTechnologyRadarStore,
+  mockApplicationStateStore
+} from 'mocks';
 
 // ----------------------------------------------------------------------------- Configuration
 const createWithProps = (props: any = {}) => {
   return (
     <TechnologyItem
-      technology={ props.technology || mockTechnology() }
-      group={ props.group || mockGroup() }
-      technologies={ props.technologies || [mockTechnology()] }
-      groups={ props.groups || [mockGroup()] }
-      settings={ props.settings || mockSettings() }
-      onSelect={ props.onSelect || noop } />
+      technologyRadar={
+        mockTechnologyRadarStore({
+          technologies: props.technologies || [mockTechnology()],
+          groups: props.groups || [mockGroup()],
+          settings: props.settings || mockSettings(),
+          onSelect: props.onSelect || noop,
+        })
+      }
+      applicationState={
+        mockApplicationStateStore({
+          selectedTechnology: props.selectedTechnology || mockTechnology(),
+          selectTechnology: props.selectTechnology || noop
+        })
+      }
+      technology={ props.technology || mockTechnology() } />
   );
 }
 
@@ -31,7 +47,7 @@ it('renders without crashing', () => {
 it('renders item in right color', () => {
   const group = mockGroup({ id: 'test', color: 'red' });
   const element = shallowWithProps({
-    technology: mockTechnology({ id: 'test' }),
+    technology: mockTechnology({ id: 'test', groupId: group.id }),
     groups: [group],
     group
   });
@@ -43,34 +59,28 @@ it('renders item in right color', () => {
 
 it('does not crash if technology has not been assigned a grup', () => {
   const element = shallowWithProps({
-    technology: mockTechnology({ id: 'test' }),
-    groups: [mockGroup],
-    group: null
+    technology: mockTechnology({ id: 'test', groupId: undefined })
   });
-
-  // Must be set explictely, since shallowWithProps, will add default values.
-  element.setProps({ group: undefined });
 
   expect(element.exists).toBeTruthy();
   expect(element.find('.c-technology-item').length).toBe(0);
 });
 
-it('triggers onSelect on item click', () => {
-  const technology = mockTechnology({ id: 'test' });
-  const onSelect = jasmine.createSpy();
+it('triggers selectTechnology on item click', () => {
   const group = mockGroup({ id: 'test', color: 'red' });
+  const selectTechnology = jasmine.createSpy();
+  const technology = mockTechnology({ id: 'test', groupId: group.id });
 
   const element = shallowWithProps({
     technology,
-    onSelect,
-    groups: [group],
-    group
+    selectTechnology,
+    groups: [group]
   });
 
   const button = element.find('button');
   button.simulate('click');
 
-  expect(onSelect).toHaveBeenCalledWith(technology);
+  expect(selectTechnology).toHaveBeenCalledWith(technology);
 });
 
 it('renders item in right position', () => {
@@ -145,14 +155,12 @@ it('offsets items to the right base position same group', () => {
   const sample = shallowWithProps({
     technology: technologies[0],
     technologies,
-    group: groups[0],
     groups
   });
 
   const other = shallowWithProps({
     technology: technologies[1],
     technologies,
-    group: groups[1],
     groups
   });
 

@@ -2,6 +2,7 @@ import { cloneElement, ReactElement } from 'react';
 
 import { ShallowWrapper, mount, shallow, ReactWrapper } from 'enzyme';
 import { uuid } from 'utils/uuid';
+import { noop } from './generic.mock';
 
 export const mockApplicationState = (patch = {}) => Object.assign({}, {
   title: 'Any',
@@ -10,9 +11,45 @@ export const mockApplicationState = (patch = {}) => Object.assign({}, {
   data: {
     technologies: [],
     groups: [],
-  },
-  selectedTechnology: null
+  }
 }, patch) as ApplicationState;
+
+export const mockApplicationStateStore = (patch = {}) => Object.assign({}, {
+  selectedTechnology: null,
+  selectTechnology: noop,
+  selectGroup: noop,
+
+  setOwner: noop,
+  setEditMode: noop,
+
+  ...mockApplicationState(patch),
+}, patch) as ApplicationStateStore;
+
+export const mockTechnologyRadar = (patch = {}) => Object.assign({}, {
+  technologies: [mockTechnology()],
+  groups: [mockGroup()],
+
+  edited: false,
+  settings: mockSettings(),
+}, patch) as TechnologyRadar;
+
+export const mockTechnologyRadarStore = (patch = {}) => Object.assign({}, {
+  createNew: noop,
+  edit: noop,
+
+  addGroup: noop,
+  addTechnology: noop,
+
+  updateGroup: noop,
+  updateTechnology: noop,
+
+  removeGroup: noop,
+  removeTechnology: noop,
+
+  clearAll: noop,
+
+  ...mockTechnologyRadar(patch),
+}, patch) as TechnologyRadarStore;
 
 export const mockTechnology = (patch = {}) => Object.assign({}, {
   id: uuid(),

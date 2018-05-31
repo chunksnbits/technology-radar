@@ -23,7 +23,7 @@ export interface FooterProps {
 // tslint:disable-next-line:class-name
 export class FooterComponent extends Component<FooterProps> {
 
-  handlers: BoundHandlers = {};
+  handlers: BoundHandlers<any> = {};
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
