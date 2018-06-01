@@ -3,19 +3,17 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { mockTechnology, mockTechnologyRadarStore } from 'mocks';
+import { mockTechnology } from 'mocks';
 
-import { LegendLevelsComponent as LegendLevels } from './index';
+import { LegendLevels } from './index';
 
 // ----------------------------------------------------------------------------- Implementation
 it('renders element', () => {
   const element = shallow(
     <LegendLevels
-      technologyRadar={
-        mockTechnologyRadarStore({
-          technologies: [mockTechnology(), mockTechnology({ level: 2 })]
-        })
-      } />
+      technologies={ [mockTechnology(), mockTechnology({ level: 2 })] }
+      innerRadiusPercent={ 10 }
+      outerRadiusPercent={ 50 } />
   );
 
   expect(element.exists()).toBeTruthy();
@@ -25,11 +23,9 @@ it('renders element', () => {
 it('renders levels', () => {
   const element = shallow(
     <LegendLevels
-      technologyRadar={
-        mockTechnologyRadarStore({
-          technologies: [mockTechnology(), mockTechnology({ level: 2 })]
-        })
-      } />
+      technologies={ [mockTechnology(), mockTechnology({ level: 2 })] }
+      innerRadiusPercent={ 10 }
+      outerRadiusPercent={ 50 } />
   );
 
   expect(element.find('.c-legend-levels__level').length).toBe(2);

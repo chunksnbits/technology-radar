@@ -22,7 +22,6 @@ export class TechnologyDetailsNavigation extends PureComponent<TechnologyDetails
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-
     const modifiers = [];
 
     if (!this.props.selectedTechnology) {

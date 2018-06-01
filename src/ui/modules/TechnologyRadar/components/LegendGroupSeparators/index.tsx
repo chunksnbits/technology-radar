@@ -1,29 +1,27 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import * as React from 'react';
 
-import { TechnologyRadarContext } from 'store';
-
 import { classNames } from 'utils/dom';
-import { consume, compose } from 'utils/store';
 
 import './styles.scss';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface LegendGroupSeparatorsProps {
   className?: string;
-  technologyRadar?: TechnologyRadarStore;
+  groups?: Group[];
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class LegendGroupSeparatorsComponent extends Component<LegendGroupSeparatorsProps> {
+export class LegendGroupSeparators extends PureComponent<LegendGroupSeparatorsProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
     const modifiers = [];
 
-    const { groups } = this.props.technologyRadar;
+    const { groups } = this.props;
+
 
     if (!Boolean(groups)) {
       return null;
@@ -49,7 +47,3 @@ export class LegendGroupSeparatorsComponent extends Component<LegendGroupSeparat
     );
   }
 }
-
-export const LegendGroupSeparators = compose(
-  consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
-)(LegendGroupSeparatorsComponent);

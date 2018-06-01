@@ -30,7 +30,8 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const { technologies } = this.props.technologyRadar;
+    const { groups, technologies, settings } = this.props.technologyRadar;
+    const { selectedTechnology } = this.props.applicationState;
 
     return (
       <div className={ classNames('c-technology-radar', this.props.className) }
@@ -38,9 +39,17 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
         onClick={ this.handleDeselect }>
         <div className='c-technology-radar__content'>
           <div className='c-technology-radar__legend'>
-            <LegendGroupLabels />
-            <LegendGroupSeparators />
-            <LegendLevels />
+            <LegendGroupLabels
+              groups={ groups }
+              onSelect={ this.handleSelectGroup } />
+
+            <LegendGroupSeparators
+              groups={ groups } />
+
+            <LegendLevels
+              technologies={ technologies }
+              innerRadiusPercent={ settings.innerRadiusPercent }
+              outerRadiusPercent={ settings.outerRadiusPercent } />
           </div>
 
           <div className='c-technology-radar__technologies'>{
@@ -48,7 +57,10 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
               <TechnologyItem
                 key={ technology.id  }
                 className='c-technology-radar__item'
-                technology={ technology } />
+                technology={ technology }
+                technologyRadar={ this.props.technologyRadar }
+                focused={ Boolean(selectedTechnology) && selectedTechnology === technology }
+                onSelect={ this.handleSelectTechnology } />
           )}</div>
         </div>
       </div>
@@ -64,6 +76,23 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
 
     this.props.applicationState.selectGroup(null);
     this.props.applicationState.selectTechnology(null);
+  }
+
+  private handleSelectGroup = (group: Group, event: React.MouseEvent<HTMLElement>) => {
+    if (event.defaultPrevented) {
+      return;
+    }
+
+    this.props.applicationState.selectGroup(group);
+    this.props.applicationState.selectTechnology(null);
+
+    event.preventDefault();
+  }
+
+  private handleSelectTechnology = (technology: Technology, event: React.MouseEvent<HTMLElement>): void => {
+    this.props.applicationState.selectTechnology(technology);
+
+    event.preventDefault();
   }
 
   // ----------------------------------------------------------------------------- Helpers methods

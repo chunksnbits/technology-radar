@@ -1,38 +1,32 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import * as React from 'react';
 
 import { classNames } from 'utils/dom';
 
 import './styles.scss';
-import { TechnologyRadarContext } from 'store';
 import { calculateMaxLevel } from '../utils/math';
-import { consume } from 'utils/store';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface LegendLevelsProps {
   className?: string;
-  technologyRadar?: TechnologyRadarStore;
+  innerRadiusPercent: number;
+  outerRadiusPercent: number;
+  technologies: Technology[];
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class LegendLevelsComponent extends Component<LegendLevelsProps> {
+export class LegendLevels extends PureComponent<LegendLevelsProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const { settings, technologies } = this.props.technologyRadar;
-
-    if (!Boolean(settings) || !Boolean(technologies)) {
-      return null;
-    }
-
-    const { innerRadiusPercent } = settings;
+    const { innerRadiusPercent, outerRadiusPercent, technologies } = this.props;
 
     const modifiers = [];
 
     const maxLevel = calculateMaxLevel(technologies);
-    const step = 2 * (settings.outerRadiusPercent - settings.innerRadiusPercent) / maxLevel;
+    const step = 2 * (outerRadiusPercent - innerRadiusPercent) / maxLevel;
     const levels = new Array(maxLevel).fill(null);
 
     const size = (index) => {
@@ -54,5 +48,3 @@ export class LegendLevelsComponent extends Component<LegendLevelsProps> {
     );
   }
 }
-
-export const LegendLevels = consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })(LegendLevelsComponent);

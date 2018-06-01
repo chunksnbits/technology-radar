@@ -3,15 +3,14 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { TechnologyItemComponent as TechnologyItem } from './index';
+import { TechnologyItem } from './index';
 
 import {
   mockTechnology,
   mockGroup,
   mockSettings,
   noop,
-  mockTechnologyRadarStore,
-  mockApplicationStateStore
+  mockTechnologyRadarStore
 } from 'mocks';
 
 // ----------------------------------------------------------------------------- Configuration
@@ -21,13 +20,10 @@ const bundleProps = (props: any = {}) => {
       technologies: props.technologies || [mockTechnology()],
       groups: props.groups || [mockGroup()],
       settings: props.settings || mockSettings(),
-      onSelect: props.onSelect || noop,
     }),
-    applicationState: mockApplicationStateStore({
-      selectedTechnology: props.selectedTechnology || mockTechnology(),
-      selectTechnology: props.selectTechnology || noop
-    }),
-    technology: props.technology || mockTechnology()
+    technology: props.technology || mockTechnology(),
+    focused: props.focused || false,
+    onSelect: props.onSelect || noop,
   };
 }
 
@@ -67,46 +63,36 @@ it('does not crash if technology has not been assigned a group', () => {
   expect(element.find('.c-technology-item').length).toBe(0);
 });
 
-it('does not rerender if element and selectedTechnology remain unchanged', () => {
+it('does not rerender if element and focused state remain unchanged', () => {
   const technology = mockTechnology({ id: 'test', groupId: undefined });
-  const element = shallowWithProps({ technology, selectedTechnology: null });
+  const element = shallowWithProps({ technology, focused: false });
 
   const render = spyOn(element.instance() as TechnologyItem, 'render');
 
-  element.setProps(bundleProps({ technology, selectedTechnology: null }));
+  element.setProps(bundleProps({ technology, focused: false }));
   expect(render).not.toHaveBeenCalled();
 });
 
 it('does rerender if element changed', () => {
   const technology = mockTechnology({ id: 'test', groupId: undefined });
-  const element = shallowWithProps({ technology, selectedTechnology: null });
+  const element = shallowWithProps({ technology, focused: false });
 
   const render = spyOn(element.instance() as TechnologyItem, 'render');
 
-  element.setProps(bundleProps({ technology: Object.assign({}, technology), selectedTechnology: null }));
+  element.setProps(bundleProps({ technology: Object.assign({}, technology), focused: false }));
   expect(render).toHaveBeenCalled();
 });
 
-it('does not rerender if selectedTechnology changed, but current technology was not involved', () => {
+it('does rerender if focused state change', () => {
   const technology = mockTechnology({ id: 'test', groupId: undefined });
-  const element = shallowWithProps({ technology, selectedTechnology: mockTechnology() });
+  const element = shallowWithProps({ technology, focused: true });
 
   const render = spyOn(element.instance() as TechnologyItem, 'render');
 
-  element.setProps(bundleProps({ technology, selectedTechnology: mockTechnology() }));
-  expect(render).not.toHaveBeenCalled();
-});
-
-it('does not rerender if element changed selectedTechnology state', () => {
-  const technology = mockTechnology({ id: 'test', groupId: undefined });
-  const element = shallowWithProps({ technology, selectedTechnology: technology });
-
-  const render = spyOn(element.instance() as TechnologyItem, 'render');
-
-  element.setProps(bundleProps({ technology, selectedTechnology: mockTechnology() }));
+  element.setProps(bundleProps({ technology, focused: false }));
   expect(render).toHaveBeenCalled();
 
-  element.setProps({ technology, selectedTechnology: technology });
+  element.setProps({ technology, focused: true });
   expect(render).toHaveBeenCalled();
 });
 
@@ -117,14 +103,15 @@ it('triggers selectTechnology on item click', () => {
 
   const element = shallowWithProps({
     technology,
-    selectTechnology,
+    onSelect: selectTechnology,
     groups: [group]
   });
 
   const button = element.find('button');
-  button.simulate('click', new Event('noop'));
+  const event = new Event('noop');
+  button.simulate('click', event);
 
-  expect(selectTechnology).toHaveBeenCalledWith(technology);
+  expect(selectTechnology).toHaveBeenCalledWith(technology, event);
 });
 
 it('renders item in right position', () => {

@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { mockTechnology, mockGroup, mockSettings } from 'mocks';
+import { mockTechnology, mockGroup, mockSettings, mockApplicationStateStore, mockTechnologyRadarStore } from 'mocks';
 
 import { LegendGroupLabels } from './components/LegendGroupLabels';
 import { TechnologyItem } from './components/TechnologyItem';
@@ -15,8 +15,8 @@ import { TechnologyRadarComponent as TechnologyRadar } from './index';
 const shallowWithState = (props: any = {}) => {
   return shallow(
     <TechnologyRadar
-      applicationState={ props.applicationState || {} }
-      technologyRadar={ props.technologyRadar || {} }/>
+      applicationState={ mockApplicationStateStore(props.applicationState) }
+      technologyRadar={ mockTechnologyRadarStore(props.technologyRadar)  }/>
   )
 }
 

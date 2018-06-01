@@ -1,18 +1,16 @@
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { LegendGroupLabelsComponent as LegendGroupLabels } from './index';
+import { LegendGroupLabels } from './index';
 import { shallow } from 'enzyme';
-import { mockTechnologyRadarStore, mockGroup, mockApplicationStateStore } from 'mocks';
+import { mockGroup, noop } from 'mocks';
 
 // ----------------------------------------------------------------------------- Implementation
 it('renders group labels', () => {
   const element = shallow(
     <LegendGroupLabels
-      technologyRadar={ mockTechnologyRadarStore({
-        groups: [mockGroup({ name: 'Test' })]
-      }) }
-      applicationState={ mockApplicationStateStore() } />
+      groups={ [mockGroup({ name: 'Test' })] }
+      onSelect={ noop } />
   );
 
   expect(element.exists()).toBeTruthy();
@@ -25,16 +23,8 @@ it('triggers selectGroup prop on group click', () => {
 
   const element = shallow(
     <LegendGroupLabels
-      technologyRadar={
-        mockTechnologyRadarStore({
-          groups: [mockGroup({ name: 'Test' })]
-        })
-      }
-      applicationState={
-        mockApplicationStateStore({
-          selectGroup
-        })
-      }/>
+      groups={ [mockGroup({ name: 'Test' })] }
+      onSelect={ selectGroup } />
   );
 
   element.find('.c-legend-group-labels__label').simulate('click', new Event('click'));

@@ -1,19 +1,17 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component, MouseEventHandler, ReactNode } from 'react';
+import { PureComponent, MouseEventHandler, ReactNode } from 'react';
 import * as React from 'react';
 
 import { classNames } from 'utils/dom';
 
 import './styles.scss';
-import { compose, consume } from 'utils/store';
-import { TechnologyRadarContext, ApplicationStateContext } from 'store';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface LegendGroupLabelsProps {
   className?: string;
-  technologyRadar?: TechnologyRadarStore;
-  applicationState?: ApplicationStateStore;
+  groups: Group[];
+  onSelect: (group: Group, event: React.MouseEvent<HTMLElement>) => any;
 }
 
 // SVG follows a different coordinate system.
@@ -22,7 +20,7 @@ export interface LegendGroupLabelsProps {
 const SVG_ROTATION_SOURCE_ADJUSTMENT_DEGREES = -180;
 
 // ----------------------------------------------------------------------------- Implementation
-export class LegendGroupLabelsComponent extends Component<LegendGroupLabelsProps> {
+export class LegendGroupLabels extends PureComponent<LegendGroupLabelsProps> {
 
   handlers: BoundHandlers<SVGElement> = {};
 
@@ -31,7 +29,7 @@ export class LegendGroupLabelsComponent extends Component<LegendGroupLabelsProps
 
     const modifiers = [];
 
-    const { groups } = this.props.technologyRadar;
+    const { groups } = this.props;
 
     if (!Boolean(groups)) {
       return null;
@@ -64,15 +62,8 @@ export class LegendGroupLabelsComponent extends Component<LegendGroupLabelsProps
 
     if (!Boolean(this.handlers[name])) {
       this.handlers[name] = (event: React.MouseEvent<HTMLElement>) => {
-        if (event.defaultPrevented) {
-          return;
-        }
-
-        this.props.applicationState.selectGroup(group);
-        this.props.applicationState.selectTechnology(null);
-
-        event.preventDefault();
-      }
+        this.props.onSelect(group, event);
+      };
     }
 
     return this.handlers[name] as MouseEventHandler<SVGTextElement>;
@@ -107,8 +98,3 @@ export class LegendGroupLabelsComponent extends Component<LegendGroupLabelsProps
     });
   }
 }
-
-export const LegendGroupLabels = compose(
-  consume(TechnologyRadarContext, { bindTo: 'technologyRadar' }),
-  consume(ApplicationStateContext, { bindTo: 'applicationState' })
-)(LegendGroupLabelsComponent);

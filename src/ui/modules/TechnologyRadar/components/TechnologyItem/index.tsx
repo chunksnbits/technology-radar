@@ -7,55 +7,33 @@ import { classNames } from 'utils/dom';
 
 import './styles.scss';
 import { Ripple } from 'ui/components/Ripple';
-import { consume, compose } from 'utils/store';
-import { TechnologyRadarContext, ApplicationStateContext } from 'store';
 import { findGroupForTechnology, calculateTechnologyRotationDegrees, calculateItemOffsetPercent } from '../utils/math';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyItemProps {
   className?: string;
   technology: Technology;
-  applicationState?: ApplicationStateStore;
-  technologyRadar?: TechnologyRadarStore;
+  focused: boolean;
+  technologyRadar: TechnologyRadarStore;
+  onSelect: (technology: Technology, event: React.MouseEvent<HTMLElement>) => any;
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class TechnologyItemComponent extends Component<TechnologyItemProps> {
+export class TechnologyItem extends Component<TechnologyItemProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   /**
    * Custom rerender optimization.
    *
    * Rerender is restricted to state changes that take effect on this specific item.
-   * Other state changes will be ignored.
+   * State changes that were used purely for initial render will be ignored.
    */
   shouldComponentUpdate(props: TechnologyItemProps) {
-    // 1. Rerender if the item itself has changed
-    if (props.technology !== this.props.technology) {
-      return true;
-    }
-
-    // 2. Escape if selectedTechnology has not changed
-    const { selectedTechnology } = props.applicationState;
-    const { selectedTechnology: previousSelection } = this.props.applicationState;
-
-    if (selectedTechnology === previousSelection) {
-      return false;
-    }
-
-
-    // 3. Rerender if this item has become selected
-    if (Boolean(selectedTechnology) && selectedTechnology.id === this.props.technology.id) {
-      return true;
-    }
-
-    // 4. Rerender if this item has become unselected
-    return Boolean(previousSelection) && previousSelection.id === this.props.technology.id;
+    return props.focused !== this.props.focused || props.technology !== this.props.technology;
   }
 
   render() {
-    const { applicationState, technology, technologyRadar } = this.props;
-    const { selectedTechnology } = applicationState;
+    const { focused, technology, technologyRadar } = this.props;
     const { groups } = technologyRadar;
 
     if (!Boolean(groups)) {
@@ -69,18 +47,18 @@ export class TechnologyItemComponent extends Component<TechnologyItemProps> {
     }
 
     const modifiers = [
-      selectedTechnology && selectedTechnology.id === technology.id && 'c-technology-item--focused'
+      focused && 'c-technology-item--focused'
     ];
 
     return (
       <div
         className={ classNames('c-technology-item', this.props.className, ...modifiers) }
         style={ this.calculateTransforms(this.props) }
-        custom-attribute={ [technology.name, selectedTechnology && selectedTechnology.name].join(', ') }>
+        custom-attribute={ [technology.name, focused].join(', ') }>
         <Ripple position='relative'>
           <button
             className='c-technology-item__item'
-            onClick={ this.handleSelect as any }
+            onClick={ this.propagateSelect }
             style={{
               borderColor: group.color
             }
@@ -91,10 +69,8 @@ export class TechnologyItemComponent extends Component<TechnologyItemProps> {
   }
 
   // ----------------------------------------------------------------------------- Event handler methods
-  private handleSelect = (event: MouseEvent): void => {
-    this.props.applicationState.selectTechnology(this.props.technology);
-
-    event.preventDefault();
+  private propagateSelect = (event: React.MouseEvent<HTMLElement>): void => {
+    this.props.onSelect(this.props.technology, event);
   }
 
   // ----------------------------------------------------------------------------- Helpers methods
@@ -111,8 +87,3 @@ export class TechnologyItemComponent extends Component<TechnologyItemProps> {
     };
   }
 }
-
-export const TechnologyItem = compose(
-  consume(ApplicationStateContext, { bindTo: 'applicationState' }),
-  consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
-)(TechnologyItemComponent);
