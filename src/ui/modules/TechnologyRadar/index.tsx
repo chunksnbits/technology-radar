@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component, CSSProperties } from 'react';
+import { Component, CSSProperties, RefObject, createRef } from 'react';
 import * as React from 'react';
 
 import { ApplicationStateContext, TechnologyRadarContext } from 'store';
@@ -27,8 +27,25 @@ const BASE_TRANSFORM_ROTATE_DEGREES = -10;
 
 // ----------------------------------------------------------------------------- Implementation
 export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
+  elementRef: RefObject<HTMLDivElement>;
+
+  constructor(props: TechnologyRadarProps) {
+    super(props);
+    this.elementRef = createRef();
+  }
 
   // ----------------------------------------------------------------------------- Lifecycle methods
+  /**
+   * Adds performance optimization for render intensive tasks.
+   */
+  getSnapshotBeforeUpdate() {
+    this.elementRef.current.classList.add('c-technology-radar--will-change');
+  }
+
+  componentDidUpdate() {
+    this.elementRef.current.classList.remove('c-technology-radar--will-change');
+  }
+
   render() {
     const { groups, technologies, settings } = this.props.technologyRadar;
     const { selectedTechnology } = this.props.applicationState;
@@ -36,7 +53,8 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
     return (
       <div className={ classNames('c-technology-radar', this.props.className) }
         style={ this.calculateFocusTransforms() }
-        onClick={ this.handleDeselect }>
+        onClick={ this.handleDeselect }
+        ref={ this.elementRef }>
         <div className='c-technology-radar__content'>
           <div className='c-technology-radar__legend'>
             <LegendGroupLabels

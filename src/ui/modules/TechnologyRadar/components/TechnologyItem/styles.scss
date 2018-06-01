@@ -49,8 +49,7 @@ $c-technology-item__blur--border-width: 1.5 * $c-technology-item__item--border-w
 
 // .c-technology-item::before,
 // .c-technology-item::after,
-.c-technology-item__item::before,
-.c-technology-item__item::after {
+.c-technology-item__item::before {
   content: '';
   position: absolute;
 
@@ -79,12 +78,4 @@ $c-technology-item__blur--border-width: 1.5 * $c-technology-item__item--border-w
 .c-technology-item:hover .c-technology-item__item::before {
   border: $c-technology-item__highlight--border-width solid transparent;
   border-top-color: $g-color__white;
-}
-
-.c-technology-item--focused .c-technology-item__item::after,
-.c-technology-item:hover .c-technology-item__item::after {
-  filter: blur(1px);
-  border: $c-technology-item__blur--border-width solid transparent;
-  border-color: inherit;
-  opacity: 1;
 }

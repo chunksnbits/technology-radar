@@ -28,7 +28,6 @@ export class Ripple extends Component<RippleProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-
     const modifiers = [
       `c-ripple--${ this.props.position || 'exact' }`
     ];
@@ -38,7 +37,9 @@ export class Ripple extends Component<RippleProps> {
         onMouseDown={ this.handleApplyRipple }
         onTouchStart={ this.handleApplyRipple }
         { ...this.props as any }>
-        <div className='c-ripple__ripple' ref={this.elementRef} />
+        <div className='c-ripple__ripple' ref={this.elementRef}>
+          <div className='c-ripple__element' />
+        </div>
 
         { this.props.children }
       </div>
@@ -56,6 +57,7 @@ export class Ripple extends Component<RippleProps> {
     const parent = this.elementRef.current.parentElement;
 
     parent.classList.remove('c-ripple--active');
+    parent.classList.remove('c-ripple--will-change');
 
     requestAnimationFrame(() => this.applyRipple(event));
   }
@@ -78,6 +80,7 @@ export class Ripple extends Component<RippleProps> {
     // In case the touchend gets stuck
     setTimeout(this.bindResetTransition(parent), ANIMATION_DURATION_LIFELINE_TIMEOUT);
 
+    parent.classList.add('c-ripple--will-change');
     requestAnimationFrame(() => parent.classList.add('c-ripple--active'));
   }
 }

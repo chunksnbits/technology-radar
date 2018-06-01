@@ -20,6 +20,10 @@
   padding: 5.25vmin;
 }
 
+.c-technology-radar--will-change {
+  will-change: transform;
+}
+
 .c-technology-radar::before {
   $c-technology-radar__center-circle--size: $c-technology-item__item--size + 2 * $c-technology-item__item--border-width;
 

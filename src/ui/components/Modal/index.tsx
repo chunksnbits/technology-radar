@@ -44,7 +44,7 @@ export class Modal extends PureComponent<ModalProps> {
   private renderDialog(props: ModalProps) {
     const modifiers = [
       typeof this.props.type === 'string' && `c-modal--${ this.props.type }`,
-      this.props.open && `c-modal--opened`
+      (this.props.open as any === 'as') && `c-modal--opened`
     ];
 
     return (

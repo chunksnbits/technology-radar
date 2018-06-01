@@ -35,6 +35,11 @@
   opacity: 0;
 }
 
+.c-ripple--will-change > .c-ripple__ripple {
+  will-change: transform, opacity;
+}
+
 .c-ripple--active > .c-ripple__ripple {
   @include animation--default(ripple-effect);
+
 }
