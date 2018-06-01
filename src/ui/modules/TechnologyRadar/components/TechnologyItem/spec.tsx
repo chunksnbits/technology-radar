@@ -15,24 +15,25 @@ import {
 } from 'mocks';
 
 // ----------------------------------------------------------------------------- Configuration
+const bundleProps = (props: any = {}) => {
+  return {
+    technologyRadar: mockTechnologyRadarStore({
+      technologies: props.technologies || [mockTechnology()],
+      groups: props.groups || [mockGroup()],
+      settings: props.settings || mockSettings(),
+      onSelect: props.onSelect || noop,
+    }),
+    applicationState: mockApplicationStateStore({
+      selectedTechnology: props.selectedTechnology || mockTechnology(),
+      selectTechnology: props.selectTechnology || noop
+    }),
+    technology: props.technology || mockTechnology()
+  };
+}
+
 const createWithProps = (props: any = {}) => {
   return (
-    <TechnologyItem
-      technologyRadar={
-        mockTechnologyRadarStore({
-          technologies: props.technologies || [mockTechnology()],
-          groups: props.groups || [mockGroup()],
-          settings: props.settings || mockSettings(),
-          onSelect: props.onSelect || noop,
-        })
-      }
-      applicationState={
-        mockApplicationStateStore({
-          selectedTechnology: props.selectedTechnology || mockTechnology(),
-          selectTechnology: props.selectTechnology || noop
-        })
-      }
-      technology={ props.technology || mockTechnology() } />
+    <TechnologyItem { ...bundleProps(props) } />
   );
 }
 
@@ -57,13 +58,56 @@ it('renders item in right color', () => {
   expect(button.css('border-color')).toEqual('red');
 });
 
-it('does not crash if technology has not been assigned a grup', () => {
+it('does not crash if technology has not been assigned a group', () => {
   const element = shallowWithProps({
     technology: mockTechnology({ id: 'test', groupId: undefined })
   });
 
   expect(element.exists).toBeTruthy();
   expect(element.find('.c-technology-item').length).toBe(0);
+});
+
+it('does not rerender if element and selectedTechnology remain unchanged', () => {
+  const technology = mockTechnology({ id: 'test', groupId: undefined });
+  const element = shallowWithProps({ technology, selectedTechnology: null });
+
+  const render = spyOn(element.instance() as TechnologyItem, 'render');
+
+  element.setProps(bundleProps({ technology, selectedTechnology: null }));
+  expect(render).not.toHaveBeenCalled();
+});
+
+it('does rerender if element changed', () => {
+  const technology = mockTechnology({ id: 'test', groupId: undefined });
+  const element = shallowWithProps({ technology, selectedTechnology: null });
+
+  const render = spyOn(element.instance() as TechnologyItem, 'render');
+
+  element.setProps(bundleProps({ technology: Object.assign({}, technology), selectedTechnology: null }));
+  expect(render).toHaveBeenCalled();
+});
+
+it('does not rerender if selectedTechnology changed, but current technology was not involved', () => {
+  const technology = mockTechnology({ id: 'test', groupId: undefined });
+  const element = shallowWithProps({ technology, selectedTechnology: mockTechnology() });
+
+  const render = spyOn(element.instance() as TechnologyItem, 'render');
+
+  element.setProps(bundleProps({ technology, selectedTechnology: mockTechnology() }));
+  expect(render).not.toHaveBeenCalled();
+});
+
+it('does not rerender if element changed selectedTechnology state', () => {
+  const technology = mockTechnology({ id: 'test', groupId: undefined });
+  const element = shallowWithProps({ technology, selectedTechnology: technology });
+
+  const render = spyOn(element.instance() as TechnologyItem, 'render');
+
+  element.setProps(bundleProps({ technology, selectedTechnology: mockTechnology() }));
+  expect(render).toHaveBeenCalled();
+
+  element.setProps({ technology, selectedTechnology: technology });
+  expect(render).toHaveBeenCalled();
 });
 
 it('triggers selectTechnology on item click', () => {
@@ -78,7 +122,7 @@ it('triggers selectTechnology on item click', () => {
   });
 
   const button = element.find('button');
-  button.simulate('click');
+  button.simulate('click', new Event('noop'));
 
   expect(selectTechnology).toHaveBeenCalledWith(technology);
 });
@@ -166,7 +210,4 @@ it('offsets items to the right base position same group', () => {
 
   expect(sample.render().css('transform')).toContain('rotateZ(90deg)');
   expect(other.render().css('transform')).toContain('rotateZ(270deg)');
-
-  // 2 groups, 1 element in group
-  // expect(buttons[0].css('width')).not.toEqual(buttons[1].css('width'))
 });

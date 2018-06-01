@@ -1,0 +1,29 @@
+@import '~ui/components/Styles/colors';
+
+.c-technology-details-navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  position: fixed;
+
+  width: 100%;
+  bottom: 0;
+  left: 0;
+
+  padding: 10px;
+
+  background: $g-color__background--inverse;
+
+  z-index: 1000;
+}
+
+.c-technology-details-navigation__action.c-technology-details-navigation__action {
+  min-width: 0;
+}
+
+.c-technology-details-navigation__action-icon.c-technology-details-navigation__action-icon {
+  width: 14px;
+  height: 14px;
+}

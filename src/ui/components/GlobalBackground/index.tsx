@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 
 import * as React from 'react';
 
-import { classNames } from 'utils/dom';
+import { classNames, canUseDOM } from 'utils/dom';
 
 import './styles.scss';
 
@@ -22,6 +22,10 @@ export class GlobalBackground extends PureComponent<GlobalBackgroundProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
+    if (!canUseDOM() || document.getElementById(this.rootClassName) === null) {
+      return null;
+    }
+
     return createPortal(this.renderContent(), document.getElementById('g-global-background'));
   }
 

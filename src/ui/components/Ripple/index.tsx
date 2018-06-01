@@ -8,7 +8,7 @@ import { classNames, getPrimaryTouch, getPositionInElement } from 'utils/dom';
 import './styles.scss';
 
 // ----------------------------------------------------------------------------- Configuration
-export interface RippleProps {
+export interface RippleProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> {
   className?: string;
   position?: 'relative' | 'exact' | undefined;  // defaults to 'exact'
 }
@@ -36,7 +36,8 @@ export class Ripple extends Component<RippleProps> {
     return (
       <div className={ classNames('c-ripple', this.props.className, ...modifiers) }
         onMouseDown={ this.handleApplyRipple }
-        onTouchStart={ this.handleApplyRipple }>
+        onTouchStart={ this.handleApplyRipple }
+        { ...this.props as any }>
         <div className='c-ripple__ripple' ref={this.elementRef} />
 
         { this.props.children }
@@ -52,6 +53,14 @@ export class Ripple extends Component<RippleProps> {
   }
 
   private handleApplyRipple = (event: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) => {
+    const parent = this.elementRef.current.parentElement;
+
+    parent.classList.remove('c-ripple--active');
+
+    requestAnimationFrame(() => this.applyRipple(event));
+  }
+
+  private applyRipple(event: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) {
     const parent = this.elementRef.current.parentElement;
 
     if (this.props.position !== 'relative') {

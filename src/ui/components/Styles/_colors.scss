@@ -2,7 +2,7 @@ $g-color__black: #000;
 $g-color__white: #fff;
 
 $g-color__background: map-get($g-theme, 'base');
-$g-color__background--inverse: map-get($g-theme, 'baseInverse');
+$g-color__background--inverse: map-get($g-theme, 'baseInserse');
 
 $g-color__border: map-get($g-theme, 'dividers');
 $g-color__border--inverse: invert($g-color__border);

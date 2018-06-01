@@ -23,6 +23,36 @@ export interface TechnologyItemProps {
 export class TechnologyItemComponent extends Component<TechnologyItemProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
+  /**
+   * Custom rerender optimization.
+   *
+   * Rerender is restricted to state changes that take effect on this specific item.
+   * Other state changes will be ignored.
+   */
+  shouldComponentUpdate(props: TechnologyItemProps) {
+    // 1. Rerender if the item itself has changed
+    if (props.technology !== this.props.technology) {
+      return true;
+    }
+
+    // 2. Escape if selectedTechnology has not changed
+    const { selectedTechnology } = props.applicationState;
+    const { selectedTechnology: previousSelection } = this.props.applicationState;
+
+    if (selectedTechnology === previousSelection) {
+      return false;
+    }
+
+
+    // 3. Rerender if this item has become selected
+    if (Boolean(selectedTechnology) && selectedTechnology.id === this.props.technology.id) {
+      return true;
+    }
+
+    // 4. Rerender if this item has become unselected
+    return Boolean(previousSelection) && previousSelection.id === this.props.technology.id;
+  }
+
   render() {
     const { applicationState, technology, technologyRadar } = this.props;
     const { selectedTechnology } = applicationState;
@@ -61,8 +91,10 @@ export class TechnologyItemComponent extends Component<TechnologyItemProps> {
   }
 
   // ----------------------------------------------------------------------------- Event handler methods
-  private handleSelect = (): void => {
+  private handleSelect = (event: MouseEvent): void => {
     this.props.applicationState.selectTechnology(this.props.technology);
+
+    event.preventDefault();
   }
 
   // ----------------------------------------------------------------------------- Helpers methods

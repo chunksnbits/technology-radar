@@ -1,5 +1,8 @@
 
 @import '~ui/components/Styles/animation';
+@import '~ui/components/Styles/colors';
+
+@import './components/TechnologyItem/styles';
 
 .c-technology-radar {
   @include transition--default(transform);
@@ -14,9 +17,28 @@
   width: 100vmin;
   height: 100vmin;
 
-  pointer-events: none;
-
   padding: 5.25vmin;
+}
+
+.c-technology-radar::before {
+  $c-technology-radar__center-circle--size: $c-technology-item__item--size + 2 * $c-technology-item__item--border-width;
+
+  content: '';
+
+  display: block;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-0.5 * $c-technology-radar__center-circle--size, -0.5 * $c-technology-radar__center-circle--size);
+
+  width: $c-technology-radar__center-circle--size;
+  height: $c-technology-radar__center-circle--size;
+  border-radius: $c-technology-radar__center-circle--size;
+  z-index: 2;
+
+  border: 1px solid darken($g-color__primary, 10);
+  background: $g-color__background;
 }
 
 .c-technology-radar__content {

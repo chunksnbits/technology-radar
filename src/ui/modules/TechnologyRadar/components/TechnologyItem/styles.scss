@@ -1,6 +1,10 @@
 @import '~ui/components/Styles/colors';
+@import '~ui/components/Styles/z-index';
 
 $c-technology-item__item--size: 2.5vmin;
+$c-technology-item__item--border-width: 0.1vmin;
+$c-technology-item__highlight--border-width: $c-technology-item__item--border-width;
+$c-technology-item__blur--border-width: 1.5 * $c-technology-item__item--border-width;
 
 .c-technology-item {
   display: flex;
@@ -10,13 +14,13 @@ $c-technology-item__item--size: 2.5vmin;
   left: 50%;
   top: 50%;
   width: 50%;
-  height: 0;
+  height: 1px;
 
   transform-origin: 0;
 
   pointer-events: none;
 
-  border-bottom: 1px solid $g-color__border;
+  background: $g-color__border;
 }
 
 .c-technology-item__item {
@@ -28,11 +32,13 @@ $c-technology-item__item--size: 2.5vmin;
   width: $c-technology-item__item--size;
   height: $c-technology-item__item--size;
 
+  z-index: $g-zindex__technoloogy-radar-item;
+
   padding: 0;
   margin: 0;
 
   border-radius: $c-technology-item__item--size;
-  border: 0.1vmin solid transparent;
+  border:  $c-technology-item__item--border-width solid transparent;
   border-color: inherit;
   outline: none;
   background: none;
@@ -48,15 +54,19 @@ $c-technology-item__item--size: 2.5vmin;
   content: '';
   position: absolute;
 
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 100%;
-
-  transform: translate(-50%, -50%);
+  top: -1 * $c-technology-item__item--border-width;
+  right: -1 * $c-technology-item__item--border-width;
+  bottom: -1 * $c-technology-item__item--border-width;
+  left: -1 * $c-technology-item__item--border-width;
 
   border-radius: $c-technology-item__item--size;
   opacity: 0;
+}
+
+.c-technology-item__item::before {
+  border: $c-technology-item__highlight--border-width solid transparent;
+  border-top-color: $g-color__white;
+  opacity: 0.5;
 }
 
 .c-technology-item--focused .c-technology-item__item::before,
@@ -67,13 +77,14 @@ $c-technology-item__item--size: 2.5vmin;
 
 .c-technology-item--focused .c-technology-item__item::before,
 .c-technology-item:hover .c-technology-item__item::before {
-  border-top: 0.1vmin solid $g-color__white;
+  border: $c-technology-item__highlight--border-width solid transparent;
+  border-top-color: $g-color__white;
 }
 
 .c-technology-item--focused .c-technology-item__item::after,
 .c-technology-item:hover .c-technology-item__item::after {
   filter: blur(1px);
-  border: 0.15vmin solid transparent;
+  border: $c-technology-item__blur--border-width solid transparent;
   border-color: inherit;
   opacity: 1;
 }

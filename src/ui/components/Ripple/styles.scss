@@ -35,6 +35,6 @@
   opacity: 0;
 }
 
-.c-ripple--active .c-ripple__ripple {
+.c-ripple--active > .c-ripple__ripple {
   @include animation--default(ripple-effect);
 }

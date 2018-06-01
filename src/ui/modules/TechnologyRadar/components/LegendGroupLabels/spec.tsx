@@ -37,7 +37,7 @@ it('triggers selectGroup prop on group click', () => {
       }/>
   );
 
-  element.find('.c-legend-group-labels__label').simulate('click');
+  element.find('.c-legend-group-labels__label').simulate('click', new Event('click'));
 
   expect(selectGroup).toHaveBeenCalled();
 });

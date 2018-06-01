@@ -17,18 +17,20 @@ export interface TechnologyRadarStoreProps {
   applicationState?: ApplicationState & ApplicationStateActions;
 }
 
-export const TechnologyRadarContext: Context<TechnologyRadar & TechnologyRadarActions> = createContext({} as any);
+export const TechnologyRadarContext: Context<TechnologyRadarStore> = createContext({} as any);
 
 // ----------------------------------------------------------------------------- Implementation
 // tslint:disable-next-line:class-name
-export class TechnologyRadarStoreComponent extends Component<TechnologyRadarStoreProps, TechnologyRadar & TechnologyRadarActions> implements TechnologyRadarActions {
+export class TechnologyRadarStoreComponent extends Component<TechnologyRadarStoreProps, TechnologyRadarStore> implements TechnologyRadarActions {
 
   constructor(props: TechnologyRadarStoreProps) {
     super(props);
+    const initialState = Object.assign({}, defaultState, props.initialState || {});
 
     this.state = {
-      ...defaultState(),
-      ...props.initialState || {},
+      ...initialState,
+
+      technologies: this.sortTechnologies(initialState.technologies, initialState.groups),
 
       createNew: this.createNew.bind(this),
       edit: this.edit.bind(this),
@@ -53,12 +55,10 @@ export class TechnologyRadarStoreComponent extends Component<TechnologyRadarStor
   // ----------------------------------------------------------------------------- Action methods
   createNew(): void {
     this.setState(state => produce(state, (draftState: TechnologyRadar) => {
-      const newState = defaultState();
+      draftState.edited = true;
 
       this.props.applicationState.setOwner(true);
       this.props.applicationState.setEditMode(true);
-
-      return newState;
     }));
   }
 
@@ -84,6 +84,8 @@ export class TechnologyRadarStoreComponent extends Component<TechnologyRadarStor
       const technology = defaultTechnology(group);
 
       draftState.technologies.push(technology);
+      draftState.technologies = this.sortTechnologies(draftState.technologies, draftState.groups);
+
       draftState.edited = true;
 
       this.props.applicationState.selectTechnology(technology);
@@ -110,6 +112,7 @@ export class TechnologyRadarStoreComponent extends Component<TechnologyRadarStor
         return technology.id === acc.id ? { ...technology, [key]: value } : acc
       });
 
+      draftState.technologies = this.sortTechnologies(draftState.technologies, draftState.groups);
       draftState.edited = true;
 
       return draftState;
@@ -128,6 +131,7 @@ export class TechnologyRadarStoreComponent extends Component<TechnologyRadarStor
   removeTechnology(technology: Technology): void {
     this.setState(state => produce(state, (draftState: TechnologyRadar) => {
       draftState.technologies = draftState.technologies.filter((acc) => acc.id !== technology.id);
+      draftState.technologies = this.sortTechnologies(draftState.technologies, draftState.groups);
 
       return draftState;
     }));
@@ -141,6 +145,25 @@ export class TechnologyRadarStoreComponent extends Component<TechnologyRadarStor
 
       return draftState;
     }));
+  }
+
+  // ----------------------------------------------------------------------------- Helpers methods
+  private sortTechnologies(technologies: Technology[], groups: Group[]): Technology[] {
+    return technologies.sort((technology, other) => {
+      if (technology.groupId !== other.groupId) {
+        return this.groupIndex(groups, technology) - this.groupIndex(groups, other);
+      }
+
+      if (technology.level !== other.level) {
+        return technology.level - other.level;
+      }
+
+      return technology.id > other.id ? -1 : 1;
+    })
+  }
+
+  private groupIndex(groups: Group[], technology: Technology): number {
+    return groups.findIndex(acc => acc.id === technology.groupId);
   }
 }
 

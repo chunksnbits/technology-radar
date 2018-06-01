@@ -63,8 +63,15 @@ export class LegendGroupLabelsComponent extends Component<LegendGroupLabelsProps
     const name = `select-group-${ group.id }`;
 
     if (!Boolean(this.handlers[name])) {
-      this.handlers[name] = () => {
+      this.handlers[name] = (event: React.MouseEvent<HTMLElement>) => {
+        if (event.defaultPrevented) {
+          return;
+        }
+
         this.props.applicationState.selectGroup(group);
+        this.props.applicationState.selectTechnology(null);
+
+        event.preventDefault();
       }
     }
 

@@ -30,7 +30,7 @@ $c-technology-details__color--size: 14px;
   @include animation--default(logo-appear);
 
   position: fixed;
-  z-index: -1000;
+  z-index: -1;
   top: 0;
   left: 0;
   width: 100%;
@@ -53,7 +53,7 @@ $c-technology-details__color--size: 14px;
   display: flex;
 }
 
-.c-technology-details__group {
+.c-technology-details__group.c-technology-details__group {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -62,6 +62,7 @@ $c-technology-details__color--size: 14px;
 
 .c-technology-details__description {
   margin-top: 15px;
+  padding-bottom: 42px;
 }
 
 .c-technology-details__group-color {

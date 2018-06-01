@@ -7,9 +7,11 @@ import { ApplicationStateContext, TechnologyRadarContext } from 'store';
 
 import { consume, compose } from 'utils/store';
 import { classNames } from 'utils/dom';
+import { GlobalBackground } from 'ui/components/GlobalBackground';
 
 import './styles.scss';
-import { GlobalBackground } from 'ui/components/GlobalBackground';
+import { TextButton } from 'ui/components/TextButton';
+import { TechnologyDetailsNavigation } from './components/TechnologyDetailsNavigation';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyDetailsProps {
@@ -23,7 +25,7 @@ export class TechnologyDetailsComponent extends PureComponent<TechnologyDetailsP
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
     const { selectedTechnology } = this.props.applicationState;
-    const { groups } = this.props.technologyRadar;
+    const { groups, technologies } = this.props.technologyRadar;
 
     const active = Boolean(selectedTechnology);
 
@@ -52,7 +54,7 @@ export class TechnologyDetailsComponent extends PureComponent<TechnologyDetailsP
             { selectedTechnology && selectedTechnology.name }
           </h3>
 
-          <div className='c-technology-details__group'>
+          <TextButton onClick={ this.selectGroupHandler } className='c-technology-details__group'>
             <span className='c-technology-details__group-color'
               style={{
                 borderColor: Boolean(group) ? group.color : 'transparent'
@@ -61,14 +63,36 @@ export class TechnologyDetailsComponent extends PureComponent<TechnologyDetailsP
             <span className='c-technology-details__group-name'>
               { Boolean(group) ? group.name : null }
             </span>
-          </div>
+          </TextButton>
         </div>
 
         <p className='c-technology-details__description'>
           { selectedTechnology && selectedTechnology.description }
         </p>
+
+        <TechnologyDetailsNavigation
+          selectedTechnology={ selectedTechnology }
+          technologies={ technologies }
+          onSelect={ this.selectTechnologyHandler } />
       </div>
     );
+  }
+
+  // ----------------------------------------------------------------------------- Event handler methods
+  selectGroupHandler = () => {
+    const { selectedTechnology, selectGroup, selectTechnology } = this.props.applicationState;
+    const { groups } = this.props.technologyRadar;
+
+    const group = this.findGroupForTechnology(selectedTechnology, groups);
+
+    selectGroup(group)
+    selectTechnology(null);
+  }
+
+  selectTechnologyHandler = (technology: Technology) => {
+    const { selectTechnology } = this.props.applicationState;
+
+    selectTechnology(technology);
   }
 
   // ----------------------------------------------------------------------------- Helpers methods

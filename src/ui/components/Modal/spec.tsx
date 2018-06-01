@@ -1,7 +1,7 @@
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { Modal } from './index';
 
 // ----------------------------------------------------------------------------- Helpers methods
@@ -25,7 +25,7 @@ it('renders closed if open prop is false', () => {
 });
 
 it('renders opened if open prop is set', () => {
-  const element = shallow(
+  const element = mount(
     <Modal open={ true } onClose={ handleClose } position='parent'>{/* { } */}</Modal>
   );
 

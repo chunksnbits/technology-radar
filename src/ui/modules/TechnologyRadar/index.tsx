@@ -29,22 +29,13 @@ const BASE_TRANSFORM_ROTATE_DEGREES = -10;
 export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
-  componentDidUpdate() {
-    const { selectedGroup } = this.props.applicationState;
-
-    if (Boolean(selectedGroup)) {
-      return document.body.addEventListener('click', this.handleDeselectGroup);
-    }
-
-    document.body.removeEventListener('click', this.handleDeselectGroup);
-  }
-
   render() {
     const { technologies } = this.props.technologyRadar;
 
     return (
       <div className={ classNames('c-technology-radar', this.props.className) }
-        style={ this.calculateFocusTransforms() }>
+        style={ this.calculateFocusTransforms() }
+        onClick={ this.handleDeselect }>
         <div className='c-technology-radar__content'>
           <div className='c-technology-radar__legend'>
             <LegendGroupLabels />
@@ -66,8 +57,13 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
 
 
   // ----------------------------------------------------------------------------- Event handler methods
-  private handleDeselectGroup = () => {
+  private handleDeselect = (event: React.MouseEvent<HTMLElement>) => {
+    if (event.defaultPrevented) {
+      return;
+    }
+
     this.props.applicationState.selectGroup(null);
+    this.props.applicationState.selectTechnology(null);
   }
 
   // ----------------------------------------------------------------------------- Helpers methods

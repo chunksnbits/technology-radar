@@ -1,6 +1,10 @@
 
 @import '~ui/components/Styles/animation';
 @import '~ui/components/Styles/colors';
+@import '~ui/components/Styles/z-index';
+
+$c-modal__base--margin: 15px;
+$c-modal__base--padding: 20px;
 
 .c-modal {
   @include transition--default(opacity);
@@ -10,13 +14,14 @@
   left: auto;
   right: 0;
   bottom: 0;
-  width: 510px;
+  width: 100%;
+  max-width: 510px;
   height: 270px;
 
   opacity: 0;
 
-  margin: 20px;
-  padding: 20px;
+  margin: $c-modal__base--margin;
+  padding: $c-modal__base--padding;
 
   background: $g-color__primary;
 
@@ -24,6 +29,20 @@
   overflow: hidden;
 
   border: 0;
+
+  z-index: $g-zindex__modal;
+
+  transform: translate(0);
+}
+
+.c-modal__backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  z-index: $g-zindex__modal-backdrop;
 }
 
 .c-modal--sidebar {
@@ -63,6 +82,8 @@
   height: 100%;
 
   overflow: auto;
+  overflow-x: visible;
+  overflow-y: auto;
 
   z-index: 1;
 }

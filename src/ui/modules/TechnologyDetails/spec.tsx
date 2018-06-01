@@ -1,16 +1,24 @@
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { shallow } from 'enzyme';
-import { mockTechnology, mockGroup } from 'mocks';
+import { shallow, mount } from 'enzyme';
+import { mockTechnology, mockGroup, mockTechnologyRadarStore, mockApplicationStateStore } from 'mocks';
 
 import { TechnologyDetailsComponent as TechnologyDetails } from './index';
 
 // ----------------------------------------------------------------------------- Configuration
 const groups = [mockGroup({ id: 'any' })]
 
-const renderWithState = (props: any = {}) => {
+const shallowWithState = (props: any = {}) => {
   return shallow(
+    <TechnologyDetails
+      applicationState={ props.applicationState || {} }
+      technologyRadar={ props.technologyRadar || {} }/>
+  )
+}
+
+const mountWithState = (props: any = {}) => {
+  return mount(
     <TechnologyDetails
       applicationState={ props.applicationState || {} }
       technologyRadar={ props.technologyRadar || {} }/>
@@ -19,7 +27,7 @@ const renderWithState = (props: any = {}) => {
 
 // ----------------------------------------------------------------------------- Implementation
 it('renders without crashing', () => {
-  const element = renderWithState({
+  const element = shallowWithState({
     technologyRadar: {
       groups,
     },
@@ -33,7 +41,7 @@ it('renders without crashing', () => {
 
 
 it('renders title', () => {
-  const element = renderWithState({
+  const element = shallowWithState({
     applicationState: {
       selectedTechnology: mockTechnology()
     },
@@ -46,7 +54,7 @@ it('renders title', () => {
 });
 
 it('renders description', () => {
-  const element = renderWithState({
+  const element = shallowWithState({
     technologyRadar: {
       groups,
     },
@@ -59,20 +67,23 @@ it('renders description', () => {
 });
 
 it('renders group name', () => {
-  const element = renderWithState({
-    technologyRadar: {
+  const technology = mockTechnology({ id: test, groupId: 'any' });
+
+  const element = mountWithState({
+    technologyRadar: mockTechnologyRadarStore({
+      technologies: [technology, mockTechnology(), mockTechnology()],
       groups: [mockGroup({ id: 'any', name: 'Group' })],
-    },
-    applicationState: {
-      selectedTechnology: mockTechnology({ groupId: 'any' })
-    }
+    }),
+    applicationState: mockApplicationStateStore({
+      selectedTechnology: technology
+    })
   });
 
-  expect(element.find('.c-technology-details__group').text()).toBe('Group');
+  expect(element.find('.c-technology-details__group-name').text()).toBe('Group');
 });
 
 it('renders group coloor', () => {
-  const element = renderWithState({
+  const element = shallowWithState({
     technologyRadar: {
       groups: [mockGroup({ id: 'any', name: 'Group' })],
     },

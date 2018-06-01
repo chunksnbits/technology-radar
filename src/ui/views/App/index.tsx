@@ -1,8 +1,9 @@
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
+import { MouseEvent } from 'react';
 
-import {ApplicationStateContext } from 'store';
+import { ApplicationStateContext } from 'store';
 
 import { TechnologyRadar } from 'ui/modules/TechnologyRadar';
 import { TechnologyDetails } from 'ui/modules/TechnologyDetails';
@@ -23,14 +24,11 @@ export interface AppProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-// tslint:disable-next-line:class-name
 export class AppComponent extends React.Component<AppProps> {
-
-  private handlers: BoundHandlers<any> = {};
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const { editMode, setEditMode, selectedTechnology, selectTechnology } = this.props.applicationState;
+    const { editMode, selectedTechnology } = this.props.applicationState;
 
     return (
       <div className='c-app'>
@@ -42,13 +40,13 @@ export class AppComponent extends React.Component<AppProps> {
           <Modal
             open={ editMode }
             type='sidebar'
-            onClose={ this.bindDisableEditMode(setEditMode) }>
+            onClose={ this.setEditModeHandler }>
             <SettingsPanel />
           </Modal>
 
           <Modal
             open={ Boolean(selectedTechnology) }
-            onClose={ this.bindDeselectTechnology(selectTechnology) }>
+            onClose={ this.technologyDetailsClosedHandler }>
             <TechnologyDetails />
           </Modal>
         </main>
@@ -59,21 +57,21 @@ export class AppComponent extends React.Component<AppProps> {
   }
 
   // ----------------------------------------------------------------------------- Event handler methods
-  private bindDeselectTechnology(selectTechnology: Function) {
-    if (!this.handlers.deselect) {
-      this.handlers.deselect = () => selectTechnology(null);
+  private technologyDetailsClosedHandler = (event: MouseEvent<HTMLElement>) => {
+    if (event.defaultPrevented) {
+      return;
     }
 
-    return this.handlers.deselect;
+    this.props.applicationState.selectTechnology(null);
   }
 
-  private bindDisableEditMode(setEditMode: Function) {
-    if (!this.handlers.disableEdit) {
-      this.handlers.disableEdit = () => setEditMode(false);
+  private setEditModeHandler = () => {
+    if (event.defaultPrevented) {
+      return;
     }
 
-    return this.handlers.disableEdit as any;
+    this.props.applicationState.setEditMode(false);
   }
 }
 
-export const App = consume(ApplicationStateContext, { bindTo: 'applicationState' })(AppComponent);
+  export const App = consume(ApplicationStateContext, { bindTo: 'applicationState' })(AppComponent);

@@ -1,8 +1,11 @@
 @import '~ui/components/Styles/colors';
 @import '~ui/components/Styles/typo';
+@import '~ui/components/Styles/z-index';
 
 .c-legend-group-labels {
-  margin: -2.7vmin
+  position: relative;
+  margin: -2.7vmin;
+  z-index: $g-zindex__technoloogy-radar-labels;
 }
 
 .c-legend-group-labels__background {
