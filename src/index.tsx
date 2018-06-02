@@ -1,31 +1,42 @@
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { render, hydrate } from 'react-dom';
 import { configure } from 'mobx';
 
 import { App } from 'ui/views/App';
 import registerServiceWorker from './registerServiceWorker';
-import applicationConfig from 'public/data.json';
-
-const { application: applicationState, technologyRadar } = applicationConfig;
 
 import { ApplicationStateStore, TechnologyRadarStore } from 'store';
+import { canUseDOM } from 'utils/dom';
 
 import './styles.scss';
 
 // ----------------------------------------------------------------------------- Configuration
-const rootNode = document.getElementById('root') as HTMLElement;
+import applicationConfig from 'public/data/data.json';
 
+const { application: applicationState, technologyRadar, application } = applicationConfig;
 configure({ enforceActions: true });
 
-// ----------------------------------------------------------------------------- Implementation
-ReactDOM.render((
+if (canUseDOM()) {
+  document.title = application.title;
+}
+
+const Root = () => (
   <ApplicationStateStore initialState={ applicationState }>
     <TechnologyRadarStore initialState={{ ...technologyRadar, edited: false }}>
       <App />
     </TechnologyRadarStore>
   </ApplicationStateStore>
-), rootNode);
+);
 
+const rootElement = document.getElementById('root');
+
+if (rootElement.hasChildNodes()) {
+  hydrate(<Root />, rootElement);
+} else {
+  render(<Root />, rootElement);
+}
+
+// ----------------------------------------------------------------------------- Implementation
 registerServiceWorker();

@@ -47,7 +47,7 @@ measureFileSizesBeforeBuild(paths.appBuild)
     // if you're in it, you don't end up in Trash
     fs.emptyDirSync(paths.appBuild);
     // Merge with the public folder
-    copyPublicFolder();
+    copyStaticFolders();
     // Start the webpack build
     return build(previousFileSizes);
   })
@@ -141,9 +141,11 @@ function build(previousFileSizes) {
   });
 }
 
-function copyPublicFolder() {
-  fs.copySync(paths.appPublic, paths.appBuild, {
-    dereference: true,
-    filter: file => file !== paths.appHtml,
-  });
+function copyStaticFolders() {
+  for (const path of paths.staticPaths) {
+    fs.copySync(path, paths.appBuild, {
+      dereference: true,
+      filter: file => file !== paths.appHtml,
+    });
+  }
 }

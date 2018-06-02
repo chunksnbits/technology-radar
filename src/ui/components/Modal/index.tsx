@@ -29,6 +29,7 @@ export class Modal extends PureComponent<ModalProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
+    // tslint:disable-next-line:no-console
     if (this.props.position !== 'parent' && (!canUseDOM() || document.getElementById('g-modal') === null)) {
       return null;
     }
