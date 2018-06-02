@@ -17,20 +17,25 @@ html {
   font-size: $rem-base--size * 1px;
 }
 
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+}
+
 body {
   @include typo-default;
+
+  position: relative;
 
   background: $g-color__background;
   margin: 0;
   padding: 0;
 
   overflow: hidden;
-}
-
-html,
-body,
-root {
-  width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6, p, ul, li {

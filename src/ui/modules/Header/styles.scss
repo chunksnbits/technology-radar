@@ -1,5 +1,6 @@
 
 @import '~ui/components/Styles/typo';
+@import '~ui/components/Styles/z-index';
 
 .c-header {
   display: flex;
@@ -10,6 +11,7 @@
   top: 0;
   left: 0;
   width: 100%;
+  z-index: $g-zindex__header;
 
   pointer-events: none;
 }
@@ -19,17 +21,21 @@
   align-items: center;
 
   padding: 10px 20px;
+  pointer-events: all;
 }
 
 .c-header__logo  {
   display: inline-block;
-  width: 46px;
+  width: 6.2vmin;
 }
 
 .c-header__title {
   @include typo-block-heading;
 
   display: inline-block;
+  font-size: 3.5vmin;
   font-family: $g-typo__font-family;
   font-weight: $g-typo__font-weight--light;
+
+  color: $g-color__primary;
 }

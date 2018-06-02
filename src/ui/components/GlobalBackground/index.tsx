@@ -13,12 +13,13 @@ import './styles.scss';
 export interface GlobalBackgroundProps {
   children: ReactNode;
   className?: string;
+  position?: 'above' | 'below' | 'auto';
 }
 
 // ----------------------------------------------------------------------------- Implementation
 export class GlobalBackground extends PureComponent<GlobalBackgroundProps> {
 
-  private rootClassName: string = 'c-global-background';
+  private rootClassName: string = 'g-global-background';
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
@@ -26,7 +27,11 @@ export class GlobalBackground extends PureComponent<GlobalBackgroundProps> {
       return null;
     }
 
-    return createPortal(this.renderContent(), document.getElementById('g-global-background'));
+    const container = document.getElementById('g-global-background');
+
+    container.classList.add(`g-global-backgound--${ this.props.position || 'auto' }`)
+
+    return createPortal(this.renderContent(), container);
   }
 
   // ----------------------------------------------------------------------------- Helpers methods

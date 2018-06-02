@@ -1,10 +1,17 @@
 @import '~ui/components/Styles/colors';
+@import '~ui/components/Styles/breakpoints';
 @import '~ui/components/Styles/z-index';
 
-$c-technology-item__item--size: 2.5vmin;
-$c-technology-item__item--border-width: 0.1vmin;
+// ----------------------------------------------------------------------------- Defaults
+$c-technology-item__item--size: 18px;
+$c-technology-item__item--border-width: 1px;
+
 $c-technology-item__highlight--border-width: $c-technology-item__item--border-width;
 $c-technology-item__blur--border-width: 1.5 * $c-technology-item__item--border-width;
+
+// ----------------------------------------------------------------------------- Responsive
+$c-technology-item__item--size-medium: 36px;
+$c-technology-item__item--border-width-medium: 2px;
 
 .c-technology-item {
   display: flex;
@@ -24,6 +31,17 @@ $c-technology-item__blur--border-width: 1.5 * $c-technology-item__item--border-w
 }
 
 .c-technology-item__item {
+  @include breakpoint-at(medium) {
+    top: -0.5 * $c-technology-item__item--size-medium;
+    right: -0.5 * $c-technology-item__item--size-medium;
+
+    width: $c-technology-item__item--size-medium;
+    height: $c-technology-item__item--size-medium;
+
+    border-radius: $c-technology-item__item--size-medium;
+    border-width: $c-technology-item__item--border-width-medium;
+  }
+
   position: relative;
 
   top: -0.5 * $c-technology-item__item--size;
@@ -38,7 +56,7 @@ $c-technology-item__blur--border-width: 1.5 * $c-technology-item__item--border-w
   margin: 0;
 
   border-radius: $c-technology-item__item--size;
-  border:  $c-technology-item__item--border-width solid transparent;
+  border: $c-technology-item__item--border-width solid transparent;
   border-color: inherit;
   outline: none;
   background: none;

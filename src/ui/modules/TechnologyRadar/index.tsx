@@ -48,38 +48,45 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
 
   render() {
     const { groups, technologies, settings } = this.props.technologyRadar;
-    const { selectedTechnology } = this.props.applicationState;
+    const { selectedTechnology, selectedGroup } = this.props.applicationState;
+
+    const modifiers = [
+      Boolean(selectedTechnology) && 'c-technology-radar--selected-technology',
+      Boolean(selectedGroup) && 'c-technology-radar--selected-group',
+    ];
 
     return (
-      <div className={ classNames('c-technology-radar', this.props.className) }
-        style={ this.calculateFocusTransforms() }
-        onClick={ this.handleDeselect }
-        ref={ this.elementRef }>
-        <div className='c-technology-radar__content'>
-          <div className='c-technology-radar__legend'>
-            <LegendGroupLabels
-              groups={ groups }
-              onSelect={ this.handleSelectGroup } />
+      <div className={ classNames('c-technology-radar__outer', ...modifiers) }>
+        <div className={ classNames('c-technology-radar', this.props.className) }
+          style={ this.calculateFocusTransforms() }
+          onClick={ this.handleDeselect }
+          ref={ this.elementRef }>
+          <div className='c-technology-radar__content'>
+            <div className='c-technology-radar__legend'>
+              <LegendGroupLabels
+                groups={ groups }
+                onSelect={ this.handleSelectGroup } />
 
-            <LegendGroupSeparators
-              groups={ groups } />
+              <LegendGroupSeparators
+                groups={ groups } />
 
-            <LegendLevels
-              technologies={ technologies }
-              innerRadiusPercent={ settings.innerRadiusPercent }
-              outerRadiusPercent={ settings.outerRadiusPercent } />
+              <LegendLevels
+                technologies={ technologies }
+                innerRadiusPercent={ settings.innerRadiusPercent }
+                outerRadiusPercent={ settings.outerRadiusPercent } />
+            </div>
+
+            <div className='c-technology-radar__technologies'>{
+              technologies.map((technology) =>
+                <TechnologyItem
+                  key={ technology.id  }
+                  className='c-technology-radar__item'
+                  technology={ technology }
+                  technologyRadar={ this.props.technologyRadar }
+                  focused={ Boolean(selectedTechnology) && selectedTechnology === technology }
+                  onSelect={ this.handleSelectTechnology } />
+            )}</div>
           </div>
-
-          <div className='c-technology-radar__technologies'>{
-            technologies.map((technology) =>
-              <TechnologyItem
-                key={ technology.id  }
-                className='c-technology-radar__item'
-                technology={ technology }
-                technologyRadar={ this.props.technologyRadar }
-                focused={ Boolean(selectedTechnology) && selectedTechnology === technology }
-                onSelect={ this.handleSelectTechnology } />
-          )}</div>
         </div>
       </div>
     );

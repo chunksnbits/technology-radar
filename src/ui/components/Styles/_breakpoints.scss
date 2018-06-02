@@ -1,6 +1,57 @@
 
 $g-breakpoints: (
-  small: 0,
-  medium: 768,
-  large: 1024
-)
+  small: 0px,
+  medium: 767px,
+  large: 1023px
+);
+
+@mixin breakpoint-up($name) {
+  @media (min-width: map-get($g-breakpoints, $name) + 1) {
+    @content;
+  }
+}
+
+@mixin breakpoint-down($name) {
+  $keys: map-keys($g-breakpoints);
+  $index: index($keys, $name) + 1;
+
+  @if $index <= length($g-breakpoints) {
+    $key: nth($keys, $index);
+
+    @media (max-width: map-get($g-breakpoints, $key)) {
+      @content;
+    }
+  }
+}
+
+@mixin breakpoint-between($lower, $upper) {
+  @media (min-width: map-get($g-breakpoints, $lower)) and (max-width: map-get($g-breakpoints, $upper)) {
+    @content;
+  }
+}
+
+@mixin breakpoint-at($name) {
+  $keys: map-keys($g-breakpoints);
+  $index: index($keys, $name);
+
+  @if ($index == 1) {
+    @include breakpoint-down($name) {
+      @content;
+    }
+  }
+
+  @else if ($index == length($keys)) {
+    @include breakpoint-up($name) {
+      @content;
+    }
+  }
+
+  @else {
+    $prev: nth($keys, $index);
+    $next: nth($keys, $index + 1);
+
+    @include breakpoint-between($prev, $next) {
+      @content;
+    }
+  }
+}

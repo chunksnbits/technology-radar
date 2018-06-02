@@ -20,6 +20,8 @@ declare interface ApplicationStateActions {
 
   setOwner: (value: boolean) => void;
   setEditMode: (value: boolean) => void;
+
+  reset: () => void;
 }
 
 declare interface TechnologyRadar {

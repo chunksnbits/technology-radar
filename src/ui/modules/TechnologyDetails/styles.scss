@@ -19,6 +19,8 @@ $c-technology-details__color--size: 14px;
 
   opacity: 0;
   pointer-events: none;
+
+  color: $g-color__primary--inverse;
 }
 
 .c-technology-details--active {
@@ -35,7 +37,7 @@ $c-technology-details__color--size: 14px;
   left: 0;
   width: 100%;
   height: 100%;
-  transform: scale(1.4) rotateZ(-3deg);
+  transform: scale(1.25) rotateZ(-3deg) translateY(5%);
   pointer-events: none;
 }
 

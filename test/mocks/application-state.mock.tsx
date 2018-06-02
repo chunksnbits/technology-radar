@@ -18,6 +18,7 @@ export const mockApplicationStateStore = (patch = {}) => Object.assign({}, {
   selectedTechnology: null,
   selectTechnology: noop,
   selectGroup: noop,
+  reset: noop,
 
   setOwner: noop,
   setEditMode: noop,

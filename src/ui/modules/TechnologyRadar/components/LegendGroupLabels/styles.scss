@@ -1,10 +1,15 @@
+@import '~ui/components/Styles/breakpoints';
 @import '~ui/components/Styles/colors';
 @import '~ui/components/Styles/typo';
 @import '~ui/components/Styles/z-index';
 
 .c-legend-group-labels {
+  @include breakpoint-up(medium) {
+    margin: -2.7vmin;
+  }
+
   position: relative;
-  margin: -2.7vmin;
+  margin: -5vmin;
   z-index: $g-zindex__technoloogy-radar-labels;
 }
 
@@ -22,10 +27,14 @@
 }
 
 .c-legend-group-labels__label {
-  @include typo-default;
+  @include breakpoint-up(medium) {
+    font-size: rem-size(1.95);
+  }
 
-  font-size: rem-size(1.8);
+  @include typo-default;
   fill: $g-color__primary;
+
+  font-size: rem-size(4);
   font-weight: lighter;
   text-anchor:middle;
   transform-origin: center;

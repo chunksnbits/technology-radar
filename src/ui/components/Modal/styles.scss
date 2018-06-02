@@ -1,67 +1,124 @@
 
 @import '~ui/components/Styles/animation';
+@import '~ui/components/Styles/breakpoints';
 @import '~ui/components/Styles/colors';
 @import '~ui/components/Styles/z-index';
 
-$c-modal__base--margin: 15px;
-$c-modal__base--padding: 20px;
+$c-modal__base--margin: 5px;
+$c-modal__base--padding: 15px;
 
-.c-modal {
-  @include transition--default(opacity);
+$c-modal__base--margin-up-medium: 15px;
+$c-modal__base--padding-up-medium: 20px;
 
-  position: fixed;
+$c-modal__base--max-width: 530px;
 
-  left: auto;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  max-width: 510px;
-  height: 270px;
-
-  opacity: 0;
-
-  margin: $c-modal__base--margin;
-  padding: $c-modal__base--padding;
-
-  background: $g-color__primary;
-
-  pointer-events: none;
-  overflow: hidden;
-
-  border: 0;
-
-  z-index: $g-zindex__modal;
-
-  transform: translate(0);
-}
-
+#g-modal,
 .c-modal__backdrop {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  bottom: 0;
 
+  pointer-events: none;
+}
+
+#g-modal {
+  z-index: $g-zindex__modal;
+}
+
+.c-modal__dialog[open]::backdrop {
+  position: relative;
+}
+
+.c-modal {
+  @include breakpoint-up(medium) {
+    align-items: flex-end;
+  }
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 50%;
+  max-height: 50vh;
+
+  padding: $c-modal__base--margin;
+}
+
+.c-modal__dialog {
+  transform: translate(0, 105%);
+  opacity: 1;
+}
+
+.c-modal__dialog[open] {
+  @include breakpoint-up(medium) {
+    max-width: $c-modal__base--max-width;
+  }
+
+  @include transition--default(transform);
+
+  position: relative;
+  display: block;
+  padding: $c-modal__base--padding;
+  width: 100%;
+  max-height: 100%;
+
+  left: auto;
+  right: auto;
+  margin: 0;
+
+  background: $g-color__primary;
+  overflow: hidden;
+
+  border: 0;
+
+  pointer-events: none;
+  pointer-events: all;
+  transform: translate(0);
+}
+
+.c-modal__backdrop {
   z-index: $g-zindex__modal-backdrop;
 }
 
 .c-modal--sidebar {
+  @include breakpoint-up(medium) {
+    width: 70%;
+  }
+
+  @include breakpoint-up(large) {
+    width: 50%;
+  }
+
   top: 0;
   right: 0;
   bottom: 0;
+  left: auto;
 
-  width: 50vw;
-  height: auto;
+  width: 100vw;
+  height: 100%;
+  max-height: none;
 
   margin: 0;
+  padding: 0;
   border: 0;
-
-  border-left: 2px solid $g-color__border;
 }
 
-.c-modal[open] {
-  opacity: 1;
-  pointer-events: all;
+.c-modal--sidebar .c-modal__dialog[open] {
+  @include breakpoint-up(medium) {
+    border-left: 2px solid $g-color__border;
+  }
+
+  max-height: none;
+
+  width: 100vw;
+  height: 100%;
+  max-height: none;
 }
 
 .c-modal__nav {

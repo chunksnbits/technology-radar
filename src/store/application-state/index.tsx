@@ -26,10 +26,11 @@ export class ApplicationStateStore extends Component<ApplicationStateProps, Appl
       ...defaultState,
       ...this.parseInitialState(props.initialState || {}),
 
+      reset: this.reset.bind(this),
       selectTechnology: this.selectTechnology.bind(this),
       selectGroup: this.selectGroup.bind(this),
       setEditMode: this.setEditMode.bind(this),
-      setOwner: this.setOwner.bind(this)
+      setOwner: this.setOwner.bind(this),
     };
   }
 
@@ -46,6 +47,16 @@ export class ApplicationStateStore extends Component<ApplicationStateProps, Appl
   }
 
   // ----------------------------------------------------------------------------- Action methods
+  reset(): void {
+    this.setState(state => produce(state, (draftState: ApplicationState) => {
+      draftState.selectedTechnology = null;
+      draftState.selectedGroup = null;
+      draftState.editMode = false;
+
+      return draftState;
+    }));
+  }
+
   selectTechnology(selected: Technology): void {
     this.setState(state => produce(state, (draftState: ApplicationState) => {
       draftState.selectedTechnology = selected;

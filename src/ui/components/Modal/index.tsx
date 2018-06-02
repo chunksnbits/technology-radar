@@ -45,7 +45,7 @@ export class Modal extends PureComponent<ModalProps> {
   private renderDialog(props: ModalProps) {
     const modifiers = [
       typeof this.props.type === 'string' && `c-modal--${ this.props.type }`,
-      (this.props.open as any === 'as') && `c-modal--opened`
+      this.props.open && `c-modal--opened`
     ];
 
     return (
@@ -53,21 +53,21 @@ export class Modal extends PureComponent<ModalProps> {
         {
           this.isShowBackdrop() && <div className='c-modal__backdrop' onClick={ this.props.onClose } />
         }
-        <dialog
-          className={ classNames(this.rootClassName, props.className, ...modifiers) }
-          open={ Boolean(props.open) }>
-          <nav className='c-modal__nav'>
-            <Button onClick={ this.props.onClose }
-              className='c-modal__nav-action c-modal__nav-action--close'
-              variant='flat'>
-              <Icon name='close' size={ 12 } />
-            </Button>
-          </nav>
+        <div className={ classNames(this.rootClassName, props.className, ...modifiers) }>
+          <dialog className='c-modal__dialog' open={ Boolean(props.open) }>
+            <nav className='c-modal__nav'>
+              <Button onClick={ this.props.onClose }
+                className='c-modal__nav-action c-modal__nav-action--close'
+                variant='flat'>
+                <Icon name='close' size={ 12 } />
+              </Button>
+            </nav>
 
-          <section className='c-modal__content'>
-            { props.children }
-          </section>
-        </dialog>
+            <section className='c-modal__content'>
+              { props.children }
+            </section>
+          </dialog>
+        </div>
       </Fragment>
     );
   }
