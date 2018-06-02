@@ -30,9 +30,11 @@ const openBrowser = require('react-dev-utils/openBrowser');
 const paths = require('../config/paths');
 const config = require('../config/webpack.config.dev');
 const createDevServerConfig = require('../config/webpackDevServer.config');
+const { printQrCodeForLocalIp } = require('../config/utils');
 
 const useYarn = fs.existsSync(paths.yarnLockFile);
 const isInteractive = process.stdout.isTTY;
+
 
 // Warn and crash if required files are missing
 if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
@@ -71,6 +73,14 @@ choosePort(HOST, DEFAULT_PORT)
     const urls = prepareUrls(protocol, HOST, port);
     // Create a webpack compiler that is configured with custom messages.
     const compiler = createCompiler(webpack, config, appName, urls, useYarn);
+
+    // Attach qrcode after each emit
+    compiler.plugin('done', (stats) => {
+      if (!Boolean(stats.errors)) {
+        printQrCodeForLocalIp(protocol, port);
+      }
+    });
+
     // Load proxy config
     const proxySetting = require(paths.appPackageJson).proxy;
     const proxyConfig = prepareProxy(proxySetting, paths.appPublic);
