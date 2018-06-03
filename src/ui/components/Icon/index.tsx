@@ -6,6 +6,7 @@ import * as React from 'react';
 import { classNames, canUseDOM } from 'utils/dom';
 
 import './styles.scss';
+import 'public/icon.symbols.svg';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface IconProps {

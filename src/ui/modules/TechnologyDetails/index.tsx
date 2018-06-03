@@ -7,11 +7,13 @@ import { ApplicationStateContext, TechnologyRadarContext } from 'store';
 
 import { consume, compose } from 'utils/store';
 import { classNames } from 'utils/dom';
-import { GlobalBackground } from 'ui/components/GlobalBackground';
 
-import './styles.scss';
+import { GlobalBackground } from 'ui/components/GlobalBackground';
 import { TextButton } from 'ui/components/TextButton';
 import { TechnologyDetailsNavigation } from './components/TechnologyDetailsNavigation';
+
+import './styles.scss';
+import 'public/logo.symbols.svg';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyDetailsProps {
