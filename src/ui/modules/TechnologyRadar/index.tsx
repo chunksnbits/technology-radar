@@ -152,6 +152,7 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
     return {
       transform: [
         'scale(4.5)',
+        `rotateZ(${ -1 * rotationDegrees }deg)`,
         `translateX(${ itemOffsetPercent * 0.9 }%)`,
         `rotateZ(${ rotationDegrees }deg)`,
       ].join(' ')
@@ -170,6 +171,7 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
     return {
       transform: [
         'scale(2)',
+        `rotateZ(${ -1 * rotationDegrees }deg)`,
         `translateX(25%)`,
         `rotateZ(${ rotationDegrees }deg)`,
       ].join(' ')

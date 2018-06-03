@@ -55,3 +55,47 @@ $g-breakpoints: (
     }
   }
 }
+
+@mixin height-up($name) {
+  @media (min-height: map-get($g-breakpoints, $name) + 1) {
+    @content;
+  }
+}
+
+@mixin height-down($name) {
+  @media (max-height: map-get($g-breakpoints, $name) + 1) {
+    @content;
+  }
+}
+
+@mixin height-between($lower, $upper) {
+  @media (min-height: map-get($g-breakpoints, $lower)) and (max-height: map-get($g-breakpoints, $upper)) {
+    @content;
+  }
+}
+
+@mixin height-at($name) {
+  $keys: map-keys($g-breakpoints);
+  $index: index($keys, $name);
+
+  @if ($index == 1) {
+    @include max-height($name) {
+      @content;
+    }
+  }
+
+  @else if ($index == length($keys)) {
+    @include min-height($name) {
+      @content;
+    }
+  }
+
+  @else {
+    $prev: nth($keys, $index);
+    $next: nth($keys, $index + 1);
+
+    @include height-between($prev, $next) {
+      @content;
+    }
+  }
+}

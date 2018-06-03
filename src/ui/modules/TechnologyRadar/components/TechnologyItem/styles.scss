@@ -10,7 +10,7 @@ $c-technology-item__highlight--border-width: $c-technology-item__item--border-wi
 $c-technology-item__blur--border-width: 1.5 * $c-technology-item__item--border-width;
 
 // ----------------------------------------------------------------------------- Responsive
-$c-technology-item__item--size-medium: 24px;
+$c-technology-item__item--size-medium: 28px;
 $c-technology-item__item--border-width-medium: 1px;
 
 .c-technology-item {
@@ -31,15 +31,17 @@ $c-technology-item__item--border-width-medium: 1px;
 }
 
 .c-technology-item__item {
-  @include breakpoint-up(medium) {
-    top: -0.5 * $c-technology-item__item--size-medium;
-    right: -0.5 * $c-technology-item__item--size-medium;
+  @include breakpoint-at(medium) {
+    @include height-at(medium) {
+      top: -0.5 * $c-technology-item__item--size-medium;
+      right: -0.5 * $c-technology-item__item--size-medium;
 
-    width: $c-technology-item__item--size-medium;
-    height: $c-technology-item__item--size-medium;
+      width: $c-technology-item__item--size-medium;
+      height: $c-technology-item__item--size-medium;
 
-    border-radius: $c-technology-item__item--size-medium;
-    border-width: $c-technology-item__item--border-width-medium;
+      border-radius: $c-technology-item__item--size-medium;
+      border-width: $c-technology-item__item--border-width-medium;
+    }
   }
 
   position: relative;
