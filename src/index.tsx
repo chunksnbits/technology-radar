@@ -2,7 +2,6 @@
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
 import { render, hydrate } from 'react-dom';
-import { configure } from 'mobx';
 
 import { App } from 'ui/views/App';
 import registerServiceWorker from './registerServiceWorker';
@@ -16,7 +15,6 @@ import './styles.scss';
 import applicationConfig from 'public/data/data.json';
 
 const { application: applicationState, technologyRadar, application } = applicationConfig;
-configure({ enforceActions: true });
 
 if (canUseDOM()) {
   document.title = application.title;

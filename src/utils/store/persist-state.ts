@@ -1,5 +1,4 @@
 import { canUseSessionStorage } from 'utils/dom';
-import { toJS } from 'mobx';
 
 export function persistState<T>(key: string, data: T): void {
   if (!canUseSessionStorage()) {
@@ -7,7 +6,7 @@ export function persistState<T>(key: string, data: T): void {
   }
 
   try {
-    const json = JSON.stringify(toJS(data));
+    const json = JSON.stringify(data);
     sessionStorage.setItem(key, json);
   } catch (error) {
     // tslint:disable-next-line:no-console
