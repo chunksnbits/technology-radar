@@ -2,7 +2,6 @@
   "$schema": "../data.schema.json",
   "application": {
     "editor": false,
-    "logo": "/logo.svg",
     "title": "Technology Radar",
     "subtitle": "ECMA Corp"
   },
