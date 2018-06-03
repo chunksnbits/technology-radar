@@ -40,6 +40,8 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
    */
   getSnapshotBeforeUpdate() {
     this.elementRef.current.classList.add('c-technology-radar--will-change');
+
+    return {};
   }
 
   componentDidUpdate() {

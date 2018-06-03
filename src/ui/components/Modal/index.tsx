@@ -59,7 +59,7 @@ export class Modal extends PureComponent<ModalProps> {
               <Button onClick={ this.props.onClose }
                 className='c-modal__nav-action c-modal__nav-action--close'
                 variant='flat'>
-                <Icon name='close' size={ 12 } />
+                <Icon name='close' className='c-modal__nav-action-icon' />
               </Button>
             </nav>
 

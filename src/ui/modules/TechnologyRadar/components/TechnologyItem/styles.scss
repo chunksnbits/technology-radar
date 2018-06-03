@@ -10,8 +10,8 @@ $c-technology-item__highlight--border-width: $c-technology-item__item--border-wi
 $c-technology-item__blur--border-width: 1.5 * $c-technology-item__item--border-width;
 
 // ----------------------------------------------------------------------------- Responsive
-$c-technology-item__item--size-medium: 36px;
-$c-technology-item__item--border-width-medium: 2px;
+$c-technology-item__item--size-medium: 24px;
+$c-technology-item__item--border-width-medium: 1px;
 
 .c-technology-item {
   display: flex;
@@ -31,7 +31,7 @@ $c-technology-item__item--border-width-medium: 2px;
 }
 
 .c-technology-item__item {
-  @include breakpoint-at(medium) {
+  @include breakpoint-up(medium) {
     top: -0.5 * $c-technology-item__item--size-medium;
     right: -0.5 * $c-technology-item__item--size-medium;
 

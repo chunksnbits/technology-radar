@@ -150,8 +150,13 @@ $c-modal__base--max-width: 530px;
 }
 
 .c-modal__nav-action.c-modal__nav-action--close {
-  width: 36px;
-  height: 36px;
+  width: 48px;
+  height: 48px;
   min-width: 0;
   padding: 0;
+}
+
+.c-modal__nav-action-icon {
+  width: 14px;
+  height: 14px;
 }
