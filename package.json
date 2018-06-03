@@ -2,6 +2,7 @@
   "name": "com-chunksnbits-technology-radar",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://chunksnbits.github.io/com-chunksnbits-technology-radar",
   "dependencies": {
     "@material-ui/core": "^1.0.0",
     "@types/d3": "^5.0.0",
