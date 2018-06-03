@@ -23,7 +23,7 @@ export class HeaderComponent extends Component<HeaderProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const { logo, title, reset } = this.props.applicationState;
+    const { logo, title, subtitle, reset } = this.props.applicationState;
 
     return (
       <header className={ classNames('c-header', this.props.className) } onClick={ reset }>
@@ -31,11 +31,18 @@ export class HeaderComponent extends Component<HeaderProps> {
           { logo && (
             <img className='c-header__logo' src={ logo } />
           )}
-          { title && (
-            <h2 className='c-header__title'>
-              { title }
-            </h2>
-          )}
+          <div className='c-header__name'>
+            { title && (
+              <h1 className='c-header__title'>
+                { title }
+              </h1>
+            )}
+            { subtitle && (
+              <h2 className='c-header__subtitle'>
+                { subtitle }
+              </h2>
+            )}
+          </div>
         </Button>
       </header>
     );

@@ -13,6 +13,16 @@
   @return (strip-unit($size) / $rem-base--size) * 1rem;
 }
 
+
+// Converts a given font-size to vieweport related size.
+@function respoonsive-size($size) {
+  @if unit($size) == 'rem' {
+    @return (strip-unit($size) * $rem-base--size) * 1vmin;
+  }
+
+  @return strip-unit($size) * 1vmin;
+}
+
 // The base size to be set as rem base.
 // All subsequent rem-sizes will be measured relative
 // to this.

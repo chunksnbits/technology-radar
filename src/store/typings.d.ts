@@ -4,6 +4,7 @@ declare type TechnologyRadarStore = TechnologyRadar & TechnologyRadarActions;
 
 declare interface ApplicationState {
   title?: string;
+  subtitle?: string;
   logo?: string;
 
   selectedTechnology?: Technology;

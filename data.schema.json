@@ -12,12 +12,16 @@
       "type": "object",
       "required": [
         "title",
+        "subtitle",
         "logo",
         "editor"
       ],
       "additionalProperties": false,
       "properties": {
         "title": {
+          "type": "string"
+        },
+        "subtitle": {
           "type": "string"
         },
         "logo": {

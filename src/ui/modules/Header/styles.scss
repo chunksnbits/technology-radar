@@ -4,8 +4,9 @@
 
 .c-header {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   flex-direction: row;
+  align-items: flex-start;
 
   position: absolute;
   top: 0;
@@ -16,26 +17,41 @@
   pointer-events: none;
 }
 
-.c-header__app-title {
+.c-header__app-title.c-header__app-title {
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
 
   padding: 10px 20px;
   pointer-events: all;
 }
 
 .c-header__logo  {
-  display: inline-block;
+  display: inline-flex;
   width: 6.2vmin;
+}
+
+.c-header__name {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  color: $g-color__primary;
+
+  padding: 4px;
 }
 
 .c-header__title {
   @include typo-block-heading;
 
   display: inline-block;
-  font-size: 3.5vmin;
-  font-family: $g-typo__font-family;
+  font-size: responsive-size($g-typo__font-size--section-heading);
   font-weight: $g-typo__font-weight--light;
+  line-height: 1;
+}
 
-  color: $g-color__primary;
+.c-header__subtitle {
+  @include typo-copy;
+
+  font-size: responsive-size($g-typo__font-size--copy);
+  font-weight: $g-typo__font-weight--regular;
 }
