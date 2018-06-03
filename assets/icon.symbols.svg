@@ -1,0 +1,33 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display: none;">
+  <symbol id="arrow-down" viewBox="0 0 24 24">
+    <g>
+      <path d="M2.812,4.594L12,13.781l9.188-9.188L24,7.406l-12,12l-12-12L2.812,4.594z"/>
+    </g>
+  </symbol>
+
+  <symbol id="close" viewBox="0 0 24 24">
+    <g>
+      <path d="M24,2.416L14.416,12L24,21.584L21.584,24L12,14.416L2.416,24L0,21.584L9.584,12L0,2.416L2.416,0L12,9.584L21.584,0 L24,2.416z"/>
+    </g>
+  </symbol>
+  <symbol id="add" viewBox="0 0 24 24">
+    <g>
+	    <path d="M24,13.691H13.691V24h-3.383V13.691H0v-3.383h10.309V0h3.383v10.309H24V13.691z"/>
+    </g>
+  </symbol>
+  <symbol id="edit" viewBox="0 0 24 24">
+    <g>
+	    <path d="M0,19L14.75,4.25l5,5L5,24H0V19z M23.625,5.375l-2.438,2.438l-5-5l2.438-2.438C18.875,0.125,19.188,0,19.562,0 S20.25,0.125,20.5,0.375L23.625,3.5C23.875,3.75,24,4.062,24,4.438S23.875,5.125,23.625,5.375z"/>
+    </g>
+  </symbol>
+  <symbol id="navigate-prev" viewBox="0 0 24 24">
+    <g>
+      <path d="M19.406,2.812L10.219,12l9.188,9.188L16.594,24l-12-12l12-12L19.406,2.812z"/>
+    </g>
+  </symbol>
+  <symbol id="navigate-next" viewBox="0 0 24 24">
+    <g>
+      <path d="M7.406,0l12,12l-12,12l-2.812-2.812L13.781,12L4.594,2.812L7.406,0z"/>
+    </g>
+  </symbol>
+</svg>
