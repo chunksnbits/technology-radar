@@ -38,7 +38,7 @@ export class Icon extends Component<IconProps> {
         }}
         preserveAspectRatio='xMidYMin'
         viewBox='0 0 24 24'>
-        <use xlinkHref={ `/assets/icon.symbols.svg#${ this.props.name }` } />
+        <use xlinkHref={ `/icon.symbols.svg#${ this.props.name }` } />
       </svg>
     );
   }

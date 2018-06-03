@@ -35,7 +35,7 @@ declare module "*.scss" {
   export default value;
 }
 
-declare module "public/data/data.json" {
+declare module "public/data.json" {
   const value: ApplicationConfig;
   export default value;
 }

@@ -45,7 +45,7 @@ export class TechnologyDetailsComponent extends PureComponent<TechnologyDetailsP
               preserveAspectRatio='xMidYMin'
               viewBox='0 0 24 24'
               fill={ group && group.color }>
-              <use xlinkHref={ `/assets/logo.symbols.svg#${ selectedTechnology.logo }` } />
+              <use xlinkHref={ `/logo.symbols.svg#${ selectedTechnology.logo }` } />
             </svg>
           </GlobalBackground>
         }

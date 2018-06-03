@@ -12,7 +12,7 @@ import { canUseDOM } from 'utils/dom';
 import './styles.scss';
 
 // ----------------------------------------------------------------------------- Configuration
-import applicationConfig from 'public/data/data.json';
+import applicationConfig from 'public/data.json';
 
 const { application: applicationState, technologyRadar, application } = applicationConfig;
 
