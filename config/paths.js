@@ -3,6 +3,7 @@
 const path = require('path');
 const fs = require('fs');
 const url = require('url');
+const argv = require('yargs').argv;
 
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebookincubator/create-react-app/issues/637
@@ -41,7 +42,7 @@ function getServedPath(appPackageJson) {
 // config after eject: we're in ./config/
 module.exports = {
   dotenv: resolveApp('.env'),
-  appBuild: resolveApp('dist'),
+  appBuild: resolveApp(argv.dest || 'dist'),
   appPublic: resolveApp('public'),
   appPrivate: resolveApp('private'),
   staticPaths: [resolveApp('public'), resolveApp('private')],
