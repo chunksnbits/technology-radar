@@ -6,37 +6,28 @@ import * as React from 'react';
 import { classNames } from 'utils/dom';
 
 import './styles.scss';
-import * as iconSrc from 'public/icon.symbols.svg';
+import * as logoSrc from 'public/logo.symbols.svg';
 
 // ----------------------------------------------------------------------------- Configuration
-export interface IconProps {
+export interface LogoProps {
   className?: string;
   name: string;
-  size?: number | string;
+  color?: string;
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class Icon extends Component<IconProps> {
+export class Logo extends Component<LogoProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const size = this.isNumberLike(this.props.size) ? `${ this.props.size }px` : this.props.size;
     return (
-      <svg className={ classNames('c-icon', this.props.className) }
+      <svg className={ classNames('c-logo', this.props.className) }
         xmlns='http://www.w3.org/2000/svg'
-        style={{
-          width: size,
-          height: size
-        }}
         preserveAspectRatio='xMidYMin'
-        viewBox='0 0 24 24'>
-        <use xlinkHref={ `${ iconSrc }#${ this.props.name }` } />
+        viewBox='0 0 24 24'
+        style={{ fill: this.props.color }}>
+        <use xlinkHref={ `${ logoSrc }#${ this.props.name }` } />
       </svg>
     );
-  }
-
-  // ----------------------------------------------------------------------------- Helpers methods
-  private isNumberLike(value: number | string): boolean {
-    return !isNaN(Number(value));
   }
 }

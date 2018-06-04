@@ -11,6 +11,7 @@ const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
 
 const envPublicUrl = process.env.PUBLIC_URL;
+const bashPublicUrl = argv.publicUrl || argv['public-url'];
 
 function ensureSlash(path, needsSlash) {
   const hasSlash = path.endsWith('/');
@@ -23,8 +24,9 @@ function ensureSlash(path, needsSlash) {
   }
 }
 
+
 const getPublicUrl = appPackageJson =>
-  envPublicUrl || require(appPackageJson).homepage;
+  envPublicUrl || bashPublicUrl || require(appPackageJson).homepage;
 
 // We use `PUBLIC_URL` environment variable or "homepage" field to infer
 // "public path" at which the app is served.
@@ -42,7 +44,7 @@ function getServedPath(appPackageJson) {
 // config after eject: we're in ./config/
 module.exports = {
   dotenv: resolveApp('.env'),
-  appBuild: resolveApp(argv.dest || 'dist'),
+  appBuild: resolveApp(argv.dest || 'build'),
   appPublic: resolveApp('public'),
   appPrivate: resolveApp('private'),
   staticPaths: [resolveApp('public'), resolveApp('private')],

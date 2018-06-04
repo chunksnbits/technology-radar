@@ -7,13 +7,14 @@
   ],
   "additionalProperties": false,
   "properties": {
-    "$schema": "string",
+    "$schema": {
+      "type": "string"
+    },
     "application": {
       "type": "object",
       "required": [
         "title",
         "subtitle",
-        "logo",
         "editor"
       ],
       "additionalProperties": false,

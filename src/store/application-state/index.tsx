@@ -2,11 +2,13 @@
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
 import { createContext, Component, Context } from 'react';
+import produce from 'immer';
+
 import { canUseSessionStorage } from 'utils/dom';
 import { restoreState } from 'utils/store';
+import { merge } from 'utils/collection';
 
 import { defaultState } from './constants';
-import produce from 'immer';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface ApplicationStateProps {
@@ -22,9 +24,10 @@ export class ApplicationStateStore extends Component<ApplicationStateProps, Appl
   constructor(props: ApplicationStateProps) {
     super(props);
 
+    const initialState = merge(defaultState, props.initialState);
+
     this.state = {
-      ...defaultState,
-      ...this.parseInitialState(props.initialState || {}),
+      ...initialState,
 
       reset: this.reset.bind(this),
       selectTechnology: this.selectTechnology.bind(this),
@@ -97,11 +100,5 @@ export class ApplicationStateStore extends Component<ApplicationStateProps, Appl
     this.setState(state => produce(state, (draftState: ApplicationState) => {
       return Object.assign(draftState, restoreState(SESSION_STORAGE_KEY) || {});
     }));
-  }
-
-  private parseInitialState(state: ApplicationState): ApplicationState {
-    return Object.assign(state, {
-      logo: typeof state.logo === 'string' ? state.logo.replace('%PUBLIC_URL%', '') : state.logo
-    });
   }
 }

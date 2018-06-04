@@ -13,7 +13,7 @@ import { TextButton } from 'ui/components/TextButton';
 import { TechnologyDetailsNavigation } from './components/TechnologyDetailsNavigation';
 
 import './styles.scss';
-import 'public/logo.symbols.svg';
+import { Logo } from 'ui/components/Logo';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyDetailsProps {
@@ -42,13 +42,9 @@ export class TechnologyDetailsComponent extends PureComponent<TechnologyDetailsP
         {
           active && Boolean(selectedTechnology.logo) &&
           <GlobalBackground>
-            <svg className={ 'c-technology-details__logo' }
-              xmlns='http://www.w3.org/2000/svg'
-              preserveAspectRatio='xMidYMin'
-              viewBox='0 0 24 24'
-              fill={ group && group.color }>
-              <use xlinkHref={ `/logo.symbols.svg#${ selectedTechnology.logo }` } />
-            </svg>
+            <Logo className='c-technology-details__logo'
+              name={ selectedTechnology.logo }
+              color={ group && group.color } />
           </GlobalBackground>
         }
         <div className='c-technology-details__header'>

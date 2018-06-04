@@ -28,7 +28,7 @@ $c-technology-details__color--size: 14px;
   pointer-events: all;
 }
 
-.c-technology-details__logo {
+.c-technology-details__logo.c-technology-details__logo {
   @include animation--default(logo-appear);
 
   position: fixed;
