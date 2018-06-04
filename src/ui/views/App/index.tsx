@@ -7,11 +7,12 @@ import { ApplicationStateContext } from 'store';
 
 import { TechnologyRadar } from 'ui/modules/TechnologyRadar';
 import { TechnologyDetails } from 'ui/modules/TechnologyDetails';
-import { SettingsPanel } from 'ui/modules/SettingsPanel';
+
 import { Header } from 'ui/modules/Header';
 import { Footer } from 'ui/modules/Footer';
 
 import { Modal } from 'ui/components/Modal';
+import { AsyncComponent } from '../../components/AsyncComponent';
 
 import { consume } from 'utils/store';
 
@@ -40,8 +41,13 @@ export class AppComponent extends React.Component<AppProps> {
           <Modal
             open={ editMode }
             type='sidebar'
-            onClose={ this.setEditModeHandler }>
-            <SettingsPanel />
+            onClose={ this.setEditModeHandler }>{
+              this.props.applicationState.editor &&
+              <AsyncComponent onLoad={ () => import('ui/modules/SettingsPanel') }
+                componentName='SettingsPanel'>
+                Loading...
+              </AsyncComponent>
+            }
           </Modal>
 
           <Modal

@@ -1,7 +1,7 @@
 {
   "$schema": "../data.schema.json",
   "application": {
-    "editor": false,
+    "editor": true,
     "title": "Technology Radar",
     "subtitle": "Example Set"
   },
