@@ -28,6 +28,7 @@ declare interface ApplicationStateActions {
 declare interface TechnologyRadar {
   technologies?: Technology[];
   groups?: Group[];
+  levels?: Level[];
 
   edited?: boolean;
   settings?: TechnologyRadarSettings;

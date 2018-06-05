@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { mockTechnology, mockGroup, mockSettings, mockApplicationStateStore, mockTechnologyRadarStore } from 'mocks';
+import { mockTechnology, mockGroup, mockSettings, mockApplicationStateStore, mockTechnologyRadarStore, mockLevel } from 'mocks';
 
 import { LegendGroupLabels } from './components/LegendGroupLabels';
 import { TechnologyItem } from './components/TechnologyItem';
@@ -73,6 +73,7 @@ it('applies base rotation', () => {
     technologyRadar: {
       technologies: [mockTechnology({ groupId: group.id }), mockTechnology({ groupId: group.id })],
       groups: [group],
+      levels: [mockLevel(), mockLevel()],
       settings: mockSettings()
     }
   });

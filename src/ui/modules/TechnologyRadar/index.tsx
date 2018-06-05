@@ -49,7 +49,7 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
   }
 
   render() {
-    const { groups, technologies, settings } = this.props.technologyRadar;
+    const { groups, levels, technologies, settings } = this.props.technologyRadar;
     const { selectedTechnology, selectedGroup } = this.props.applicationState;
 
     const modifiers = [
@@ -75,7 +75,8 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
               <LegendLevels
                 technologies={ technologies }
                 innerRadiusPercent={ settings.innerRadiusPercent }
-                outerRadiusPercent={ settings.outerRadiusPercent } />
+                outerRadiusPercent={ settings.outerRadiusPercent }
+                levels={ levels } />
             </div>
 
             <div className='c-technology-radar__technologies'>{

@@ -14,6 +14,7 @@ export interface LegendLevelsProps {
   innerRadiusPercent: number;
   outerRadiusPercent: number;
   technologies: Technology[];
+  levels: Level[];
 }
 
 // ----------------------------------------------------------------------------- Implementation
@@ -21,13 +22,12 @@ export class LegendLevels extends PureComponent<LegendLevelsProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const { innerRadiusPercent, outerRadiusPercent, technologies } = this.props;
+    const { innerRadiusPercent, outerRadiusPercent, technologies, levels } = this.props;
 
     const modifiers = [];
 
     const maxLevel = calculateMaxLevel(technologies);
     const step = 2 * (outerRadiusPercent - innerRadiusPercent) / maxLevel;
-    const levels = new Array(maxLevel).fill(null);
 
     const size = (index) => {
       return 2 * innerRadiusPercent + (index + 1) * step;
@@ -42,7 +42,11 @@ export class LegendLevels extends PureComponent<LegendLevelsProps> {
             style={{
               height: `${ size(index) }%`,
               width: `${ size(index) }%`,
-            }} />
+            }}>
+            <span className='c-legend-levels__level-label'>
+              { levels[Math.max(0, maxLevel - index - 1)].name }
+            </span>
+          </div>
         )
       }</div>
     );

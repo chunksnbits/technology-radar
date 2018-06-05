@@ -17,8 +17,8 @@
     "rootDir": "src",
     "paths": {
       "public/*": [
-        "../public/*",
-        "../private/*"
+        "../private/*",
+        "../public/*"
       ],
       "mocks/*": [
         "../test/mocks/*"

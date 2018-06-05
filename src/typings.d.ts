@@ -16,6 +16,11 @@ declare interface Group {
   color?: string;
 }
 
+declare interface Level {
+  id?: string;
+  name: string;
+}
+
 declare interface ApplicationConfig {
   application: ApplicationState;
   technologyRadar: TechnologyRadar;

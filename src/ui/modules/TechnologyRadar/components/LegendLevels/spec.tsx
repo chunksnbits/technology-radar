@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { mockTechnology } from 'mocks';
+import { mockTechnology, mockLevel } from 'mocks';
 
 import { LegendLevels } from './index';
 
@@ -13,7 +13,8 @@ it('renders element', () => {
     <LegendLevels
       technologies={ [mockTechnology(), mockTechnology({ level: 2 })] }
       innerRadiusPercent={ 10 }
-      outerRadiusPercent={ 50 } />
+      outerRadiusPercent={ 50 }
+      levels={ [mockLevel(), mockLevel()] } />
   );
 
   expect(element.exists()).toBeTruthy();
@@ -25,7 +26,8 @@ it('renders levels', () => {
     <LegendLevels
       technologies={ [mockTechnology(), mockTechnology({ level: 2 })] }
       innerRadiusPercent={ 10 }
-      outerRadiusPercent={ 50 } />
+      outerRadiusPercent={ 50 }
+      levels={ [mockLevel(), mockLevel()] } />
   );
 
   expect(element.find('.c-legend-levels__level').length).toBe(2);

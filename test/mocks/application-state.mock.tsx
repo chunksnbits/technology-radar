@@ -62,6 +62,11 @@ export const mockTechnology = (patch = {}) => Object.assign({}, {
   description: null
 }, patch) as Technology;
 
+export const mockLevel = (patch = {}) => Object.assign({}, {
+  id: uuid(),
+  name: 'Any'
+}, patch) as Level;
+
 export const mockGroup = (patch = {}) => Object.assign({}, {
   id: uuid(),
   group: 0,

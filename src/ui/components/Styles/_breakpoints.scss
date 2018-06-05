@@ -5,6 +5,12 @@ $g-breakpoints: (
   large: 1023px
 );
 
+@mixin hide($name) {
+  @include breakpoint-at($name) {
+    display: none;
+  }
+}
+
 @mixin breakpoint-up($name) {
   @media (min-width: map-get($g-breakpoints, $name) + 1) {
     @content;
