@@ -3,6 +3,8 @@
 
 This project creates a simple technology radar reflecting technologies and skills that describe your current and future interests in an area of interest.
 
+See [https://chunksnbits.github.io/com-chunksnbits-technology-radar](https://chunksnbits.github.io/com-chunksnbits-technology-radar) for a running demo, based on my personal settings.
+
 Inspired by [ThoughtWorks' TechnologyRadar publications](https://www.thoughtworks.com/de/radar).
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app) using [React 16.3](https://5b05c94e0733d530fd1fafe0--reactjs.netlify.com/).
