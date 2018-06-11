@@ -1,5 +1,5 @@
 {
-  "$schema": "../../data.schema.json",
+  "$schema": "../data.schema.json",
   "application": {
     "editor": false,
     "title": "Technology Radar",
@@ -7,14 +7,14 @@
   },
   "technologyRadar": {
     "levels": [{
-      "id": "basic",
-      "name": "Basic"
+      "id": "explore",
+      "name": "Explore"
     }, {
-      "id": "extended",
-      "name": "Extended"
+      "id": "extend",
+      "name": "Extend"
     }, {
-      "id": "core",
-      "name": "Core"
+      "id": "use",
+      "name": "Use"
     }],
     "settings": {
       "outerRadiusPercent": 50,
@@ -46,6 +46,28 @@
       },
       "description": "Webpack is a flexible and powerful module bundler for building JavaScript applications. Thanks to a large community Webpack offers a big ecosystem of plugins and transpilers (loaders) that allow you to build and maintain exactly the workflow you need to realize your web project. Even though other bundlers and build tools are more well suited to realize smaller and focused projects or libraries, Webpack to me is still the best choice when it comes to developing small to large scale frontend projects for the web. Today I prefer to use some of the well curated tools build on top of Webpack, like AngularCLI or ReactCreateApp, for professional projects, since they are easier to understand, communicate and maintain together with the rest of developement team. But when that is not enough the current project requirements I am still happy to build a custom webpack configuration and add custom plugins myself to realize exactly the build step needed for the current task at hand."
     }, {
+      "id": "Task",
+      "groupId": "tools",
+      "name": "Task runners | gulp | grunt",
+      "level": 3,
+      "logo": "gulp",
+      "website": {
+        "name": "gulpjs.com/",
+        "href": "https://gulpjs.com/"
+      },
+      "description": "With Webpack we have gotten a performant and flexible bundler+ to handle most of our application's build requirements. However most often there is still a need to control all the other steps neccessary to deliver a convenient developer experience when developing, releasing and deploying apps. All of the three choices I have worked with recently - (npm/node) scripts, gruntjs and gulp - can be the right choice if used in the right situation. However, I love what I see from gulp 4.0.0 and the introduction of explicit series and parallel commands that make it easier to implement just the flow you need. Bundled with async functions and node, gulp will be definitely the first task runner I will be looking at when planning my next project."
+    }, {
+      "id": "sentry",
+      "groupId": "tools",
+      "name": "Frontend Error Logging | Sentry",
+      "level": 2,
+      "logo": "sentry",
+      "website": {
+        "name": "sentry.io",
+        "href": "https://sentry.io/welcome/"
+      },
+      "description": "With RESTful interfaces, more critical aspects of the business logic are covered through the frontend. This makes it inevitable to incooperate some sort of frontend logging approach into your application. I've been using sentry.io for some of my private projects, and find it more than helpful to detecting potential issues before they even arise."
+    }, {
       "id": "storybook",
       "groupId": "tools",
       "name": "Storybook",
@@ -57,16 +79,27 @@
       },
       "description": "Developing UI component libraries as a separated, indepdendent (living) styleguide is becoming more common in professional web development projects. With a growing list of applications and frameworks that support realizing UI component libraries - I've been able to work with Styleguide.js, Patternlab, Patternplate and Vmware's Clarity in the past - Storybook looks to be one of the most interesting choices for building and maintaining UI component libraries. Storybook allows you freedom of choice of using it as part of a standalone application or integrate it into an existing codebase. With a good community, that provides a constant flow of plugins and extensions, realinzing even complex requirements like test-integration looks easy. The library itself is well defined through 'stories', that offer a fun and convenient interface to curate component samples. Early experiments have been very promising, so I am looking forward to using this as part of all kinds of technology stacks."
     }, {
+      "id": "ladr",
+      "groupId": "tools",
+      "name": "Lightweight Architecture Decision Records",
+      "level": 1,
+      "logo": "ladr",
+      "website": {
+        "href": "http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions",
+        "name": "introduction post"
+      },
+      "description": "Taken straight from the latest version of Thoughtwork's technology radar, lightweight architecture decision records seem like an obvious should-have. Decision records are basic readme files (supported by some toolin if you choose so) that life in your codebase. For each new architectural decision, incl. but definitely not limited to architectural choices, choice of libraries or frameworks, programming approaches you create a decision file for that. The main benefits for me are manyfold. It adds transparency to how your project and application setup is made up and what the decision process behind that decision was. It gives new members joining the project an entry point to look at and see what is going on. And last but not least, it gives you a place to go to work out (and discuss) your decisions even before you make them. Taking it out for a spin on a recent project we ended up collecting alternatives for the decision we faced right in the document. Having this allowed to have something concrete to look at when discussing and making the decision. And recording said deicision afterwards was pretty much copy and paste."
+    }, {
       "id": "pwa",
       "groupId": "frameworks",
-      "name": "PWA",
+      "name": "Offline first w/ PWAs",
       "level": 2,
       "logo": "pwa",
       "website": {
         "href": "https://developers.google.com/web/progressive-web-apps/",
         "name": "developers.google.com/web/progressive-web-apps"
       },
-      "description": "Progressive Web Apps (PWA) are regular web applications that offer some of the benefits of native mobile applications. Service worker are the core technology used to realize browserside caching and offline capability for your webpage. Thanks to some great and easy to use tools it becomes an almost automatic choice for integration into your application architecture, especially for caching purposes and loading time optimization. PWAs though provide their challenges when integrate server-backed services into your application, so you have to bee well aware of the on/offline nature of your application when thinking about data-syncing and data staleness requirements when adding it to your app. Still togehter with browserside data handling through LocalStorage and IndexDB PWAs have been a welcome introduction into the browser, that make web applications even more powerful. After using the offline first PWA approach for some of my private projects for a couple of years now, I am confident that is always something to consider for setting up frontend architectures in your project. Now that iOS has announced its integration of ServiceWokers into Safari there is no reason left not to think about using it."
+      "description": "Progressive Web Apps (PWA) are regular web applications that offer some of the benefits of native mobile applications like offline availabilitz. Service worker are the core technology used to realize browserside caching and offline capability for your webpage. Persisting your state into some form of front-end data-storage (like Hoodie, PouchDB or plaing localStorage) completes your user's offline experience. Most frameworks make it easy to offer service worker integrations out of the box, but creating a fully offline capable web application presents it challenges when it comes to synchronization and fallback handling. Even though, with Safari adding support for service workers, providing some basic PWA techniques seems like a no-brainer. Going the full offline-first route, is a consideration that in my oppinion should at least be considered."
     }, {
       "id": "angular",
       "groupId": "frameworks",
@@ -82,13 +115,24 @@
       "id": "reactjs",
       "groupId": "frameworks",
       "name": "ReactJs",
-      "level": 2,
+      "level": 3,
       "logo": "reactjs",
       "website": {
         "href": "https://reactjs.org/",
         "name": "reactjs.org"
       },
       "description": "ReactJs is a library for building user interfaces. Where Angular feels like a full-size sedan, ReactJs is the well established sports car in the JavaScript library world - faster, more flexible and more powerful, but also harder to control. ReactJs teases you with its strong foundations in the coding site and has been a driver in the establishment of architectural concepts like reactive programming into the frontend world. And every other release of the framework seems now to add interesting stuff for developers to toy with, like declarative error handling with error boundaries or well designed features like contexts and portals. Due to it being solely build on top of JavaScript, realization of deferred loading of pages and components and serverside rendering is a breeze especially compared to other frameworks."
+    }, {
+      "id": "hyperapp",
+      "groupId": "frameworks",
+      "name": "Hyperapp",
+      "level": 1,
+      "logo": "hyperapp",
+      "website": {
+        "href": "https://hyperapp.js.org/",
+        "name": "hyperapp.js.org/"
+      },
+      "description": "Hyperapp is one of the miriad of choices available in the world of 'smaller', 'simpler' and 'faster' 1kb frontend libraries / frameworks alternatives to React and Angular. Hyperapp is a pragmatic, functional framework that focuses and limits itself to (simplified) state management, virtual DOM and lifecycle events to produce you a rendered state. Thanks to JSX it feels just about familiar enough to React folks to get started right away. Keeping it to the basics, it still feels lightweight enough to be just the fun and painless reprieve you might are looking for in a framework to use on your smale-scale side-project."
     }, {
       "id": "vuejs",
       "groupId": "frameworks",
@@ -101,6 +145,17 @@
       },
       "description": "VueJs is a versatile and performant JavaScript library for building component based web interfaces. VueJs for me seems to fall somewhere in the middle between Angular and ReactJs, with more flexibility in your architectural and framework choices, while also offering a stronger templating support through declarative rendering and templater binding. Eveen though I haven't been able to to use it in professional and personal projectst as much as I'd like for now, my first demos and proof of concepts have left me hungry for giving the language a more extensive look in upcoming projects in the very near future."
     }, {
+      "id": "web-components",
+      "groupId": "frameworks",
+      "name": "(Native) Web components",
+      "level": 1,
+      "logo": "web-components",
+      "website": {
+        "href": "https://www.webcomponents.org/",
+        "name": "webcomponents.org"
+      },
+      "description": "The concept of (if possible) native, framework and library independent web components has teased us for a very long time now. I loved the idea from the very beginning and was convinced that this would change how developers approach web development in a verz short amount of time. Looking at Polymer very early on I felt just as deflated as most of the web developer world and turned to Angular, React and the likes instead. But web components are back and making a comeback. With Angular introducing native web components as one possible build target, some announced changes to the Polymer product line on the latest Google IO conference and the growing focus on design systems and component libraries at the core of modern web developement, it seems just around time to give native web components the 2nd chance they deserver and figure out ways to use them in production, especially since they look like an obvious solution to facing us when dealing issues of multi-framework architectures, technology migrations and issues with integrating interactive snippets into static content management systems like Adobe's AEM"
+    }, {
       "id": "amp",
       "groupId": "frameworks",
       "name": "AMP",
@@ -110,7 +165,7 @@
         "href": "https://www.ampproject.org/",
         "name": "ampproject.org"
       },
-      "description": "Advanced Mobile Pages is web publishing technology focused on delivering fast loading web pages, especially on mobile devices. I observed the results of using AMP - i.e., incredibly fast loading pages on mobile devices, especially when facing low connections - as a privates user, way before becoming interested in the library itself. Since looking deeper into the library it seems like an obviouse choice to me for content rich pages, especially if they will be mainly accessed through Google Search or on moblie decies. Beyond that some of the ideas and principles behind AMP are well worth exploring and learning in every type of user interface generation on the web."
+      "description": "Advanced Mobile Pages is a set of components and rules focused on delivering fast loading (mobile) web pages. AMP achieves this through a set of verifiable (there is a validator) rules, that force the developer to keep the critical render path free of secondary content. The result feels incredibly fast, especially on devices with slow connections (you will notice the difference when waiting for subway on your commute home...). Even though AMP feels limiting to web developers used to building single page apps, it offers the perfect solution to heavy load content sites. Looking beyond the hood, there is plenty of stuff to learn from the ideas and concepts incooperated in AMP to make the blog posts and youtube videos published around the release of AMP a must-watch for every web-developer trying to learn some tricks around the performance optimization for their web pages."
     }, {
       "id": "typescript",
       "groupId": "frameworks",
@@ -121,7 +176,29 @@
         "href": "https://www.typescriptlang.org/",
         "name": "typescriptlang.org"
       },
-      "description": "Typescript is a typed superset build that compiles to JavaScript. With almost universally strong support within the core IDEs used in web-developement today, for me it has become an obvious choice, both for client and server side applications. Beyond the obvious benefits like type-safety and the language extensions made with decorators and static and class properties, using Typescript is a low-effort approach to documenting your codebase through adding interface and type definitions to your functions and classes and making it easier for your colleagues and your future self to navigate your implementations. On top of this there exists a good set of development tools like linters and automatic documentation generators which allow you to use the language choice to expand your development setup and support."
+      "description": "Typescript is a typed superset of JavaScript that compiles back to JavaScript. Offering a number of useful extensions like type definitions and checking and early support for upcoming Ecmascript features like async / await and decorators, it can enrich the web development experience, especially with medium to large scale codebases and when dealing with a multifaceted team. The main benefit to me is, that Typescript offers the low-effort approach to documenting your codebase just by adding types and interfaces that make it more convenient to navigate through a legacy codebase."
+    }, {
+      "id": "unit",
+      "groupId": "frameworks",
+      "name": "Unit Testing w/ jest, karma, mocha",
+      "level": 2,
+      "logo": "jest",
+      "website": {
+        "href": "https://facebook.github.io/jest/",
+        "name": "facebook.github.io/jest"
+      },
+      "description": "Looking at the mindset towards unit-testing shows a lot about how much Javascript has grown as software engineering tool over the last couple of years. Thanks to some outstanding out-of-the-box solutions for each of the major frameworks, adding unit-tests has become easy enough that every web application should have them. Even though I am not totally convinced yet of the benefits of TDD, I am a propponent of creating some baseline tests with each now component. The golden rule is to add a test whenver you find an edge-case or bug. Doing this will hardly slow down feature development, while still adding the benefit of feeling confident about your newly build legacy codebase once you face the first, surely to come change."
+    }, {
+      "id": "protractor",
+      "groupId": "frameworks",
+      "name": "E2E testing w/ protractor, cypress",
+      "level": 2,
+      "logo": "cypress",
+      "website": {
+        "href": "https://www.cypress.io/",
+        "name": "www.cypress.io"
+      },
+      "description": "Whereas unit tests lay the groundwork to ensure a working codebase, E2E ensure the stability of the glue holding your application together. Working with frameworks like Proctractor and webdriver.io I have fastly developed a love-hate relationship with both. Both offer a synchronized control flow out of the box, that prevents browser communication issues from failing your tests. But since in both cases assertions are still evaluated asap, they are still very fragile when it comes to testing an app's changing state. One alternative I am looking to use here is cypress, that promises to close exactly this "
     }, {
       "id": "ecmascript",
       "groupId": "frameworks",
