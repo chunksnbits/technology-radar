@@ -27,7 +27,7 @@ declare interface ApplicationConfig {
 }
 
 declare interface BoundHandlers<T> {
-  [key: string]: Function;
+  [key: string]: T;
 }
 
 declare module "*.json" {

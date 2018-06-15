@@ -15,21 +15,17 @@ $c-technology-details__color--size: 14px;
 }
 
 .c-technology-details {
-  @include transition--default(opacity);
-
-  opacity: 0;
   pointer-events: none;
 
   color: $g-color__primary--inverse;
 }
 
 .c-technology-details--active {
-  opacity: 1;
   pointer-events: all;
 }
 
 .c-technology-details__logo.c-technology-details__logo {
-  @include animation--default(logo-appear);
+  @include animation--default(logo-appear, $options: (delay: 0.25s));
 
   position: fixed;
   z-index: -1;

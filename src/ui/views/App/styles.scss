@@ -1,19 +1,87 @@
+@import '~ui/components/Styles/animation';
+@import '~ui/components/Styles/breakpoints';
 @import '~ui/components/Styles/colors';
 
 .c-app {
-  width: 100%;
-  height: 100%;
-
-  overflow: hidden;
-}
-
-.c-app__main {
   display: flex;
-  align-items: center;
+  flex-direction: row;
   justify-content: center;
 
   width: 100%;
   height: 100%;
 
-  transform: translate(0);
+  overflow: auto;
+}
+
+.c-app__content-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: centert;
+  flex-wrap: nowrap;
+
+  width: 100%;
+  min-height: 100%;
+
+  max-width: 200vmin;
+
+  position: relative;
+
+  margin: 0 auto;
+
+  pointer-events: none;
+}
+
+.c-app__content-wrapper--fixed {
+  position: fixed;
+
+  position: fixed;
+  top: 0;
+}
+
+.c-app__content {
+  pointer-events: all;
+}
+
+.c-app--selected-technology .c-app__technology-list {
+  transform: translateX(160%);
+}
+
+.c-app__technology-list {
+  @include transition--default(transform);
+
+  @include breakpoint-up(large) {
+    left: 62%;
+    width: (1/3) * 100%;
+    min-width: 350px;
+  }
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+
+  height: 100%;
+
+  position: relative;
+}
+
+.c-app__technology-list-content {
+  @include breakpoint-up(medium) {
+    padding: 15px 0 25px;
+  }
+
+  padding: 85px 10px 25px 42px;
+  background: $g-color--background;
+}
+
+.c-app__technology-radar {
+  @include breakpoint-up(large) {
+    width: (2/3) * 100%;
+  }
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: none;
 }

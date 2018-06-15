@@ -17,6 +17,9 @@ import { AsyncComponent } from '../../components/AsyncComponent';
 import { consume } from 'utils/store';
 
 import './styles.scss';
+import { TechnologyList } from 'ui/modules/TechnologList';
+import { classNames } from 'utils/dom';
+import { BottomSheet } from 'ui/components/BottomSheet';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface AppProps {
@@ -31,34 +34,46 @@ export class AppComponent extends React.Component<AppProps> {
   render() {
     const { editMode, selectedTechnology } = this.props.applicationState;
 
+    const modifiers = [
+      selectedTechnology && 'c-app--selected-technology'
+    ];
+
     return (
-      <div className='c-app'>
+      <main className={ classNames('c-app', ...modifiers) }>
         <Header />
 
-        <main className='c-app__main'>
-          <TechnologyRadar />
+        <section className='c-app__content-wrapper c-app__content-wrapper--fixed'>
+          <div className='c-app__technology-radar'>
+            <TechnologyRadar className='c-app__content' />
+          </div>
+        </section>
 
-          <Modal
-            open={ editMode }
-            type='sidebar'
-            onClose={ this.setEditModeHandler }>{
-              this.props.applicationState.editor &&
-              <AsyncComponent onLoad={ () => import('ui/modules/SettingsPanel') }
-                componentName='SettingsPanel'>
-                Loading...
-              </AsyncComponent>
-            }
-          </Modal>
+        <section className='c-app__content-wrapper'>
+          <div className='c-app__technology-list'>
+            <TechnologyList className='c-app__content c-app__technology-list-content' />
+          </div>
+        </section>
 
-          <Modal
-            open={ Boolean(selectedTechnology) }
-            onClose={ this.technologyDetailsClosedHandler }>
-            <TechnologyDetails />
-          </Modal>
-        </main>
+        <BottomSheet
+          active={ Boolean(selectedTechnology) }
+          onClose={ this.technologyDetailsClosedHandler }>
+          <TechnologyDetails />
+        </BottomSheet>
+
+        <Modal
+          open={ editMode }
+          type='sidebar'
+          onClose={ this.setEditModeHandler }>{
+            this.props.applicationState.editor &&
+            <AsyncComponent onLoad={ () => import('ui/modules/SettingsPanel') }
+              componentName='SettingsPanel'>
+              Loading...
+            </AsyncComponent>
+          }
+        </Modal>
 
         <Footer />
-      </div>
+      </main>
     );
   }
 

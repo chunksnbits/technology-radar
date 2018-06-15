@@ -57,39 +57,39 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
       Boolean(selectedGroup) && 'c-technology-radar--selected-group',
     ];
 
+    const transforms = this.calculateFocusTransforms();
+
     return (
-      <div className={ classNames('c-technology-radar__outer', ...modifiers) }>
-        <div className={ classNames('c-technology-radar', this.props.className) }
-          style={ this.calculateFocusTransforms() }
-          onClick={ this.handleDeselect }
-          ref={ this.elementRef }>
-          <div className='c-technology-radar__content'>
-            <div className='c-technology-radar__legend'>
-              <LegendGroupLabels
-                groups={ groups }
-                onSelect={ this.handleSelectGroup } />
+      <div className={ classNames('c-technology-radar', this.props.className, ...modifiers) }
+        style={ transforms }
+        onClick={ this.handleDeselect }
+        ref={ this.elementRef }>
+        <div className='c-technology-radar__content'>
+          <div className='c-technology-radar__legend'>
+            <LegendGroupLabels
+              groups={ groups }
+              onSelect={ this.handleSelectGroup } />
 
-              <LegendGroupSeparators
-                groups={ groups } />
+            <LegendGroupSeparators
+              groups={ groups } />
 
-              <LegendLevels
-                technologies={ technologies }
-                innerRadiusPercent={ settings.innerRadiusPercent }
-                outerRadiusPercent={ settings.outerRadiusPercent }
-                levels={ levels } />
-            </div>
-
-            <div className='c-technology-radar__technologies'>{
-              technologies.map((technology) =>
-                <TechnologyItem
-                  key={ technology.id  }
-                  className='c-technology-radar__item'
-                  technology={ technology }
-                  technologyRadar={ this.props.technologyRadar }
-                  focused={ Boolean(selectedTechnology) && selectedTechnology === technology }
-                  onSelect={ this.handleSelectTechnology } />
-            )}</div>
+            <LegendLevels
+              technologies={ technologies }
+              innerRadiusPercent={ settings.innerRadiusPercent }
+              outerRadiusPercent={ settings.outerRadiusPercent }
+              levels={ levels } />
           </div>
+
+          <div className='c-technology-radar__technologies'>{
+            technologies.map((technology) =>
+              <TechnologyItem
+                key={ technology.id  }
+                className='c-technology-radar__item'
+                technology={ technology }
+                technologyRadar={ this.props.technologyRadar }
+                focused={ Boolean(selectedTechnology) && selectedTechnology === technology }
+                onSelect={ this.handleSelectTechnology } />
+          )}</div>
         </div>
       </div>
     );
@@ -106,7 +106,7 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
     this.props.applicationState.selectTechnology(null);
   }
 
-  private handleSelectGroup = (group: Group, event: React.MouseEvent<HTMLElement>) => {
+  private handleSelectGroup = (group: Group, event: React.MouseEvent<SVGTextElement>) => {
     if (event.defaultPrevented) {
       return;
     }
@@ -136,8 +136,9 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
 
     return {
       transform: [
-        'translate(0, 0)',
-        `rotateZ(${ BASE_TRANSFORM_ROTATE_DEGREES }deg)`,
+        'scale3d(1, 1, 1)',
+        'translate3d(0, 0, 0)',
+        `rotate3d(0, 0, 1, ${ BASE_TRANSFORM_ROTATE_DEGREES }deg)`,
       ].join(' ')
     };
   }
@@ -152,10 +153,10 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
 
     return {
       transform: [
-        'scale(4.5)',
-        `rotateZ(${ -1 * rotationDegrees }deg)`,
-        `translateX(${ itemOffsetPercent * 0.9 }%)`,
-        `rotateZ(${ rotationDegrees }deg)`,
+        'scale3d(4.5, 4.5, 1)',
+        `rotate3d(0, 0, 1, ${ -1 * rotationDegrees }deg)`,
+        `translate3d(${ itemOffsetPercent * 0.9 }%, 0, 0)`,
+        `rotate3d(0, 0, 1, ${ rotationDegrees }deg)`,
       ].join(' ')
     }
   }
@@ -171,10 +172,10 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
 
     return {
       transform: [
-        'scale(2)',
-        `rotateZ(${ -1 * rotationDegrees }deg)`,
-        `translateX(25%)`,
-        `rotateZ(${ rotationDegrees }deg)`,
+        'scale3d(2, 2, 1)',
+        `rotate3d(0, 0, 1, ${ -1 * rotationDegrees }deg)`,
+        `translate3d(25%, 0, 0)`,
+        `rotate3d(0, 0, 1, ${ rotationDegrees }deg)`,
       ].join(' ')
     }
   }

@@ -1,0 +1,108 @@
+
+@import '~ui/components/Styles/animation';
+@import '~ui/components/Styles/breakpoints';
+@import '~ui/components/Styles/colors';
+@import '~ui/components/Styles/z-index';
+
+$c-bottom-sheet__base--margin: 5px;
+$c-bottom-sheet__base--padding: 15px;
+
+$c-bottom-sheet__base--margin-up-medium: 15px;
+$c-bottom-sheet__base--padding-up-medium: 20px;
+
+$c-bottom-sheet__base--max-width: 530px;
+
+
+.c-bottom-sheet {
+  @include breakpoint-up(medium) {
+    align-items: flex-end;
+  }
+
+  @include transition--default(transform);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  max-height: 75vh;
+  z-index: $g-zindex__bottom-sheet;
+
+  padding: $c-bottom-sheet__base--margin;
+
+  transform: translate3d(0, 150%, 0);
+
+  pointer-events: none;
+}
+
+.c-bottom-sheet--active {
+  transform: translate3d(0, 0, 0);
+}
+
+.c-bottom-sheet__content {
+  @include breakpoint-up(medium) {
+    max-width: $c-bottom-sheet__base--max-width;
+  }
+
+  position: relative;
+  display: block;
+  padding: $c-bottom-sheet__base--padding;
+  width: 100%;
+  max-height: 100%;
+
+  left: auto;
+  right: auto;
+  margin: 0;
+
+  background: $g-color__primary;
+  overflow: hidden;
+
+  border: 0;
+
+  pointer-events: none;
+  pointer-events: all;
+  transform: translate(0);
+}
+
+.c-bottom-sheet__nav {
+  position: absolute;
+
+  top: 0;
+  right: 0;
+  z-index: 2;;
+
+  padding: 5px;
+
+  pointer-events: none;
+}
+
+.c-bottom-sheet__content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  overflow: auto;
+  overflow-x: visible;
+  overflow-y: auto;
+
+  z-index: 1;
+}
+
+.c-bottom-sheet__nav-action {
+  pointer-events: all;
+}
+
+.c-bottom-sheet__nav-action.c-bottom-sheet__nav-action--close {
+  width: 48px;
+  height: 48px;
+  min-width: 0;
+  padding: 0;
+}
+
+.c-bottom-sheet__nav-action-icon {
+  width: 14px;
+  height: 14px;
+}

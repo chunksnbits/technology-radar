@@ -11,7 +11,7 @@ import './styles.scss';
 export interface LegendGroupLabelsProps {
   className?: string;
   groups: Group[];
-  onSelect: (group: Group, event: React.MouseEvent<HTMLElement>) => any;
+  onSelect: (group: Group, event: React.MouseEvent<SVGTextElement>) => any;
 }
 
 // SVG follows a different coordinate system.
@@ -22,7 +22,7 @@ const SVG_ROTATION_SOURCE_ADJUSTMENT_DEGREES = -180;
 // ----------------------------------------------------------------------------- Implementation
 export class LegendGroupLabels extends PureComponent<LegendGroupLabelsProps> {
 
-  handlers: BoundHandlers<SVGElement> = {};
+  handlers: BoundHandlers<MouseEventHandler<SVGTextElement>> = {};
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
@@ -61,12 +61,12 @@ export class LegendGroupLabels extends PureComponent<LegendGroupLabelsProps> {
     const name = `select-group-${ group.id }`;
 
     if (!Boolean(this.handlers[name])) {
-      this.handlers[name] = (event: React.MouseEvent<HTMLElement>) => {
+      this.handlers[name] = (event: React.MouseEvent<SVGTextElement>) => {
         this.props.onSelect(group, event);
       };
     }
 
-    return this.handlers[name] as MouseEventHandler<SVGTextElement>;
+    return this.handlers[name];
   }
 
   // ----------------------------------------------------------------------------- Helpers methods

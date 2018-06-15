@@ -1,4 +1,5 @@
 
+@import '~ui/components/Styles/colors';
 @import '~ui/components/Styles/typo';
 @import '~ui/components/Styles/z-index';
 
@@ -8,20 +9,22 @@
   flex-direction: row;
   align-items: flex-start;
 
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: $g-zindex__header;
 
   pointer-events: none;
+
+  background: linear-gradient(to bottom, $g-color__background 80%, rgba($g-color__background, 0) 100%);
 }
 
 .c-header__app-title.c-header__app-title {
   display: inline-flex;
   align-items: flex-start;
 
-  padding: 10px 20px;
+  padding: 10px 20px 20px;
   pointer-events: all;
 }
 
