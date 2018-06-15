@@ -2,7 +2,7 @@
   "$schema": "../data.schema.json",
   "application": {
     "editor": false,
-    "title": "Technology Radar",
+    "title": "Technological Skills Radar",
     "subtitle": "curated by Daniel Eissing"
   },
   "technologyRadar": {
@@ -92,7 +92,7 @@
     }, {
       "id": "pwa",
       "groupId": "frameworks",
-      "name": "Offline first w/ PWAs",
+      "name": "Offline first + PWAs",
       "level": 2,
       "logo": "pwa",
       "website": {
@@ -180,7 +180,7 @@
     }, {
       "id": "unit",
       "groupId": "frameworks",
-      "name": "Unit Testing w/ jest, karma, mocha",
+      "name": "Unit Testing - Jest, Karma, Mocha",
       "level": 2,
       "logo": "jest",
       "website": {
@@ -191,7 +191,7 @@
     }, {
       "id": "protractor",
       "groupId": "frameworks",
-      "name": "E2E testing w/ protractor, cypress",
+      "name": "E2E testing - Protractor, Cypress",
       "level": 2,
       "logo": "cypress",
       "website": {
