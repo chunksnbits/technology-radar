@@ -1,9 +1,14 @@
 
+@import '~ui/components/Styles/breakpoints';
 @import '~ui/components/Styles/colors';
 @import '~ui/components/Styles/typo';
 @import '~ui/components/Styles/z-index';
 
 .c-header {
+  @include breakpoint-up(large) {
+    background: none;
+  }
+
   display: flex;
   justify-content: flex-start;
   flex-direction: row;
@@ -44,7 +49,11 @@
 }
 
 .c-header__title {
-  @include typo-block-heading;
+  @include breakpoint-up(medium) {
+    @include typo-block-heading;
+  }
+
+  @include typo-group-heading;
 
   display: inline-block;
   font-size: responsive-size($g-typo__font-size--section-heading);
@@ -53,7 +62,10 @@
 }
 
 .c-header__subtitle {
-  @include typo-copy;
+  @include breakpoint-up(medium) {
+    @include typo-copy;
+  }
+  @include typo-copy--small;
 
   font-size: responsive-size($g-typo__font-size--copy);
   font-weight: $g-typo__font-weight--regular;

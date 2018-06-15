@@ -61,6 +61,11 @@ $c-technology-details__color--size: 14px;
 .c-technology-details__description {
   margin-top: 15px;
   padding-bottom: 42px;
+  user-select: none;
+}
+
+.c-technology-details--interactive .c-technology-details__description {
+  user-select: initial;
 }
 
 .c-technology-details__group-color {

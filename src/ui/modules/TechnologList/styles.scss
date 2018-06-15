@@ -1,4 +1,5 @@
 
+@import '~ui/components/Styles/breakpoints';
 @import '~ui/components/Styles/colors';
 @import '~ui/components/Styles/typo';
 
@@ -25,7 +26,11 @@ $c-technology-list__color--size: 14px;
 }
 
 .c-technology-list__item-action {
-  @include typo-copy--small;
+  @include breakpoint-up(large) {
+    @include typo-copy--small;
+  }
+
+  @include typo-copy;
 
   display: block;
   width: 100%;

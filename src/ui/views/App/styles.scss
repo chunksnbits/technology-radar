@@ -66,11 +66,15 @@
 }
 
 .c-app__technology-list-content {
-  @include breakpoint-up(medium) {
+  @include breakpoint-up(large) {
     padding: 15px 0 25px;
+    background: none;
+  }
+  @include breakpoint-at(medium) {
+    padding: 100px 10px 25px 52px;
   }
 
-  padding: 85px 10px 25px 42px;
+  padding: 60px 10px 25px 22px;
   background: $g-color--background;
 }
 

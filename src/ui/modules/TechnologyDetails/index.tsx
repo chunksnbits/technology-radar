@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { PureComponent } from 'react';
+import { Component, RefObject, createRef } from 'react';
 import * as React from 'react';
 
 import { ApplicationStateContext, TechnologyRadarContext } from 'store';
@@ -23,7 +23,16 @@ export interface TechnologyDetailsProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class TechnologyDetailsComponent extends PureComponent<TechnologyDetailsProps> {
+export class TechnologyDetailsComponent extends Component<TechnologyDetailsProps> {
+
+  private elementRef: RefObject<HTMLDivElement>;
+
+  constructor(props: TechnologyDetailsProps) {
+    super(props);
+
+    this.elementRef = createRef();
+  }
+
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
     const { selectedTechnology } = this.props.applicationState;
@@ -38,7 +47,8 @@ export class TechnologyDetailsComponent extends PureComponent<TechnologyDetailsP
     const group = this.findGroupForTechnology(selectedTechnology, groups);
 
     return (
-      <div className={ classNames('c-technology-details', this.props.className, ...modifiers) }>
+      <div className={ classNames('c-technology-details', this.props.className, ...modifiers) }
+        ref={ this.elementRef }>
         {
           active && Boolean(selectedTechnology.logo) &&
           <GlobalBackground>
@@ -74,6 +84,11 @@ export class TechnologyDetailsComponent extends PureComponent<TechnologyDetailsP
           onSelect={ this.selectTechnologyHandler } />
       </div>
     );
+  }
+
+  componentDidUpdate(): void {
+    const active = Boolean(this.props.applicationState.selectedTechnology);
+    this.elementRef.current.classList.toggle('c-technology-details--interactive', active);
   }
 
   // ----------------------------------------------------------------------------- Event handler methods
