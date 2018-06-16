@@ -98,3 +98,11 @@
 
   pointer-events: none;
 }
+
+.c-app__technology-radar-content {
+  @include breakpoint-down(medium) {
+    position: relative;
+    top: 6vmin;
+    padding: 8vmin;
+  }
+}

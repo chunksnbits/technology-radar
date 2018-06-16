@@ -5,7 +5,7 @@ import * as React from 'react';
 
 import { ApplicationStateContext, TechnologyRadarContext } from 'store';
 
-import { consume, compose } from 'utils/store';
+import { consume } from 'utils/store';
 import { classNames } from 'utils/dom';
 
 import { ViewToggle } from './components/view-toggle';
@@ -22,8 +22,9 @@ export interface FooterProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-// tslint:disable-next-line:class-name
-export class FooterComponent extends Component<FooterProps> {
+@consume(ApplicationStateContext, { bindTo: 'applicationState' })
+@consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
+export class Footer extends Component<FooterProps> {
 
   handlers: BoundHandlers<any> = {};
 
@@ -63,8 +64,3 @@ export class FooterComponent extends Component<FooterProps> {
     this.props.applicationState.toggleViewMode();
   }
 }
-
-export const Footer = compose(
-  consume(ApplicationStateContext, { bindTo: 'applicationState' }),
-  consume(TechnologyRadarContext, { bindTo: 'technologyRadar' }),
-)(FooterComponent);

@@ -1,13 +1,13 @@
+import 'mocks/replace-consume';
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { AppComponent as App } from './index';
+import { App } from './index';
 
 import { mockApplicationState, shallowWithApplicationState } from 'mocks';
 import { Header } from 'ui/modules/Header';
 import { TechnologyRadar } from 'ui/modules/TechnologyRadar';
 import { Footer } from 'ui/modules/Footer';
-
 
 // ----------------------------------------------------------------------------- Implementation
 it('renders without crashing', () => {

@@ -1,10 +1,11 @@
+import 'mocks/replace-consume';
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import { mockTechnology, mockGroup, mockTechnologyRadarStore, mockApplicationStateStore } from 'mocks';
 
-import { TechnologyDetailsComponent as TechnologyDetails } from './index';
+import { TechnologyDetails } from './index';
 
 // ----------------------------------------------------------------------------- Configuration
 const groups = [mockGroup({ id: 'any' })]

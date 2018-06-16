@@ -1,28 +1,28 @@
+import 'mocks/replace-consume';
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
 
-import { TechnologyRadarStoreComponent as TechnologyRadarStore } from './index';
-import { ApplicationStateStore } from '../application-state';
-import { mockTechnology,
-mockGroup,
-noop } from 'mocks';
+import { TechnologyRadarProvider } from './index';
+import { ApplicationStateProvider } from '../application-state';
+import { mockTechnology, mockGroup, noop } from 'mocks';
 import { shallow } from 'enzyme';
 
+// ----------------------------------------------------------------------------- Configuration
 function mountStore(initialState = {},
 applicationState = null) {
   if (applicationState === null) {
-    applicationState = shallow(<ApplicationStateStore />).state();
+    applicationState = shallow(<ApplicationStateProvider />).state();
   }
 
-  return shallow(<TechnologyRadarStore
+  return shallow(<TechnologyRadarProvider
     initialState={ initialState }
     applicationState={ applicationState }
   />);
 }
 
 // ----------------------------------------------------------------------------- Implementation
-it('initializes TechnologyRadarStore state',
+it('initializes TechnologyRadarStoreProvider state',
 () => {
   const element = mountStore({
     groups: [mockGroup()],

@@ -1,7 +1,8 @@
+import 'mocks/replace-consume';
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { SettingsPanelComponent } from './index';
+import { SettingsPanel } from './index';
 import { mockTechnology, mockGroup } from 'mocks';
 import { mount, shallow } from 'enzyme';
 import { Tab, TabHeader } from 'ui/components/Tabs';
@@ -9,11 +10,11 @@ import { GroupPanel } from './components/GroupPanel';
 import { TechnologyPanel } from './components/TechnologyPanel';
 
 const mountWithState = (props: any = {}) => {
-  return mount(<SettingsPanelComponent technologyRadar={ props.technologyRadar || {} } />);
+  return mount(<SettingsPanel technologyRadar={ props.technologyRadar || {} } />);
 }
 
 const shallowWithState = (props: any = {}) => {
-  return shallow(<SettingsPanelComponent technologyRadar={ props.technologyRadar || {} } />);
+  return shallow(<SettingsPanel technologyRadar={ props.technologyRadar || {} } />);
 }
 
 // ----------------------------------------------------------------------------- Implementation

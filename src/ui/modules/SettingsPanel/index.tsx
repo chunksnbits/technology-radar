@@ -17,7 +17,7 @@ import './styles.scss';
 // ----------------------------------------------------------------------------- Configuration
 export interface SettingsPanelProps {
   className?: string;
-  technologyRadar?: TechnologyRadar & TechnologyRadarActions;
+  technologyRadar?: TechnologyRadarStore & TechnologyRadarActions;
 }
 
 export interface SettingsPanelState {
@@ -27,7 +27,8 @@ export interface SettingsPanelState {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class SettingsPanelComponent extends Component<SettingsPanelProps, SettingsPanelState> {
+@consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
+export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelState> {
 
   constructor(props: SettingsPanelProps) {
     super(props);
@@ -140,5 +141,3 @@ export class SettingsPanelComponent extends Component<SettingsPanelProps, Settin
     return this.state.activeTechnology.id === technology.id;
   }
 }
-
-export const SettingsPanel = consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })(SettingsPanelComponent);

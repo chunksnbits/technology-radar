@@ -19,8 +19,10 @@ const SESSION_STORAGE_KEY = 'cnb--application-state';
 
 export const ApplicationStateContext: Context<ApplicationState & ApplicationStateActions> = createContext({} as any);
 
-export class ApplicationStateStore extends Component<ApplicationStateProps, ApplicationState & ApplicationStateActions> implements ApplicationStateActions {
-
+export class ApplicationStateProvider
+  extends Component<ApplicationStateProps, ApplicationState & ApplicationStateActions>
+  implements ApplicationStateActions
+{
   constructor(props: ApplicationStateProps) {
     super(props);
 

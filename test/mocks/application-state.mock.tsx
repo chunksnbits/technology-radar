@@ -1,4 +1,3 @@
-import * as React from 'react';
 
 import { cloneElement, ReactElement } from 'react';
 
@@ -36,7 +35,7 @@ export const mockTechnologyRadar = (patch = {}) => Object.assign({}, {
 
   edited: false,
   settings: mockSettings(),
-}, patch) as TechnologyRadar;
+}, patch) as TechnologyRadarStore;
 
 export const mockTechnologyRadarStore = (patch = {}) => Object.assign({}, {
   createNew: noop,

@@ -5,7 +5,7 @@ import * as React from 'react';
 
 import { ApplicationStateContext, TechnologyRadarContext } from 'store';
 
-import { consume, compose } from 'utils/store';
+import { consume } from 'utils/store';
 import { classNames } from 'utils/dom';
 
 import { GlobalBackground } from 'ui/components/GlobalBackground';
@@ -23,7 +23,9 @@ export interface TechnologyDetailsProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class TechnologyDetailsComponent extends Component<TechnologyDetailsProps> {
+@consume(ApplicationStateContext, { bindTo: 'applicationState' })
+@consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
+export class TechnologyDetails extends Component<TechnologyDetailsProps> {
 
   private elementRef: RefObject<HTMLDivElement>;
 
@@ -117,8 +119,3 @@ export class TechnologyDetailsComponent extends Component<TechnologyDetailsProps
     return groups.find(group => group.id === technology.groupId);
   }
 }
-
-export const TechnologyDetails = compose(
-  consume(ApplicationStateContext, { bindTo: 'applicationState' }),
-  consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
-)(TechnologyDetailsComponent);

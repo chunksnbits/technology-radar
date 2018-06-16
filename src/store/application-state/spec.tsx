@@ -2,13 +2,13 @@
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
 
-import { ApplicationStateStore } from './index';
+import { ApplicationStateProvider } from './index';
 import { mockTechnology, mockGroup } from 'mocks';
 import { shallow } from 'enzyme';
 
 // ----------------------------------------------------------------------------- Implementation
 it('initializes application state', () => {
-  const element = shallow(<ApplicationStateStore />);
+  const element = shallow(<ApplicationStateProvider />);
   const state = element.state();
 
   expect(state.selectedTechnology).toBeNull();
@@ -21,7 +21,7 @@ it('applies initialState', () => {
   const [selectedTechnology] = technologies;
   const [selectedGroup] = groups;
 
-  const element = shallow(<ApplicationStateStore initialState={{
+  const element = shallow(<ApplicationStateProvider initialState={{
     selectedTechnology,
     selectedGroup,
     editMode: true,
@@ -41,7 +41,7 @@ it('applies initialState', () => {
 it('updates selectedTechnology on selectTechnology', () => {
   const technologies = [mockTechnology()];
   const [selected] = technologies;
-  const element = shallow(<ApplicationStateStore />);
+  const element = shallow(<ApplicationStateProvider />);
   const state = element.state();
 
   expect(state.selectedTechnology).toBeNull();
@@ -54,7 +54,7 @@ it('updates selectedTechnology on selectTechnology', () => {
 it('updates selectedGroup on selectGroup', () => {
   const groups = [mockGroup()];
   const [selected] = groups;
-  const element = shallow(<ApplicationStateStore />);
+  const element = shallow(<ApplicationStateProvider />);
   const state = element.state();
 
   expect(state.selectedGroup).toBeNull();
@@ -65,7 +65,7 @@ it('updates selectedGroup on selectGroup', () => {
 });
 
 it('updates editMode on setEditMode', () => {
-  const element = shallow(<ApplicationStateStore initialState={{ editMode: false }} />);
+  const element = shallow(<ApplicationStateProvider initialState={{ editMode: false }} />);
   const state = element.state();
 
   state.setEditMode(true);
@@ -74,7 +74,7 @@ it('updates editMode on setEditMode', () => {
 });
 
 it('updates owner on setOwner', () => {
-  const element = shallow(<ApplicationStateStore initialState={{ owner: false }} />);
+  const element = shallow(<ApplicationStateProvider initialState={{ owner: false }} />);
   const state = element.state();
 
   state.setOwner(true);

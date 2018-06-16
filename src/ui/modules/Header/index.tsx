@@ -7,7 +7,7 @@ import { Button } from '@material-ui/core';
 
 import { ApplicationStateContext } from 'store';
 
-import { consume } from 'utils/store';
+import { consume } from 'utils/store/consume';
 import { classNames } from 'utils/dom';
 
 import './styles.scss';
@@ -20,7 +20,8 @@ export interface HeaderProps {
 
 // ----------------------------------------------------------------------------- Implementation
 // tslint:disable-next-line:class-name
-export class HeaderComponent extends Component<HeaderProps> {
+@consume(ApplicationStateContext, { bindTo: 'applicationState' })
+export class Header extends Component<HeaderProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
@@ -49,5 +50,3 @@ export class HeaderComponent extends Component<HeaderProps> {
     );
   }
 }
-
-export const Header = consume(ApplicationStateContext, { bindTo: 'applicationState' })(HeaderComponent);

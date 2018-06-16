@@ -5,7 +5,7 @@ import * as React from 'react';
 
 import { ApplicationStateContext, TechnologyRadarContext } from 'store';
 
-import { consume, compose } from 'utils/store';
+import { consume } from 'utils/store';
 import { classNames } from 'utils/dom';
 
 import { TechnologyItem } from './components/TechnologyItem';
@@ -26,7 +26,9 @@ export interface TechnologyRadarProps {
 const BASE_TRANSFORM_ROTATE_DEGREES = -10;
 
 // ----------------------------------------------------------------------------- Implementation
-export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
+@consume(ApplicationStateContext, { bindTo: 'applicationState' })
+@consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
+export class TechnologyRadar extends Component<TechnologyRadarProps> {
   elementRef: RefObject<HTMLDivElement>;
 
   constructor(props: TechnologyRadarProps) {
@@ -180,8 +182,3 @@ export class TechnologyRadarComponent extends Component<TechnologyRadarProps> {
     }
   }
 }
-
-export const TechnologyRadar = compose(
-  consume(ApplicationStateContext, { bindTo: 'applicationState' }),
-  consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
-)(TechnologyRadarComponent);

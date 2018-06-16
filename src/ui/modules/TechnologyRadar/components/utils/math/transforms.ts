@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Implementation
-export function calculateTechnologyRotationDegrees(technology: Technology, technologyRadar: TechnologyRadar): number {
+export function calculateTechnologyRotationDegrees(technology: Technology, technologyRadar: TechnologyRadarStore): number {
   const { groups, technologies } = technologyRadar;
 
   const index = calculateIndexInLevelAndGroup(technologies, technology);
@@ -23,7 +23,7 @@ export function calculateTechnologyRotationDegrees(technology: Technology, techn
   return (groupRotationDegrees + itemRotationDegree + 0.5 * itemBaseAngleDegree) % 360;
 }
 
-export function calculateGroupRotationDegrees(group: Group, technologyRadar: TechnologyRadar): number {
+export function calculateGroupRotationDegrees(group: Group, technologyRadar: TechnologyRadarStore): number {
   const { groups } = technologyRadar;
 
   const groupBaseAngleDegree = 360 / groups.length;
@@ -32,7 +32,7 @@ export function calculateGroupRotationDegrees(group: Group, technologyRadar: Tec
   return groupIndex * groupBaseAngleDegree;
 }
 
-export function calculateItemOffsetPercent(technology: Technology, technologyRadar: TechnologyRadar): number {
+export function calculateItemOffsetPercent(technology: Technology, technologyRadar: TechnologyRadarStore): number {
   const { innerRadiusPercent, outerRadiusPercent } = technologyRadar.settings;
   const { technologies } = technologyRadar;
 

@@ -27,7 +27,8 @@ export interface AppProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class AppComponent extends React.Component<AppProps> {
+@consume(ApplicationStateContext, { bindTo: 'applicationState' })
+export class App extends React.Component<AppProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
@@ -44,7 +45,7 @@ export class AppComponent extends React.Component<AppProps> {
 
         <section className='c-app__content-wrapper c-app__content-wrapper--fixed'>
           <div className='c-app__technology-radar'>
-            <TechnologyRadar className='c-app__content' />
+            <TechnologyRadar className='c-app__content c-app__technology-radar-content' />
           </div>
         </section>
 
@@ -94,5 +95,3 @@ export class AppComponent extends React.Component<AppProps> {
     this.props.applicationState.setEditMode(false);
   }
 }
-
-  export const App = consume(ApplicationStateContext, { bindTo: 'applicationState' })(AppComponent);

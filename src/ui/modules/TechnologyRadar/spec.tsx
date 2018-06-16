@@ -1,16 +1,24 @@
+import 'mocks/replace-consume';
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { mockTechnology, mockGroup, mockSettings, mockApplicationStateStore, mockTechnologyRadarStore, mockLevel } from 'mocks';
+import {
+  mockTechnology,
+  mockGroup,
+  mockSettings,
+  mockApplicationStateStore,
+  mockTechnologyRadarStore,
+  mockLevel
+} from 'mocks';
 
 import { LegendGroupLabels } from './components/LegendGroupLabels';
 import { TechnologyItem } from './components/TechnologyItem';
 import { LegendLevels } from './components/LegendLevels';
 import { LegendGroupSeparators } from './components/LegendGroupSeparators';
 
-import { TechnologyRadarComponent as TechnologyRadar } from './index';
+import { TechnologyRadar } from './index';
 
 const shallowWithState = (props: any = {}) => {
   return shallow(

@@ -1,7 +1,8 @@
+import 'mocks/replace-consume';
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { FooterComponent as Footer } from './index';
+import { Footer } from './index';
 
 import { mockApplicationState, shallowWithApplicationState } from 'mocks';
 import { CreateNewAction } from './components/create-new-action';

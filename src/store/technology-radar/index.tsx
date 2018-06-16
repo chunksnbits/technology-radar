@@ -10,20 +10,19 @@ import { consume } from 'utils/store';
 import { ApplicationStateContext } from '../application-state';
 import { defaultState, defaultTechnology, defaultGroup } from './constants';
 
-
 // ----------------------------------------------------------------------------- Configuration
-export interface TechnologyRadarStoreProps {
+export interface TechnologyRadarProviderProps {
   initialState?: TechnologyRadar;
   applicationState?: ApplicationState & ApplicationStateActions;
 }
 
-export const TechnologyRadarContext: Context<TechnologyRadarStore> = createContext({} as any);
+export const TechnologyRadarContext: Context<TechnologyRadarProvider> = createContext({} as any);
 
 // ----------------------------------------------------------------------------- Implementation
-// tslint:disable-next-line:class-name
-export class TechnologyRadarStoreComponent extends Component<TechnologyRadarStoreProps, TechnologyRadarStore> implements TechnologyRadarActions {
+@consume(ApplicationStateContext, { bindTo: 'applicationState' })
+export class TechnologyRadarProvider extends Component<TechnologyRadarProviderProps, TechnologyRadarStore> implements TechnologyRadarActions {
 
-  constructor(props: TechnologyRadarStoreProps) {
+  constructor(props: TechnologyRadarProviderProps) {
     super(props);
     const initialState = Object.assign({}, defaultState, props.initialState || {});
 
@@ -166,5 +165,3 @@ export class TechnologyRadarStoreComponent extends Component<TechnologyRadarStor
     return groups.findIndex(acc => acc.id === technology.groupId);
   }
 }
-
-export const TechnologyRadarStore = consume(ApplicationStateContext, { bindTo: 'applicationState' })(TechnologyRadarStoreComponent);

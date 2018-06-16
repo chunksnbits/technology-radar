@@ -1,12 +1,15 @@
+import 'mocks/replace-consume';
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { HeaderComponent as Header } from './index';
+import { Header} from './index';
 
 import { mockApplicationState, shallowWithApplicationState } from 'mocks';
 
+
 // ----------------------------------------------------------------------------- Implementation
 it('renders without crashing', () => {
+
   const element = shallowWithApplicationState(<Header />, mockApplicationState());
 
   expect(element.exists).toBeTruthy();

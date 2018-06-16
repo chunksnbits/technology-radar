@@ -6,7 +6,7 @@ import { render, hydrate } from 'react-dom';
 import { App } from 'ui/views/App';
 import registerServiceWorker from './registerServiceWorker';
 
-import { ApplicationStateStore, TechnologyRadarStore } from 'store';
+import { ApplicationStateProvider, TechnologyRadarProvider } from 'store';
 import { canUseDOM } from 'utils/dom';
 
 import './styles.scss';
@@ -21,11 +21,11 @@ if (canUseDOM()) {
 }
 
 const Root = () => (
-  <ApplicationStateStore initialState={ applicationState }>
-    <TechnologyRadarStore initialState={{ ...technologyRadar, edited: false }}>
+  <ApplicationStateProvider initialState={ applicationState }>
+    <TechnologyRadarProvider initialState={{ ...technologyRadar, edited: false }}>
       <App />
-    </TechnologyRadarStore>
-  </ApplicationStateStore>
+    </TechnologyRadarProvider>
+  </ApplicationStateProvider>
 );
 
 const rootElement = document.getElementById('root');
