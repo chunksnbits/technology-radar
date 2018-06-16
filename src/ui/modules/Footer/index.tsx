@@ -30,18 +30,19 @@ export class FooterComponent extends Component<FooterProps> {
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
     const { editor, viewMode, owner } = this.props.applicationState;
+
     return (
       <footer className={ classNames('c-footer', this.props.className) }>
         <div className='c-footer__actions'>
           <ViewToggle viewMode={ viewMode }
             onClick={ this.toggleListViewHandler }
-            className='c-footer__action c-footer__action--togle-view'/>
+            className='c-footer__action c-footer__action--togle-view' />
 
-          <CreateNewAction owner={ owner }
+          <CreateNewAction show={ owner }
             onClick={ this.createNewHandler }
             className='c-footer__action c-footer__action--create-new' />
 
-          <EditModeToggle editor={ editor }
+          <EditModeToggle show={ editor }
             onClick={ this.toggleEditModeHandler }
             className='c-footer__action c-footer__action--toggle-edit' />
         </div>

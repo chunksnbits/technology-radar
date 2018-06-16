@@ -1,6 +1,8 @@
+import * as React from 'react';
+
 import { cloneElement, ReactElement } from 'react';
 
-import { ShallowWrapper, mount, shallow, ReactWrapper } from 'enzyme';
+import { ShallowWrapper, mount, shallow, ReactWrapper, render } from 'enzyme';
 import { uuid } from 'utils/uuid';
 import { noop } from './generic.mock';
 
@@ -8,6 +10,7 @@ export const mockApplicationState = (patch = {}) => Object.assign({}, {
   title: 'Any',
   logo: '//any.logo.svg',
   editMode: false,
+  viewMode: 'list',
   data: {
     technologies: [],
     groups: [],
@@ -81,10 +84,23 @@ export const mockSettings = (patch = {}) => Object.assign({}, {
   outerRadiusPercent: 50
 }, patch) as TechnologyRadarSettings;
 
-export const shallowWithApplicationState = (element: ReactElement<any>, applicationState: any = {}): ShallowWrapper<any, any> => {
+export const shallowWithApplicationState = (
+  element: ReactElement<any>,
+  applicationState: any = {}
+): ShallowWrapper<any, any> => {
   return shallow(cloneElement(element, { applicationState }));
 }
 
-export const mountWithApplicationState = (element: ReactElement<any>, applicationState: any = {}): ReactWrapper<any, any> => {
+export const mountWithApplicationState = (
+  element: ReactElement<any>,
+  applicationState: any = {}
+): ReactWrapper<any, any> => {
   return mount(cloneElement(element, { applicationState }));
+}
+
+export const renderWithApplicationState = (
+  element: ReactElement<any>,
+  applicationState: any = {}
+): Cheerio => {
+  return render(cloneElement(element, { applicationState }));
 }

@@ -78,5 +78,7 @@ it('applies base rotation', () => {
     }
   });
 
-  expect(element.find('.c-technology-radar').render().css('transform')).toContain('rotateZ(-10deg)');
+  const transform = 'scale3d(1, 1, 1) translate3d(0, 0, 0) rotate3d(0, 0, 1, -10deg)';
+
+  expect(element.find('.c-technology-radar').render().css('transform')).toContain(transform);
 });

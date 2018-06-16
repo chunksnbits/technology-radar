@@ -8,13 +8,13 @@ import { classNames } from 'utils/dom';
 // ----------------------------------------------------------------------------- Configuration
 export interface CreateNewActionProps {
   className?: string;
-  owner: boolean;
+  show: boolean;
   onClick: () => void;
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export const CreateNewAction = ({ className, owner, onClick }: CreateNewActionProps) => {
-  return owner && (
+export const CreateNewAction = ({ className, show, onClick }: CreateNewActionProps) => {
+  return show && (
     <Button
       variant='raised'
       className={ classNames('c-create-new-action', className) }

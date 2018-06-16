@@ -9,13 +9,13 @@ import { classNames } from 'utils/dom';
 // ----------------------------------------------------------------------------- Configuration
 export interface EditModeToggleProps {
   className?: string;
-  editor: boolean;
+  show: boolean;
   onClick: () => any;
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export const EditModeToggle = ({ className, editor, onClick}: EditModeToggleProps) => {
-  return editor && (
+export const EditModeToggle = ({ className, show, onClick}: EditModeToggleProps) => {
+  return show && (
     <Button
       variant='raised'
       className={ classNames('c-edit-mode-toggle', className) }

@@ -146,7 +146,7 @@
     ],
     "globals": {
       "ts-jest": {
-        "tsConfigFile": "/Users/daneis/Documents/diesunddas/homepage/com-chunksnbits-technology-radar/tsconfig.test.json"
+        "tsConfigFile": "/Users/daneis/Workspace/diesunddas/homepage/com-chunksnbits-technology-radar/tsconfig.test.json"
       }
     }
   },
