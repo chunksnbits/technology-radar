@@ -6,20 +6,19 @@ import { MouseEvent } from 'react';
 import { ApplicationStateContext } from 'store';
 
 import { TechnologyRadar } from 'ui/modules/TechnologyRadar';
+import { TechnologyList } from 'ui/modules/TechnologList';
 import { TechnologyDetails } from 'ui/modules/TechnologyDetails';
-
 import { Header } from 'ui/modules/Header';
 import { Footer } from 'ui/modules/Footer';
 
 import { Modal } from 'ui/components/Modal';
-import { AsyncComponent } from '../../components/AsyncComponent';
+import { AsyncComponent } from 'ui/components/AsyncComponent';
+import { BottomSheet } from 'ui/components/BottomSheet';
 
 import { consume } from 'utils/store';
+import { classNames } from 'utils/dom';
 
 import './styles.scss';
-import { TechnologyList } from 'ui/modules/TechnologList';
-import { classNames } from 'utils/dom';
-import { BottomSheet } from 'ui/components/BottomSheet';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface AppProps {
@@ -32,10 +31,11 @@ export class AppComponent extends React.Component<AppProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const { editMode, selectedTechnology } = this.props.applicationState;
+    const { editMode, selectedTechnology, viewMode  } = this.props.applicationState;
 
     const modifiers = [
-      selectedTechnology && 'c-app--selected-technology'
+      selectedTechnology && 'c-app--selected-technology',
+      `c-app--view-${ viewMode }`
     ];
 
     return (

@@ -8,4 +8,5 @@ export const defaultState: ApplicationState = {
   editMode: false,
   selectedTechnology: null,
   selectedGroup: null,
+  viewMode: 'radar'
 };

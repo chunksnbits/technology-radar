@@ -8,9 +8,11 @@ import { ApplicationStateContext, TechnologyRadarContext } from 'store';
 import { consume, compose } from 'utils/store';
 import { classNames } from 'utils/dom';
 
+import { ViewToggle } from './components/view-toggle';
+import { CreateNewAction } from './components/create-new-action';
+import { EditModeToggle } from './components/edit-mode-toggle';
+
 import './styles.scss';
-import { Button } from '@material-ui/core';
-import { Icon } from 'ui/components/Icon';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface FooterProps {
@@ -27,54 +29,37 @@ export class FooterComponent extends Component<FooterProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
+    const { editor, viewMode, owner } = this.props.applicationState;
     return (
       <footer className={ classNames('c-footer', this.props.className) }>
-        <div className='c-footer__actions'>{
-          this.props.applicationState.owner && (
-            <Button
-              variant='raised'
-              className='c-footer__action c-footer__action--edit'
-              onClick={ this.bindEdit() }
-              color='inherit'>
-              <span className='c-footer__action-label'>
-                <Icon name='edit' className='c-footer__action-icon' />
-                { 'Edit' }
-              </span>
-            </Button>
-          )
-        } {
-          this.props.applicationState.editor && (
-            <Button
-              variant='raised'
-              className='c-footer__action c-footer__action--create'
-              onClick={ this.bindCreateNew() }
-              color='inherit'>
-              <span className='c-footer__action-label'>
-                <Icon name='add' className='c-footer__action-icon' />
-                { 'Create your own' }
-              </span>
-            </Button>
-          )
-        }</div>
+        <div className='c-footer__actions'>
+          <ViewToggle viewMode={ viewMode }
+            onClick={ this.toggleListViewHandler }
+            className='c-footer__action c-footer__action--togle-view'/>
+
+          <CreateNewAction owner={ owner }
+            onClick={ this.createNewHandler }
+            className='c-footer__action c-footer__action--create-new' />
+
+          <EditModeToggle editor={ editor }
+            onClick={ this.toggleEditModeHandler }
+            className='c-footer__action c-footer__action--toggle-edit' />
+        </div>
       </footer>
     );
   }
 
   // ----------------------------------------------------------------------------- Helpers methods
-  private bindCreateNew() {
-    if (!this.handlers.createNew) {
-      this.handlers.createNew = () => this.props.technologyRadar.createNew();
-    }
-
-    return this.handlers.createNew as any;
+  private createNewHandler = () => {
+    this.props.technologyRadar.createNew();
   }
 
-  private bindEdit() {
-    if (!this.handlers.edit) {
-      this.handlers.edit = () => this.props.technologyRadar.edit();
-    }
+  private toggleEditModeHandler = () => {
+    this.props.technologyRadar.edit();
+  }
 
-    return this.handlers.edit as any;
+  private toggleListViewHandler = () => {
+    this.props.applicationState.toggleViewMode();
   }
 }
 

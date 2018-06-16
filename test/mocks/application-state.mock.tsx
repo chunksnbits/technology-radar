@@ -22,6 +22,7 @@ export const mockApplicationStateStore = (patch = {}) => Object.assign({}, {
 
   setOwner: noop,
   setEditMode: noop,
+  toggleViewMode: noop,
 
   ...mockApplicationState(patch),
 }, patch) as ApplicationStateStore;

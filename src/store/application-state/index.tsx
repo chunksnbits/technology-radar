@@ -34,6 +34,7 @@ export class ApplicationStateStore extends Component<ApplicationStateProps, Appl
       selectGroup: this.selectGroup.bind(this),
       setEditMode: this.setEditMode.bind(this),
       setOwner: this.setOwner.bind(this),
+      toggleViewMode: this.toggleViewMode.bind(this),
     };
   }
 
@@ -87,6 +88,14 @@ export class ApplicationStateStore extends Component<ApplicationStateProps, Appl
   setEditMode(value: boolean): void {
     this.setState(state => produce(state, (draftState: ApplicationState) => {
       draftState.editMode = value;
+
+      return draftState;
+    }));
+  }
+
+  toggleViewMode(): void {
+    this.setState(state => produce(state, (draftState: ApplicationState) => {
+      draftState.viewMode = draftState.viewMode === 'list' ? 'radar' : 'list';
 
       return draftState;
     }));

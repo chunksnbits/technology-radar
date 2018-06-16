@@ -1,6 +1,7 @@
 @import '~ui/components/Styles/animation';
 @import '~ui/components/Styles/breakpoints';
 @import '~ui/components/Styles/colors';
+@import '~ui/components/Styles/z-index';
 
 .c-app {
   display: flex;
@@ -40,6 +41,14 @@
 
 .c-app__content {
   pointer-events: all;
+}
+
+.c-app--view-radar .c-app__technology-list {
+  @include breakpoint-up(large) {
+    transform: translateX(0);
+  }
+
+  transform: translateX(160%);
 }
 
 .c-app--selected-technology .c-app__technology-list {

@@ -3,13 +3,14 @@
 import { Component } from 'react';
 import * as React from 'react';
 
+import { Button } from '@material-ui/core';
+
 import { ApplicationStateContext } from 'store';
 
 import { consume } from 'utils/store';
 import { classNames } from 'utils/dom';
 
 import './styles.scss';
-import { Button } from '@material-ui/core';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface HeaderProps {

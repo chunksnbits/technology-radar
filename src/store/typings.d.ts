@@ -2,6 +2,8 @@
 declare type ApplicationStateStore = ApplicationState & ApplicationStateActions;
 declare type TechnologyRadarStore = TechnologyRadar & TechnologyRadarActions;
 
+declare type ViewMode = 'list' | 'radar';
+
 declare interface ApplicationState {
   title?: string;
   subtitle?: string;
@@ -13,6 +15,7 @@ declare interface ApplicationState {
   editMode?: boolean;
   editor?: boolean;
   owner?: boolean;
+  viewMode?: ViewMode;
 }
 
 declare interface ApplicationStateActions {
@@ -21,6 +24,7 @@ declare interface ApplicationStateActions {
 
   setOwner: (value: boolean) => void;
   setEditMode: (value: boolean) => void;
+  toggleViewMode: () => void;
 
   reset: () => void;
 }
