@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/chunksnbits/com-chunksnbits-technology-radar/compare/v0.2.1...v0.3.0) (2018-06-17)
+
+
+### Features
+
+* **app:** adds what-input for device detection ([c72ee69](https://github.com/chunksnbits/com-chunksnbits-technology-radar/commit/c72ee69))
+* **app:** tidies up styles and layout ([33f63b2](https://github.com/chunksnbits/com-chunksnbits-technology-radar/commit/33f63b2))
+* **view-toggle:** refactors footer actions, moves view-toggle to footer ([bed2cd0](https://github.com/chunksnbits/com-chunksnbits-technology-radar/commit/bed2cd0))
+
+
+
 <a name="0.2.1"></a>
 ## [0.2.1](https://github.com/chunksnbits/com-chunksnbits-technology-radar/compare/v0.2.0...v0.2.1) (2018-06-15)
 

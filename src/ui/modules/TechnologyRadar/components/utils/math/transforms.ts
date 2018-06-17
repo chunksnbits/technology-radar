@@ -29,7 +29,7 @@ export function calculateGroupRotationDegrees(group: Group, technologyRadar: Tec
   const groupBaseAngleDegree = 360 / groups.length;
   const groupIndex = findGroupIndex(groups, group);
 
-  return groupIndex * groupBaseAngleDegree;
+  return (groups.length - 1 - groupIndex) * groupBaseAngleDegree;
 }
 
 export function calculateItemOffsetPercent(technology: Technology, technologyRadar: TechnologyRadarStore): number {

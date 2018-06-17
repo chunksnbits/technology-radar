@@ -43,7 +43,7 @@ export class TechnologyList extends Component<TechnologyListProps> {
         <ul className='c-technology-list__items'>{
           grouped.map(([groupId, groupedTechnologies]) => (
             <TechnologyListGroup key={ groupId }>{
-              groupedTechnologies.map(technology => (
+              groupedTechnologies.reverse().map(technology => (
                 <TechnologyListEntry
                   className={ this.isHidden(groupId, selectedGroup) && 'c-technology-list__item--hidden' }
                   key={ technology.id }

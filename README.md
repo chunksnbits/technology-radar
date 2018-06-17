@@ -177,6 +177,8 @@ This creates a static application build in the `dist` folder and can be deployed
 
 ### Build for github pages
 
+**NOTE** Before deployment, ensure to update field `homepage` in package.json to your github pages path.
+
 Run `yarn deploy` to create a version of this app for github pages. This will create a static, prerendered build and create and publish a branch called `gh-pages` that will automatically be deploy to [github pages](https://pages.github.com/).
 
 ## Testing
