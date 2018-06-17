@@ -64,13 +64,13 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
     return (
       <div className={ classNames('c-technology-radar', this.props.className, ...modifiers) }
         style={ transforms }
-        onClick={ this.handleDeselect }
+        onClick={ this.deselectHandler }
         ref={ this.elementRef }>
         <div className='c-technology-radar__content'>
           <div className='c-technology-radar__legend'>
             <LegendGroupLabels
               groups={ groups }
-              onSelect={ this.handleSelectGroup } />
+              onSelect={ this.selectGroupHandler } />
 
             <LegendGroupSeparators
               groups={ groups } />
@@ -91,9 +91,9 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
                 technologyRadar={ this.props.technologyRadar }
                 focused={ Boolean(focusedTechnology) && focusedTechnology.id === technology.id }
                 selected={ Boolean(selectedTechnology) && selectedTechnology === technology }
-                onSelect={ this.handleSelectTechnology }
-                onMouseOver={ this.handleFocusTechnology }
-                onMouseOut={ this.handleUnfocusTechnology } />
+                onSelect={ this.selectTechnologyHandler }
+                onMouseOver={ this.focusTechnologyHandler }
+                onMouseOut={ this.unfocusTechnologyHandler } />
           ))}</div>
         </div>
       </div>
@@ -102,7 +102,7 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
 
 
   // ----------------------------------------------------------------------------- Event handler methods
-  private handleDeselect = (event: React.MouseEvent<HTMLElement>) => {
+  private deselectHandler = (event: React.MouseEvent<HTMLElement>) => {
     if (event.defaultPrevented) {
       return;
     }
@@ -111,7 +111,7 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
     this.props.applicationState.selectTechnology(null);
   }
 
-  private handleSelectGroup = (group: Group, event: React.MouseEvent<SVGTextElement>) => {
+  private selectGroupHandler = (group: Group, event: React.MouseEvent<SVGTextElement>) => {
     if (event.defaultPrevented) {
       return;
     }
@@ -122,19 +122,19 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
     event.preventDefault();
   }
 
-  private handleSelectTechnology = (technology: Technology, event: React.MouseEvent<HTMLElement>): void => {
+  private selectTechnologyHandler = (technology: Technology, event: React.MouseEvent<HTMLElement>): void => {
     this.props.applicationState.selectTechnology(technology);
 
     event.preventDefault();
   }
 
-  private handleFocusTechnology = (technology: Technology, event: React.MouseEvent<HTMLElement>): void => {
+  private focusTechnologyHandler = (technology: Technology, event: React.MouseEvent<HTMLElement>): void => {
     this.props.applicationState.focusTechnology(technology);
 
     event.preventDefault();
   }
 
-  private handleUnfocusTechnology = (_, event: React.MouseEvent<HTMLElement>): void => {
+  private unfocusTechnologyHandler = (_, event: React.MouseEvent<HTMLElement>): void => {
     this.props.applicationState.focusTechnology(null);
 
     event.preventDefault();

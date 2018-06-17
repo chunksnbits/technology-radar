@@ -34,8 +34,8 @@ export class Ripple extends Component<RippleProps> {
 
     return (
       <div className={ classNames('c-ripple', this.props.className, ...modifiers) }
-        onMouseDown={ this.handleApplyRipple }
-        onTouchStart={ this.handleApplyRipple }
+        onMouseDown={ this.applyRippleHandler }
+        onTouchStart={ this.applyRippleHandler }
         { ...this.props as any }>
         <div className='c-ripple__ripple' ref={this.elementRef}>
           <div className='c-ripple__element' />
@@ -47,13 +47,7 @@ export class Ripple extends Component<RippleProps> {
   }
 
   // ----------------------------------------------------------------------------- Event handler functions
-  private bindResetTransition(parent: HTMLElement): () => void {
-    return () => {
-      parent.classList.remove('c-ripple--active');
-    };
-  }
-
-  private handleApplyRipple = (event: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) => {
+  private applyRippleHandler = (event: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) => {
     const parent = this.elementRef.current.parentElement;
 
     parent.classList.remove('c-ripple--active');
@@ -63,7 +57,7 @@ export class Ripple extends Component<RippleProps> {
   }
 
   private applyRipple(event: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) {
-    const parent = this.elementRef.current.parentElement;
+    const parentElement = this.elementRef.current.parentElement;
 
     if (this.props.position !== 'relative') {
       const touch = getPrimaryTouch(event);
@@ -76,11 +70,20 @@ export class Ripple extends Component<RippleProps> {
       this.elementRef.current.style.transform = `translate(${ x }px, ${ y }px)`;
     }
 
-    parent.addEventListener('transitionend', this.bindResetTransition(parent));
-    // In case the touchend gets stuck
-    setTimeout(this.bindResetTransition(parent), ANIMATION_DURATION_LIFELINE_TIMEOUT);
+    this.registerReset(parentElement);
+  }
 
-    parent.classList.add('c-ripple--will-change');
-    requestAnimationFrame(() => parent.classList.add('c-ripple--active'));
+  private registerReset(parentElement: HTMLElement): void {
+    const resetTransitionHandler = () => {
+      parentElement.classList.remove('c-ripple--active');
+      parentElement.addEventListener('transitionend', resetTransitionHandler);
+    };
+
+    parentElement.addEventListener('transitionend', resetTransitionHandler);
+    // In case the touchend gets stuck
+    setTimeout(resetTransitionHandler, ANIMATION_DURATION_LIFELINE_TIMEOUT);
+
+    parentElement.classList.add('c-ripple--will-change');
+    requestAnimationFrame(() => parentElement.classList.add('c-ripple--active'));
   }
 }

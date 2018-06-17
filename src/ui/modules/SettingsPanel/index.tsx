@@ -47,7 +47,11 @@ export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelSt
     return (
       <div className={ classNames('c-settings-panel', this.props.className) }>
         <Tabs sticky={ true }>
-          <TabHeader value={ this.state.activeTab } onChange={ this.handleSetActiveTab } fullWidth={ true }>
+          <TabHeader
+            value={ this.state.activeTab }
+            onChange={ this.activeTabChangedHandler }
+            fullWidth={ true }>
+
             <Tab label='Groups' value='groups' fullWidth={ true } />
             <Tab label='Technologies' value='technologies' fullWidth={ true } />
           </TabHeader>
@@ -56,10 +60,10 @@ export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelSt
             <Groups className='c-settings-panel__groups'
               groups={ groups }
               activeGroup={ this.state.activeGroup }
-              onToggle={ this.handleToggleGroup }
+              onToggle={ this.toggleGroupHandler }
               onAdd={ this.props.technologyRadar.addGroup }
               onClear={ clearAll }
-              onConfirm={ this.handleConfirmGroup }
+              onConfirm={ this.confirmGroupHandler }
               onChange={ updateGroup }
               onDelete={ removeGroup } />
           </TabBody>
@@ -69,8 +73,8 @@ export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelSt
               technologies={ technologies }
               groups={ groups }
               activeTechnology={ this.state.activeTechnology }
-              onToggle={ this.handleToggleTechnology }
-              onConfirm={ this.handleConfirmTechnology }
+              onToggle={ this.toggleTechnologyHandler }
+              onConfirm={ this.confirmTechnologyHandler }
               onAdd={ this.props.technologyRadar.addTechnology }
               onClear={ clearAll }
               onChange={ updateTechnology }
@@ -82,13 +86,13 @@ export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelSt
   }
 
   // ----------------------------------------------------------------------------- Event handler methods
-  private handleSetActiveTab = (_, tabName: string) => {
+  private activeTabChangedHandler = (_, tabName: string) => {
     this.setState(() => ({
       activeTab: tabName
     }));
   }
 
-  private handleToggleTechnology = (technology: Technology, active: boolean) =>  {
+  private toggleTechnologyHandler = (technology: Technology, active: boolean) =>  {
     active = active || !this.isActiveTechnology(technology);
 
     this.setState({
@@ -96,13 +100,13 @@ export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelSt
     });
   }
 
-  private handleConfirmTechnology = () =>  {
+  private confirmTechnologyHandler = () =>  {
     this.setState({
       activeTechnology: null
     });
   }
 
-  private handleToggleGroup = (group: Group, active?: boolean) =>  {
+  private toggleGroupHandler = (group: Group, active?: boolean) =>  {
     active = active || !this.isActiveGroup(group);
 
     this.setState({
@@ -110,7 +114,7 @@ export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelSt
     });
   }
 
-  private handleConfirmGroup = () =>  {
+  private confirmGroupHandler = () =>  {
     this.setState({
       activeGroup: null
     });

@@ -57,7 +57,7 @@ export class LegendGroupLabels extends PureComponent<LegendGroupLabelsProps> {
   }
 
   // ----------------------------------------------------------------------------- Event hanndler methods
-  bindSelectGroup(group: Group): MouseEventHandler<SVGTextElement> {
+  bindSelectGroupHandler(group: Group): MouseEventHandler<SVGTextElement> {
     const name = `select-group-${ group.id }`;
 
     if (!Boolean(this.handlers[name])) {
@@ -86,7 +86,7 @@ export class LegendGroupLabels extends PureComponent<LegendGroupLabelsProps> {
               `rotateZ(${index * baseAngleDegree + 0.5 * baseAngleDegree}deg)`
             ].join(' ')
           }}
-          onClick={ this.bindSelectGroup(group) }>
+          onClick={ this.bindSelectGroupHandler(group) }>
           <textPath
             alignmentBaseline='baseline'
             xlinkHref='#c-legend-group-labels__text-path'

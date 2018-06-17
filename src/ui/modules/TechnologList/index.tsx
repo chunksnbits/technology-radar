@@ -50,9 +50,9 @@ export class TechnologyList extends Component<TechnologyListProps> {
                   focusable={ focusable }
                   technology={ technology }
                   group={ groups.find(acc => acc.id === groupId) }
-                  onMouseOver={ this.bindFocusTechnology(technology) }
-                  onMouseOut={ this.bindUnfocusTechnology(technology) }
-                  onClick={ this.bindSelectTechnology(technology) }
+                  onMouseOver={ this.bindFocusTechnologyHandler(technology) }
+                  onMouseOut={ this.bindUnfocusTechnologyHandler(technology) }
+                  onClick={ this.bindSelectTechnologyHandler(technology) }
                   focused={ Boolean(focusedTechnology) && focusedTechnology === technology } />
               ))
             }</TechnologyListGroup>
@@ -63,7 +63,7 @@ export class TechnologyList extends Component<TechnologyListProps> {
   }
 
   // ----------------------------------------------------------------------------- Event handler methods
-  private bindSelectTechnology(technology: Technology): () => void {
+  private bindSelectTechnologyHandler(technology: Technology): () => void {
     const key = `select-technology-${technology.id}`;
 
     if (!this.handlers[key]) {
@@ -73,7 +73,7 @@ export class TechnologyList extends Component<TechnologyListProps> {
     return this.handlers[key];
   }
 
-  private bindFocusTechnology(technology: Technology): () => void {
+  private bindFocusTechnologyHandler(technology: Technology): () => void {
     const key = `set-focused-technology-${technology.id}`;
 
     if (!this.handlers[key]) {
@@ -83,7 +83,7 @@ export class TechnologyList extends Component<TechnologyListProps> {
     return this.handlers[key];
   }
 
-  private bindUnfocusTechnology(technology: Technology): () => void {
+  private bindUnfocusTechnologyHandler(technology: Technology): () => void {
     const key = `unset-focused-technology-${technology.id}`;
 
     if (!this.handlers[key]) {
