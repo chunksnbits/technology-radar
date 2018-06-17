@@ -1,6 +1,6 @@
 {
   "name": "com-chunksnbits-technology-radar",
-  "version": "0.3.0",
+  "version": "0.2.1",
   "private": true,
   "homepage": "https://chunksnbits.github.io/com-chunksnbits-technology-radar",
   "dependencies": {
@@ -17,8 +17,9 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js --public-url /",
-    "test": "node scripts/test.js --env=jsdom",
+    "test": "node scripts/test.js --env=jsdom --watch",
     "serve": "serve -l 3001 -s build",
+    "prerelease": "yarn build && yarn lint && yarn test",
     "release": "standard-version",
     "predeploy": "rimraf dist && node scripts/build.js --dest dist && yarn snapshot",
     "deploy": "gh-pages -d dist",
