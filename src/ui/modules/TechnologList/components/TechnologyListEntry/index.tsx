@@ -15,6 +15,7 @@ export interface TechnologyListEntryProps {
   technology: Technology;
   group: Group;
   focused: boolean;
+  focusable: boolean;
   onMouseOver: MouseEventHandler<void>;
   onMouseOut: MouseEventHandler<void>;
   onClick: MouseEventHandler<void>;
@@ -32,6 +33,10 @@ export class TechnologyListEntry extends PureComponent<TechnologyListEntryProps>
   }
 
   componentDidUpdate() {
+    if (!this.props.focusable) {
+      return;
+    }
+
     if (this.props.focused) {
       this.elementRef.current.scrollIntoView({
         block: 'nearest',

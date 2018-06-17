@@ -9,6 +9,10 @@ import registerServiceWorker from './registerServiceWorker';
 import { ApplicationStateProvider, TechnologyRadarProvider } from 'store';
 import { canUseDOM } from 'utils/dom';
 
+if (canUseDOM()) {
+  import('what-input');
+}
+
 import './styles.scss';
 
 // ----------------------------------------------------------------------------- Configuration

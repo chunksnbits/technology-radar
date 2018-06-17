@@ -26,6 +26,11 @@ declare interface ApplicationConfig {
   technologyRadar: TechnologyRadar;
 }
 
+declare interface ApplicationTheme {
+  breakpoints: { [key: string]: number };
+  colors: { [key: string]: string };
+}
+
 declare interface BoundHandlers<T> {
   [key: string]: T;
 }
@@ -42,6 +47,11 @@ declare module "*.scss" {
 
 declare module "public/data.json" {
   const value: ApplicationConfig;
+  export default value;
+}
+
+declare module "public/theme.json" {
+  const value: ApplicationTheme;
   export default value;
 }
 

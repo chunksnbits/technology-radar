@@ -33,8 +33,9 @@ export class TechnologyList extends Component<TechnologyListProps> {
     ];
 
     const { technologies, groups, } = this.props.technologyRadar;
-    const { focusedTechnology, selectedGroup } = this.props.applicationState;
+    const { breakpoint, focusedTechnology, selectedGroup, selectedTechnology } = this.props.applicationState;
 
+    const focusable = breakpoint === 'large' && !Boolean(selectedGroup) && !Boolean(selectedTechnology);
     const grouped = Object.entries(this.groupTechnologies(technologies, groups, selectedGroup));
 
     return (
@@ -44,7 +45,9 @@ export class TechnologyList extends Component<TechnologyListProps> {
             <TechnologyListGroup key={ groupId }>{
               groupedTechnologies.map(technology => (
                 <TechnologyListEntry
+                  className={ this.isHidden(groupId, selectedGroup) && 'c-technology-list__item--hidden' }
                   key={ technology.id }
+                  focusable={ focusable }
                   technology={ technology }
                   group={ groups.find(acc => acc.id === groupId) }
                   onMouseOver={ this.bindFocusTechnology(technology) }
@@ -91,12 +94,16 @@ export class TechnologyList extends Component<TechnologyListProps> {
   }
 
   // ----------------------------------------------------------------------------- Helpers methods
-  private groupTechnologies(technologies: Technology[], groups: Group[], selectedGroup: Group): { [key:string]: Technology[] } {
+  private groupTechnologies(technologies: Technology[], groups: Group[], selectedGroup: Group): GroupedTechnologies {
     return groups.reduce((result, group) => {
       return {
         ...result,
         [group.id]: technologies.filter(technology => technology.groupId === group.id)
       };
     }, {});
+  }
+
+  private isHidden(groupId: string, selectedGroup: Group): boolean {
+    return Boolean(selectedGroup) && selectedGroup.id !== groupId;
   }
 }

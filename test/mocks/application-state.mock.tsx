@@ -24,6 +24,9 @@ export const mockApplicationStateStore = (patch = {}) => Object.assign({}, {
   selectGroup: noop,
   reset: noop,
 
+  breakpoint: 'large',
+  updateBreakpoint: noop,
+
   setOwner: noop,
   setEditMode: noop,
   toggleViewMode: noop,

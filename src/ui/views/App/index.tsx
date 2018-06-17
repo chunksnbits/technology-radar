@@ -16,9 +16,10 @@ import { AsyncComponent } from 'ui/components/AsyncComponent';
 import { BottomSheet } from 'ui/components/BottomSheet';
 
 import { consume } from 'utils/store';
-import { classNames } from 'utils/dom';
+import { classNames, canUseDOM } from 'utils/dom';
 
 import './styles.scss';
+import { debounce } from 'utils/debounce';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface AppProps {
@@ -31,6 +32,23 @@ export interface AppProps {
 export class App extends React.Component<AppProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
+  componentDidMount() {
+    if (!canUseDOM()) {
+      return;
+    }
+
+    window.addEventListener('resize', this.windowResizeHandler);
+    this.props.applicationState.updateBreakpoint(window.innerWidth, window.innerHeight);
+  }
+
+  componentDidUnmount() {
+    if (!canUseDOM()) {
+      return;
+    }
+
+    window.removeEventListener('resize', this.windowResizeHandler);
+  }
+
   render() {
     const { editMode, selectedTechnology, viewMode  } = this.props.applicationState;
 
@@ -79,6 +97,12 @@ export class App extends React.Component<AppProps> {
   }
 
   // ----------------------------------------------------------------------------- Event handler methods
+  private windowResizeHandler = () => {
+    debounce('app', () => {
+      this.props.applicationState.updateBreakpoint(window.innerWidth, window.innerHeight);
+    });
+  }
+
   private technologyDetailsClosedHandler = (event: MouseEvent<HTMLElement>) => {
     if (event.defaultPrevented) {
       return;

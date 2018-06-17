@@ -24,6 +24,7 @@ it('applies initialState', () => {
   const element = shallow(<ApplicationStateProvider initialState={{
     selectedTechnology,
     selectedGroup,
+    breakpoint: 'large',
     editMode: true,
     editor: true,
     owner: false

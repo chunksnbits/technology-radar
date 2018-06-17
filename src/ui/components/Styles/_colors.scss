@@ -1,25 +1,30 @@
+
+
+
+$g-theme--colors: map-get($g-theme, 'colors');
+
 $g-color__black: #000;
 $g-color__white: #fff;
 
-$g-color__background: map-get($g-theme, 'base');
-$g-color__background--inverse: map-get($g-theme, 'base-inverse');
+$g-color__background: map-get($g-theme--colors, 'base');
+$g-color__background--inverse: map-get($g-theme--colors, 'base-inverse');
 
-$g-color__border: map-get($g-theme, 'dividers');
+$g-color__border: map-get($g-theme--colors, 'dividers');
 $g-color__border--inverse: invert($g-color__border);
 $g-color__border--light: lighten($g-color__border, 10);
 
-$g-color__primary: map-get($g-theme, 'primary');
-$g-color__primary--inverse: map-get($g-theme, 'primary-inverse');
+$g-color__primary: map-get($g-theme--colors, 'primary');
+$g-color__primary--inverse: map-get($g-theme--colors, 'primary-inverse');
 $g-color__primary--hover: rgba($g-color__primary, 0.75);
 
-$g-color__secondary: map-get($g-theme, 'secondary');
-$g-color__accent: map-get($g-theme, 'accent');
-$g-color__highlight: map-get($g-theme, 'highlight');
+$g-color__secondary: map-get($g-theme--colors, 'secondary');
+$g-color__accent: map-get($g-theme--colors, 'accent');
+$g-color__highlight: map-get($g-theme--colors, 'highlight');
 
-$g-color__success: map-get($g-theme, 'success');;
-$g-color__error: map-get($g-theme, 'error');;
+$g-color__success: map-get($g-theme--colors, 'success');;
+$g-color__error: map-get($g-theme--colors, 'error');;
 
 $g-box-shadow--default: 0 0 1px 8px rgba($g-color__black, 0.25);
 
-$g-color__theme: map-get($g-theme, 'theme');
-$g-color__focus--a11y: map-get($g-theme, 'focus-a11y');
+$g-color__theme: map-get($g-theme--colors, 'theme');
+$g-color__focus--a11y: map-get($g-theme--colors, 'focus-a11y');

@@ -8,6 +8,8 @@ import { canUseSessionStorage } from 'utils/dom';
 import { restoreState } from 'utils/store';
 import { merge } from 'utils/collection';
 
+import theme from 'public/theme.json';
+
 import { defaultState } from './constants';
 
 // ----------------------------------------------------------------------------- Configuration
@@ -37,6 +39,7 @@ export class ApplicationStateProvider
       selectGroup: this.selectGroup.bind(this),
       setEditMode: this.setEditMode.bind(this),
       setOwner: this.setOwner.bind(this),
+      updateBreakpoint: this.updateBreakpoint.bind(this),
       toggleViewMode: this.toggleViewMode.bind(this),
     };
   }
@@ -54,6 +57,21 @@ export class ApplicationStateProvider
   }
 
   // ----------------------------------------------------------------------------- Action methods
+  updateBreakpoint(width: number): void {
+    this.setState(state => produce(state, (draftState: ApplicationState) => {
+      if (width < theme.breakpoints.medium) {
+        draftState.breakpoint = 'small';
+      } else if (width < theme.breakpoints.large) {
+        draftState.breakpoint = 'medium';
+      } else {
+        draftState.breakpoint = 'large';
+      }
+
+
+      return draftState;
+    }));
+  }
+
   reset(): void {
     this.setState(state => produce(state, (draftState: ApplicationState) => {
       draftState.selectedTechnology = null;

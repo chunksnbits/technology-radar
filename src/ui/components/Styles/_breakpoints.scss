@@ -1,8 +1,10 @@
 
+$g-theme--breakpoints: map-get($g-theme, 'breakpoints');
+
 $g-breakpoints: (
-  small: 0px,
-  medium: 767px,
-  large: 1023px
+  small: map-get($g-theme--breakpoints, 'small') * 1px,
+  medium: map-get($g-theme--breakpoints, 'medium') * 1px,
+  large: map-get($g-theme--breakpoints, 'large') * 1px
 );
 
 @mixin hide($name) {

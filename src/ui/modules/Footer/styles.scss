@@ -31,14 +31,6 @@
   pointer-events: all;
 }
 
-.c-footer__action.c-footer__action:hover {
-  background-color: $g-color__primary;
-}
-
-.c-footer__action:hover span {
-  color: $g-color__background;
-}
-
 .c-footer__action .c-icon {
   width: 18px;
   height: 18px;
@@ -47,12 +39,26 @@
   margin-right: 12px;
 }
 
-.c-footer__action:hover .c-icon {
-  fill: $g-color__background;
-}
-
 .c-footer__action--togle-view.c-footer__action--togle-view {
   @include breakpoint-up(large) {
     display: none;
   }
 }
+
+//
+// Restricts hover state to devices with mouse input
+//
+[data-whatintent='mouse'] {
+  .c-footer__action.c-footer__action:hover {
+    background-color: $g-color__primary;
+  }
+
+  .c-footer__action:hover span {
+    color: $g-color__background;
+  }
+
+  .c-footer__action:hover .c-icon {
+    fill: $g-color__background;
+  }
+}
+
