@@ -8,6 +8,7 @@ import { noop } from './generic.mock';
 export const mockApplicationState = (patch = {}) => Object.assign({}, {
   title: 'Any',
   logo: '//any.logo.svg',
+  breakpoint: 'large',
   editMode: false,
   viewMode: 'list',
   data: {

@@ -110,7 +110,7 @@ it('triggers selectTechnology on item click', () => {
     groups: [group]
   });
 
-  const button = element.find('button');
+  const button = element.find('.c-technology-item__item');
   const event = new Event('noop');
   button.simulate('click', event);
 
