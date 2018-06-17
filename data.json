@@ -22,13 +22,13 @@
       "editable": true
     },
     "groups": [{
-      "id": "tools",
-      "name": "Tools",
-      "color": "#FC6C73"
-    }, {
       "id": "frameworks",
       "name": "Languages + Frameworks",
       "color": "#8BDAE0"
+    }, {
+      "id": "tools",
+      "name": "Tools",
+      "color": "#FC6C73"
     }, {
       "id": "serverside",
       "name": "Serverside Programming",
