@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component, RefObject, createRef } from 'react';
+import { Component } from 'react';
 import * as React from 'react';
 
 import { ApplicationStateContext, TechnologyRadarContext } from 'store';
@@ -27,14 +27,6 @@ export interface TechnologyDetailsProps {
 @consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
 export class TechnologyDetails extends Component<TechnologyDetailsProps> {
 
-  private elementRef: RefObject<HTMLDivElement>;
-
-  constructor(props: TechnologyDetailsProps) {
-    super(props);
-
-    this.elementRef = createRef();
-  }
-
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
     const { selectedTechnology } = this.props.applicationState;
@@ -49,8 +41,7 @@ export class TechnologyDetails extends Component<TechnologyDetailsProps> {
     const group = this.findGroupForTechnology(selectedTechnology, groups);
 
     return (
-      <div className={ classNames('c-technology-details', this.props.className, ...modifiers) }
-        ref={ this.elementRef }>
+      <div className={ classNames('c-technology-details', this.props.className, ...modifiers) }>
         {
           active && Boolean(selectedTechnology.logo) &&
           <GlobalBackground>
@@ -86,11 +77,6 @@ export class TechnologyDetails extends Component<TechnologyDetailsProps> {
           onSelect={ this.selectTechnologyHandler } />
       </div>
     );
-  }
-
-  componentDidUpdate(): void {
-    const active = Boolean(this.props.applicationState.selectedTechnology);
-    this.elementRef.current.classList.toggle('c-technology-details--interactive', active);
   }
 
   // ----------------------------------------------------------------------------- Event handler methods

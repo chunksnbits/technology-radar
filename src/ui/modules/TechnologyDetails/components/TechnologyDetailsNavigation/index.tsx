@@ -33,18 +33,18 @@ export class TechnologyDetailsNavigation extends PureComponent<TechnologyDetails
         <Button onClick={ this.propagateSelectPrevHandler }
           variant='flat'
           size='small'
-          className='c-technology-details-navigation__action'>
+          className='c-technology-details-navigation__action c-technology-details-navigation__action--prev'>
           <Icon name='navigate-prev'
-            className='c-technology-details-navigation__action-icon c-technology-details-navigation__action-icon--prev' />
+            className='c-technology-details-navigation__action-icon' />
           { this.getPrev().name }
         </Button>
         <Button onClick={ this.propagateSelectNextHandler }
           variant='flat'
           size='small'
-          className='c-technology-details-navigation__action'>
+          className='c-technology-details-navigation__action c-technology-details-navigation__action--next'>
           { this.getNext().name }
           <Icon name='navigate-next'
-            className='c-technology-details-navigation__action-icon c-technology-details-navigation__action-icon--next' />
+            className='c-technology-details-navigation__action-icon' />
         </Button>
       </div>
     );

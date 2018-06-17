@@ -62,6 +62,24 @@ $g-breakpoints: (
   }
 }
 
+@mixin aspect-ratio-up($width, $height) {
+  @media (min-aspect-ratio: #{$width} / #{$height}) {
+    @content;
+  }
+}
+
+@mixin aspect-ratio-down($ratio) {
+  @media (max-aspect-ratio: #{$width} / #{$height}) {
+    @content;
+  }
+}
+
+@mixin aspect-ratio-at($ratio) {
+  @media (aspect-ratio: #{$width} / #{$height}) {
+    @content;
+  }
+}
+
 @mixin height-up($name) {
   @media (min-height: map-get($g-breakpoints, $name) + 1) {
     @content;

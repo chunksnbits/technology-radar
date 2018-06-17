@@ -9,7 +9,7 @@
   }
 
   position: relative;
-  margin: -5vmin;
+  margin: -3.5vmin;
   z-index: $g-zindex__technoloogy-radar-labels;
 }
 
@@ -34,7 +34,7 @@
   @include typo-default;
   fill: $g-color__primary;
 
-  font-size: rem-size(4);
+  font-size: rem-size(2.5);
   font-weight: lighter;
   text-anchor:middle;
   transform-origin: center;

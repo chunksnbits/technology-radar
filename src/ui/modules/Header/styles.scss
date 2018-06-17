@@ -45,12 +45,13 @@
 
   color: $g-color__primary;
 
-  padding: 4px;
+  padding: 0 4px;
 }
 
 .c-header__title {
   @include breakpoint-up(medium) {
     @include typo-block-heading;
+    line-height: 1;
   }
 
   @include typo-group-heading;

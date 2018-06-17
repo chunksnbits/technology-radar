@@ -50,3 +50,9 @@
 .c-footer__action:hover .c-icon {
   fill: $g-color__background;
 }
+
+.c-footer__action--togle-view.c-footer__action--togle-view {
+  @include breakpoint-up(large) {
+    display: none;
+  }
+}

@@ -43,13 +43,13 @@ export class App extends React.Component<AppProps> {
       <main className={ classNames('c-app', ...modifiers) }>
         <Header />
 
-        <section className='c-app__content-wrapper c-app__content-wrapper--fixed'>
+        <section className='c-app__content-wrapper c-app__content-wrapper--radar'>
           <div className='c-app__technology-radar'>
             <TechnologyRadar className='c-app__content c-app__technology-radar-content' />
           </div>
         </section>
 
-        <section className='c-app__content-wrapper'>
+        <section className='c-app__content-wrapper c-app__content-wrapper--list'>
           <div className='c-app__technology-list'>
             <TechnologyList className='c-app__content c-app__technology-list-content' />
           </div>

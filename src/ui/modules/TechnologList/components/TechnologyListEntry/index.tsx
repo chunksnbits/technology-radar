@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Button } from '@material-ui/core';
 import { classNames } from 'utils/dom';
 
-import { MouseEventHandler } from 'react';
+import { createRef, MouseEventHandler, PureComponent, RefObject } from 'react';
 
 import './styles.scss';
 import { GroupIndicator } from 'ui/components/GroupIndicator';
@@ -21,27 +21,49 @@ export interface TechnologyListEntryProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export function TechnologyListEntry(props: TechnologyListEntryProps) {
-  const { technology, group, focused, ...buttonProps } = props;
+export class TechnologyListEntry extends PureComponent<TechnologyListEntryProps> {
 
-  const modifiers = [
-    focused && 'c-technology-list-entry--focused'
-  ];
+  elementRef: RefObject<HTMLLIElement>;
 
-  return (
-    <li className={ classNames('c-technology-list-entry', props.className, ...modifiers) }>
-      <Button role='flat'
-        fullWidth={ true }
-        { ...buttonProps as any }>
-        <GroupIndicator
-          className='c-technology-list-entry__group-indicator'
-          color={ group.color }
-          focused={ focused } />
+  constructor(props) {
+    super(props);
 
-        <span className='c-technology-list-entry__label'>
-          { technology.name }
-        </span>
-      </Button>
-    </li>
-  );
+    this.elementRef = createRef();
+  }
+
+  componentDidUpdate() {
+    if (this.props.focused) {
+      this.elementRef.current.scrollIntoView({
+        block: 'nearest',
+        inline: 'nearest',
+        behavior: 'smooth'
+      });
+    }
+  }
+
+  render() {
+    const { className, technology, group, focused, ...buttonProps } = this.props;
+
+    const modifiers = [
+      focused && 'c-technology-list-entry--focused'
+    ];
+
+    return (
+      <li className={ classNames('c-technology-list-entry', className, ...modifiers) }
+        ref={ this.elementRef }>
+        <Button role='flat'
+          fullWidth={ true }
+          { ...buttonProps as any }>
+          <GroupIndicator
+            className='c-technology-list-entry__group-indicator'
+            color={ group.color }
+            focused={ focused } />
+
+          <span className='c-technology-list-entry__label'>
+            { technology.name }
+          </span>
+        </Button>
+      </li>
+    );
+  }
 }

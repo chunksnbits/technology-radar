@@ -7,41 +7,54 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
 
   width: 100%;
   height: 100%;
-
-  overflow: auto;
 }
 
 .c-app__content-wrapper {
-  @include breakpoint-up(large) {
-    justify-content: flex-start;
-  }
 
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-evenly;
   flex-wrap: nowrap;
-
-  width: 100%;
-  min-height: 100%;
-
-  max-width: 200vmin;
-
   position: relative;
+
+  height: 100%;
 
   margin: 0 auto;
 
   pointer-events: none;
 }
 
-.c-app__content-wrapper--fixed {
-  position: fixed;
-  top: 0;
-  height: 100%;
+.c-app__content-wrapper--radar {
+  @include breakpoint-up(large) {
+    width: 66vw;
+    height: 66vw;
+  }
 
-  align-items: center;
+  @include aspect-ratio-up(3, 2) {
+    width: 100vh;
+    height: 100vh;
+  }
+
+  width: 100vmin;
+  height: 100vmin;
+
+  justify-content: center;
+}
+
+.c-app__content-wrapper--list {
+  @include breakpoint-up(large) {
+    position: relative;
+    width: 33vw;
+  }
+
+  position: absolute;
+  width: 100vw;
+
+  justify-content: flex-start;
 }
 
 .c-app__content {
@@ -61,13 +74,11 @@
 }
 
 .c-app__technology-list {
-  @include transition--default(transform);
-
   @include breakpoint-up(large) {
-    left: (2/3) * 100%;
-    width: (1/3) * 100%;
-    min-width: 350px;
+    background: none;
   }
+
+  @include transition--default(transform);
 
   display: flex;
   flex-direction: column;
@@ -77,6 +88,7 @@
   height: 100%;
 
   position: relative;
+  background: $g-color--background;
 }
 
 .c-app__technology-list-content {
@@ -84,25 +96,22 @@
     padding: 15px 0 25px;
     background: none;
   }
+
   @include breakpoint-at(medium) {
-    padding: 100px 10px 25px 52px;
+    padding: 100px 10px 25px;
   }
 
-  padding: 60px 10px 25px 22px;
-  background: $g-color--background;
+  padding: 60px 5px 25px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .c-app__technology-radar {
-  @include breakpoint-up(large) {
-    width: (4/5) * 100vmin;
-    height: (4/5) * 100vmin;
-  }
-
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100vmin;
-  height: 100vmin;
+  width: 100%;
+  height: 100%;
 
   pointer-events: none;
 }

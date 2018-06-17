@@ -5,6 +5,11 @@
 
 $c-technology-list__color--size: 14px;
 
+.c-technology-list-entry {
+  border-left: 1px solid transparent;
+  cursor: pointer;
+}
+
 .c-technology-list-entry__label {
   @include breakpoint-up(large) {
     @include typo-copy--small;
@@ -18,8 +23,12 @@ $c-technology-list__color--size: 14px;
   color: $g-color__primary;
 }
 
+.c-technology-list-entry--focused {
+  border-color: $g-color__primary;
+}
+
 .c-technology-list-entry--focused .c-technology-list-entry__label {
-  font-weight: $g-typo__font-weight--regular;
+  font-weight: $g-typo__font-weight--bold;
 }
 
 .c-technology-list-entry__group-indicator {
