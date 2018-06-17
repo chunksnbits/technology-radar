@@ -15,8 +15,9 @@ $c-technology-details__color--size: 14px;
 }
 
 .c-technology-details {
-  pointer-events: none;
+  height: 100%;
 
+  pointer-events: none;
   color: $g-color__primary--inverse;
 }
 
@@ -37,7 +38,12 @@ $c-technology-details__color--size: 14px;
   pointer-events: none;
 }
 
-.c-technology-details__header {
+.c-technology-details__content {
+  max-height: 100%;
+  overflow: auto;
+}
+
+.c-technology-details__title {
   display: flex;
 
   flex-direction: column;
@@ -62,6 +68,9 @@ $c-technology-details__color--size: 14px;
   margin-top: 15px;
   padding-bottom: 42px;
   user-select: none;
+  max-height: 100%;
+
+  overflow: auto;
 }
 
 .c-technology-details__group-color {

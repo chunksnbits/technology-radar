@@ -50,26 +50,28 @@ export class TechnologyDetails extends Component<TechnologyDetailsProps> {
               color={ group && group.color } />
           </GlobalBackground>
         }
-        <div className='c-technology-details__header'>
-          <h3 className='c-technology-details__name'>
-            { selectedTechnology && selectedTechnology.name }
-          </h3>
+        <div className='c-technology-details__content'>
+          <div className='c-technology-details__title'>
+            <h3 className='c-technology-details__name'>
+              { selectedTechnology && selectedTechnology.name }
+            </h3>
 
-          <TextButton onClick={ this.selectGroupHandler } className='c-technology-details__group'>
-            <span className='c-technology-details__group-color'
-              style={{
-                borderColor: Boolean(group) ? group.color : 'transparent'
-              }} />
+            <TextButton onClick={ this.selectGroupHandler } className='c-technology-details__group'>
+              <span className='c-technology-details__group-color'
+                style={{
+                  borderColor: Boolean(group) ? group.color : 'transparent'
+                }} />
 
-            <span className='c-technology-details__group-name'>
-              { Boolean(group) ? group.name : null }
-            </span>
-          </TextButton>
+              <span className='c-technology-details__group-name'>
+                { Boolean(group) ? group.name : null }
+              </span>
+            </TextButton>
+          </div>
+
+          <p className='c-technology-details__description'>
+            { selectedTechnology && selectedTechnology.description }
+          </p>
         </div>
-
-        <p className='c-technology-details__description'>
-          { selectedTechnology && selectedTechnology.description }
-        </p>
 
         <TechnologyDetailsNavigation
           selectedTechnology={ selectedTechnology }
