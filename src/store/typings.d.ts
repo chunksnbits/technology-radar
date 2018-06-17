@@ -9,16 +9,20 @@ declare interface ApplicationState {
   subtitle?: string;
   logo?: string;
 
+  focusedTechnology?: Technology;
   selectedTechnology?: Technology;
   selectedGroup?: Group;
 
   editMode?: boolean;
   editor?: boolean;
   owner?: boolean;
+
   viewMode?: ViewMode;
 }
 
 declare interface ApplicationStateActions {
+  focusTechnology: (focused: Technology) => void;
+
   selectTechnology: (selected: Technology) => void;
   selectGroup: (selected: Group) => void;
 

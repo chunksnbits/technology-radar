@@ -32,6 +32,7 @@ export class ApplicationStateProvider
       ...initialState,
 
       reset: this.reset.bind(this),
+      focusTechnology: this.focusTechnology.bind(this),
       selectTechnology: this.selectTechnology.bind(this),
       selectGroup: this.selectGroup.bind(this),
       setEditMode: this.setEditMode.bind(this),
@@ -58,6 +59,14 @@ export class ApplicationStateProvider
       draftState.selectedTechnology = null;
       draftState.selectedGroup = null;
       draftState.editMode = false;
+
+      return draftState;
+    }));
+  }
+
+  focusTechnology(focused: Technology): void {
+    this.setState(state => produce(state, (draftState: ApplicationState) => {
+      draftState.focusedTechnology = focused;
 
       return draftState;
     }));

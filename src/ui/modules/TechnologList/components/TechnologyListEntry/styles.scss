@@ -1,0 +1,27 @@
+
+@import '~ui/components/Styles/breakpoints';
+@import '~ui/components/Styles/colors';
+@import '~ui/components/Styles/typo';
+
+$c-technology-list__color--size: 14px;
+
+.c-technology-list-entry__label {
+  @include breakpoint-up(large) {
+    @include typo-copy--small;
+  }
+
+  @include typo-copy;
+
+  display: block;
+  width: 100%;
+  text-align: left;
+  color: $g-color__primary;
+}
+
+.c-technology-list-entry--focused .c-technology-list-entry__label {
+  font-weight: $g-typo__font-weight--regular;
+}
+
+.c-technology-list-entry__group-indicator {
+  margin-right: 10px;
+}

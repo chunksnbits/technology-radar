@@ -22,8 +22,11 @@ const bundleProps = (props: any = {}) => {
       settings: props.settings || mockSettings(),
     }),
     technology: props.technology || mockTechnology(),
+    selected: props.selected || false,
     focused: props.focused || false,
     onSelect: props.onSelect || noop,
+    onMouseOver: props.onMouseOver || noop,
+    onMouseOut: props.onMouseOut || noop,
   };
 }
 
@@ -63,36 +66,36 @@ it('does not crash if technology has not been assigned a group', () => {
   expect(element.find('.c-technology-item').length).toBe(0);
 });
 
-it('does not rerender if element and focused state remain unchanged', () => {
+it('does not rerender if element and selected state remain unchanged', () => {
   const technology = mockTechnology({ id: 'test', groupId: undefined });
-  const element = shallowWithProps({ technology, focused: false });
+  const element = shallowWithProps({ technology, selected: false });
 
   const render = spyOn(element.instance() as TechnologyItem, 'render');
 
-  element.setProps(bundleProps({ technology, focused: false }));
+  element.setProps(bundleProps({ technology, selected: false }));
   expect(render).not.toHaveBeenCalled();
 });
 
 it('does rerender if element changed', () => {
   const technology = mockTechnology({ id: 'test', groupId: undefined });
-  const element = shallowWithProps({ technology, focused: false });
+  const element = shallowWithProps({ technology, selected: false });
 
   const render = spyOn(element.instance() as TechnologyItem, 'render');
 
-  element.setProps(bundleProps({ technology: Object.assign({}, technology), focused: false }));
+  element.setProps(bundleProps({ technology: Object.assign({}, technology), selected: false }));
   expect(render).toHaveBeenCalled();
 });
 
-it('does rerender if focused state change', () => {
+it('does rerender if selected state change', () => {
   const technology = mockTechnology({ id: 'test', groupId: undefined });
-  const element = shallowWithProps({ technology, focused: true });
+  const element = shallowWithProps({ technology, selected: true });
 
   const render = spyOn(element.instance() as TechnologyItem, 'render');
 
-  element.setProps(bundleProps({ technology, focused: false }));
+  element.setProps(bundleProps({ technology, selected: false }));
   expect(render).toHaveBeenCalled();
 
-  element.setProps({ technology, focused: true });
+  element.setProps({ technology, selected: true });
   expect(render).toHaveBeenCalled();
 });
 

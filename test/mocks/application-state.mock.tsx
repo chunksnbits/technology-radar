@@ -17,6 +17,8 @@ export const mockApplicationState = (patch = {}) => Object.assign({}, {
 }, patch) as ApplicationState;
 
 export const mockApplicationStateStore = (patch = {}) => Object.assign({}, {
+  focusedTechnology: null,
+  focusTechnology: noop,
   selectedTechnology: null,
   selectTechnology: noop,
   selectGroup: noop,

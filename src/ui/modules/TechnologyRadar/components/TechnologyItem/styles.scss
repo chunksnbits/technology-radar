@@ -1,17 +1,5 @@
 @import '~ui/components/Styles/colors';
-@import '~ui/components/Styles/breakpoints';
-@import '~ui/components/Styles/z-index';
-
-// ----------------------------------------------------------------------------- Defaults
-$c-technology-item__item--size: 18px;
-$c-technology-item__item--border-width: 1px;
-
-$c-technology-item__highlight--border-width: $c-technology-item__item--border-width;
-$c-technology-item__blur--border-width: 1.5 * $c-technology-item__item--border-width;
-
-// ----------------------------------------------------------------------------- Responsive
-$c-technology-item__item--size-medium: 28px;
-$c-technology-item__item--border-width-medium: 1px;
+@import '~ui/components/GroupIndicator/styles';
 
 .c-technology-item {
   display: flex;
@@ -31,71 +19,20 @@ $c-technology-item__item--border-width-medium: 1px;
 }
 
 .c-technology-item__item {
-  @include breakpoint-at(medium) {
-    @include height-at(medium) {
-      top: -0.5 * $c-technology-item__item--size-medium;
-      right: -0.5 * $c-technology-item__item--size-medium;
-
-      width: $c-technology-item__item--size-medium;
-      height: $c-technology-item__item--size-medium;
-
-      border-radius: $c-technology-item__item--size-medium;
-      border-width: $c-technology-item__item--border-width-medium;
-    }
-  }
+  // @include breakpoint-at(medium) {
+  //   @include height-at(medium) {
+  //     top: -0.5 * $c-group-indicator--size-medium;
+  //     right: -0.5 * $c-group-indicator--size-medium;
+  //   }
+  // }
 
   position: absolute;
 
-  top: -0.5 * $c-technology-item__item--size;
-  right: -0.5 * $c-technology-item__item--size;
-
-  width: $c-technology-item__item--size;
-  height: $c-technology-item__item--size;
-
+  top: -0.5 * $c-group-indicator--size;
+  right: -0.5 * $c-group-indicator--size;
   z-index: $g-zindex__technoloogy-radar-item;
 
-  padding: 0;
-  margin: 0;
-
-  border-radius: $c-technology-item__item--size;
-  border: $c-technology-item__item--border-width solid transparent;
-  border-color: inherit;
-  outline: none;
-  background: none;
+  pointer-events: all;
 
   cursor: pointer;
-  pointer-events: all;
-}
-
-// .c-technology-item::before,
-// .c-technology-item::after,
-.c-technology-item__item::before {
-  content: '';
-  position: absolute;
-
-  top: -1 * $c-technology-item__item--border-width;
-  right: -1 * $c-technology-item__item--border-width;
-  bottom: -1 * $c-technology-item__item--border-width;
-  left: -1 * $c-technology-item__item--border-width;
-
-  border-radius: $c-technology-item__item--size;
-  opacity: 0;
-}
-
-.c-technology-item__item::before {
-  border: $c-technology-item__highlight--border-width solid transparent;
-  border-top-color: $g-color__white;
-  opacity: 0.5;
-}
-
-.c-technology-item--focused .c-technology-item__item::before,
-.c-technology-item:hover .c-technology-item__item::before {
-  opacity: 1;
-  z-index: 2;
-}
-
-.c-technology-item--focused .c-technology-item__item::before,
-.c-technology-item:hover .c-technology-item__item::before {
-  border: $c-technology-item__highlight--border-width solid transparent;
-  border-top-color: $g-color__white;
 }

@@ -6,10 +6,11 @@ import * as React from 'react';
 import { classNames } from 'utils/dom';
 import { consume } from 'utils/store/consume';
 
-import { Button } from '@material-ui/core';
 import { ApplicationStateContext, TechnologyRadarContext } from 'store';
 
 import './styles.scss';
+import { TechnologyListEntry } from './components/TechnologyListEntry';
+import { TechnologyListGroup } from './components/TechnologyListGroup';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyListProps {
@@ -31,51 +32,31 @@ export class TechnologyList extends Component<TechnologyListProps> {
 
     ];
 
-    const { technologies, groups } = this.props.technologyRadar;
-    const { selectedGroup } = this.props.applicationState;
+    const { technologies, groups, } = this.props.technologyRadar;
+    const { focusedTechnology, selectedGroup } = this.props.applicationState;
 
-    const grouped = this.groupTechnologies(technologies, groups, selectedGroup);
+    const grouped = Object.entries(this.groupTechnologies(technologies, groups, selectedGroup));
 
     return (
       <div className={ classNames('c-technology-list', this.props.className, ...modifiers) }>
         <ul className='c-technology-list__items'>{
-          this.renderGroups(grouped, groups)
+          grouped.map(([groupId, groupedTechnologies]) => (
+            <TechnologyListGroup key={ groupId }>{
+              groupedTechnologies.map(technology => (
+                <TechnologyListEntry
+                  key={ technology.id }
+                  technology={ technology }
+                  group={ groups.find(acc => acc.id === groupId) }
+                  onMouseOver={ this.bindFocusTechnology(technology) }
+                  onMouseOut={ this.bindUnfocusTechnology(technology) }
+                  onClick={ this.bindSelectTechnology(technology) }
+                  focused={ Boolean(focusedTechnology) && focusedTechnology === technology } />
+              ))
+            }</TechnologyListGroup>
+          ))
         }</ul>
       </div>
     );
-  }
-
-  private renderGroups(grouped: GroupedTechnologies, groups: Group[]): JSX.Element[] {
-    return Object.entries(grouped).map(([groupId, technologies]) => {
-      const group = groups.find(acc => acc.id === groupId);
-
-      return (
-        <li className='c-technology-list__group' key={ groupId }>
-          <ul className='c-technology-list__group-items'>
-            {
-              this.renderTechnologies(technologies, group)
-            }
-          </ul>
-        </li>
-      );
-    });
-  }
-
-  private renderTechnologies(technologies: Technology[], group: Group): JSX.Element[] {
-    return technologies.map(technology => (
-      <li key={ technology.id } className='c-technology-list__item'>
-        <Button role='flat' fullWidth={ true } onClick={ this.bindSelectTechnology(technology) }>
-          <span
-            className='c-technology-list__group-indicator'
-            style={{
-              borderColor: group.color
-            }} />
-          <span className='c-technology-list__item-action'>
-            { technology.name }
-          </span>
-        </Button>
-      </li>
-    ));
   }
 
   // ----------------------------------------------------------------------------- Event handler methods
@@ -84,6 +65,26 @@ export class TechnologyList extends Component<TechnologyListProps> {
 
     if (!this.handlers[key]) {
       this.handlers[key] = () => this.props.applicationState.selectTechnology(technology);
+    }
+
+    return this.handlers[key];
+  }
+
+  private bindFocusTechnology(technology: Technology): () => void {
+    const key = `set-focused-technology-${technology.id}`;
+
+    if (!this.handlers[key]) {
+      this.handlers[key] = () => this.props.applicationState.focusTechnology(technology);
+    }
+
+    return this.handlers[key];
+  }
+
+  private bindUnfocusTechnology(technology: Technology): () => void {
+    const key = `unset-focused-technology-${technology.id}`;
+
+    if (!this.handlers[key]) {
+      this.handlers[key] = () => this.props.applicationState.focusTechnology(null);
     }
 
     return this.handlers[key];

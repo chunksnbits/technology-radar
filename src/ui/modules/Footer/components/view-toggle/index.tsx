@@ -13,13 +13,13 @@ export interface ViewToggleProps {
 }
 
 const viewToggleOptions = {
-  radar: {
-    icon: 'radar',
-    label: 'Toggle radar view'
-  },
   list: {
+    icon: 'radar',
+    label: 'Show radar view'
+  },
+  radar: {
     icon: 'list',
-    label: 'Toggle list view'
+    label: 'Show list view'
   }
 }
 

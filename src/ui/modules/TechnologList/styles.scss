@@ -3,37 +3,10 @@
 @import '~ui/components/Styles/colors';
 @import '~ui/components/Styles/typo';
 
-$c-technology-list__color--size: 14px;
-
 .c-technology-list {
   display: block;
 }
 
 .c-technology-list__group-items {
   padding: 5px 0 15px;
-}
-
-.c-technology-list__group-indicator {
-  display: inline-block;
-
-  width: $c-technology-list__color--size;
-  height: $c-technology-list__color--size;
-
-  border: 2px solid transparent;
-  border-radius: $c-technology-list__color--size;
-
-  margin-right: 10px;
-}
-
-.c-technology-list__item-action {
-  @include breakpoint-up(large) {
-    @include typo-copy--small;
-  }
-
-  @include typo-copy;
-
-  display: block;
-  width: 100%;
-  text-align: left;
-  color: $g-color__primary;
 }

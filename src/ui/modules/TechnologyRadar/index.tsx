@@ -52,7 +52,7 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
 
   render() {
     const { groups, levels, technologies, settings } = this.props.technologyRadar;
-    const { selectedTechnology, selectedGroup } = this.props.applicationState;
+    const { focusedTechnology, selectedTechnology, selectedGroup } = this.props.applicationState;
 
     const modifiers = [
       Boolean(selectedTechnology) && 'c-technology-radar--selected-technology',
@@ -83,15 +83,18 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
           </div>
 
           <div className='c-technology-radar__technologies'>{
-            technologies.map((technology) =>
+            technologies.map((technology) => (
               <TechnologyItem
                 key={ technology.id  }
                 className='c-technology-radar__item'
                 technology={ technology }
                 technologyRadar={ this.props.technologyRadar }
-                focused={ Boolean(selectedTechnology) && selectedTechnology === technology }
-                onSelect={ this.handleSelectTechnology } />
-          )}</div>
+                focused={ Boolean(focusedTechnology) && focusedTechnology.id === technology.id }
+                selected={ Boolean(selectedTechnology) && selectedTechnology === technology }
+                onSelect={ this.handleSelectTechnology }
+                onMouseOver={ this.handleFocusTechnology }
+                onMouseOut={ this.handleUnfocusTechnology } />
+          ))}</div>
         </div>
       </div>
     );
@@ -124,6 +127,20 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
 
     event.preventDefault();
   }
+
+  private handleFocusTechnology = (technology: Technology, event: React.MouseEvent<HTMLElement>): void => {
+    this.props.applicationState.focusTechnology(technology);
+
+    event.preventDefault();
+  }
+
+  private handleUnfocusTechnology = (_, event: React.MouseEvent<HTMLElement>): void => {
+    this.props.applicationState.focusTechnology(null);
+
+    event.preventDefault();
+  }
+
+
 
   // ----------------------------------------------------------------------------- Helpers methods
   private calculateFocusTransforms(): CSSProperties{

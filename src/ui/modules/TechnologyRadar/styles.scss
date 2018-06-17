@@ -5,6 +5,8 @@
 
 @import './components/TechnologyItem/styles';
 
+$c-technology-radar__center-circle--size: 20px;
+
 .c-technology-radar--selected-technology {
   @include breakpoint-down(small) {
     transform: translate(22.5%, -22.5%);
@@ -14,6 +16,11 @@
 .c-technology-radar {
   @include breakpoint-up(medium) {
     padding: 5.25vmin;
+  }
+
+  @include breakpoint-up(large) {
+    width: 100%;
+    height: 100%;
   }
 
   @include transition--default(transform);
@@ -34,8 +41,6 @@
 }
 
 .c-technology-radar::before {
-  $c-technology-radar__center-circle--size: $c-technology-item__item--size + 2 * $c-technology-item__item--border-width;
-
   content: '';
 
   display: block;
