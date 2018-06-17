@@ -41,7 +41,7 @@ export class App extends React.Component<AppProps> {
     this.props.applicationState.updateBreakpoint(window.innerWidth, window.innerHeight);
   }
 
-  componentDidUnmount() {
+  componentWillUnmount() {
     if (!canUseDOM()) {
       return;
     }

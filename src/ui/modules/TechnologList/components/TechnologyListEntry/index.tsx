@@ -47,7 +47,7 @@ export class TechnologyListEntry extends PureComponent<TechnologyListEntryProps>
   }
 
   render() {
-    const { className, technology, group, focused, ...buttonProps } = this.props;
+    const { className, focusable, technology, group, focused, ...buttonProps } = this.props;
 
     const modifiers = [
       focused && 'c-technology-list-entry--focused'
