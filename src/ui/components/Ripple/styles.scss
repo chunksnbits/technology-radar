@@ -1,5 +1,5 @@
-@import "~ui/components/Styles/animation";
-@import "~ui/components/Styles/colors";
+@import '~ui/components/Styles/animation';
+@import '~ui/components/Styles/colors';
 
 @keyframes ripple-effect {
   0% {
@@ -16,7 +16,7 @@
   }
 }
 
-.c-ripple  {
+.c-ripple {
   position: relative;
 }
 
@@ -40,6 +40,5 @@
 }
 
 .c-ripple--active > .c-ripple__ripple {
-  // @include animation--default(ripple-effect);
-
+  @include animation--default(ripple-effect);
 }

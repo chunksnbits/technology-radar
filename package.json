@@ -23,7 +23,7 @@
     "predeploy": "rimraf dist && node scripts/build.js --dest dist && yarn snapshot",
     "deploy": "gh-pages -d dist",
     "commitlint": "commitlint -e $GIT_PARAMS",
-    "lint": "tslint -p tsconfig.json",
+    "lint": "tslint -p tsconfig.json && stylelint '**/*.scss'",
     "snapshot": "yarn react-snap"
   },
   "reactSnap": {
@@ -80,6 +80,9 @@
     "source-map-loader": "^0.2.1",
     "standard-version": "^4.4.0",
     "style-loader": "0.21.0",
+    "stylelint": "^9.3.0",
+    "stylelint-config-standard": "^18.2.0",
+    "stylelint-selector-bem-pattern": "^2.0.0",
     "sw-precache-webpack-plugin": "0.11.5",
     "ts-jest": "22.4.6",
     "ts-loader": "^3.5.0",

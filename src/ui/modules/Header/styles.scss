@@ -33,7 +33,7 @@
   pointer-events: all;
 }
 
-.c-header__logo  {
+.c-header__logo {
   display: inline-flex;
   width: 6.2vmin;
 }
@@ -66,6 +66,7 @@
   @include breakpoint-up(medium) {
     @include typo-copy;
   }
+
   @include typo-copy--small;
 
   font-size: responsive-size($g-typo__font-size--copy);

@@ -5,8 +5,6 @@ import * as React from 'react';
 
 import { classNames } from 'utils/dom';
 
-import './styles.scss';
-
 // ----------------------------------------------------------------------------- Configuration
 export interface AsyncComponentState {
   promise?: Promise<any> | null;

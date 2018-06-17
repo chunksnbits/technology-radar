@@ -42,6 +42,7 @@ $animation-defaults: (
   @if type-of($names) == string {
     $transitions: create-transition($names, $options);
   }
+
   @else {
     @each $name in $names {
       $transitions: $transitions, create-transition($name, $options);
@@ -64,7 +65,8 @@ $animation-defaults: (
 @mixin animation--default($name, $options: $animation-defaults) {
   $merged: map-merge($animation-defaults, $options);
 
-  animation: $name
+  animation:
+    $name
     map-get($merged, duration)
     map-get($merged, timing)
     map-get($merged, delay)

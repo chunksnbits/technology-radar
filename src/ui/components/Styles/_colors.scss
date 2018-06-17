@@ -1,6 +1,4 @@
 
-
-
 $g-theme--colors: map-get($g-theme, 'colors');
 
 $g-color__black: #000;
@@ -21,8 +19,8 @@ $g-color__secondary: map-get($g-theme--colors, 'secondary');
 $g-color__accent: map-get($g-theme--colors, 'accent');
 $g-color__highlight: map-get($g-theme--colors, 'highlight');
 
-$g-color__success: map-get($g-theme--colors, 'success');;
-$g-color__error: map-get($g-theme--colors, 'error');;
+$g-color__success: map-get($g-theme--colors, 'success');
+$g-color__error: map-get($g-theme--colors, 'error');
 
 $g-box-shadow--default: 0 0 1px 8px rgba($g-color__black, 0.25);
 
