@@ -119,7 +119,7 @@ it('renders item in right position', () => {
   });
 
   button = element.find('.c-technology-item').render();
-  expect(button.css('transform')).toEqual(`rotateZ(90deg)`);
+  expect(button.css('transform')).toEqual(`rotateZ(270deg)`);
 
   element = shallowWithProps({
     technology,
@@ -185,6 +185,6 @@ it('offsets items to the right base position same group', () => {
     groups
   });
 
-  expect(sample.render().css('transform')).toContain('rotateZ(270deg)');
-  expect(other.render().css('transform')).toContain('rotateZ(90deg)');
+  expect(sample.render().css('transform')).toContain('rotateZ(90deg)');
+  expect(other.render().css('transform')).toContain('rotateZ(270deg)');
 });
