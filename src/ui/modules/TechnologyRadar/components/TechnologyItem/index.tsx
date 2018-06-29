@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { PureComponent } from 'react';
+import { Component } from 'react';
 import * as React from 'react';
 
 import { classNames } from 'utils/dom';
@@ -27,9 +27,15 @@ export interface TechnologyItemProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class TechnologyItem extends PureComponent<TechnologyItemProps> {
-
+export class TechnologyItem extends Component<TechnologyItemProps> {
   // ----------------------------------------------------------------------------- Lifecycle methods
+  shouldComponentUpdate(props: TechnologyItemProps): boolean {
+    return props.selected !== this.props.selected ||
+      props.technology !== this.props.technology ||
+      props.focused !== this.props.focused;
+
+  }
+
   render() {
     const { focused, selected, technology, groups } = this.props;
     if (!Boolean(groups)) {

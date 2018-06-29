@@ -20,7 +20,8 @@
 }
 
 .c-technology-details-navigation__action.c-technology-details-navigation__action {
-  min-width: 0;
+  min-width: 40%;
+  justify-content: flex-start;
 }
 
 .c-technology-details-navigation__action-icon.c-technology-details-navigation__action-icon {
@@ -28,8 +29,9 @@
   height: 14px;
 }
 
-.c-technology-details-navigation__action--next {
+.c-technology-details-navigation__action.c-technology-details-navigation__action--next {
   text-align: right;
+  justify-content: flex-end;
 }
 
 .c-technology-details-navigation__action--next .c-technology-details-navigation__action-icon {

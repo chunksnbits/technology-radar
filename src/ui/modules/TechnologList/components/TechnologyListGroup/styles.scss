@@ -4,7 +4,7 @@
 
 .c-technology-list-group {
   @include breakpoint-up(large) {
-    background: rgba($g-color__background, 0.5);
+    background: rgba($g-color__background, 0.75);
   }
 
   display: block;

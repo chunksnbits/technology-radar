@@ -49,13 +49,11 @@ export class TechnologyList extends PureComponent<TechnologyListProps> {
 
     const active = Boolean(selectedGroup) || Boolean(selectedTechnology);
     const listView = (breakpoint === 'large' || viewMode === 'list')
-console.log('+++ ', active, listView, breakpoint);
+
     const modifiers = [
       !listView && 'c-technology-list--hidden',
       active && 'c-technology-list--hidden'
     ];
-
-    console.log('+++ ,', modifiers);
 
     const focusable = breakpoint === 'large' && active;
     const grouped = Object.entries(this.groupTechnologies(technologies, groups, selectedGroup));

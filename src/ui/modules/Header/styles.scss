@@ -5,7 +5,7 @@
 @import '~ui/components/Styles/z-index';
 
 .c-header {
-  @include breakpoint-up(large) {
+  @include breakpoint-up(medium) {
     background: none;
   }
 
@@ -22,7 +22,7 @@
 
   pointer-events: none;
 
-  background: linear-gradient(to bottom, $g-color__background 80%, rgba($g-color__background, 0) 100%);
+  background: linear-gradient(to bottom, $g-color__background 80%, rgba($g-color__background, 0) 80%, rgba($g-color__background, 0) 100%);
 }
 
 .c-header__app-title.c-header__app-title {

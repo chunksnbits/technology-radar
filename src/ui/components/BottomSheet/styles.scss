@@ -47,6 +47,7 @@ $c-bottom-sheet__base--max-width: 530px;
 .c-bottom-sheet__content {
   @include breakpoint-up(medium) {
     max-width: $c-bottom-sheet__base--max-width;
+    height: auto;
   }
 
   position: relative;
