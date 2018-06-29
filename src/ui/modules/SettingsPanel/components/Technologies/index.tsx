@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import * as React from 'react';
 
 import { classNames } from 'utils/dom';
@@ -30,7 +30,7 @@ interface TechnologiesState {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class Technologies extends Component<TechnologiesProps, TechnologiesState> {
+export class Technologies extends PureComponent<TechnologiesProps, TechnologiesState> {
   constructor(props: TechnologiesProps) {
     super(props);
 

@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component, ChangeEvent } from 'react';
+import { PureComponent, ChangeEvent } from 'react';
 import * as React from 'react';
 
 import { Button, TextField, Select, MenuItem } from '@material-ui/core';
@@ -25,7 +25,7 @@ export interface TechnologyPanelProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class TechnologyPanel extends Component<TechnologyPanelProps> {
+export class TechnologyPanel extends PureComponent<TechnologyPanelProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {

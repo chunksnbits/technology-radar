@@ -23,8 +23,8 @@ import { TechnologyRadar } from './index';
 const shallowWithState = (props: any = {}) => {
   return shallow(
     <TechnologyRadar
-      applicationState={ mockApplicationStateStore(props.applicationState) }
-      technologyRadar={ mockTechnologyRadarStore(props.technologyRadar)  }/>
+      { ...mockApplicationStateStore(props.applicationState) }
+      { ...mockTechnologyRadarStore(props.technologyRadar)  }/>
   )
 }
 

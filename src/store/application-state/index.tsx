@@ -1,7 +1,7 @@
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { createContext, Component, Context } from 'react';
+import { createContext, PureComponent, Context } from 'react';
 import produce from 'immer';
 
 import { canUseSessionStorage } from 'utils/dom';
@@ -22,7 +22,7 @@ const SESSION_STORAGE_KEY = 'cnb--application-state';
 export const ApplicationStateContext: Context<ApplicationState & ApplicationStateActions> = createContext({} as any);
 
 export class ApplicationStateProvider
-  extends Component<ApplicationStateProps, ApplicationState & ApplicationStateActions>
+  extends PureComponent<ApplicationStateProps, ApplicationState & ApplicationStateActions>
   implements ApplicationStateActions
 {
   constructor(props: ApplicationStateProps) {
@@ -83,6 +83,10 @@ export class ApplicationStateProvider
   }
 
   focusTechnology(focused: Technology): void {
+    if (focused === this.state.focusedTechnology) {
+      return;
+    }
+
     this.setState(state => produce(state, (draftState: ApplicationState) => {
       draftState.focusedTechnology = focused;
 
@@ -91,6 +95,10 @@ export class ApplicationStateProvider
   }
 
   selectTechnology(selected: Technology): void {
+    if (selected === this.state.selectedTechnology) {
+      return;
+    }
+
     this.setState(state => produce(state, (draftState: ApplicationState) => {
       draftState.selectedTechnology = selected;
 
@@ -99,6 +107,10 @@ export class ApplicationStateProvider
   }
 
   selectGroup(selected: Group): void {
+    if (selected === this.state.selectedGroup) {
+      return;
+    }
+
     this.setState(state => produce(state, (draftState: ApplicationState) => {
       draftState.selectedGroup = selected;
 
@@ -107,6 +119,10 @@ export class ApplicationStateProvider
   }
 
   setOwner(value: boolean): void {
+    if (value === this.state.owner) {
+      return;
+    }
+
     this.setState(state => produce(state, (draftState: ApplicationState) => {
       draftState.owner = value;
 
@@ -115,6 +131,10 @@ export class ApplicationStateProvider
   }
 
   setEditMode(value: boolean): void {
+    if (value === this.state.editMode) {
+      return;
+    }
+
     this.setState(state => produce(state, (draftState: ApplicationState) => {
       draftState.editMode = value;
 

@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import * as React from 'react';
 
 import { classNames } from 'utils/dom';
@@ -14,7 +14,7 @@ export interface TextButtonProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class TextButton extends Component<TextButtonProps> {
+export class TextButton extends PureComponent<TextButtonProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {

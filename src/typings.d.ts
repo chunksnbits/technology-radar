@@ -35,6 +35,10 @@ declare interface BoundHandlers<T> {
   [key: string]: T;
 }
 
+declare interface BoundSelectors<S, T> {
+  [key: string]: (value: S) => T;
+}
+
 declare module "*.json" {
   const value: any;
   export default value;

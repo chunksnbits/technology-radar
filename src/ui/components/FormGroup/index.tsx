@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component, Children, cloneElement, ReactNode } from 'react';
+import { PureComponent, Children, cloneElement, ReactNode } from 'react';
 import * as React from 'react';
 
 import { classNames } from 'utils/dom';
@@ -16,7 +16,7 @@ export interface FormGroupProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class FormGroup extends Component<FormGroupProps> {
+export class FormGroup extends PureComponent<FormGroupProps> {
   private id = `form-group-${ Math.floor(Math.random() * 1000) }`;
 
   // ----------------------------------------------------------------------------- Lifecycle methods

@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import * as React from 'react';
 
 import { classNames } from 'utils/dom';
@@ -16,7 +16,7 @@ export interface IconProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class Icon extends Component<IconProps> {
+export class Icon extends PureComponent<IconProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {

@@ -1,7 +1,7 @@
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { Component, createContext, Context } from 'react';
+import { PureComponent, createContext, Context } from 'react';
 
 import produce from 'immer';
 
@@ -20,7 +20,7 @@ export const TechnologyRadarContext: Context<TechnologyRadarProvider> = createCo
 
 // ----------------------------------------------------------------------------- Implementation
 @consume(ApplicationStateContext, { bindTo: 'applicationState' })
-export class TechnologyRadarProvider extends Component<TechnologyRadarProviderProps, TechnologyRadarStore> implements TechnologyRadarActions {
+export class TechnologyRadarProvider extends PureComponent<TechnologyRadarProviderProps, TechnologyRadarStore> implements TechnologyRadarActions {
 
   constructor(props: TechnologyRadarProviderProps) {
     super(props);

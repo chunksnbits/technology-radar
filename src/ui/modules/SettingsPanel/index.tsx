@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import * as React from 'react';
 
 import { TechnologyRadarContext } from 'store';
@@ -17,7 +17,15 @@ import './styles.scss';
 // ----------------------------------------------------------------------------- Configuration
 export interface SettingsPanelProps {
   className?: string;
-  technologyRadar?: TechnologyRadarStore & TechnologyRadarActions;
+  groups?: Group[];
+  technologies?: Technology[],
+  clearAll?: () => void;
+  updateGroup?: (group: Group) => void;
+  updateTechnology?: (technology: Technology) => void;
+  removeGroup?: (group: Group) => void;
+  removeTechnology?: (technology: Technology) => void;
+  addGroup?: (group: Group) => void;
+  addTechnology?: (technology: Technology) => void;
 }
 
 export interface SettingsPanelState {
@@ -27,8 +35,20 @@ export interface SettingsPanelState {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-@consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
-export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelState> {
+@consume(TechnologyRadarContext, {
+  select: [
+    'addGroup',
+    'addTechnology',
+    'groups',
+    'clearAll',
+    'technologies',
+    'updateGroup',
+    'updateTechnology',
+    'removeGroup',
+    'removeTechnology'
+  ]
+})
+export class SettingsPanel extends PureComponent<SettingsPanelProps, SettingsPanelState> {
 
   constructor(props: SettingsPanelProps) {
     super(props);
@@ -42,7 +62,7 @@ export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelSt
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const { groups, clearAll, technologies, updateGroup, updateTechnology, removeGroup, removeTechnology } = this.props.technologyRadar;
+    const { addGroup, addTechnology, groups, clearAll, technologies, updateGroup, updateTechnology, removeGroup, removeTechnology } = this.props;
 
     return (
       <div className={ classNames('c-settings-panel', this.props.className) }>
@@ -61,7 +81,7 @@ export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelSt
               groups={ groups }
               activeGroup={ this.state.activeGroup }
               onToggle={ this.toggleGroupHandler }
-              onAdd={ this.props.technologyRadar.addGroup }
+              onAdd={ addGroup }
               onClear={ clearAll }
               onConfirm={ this.confirmGroupHandler }
               onChange={ updateGroup }
@@ -75,7 +95,7 @@ export class SettingsPanel extends Component<SettingsPanelProps, SettingsPanelSt
               activeTechnology={ this.state.activeTechnology }
               onToggle={ this.toggleTechnologyHandler }
               onConfirm={ this.confirmTechnologyHandler }
-              onAdd={ this.props.technologyRadar.addTechnology }
+              onAdd={ addTechnology }
               onClear={ clearAll }
               onChange={ updateTechnology }
               onDelete={ removeTechnology } />

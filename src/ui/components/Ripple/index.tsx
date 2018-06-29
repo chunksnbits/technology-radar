@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { createRef, Component, RefObject, MouseEvent, TouchEvent } from 'react';
+import { createRef, PureComponent, RefObject, MouseEvent, TouchEvent } from 'react';
 import * as React from 'react';
 
 import { classNames, getPrimaryTouch, getPositionInElement } from 'utils/dom';
@@ -16,7 +16,7 @@ export interface RippleProps extends React.DetailedHTMLProps<React.HTMLAttribute
 const ANIMATION_DURATION_LIFELINE_TIMEOUT = 2000;
 
 // ----------------------------------------------------------------------------- Implementation
-export class Ripple extends Component<RippleProps> {
+export class Ripple extends PureComponent<RippleProps> {
 
   private elementRef: RefObject<HTMLDivElement>;
 

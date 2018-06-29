@@ -1,7 +1,7 @@
 // tslint:disable:max-classes-per-file
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component, Props } from 'react';
+import { PureComponent, Props } from 'react';
 import * as React from 'react';
 
 import { classNames } from 'utils/dom';
@@ -9,13 +9,13 @@ import { classNames } from 'utils/dom';
 import './styles.scss';
 import { Icon } from '../Icon';
 
-export class ExpansionPanelHeader extends Component<Props<void>> {
+export class ExpansionPanelHeader extends PureComponent<Props<void>> {
   render() { return this.props.children; }
 }
-export class ExpansionPanelBody extends Component<Props<void>> {
+export class ExpansionPanelBody extends PureComponent<Props<void>> {
   render() { return this.props.children; }
 }
-export class ExpansionPanelFooter extends Component<Props<void>> {
+export class ExpansionPanelFooter extends PureComponent<Props<void>> {
   render() { return this.props.children; }
 }
 
@@ -27,7 +27,7 @@ export interface ExpansionPanelProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class ExpansionPanel extends Component<ExpansionPanelProps> {
+export class ExpansionPanel extends PureComponent<ExpansionPanelProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {

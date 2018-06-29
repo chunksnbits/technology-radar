@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component, CSSProperties, RefObject, createRef } from 'react';
+import { PureComponent, CSSProperties, RefObject, createRef } from 'react';
 import * as React from 'react';
 
 import { ApplicationStateContext, TechnologyRadarContext } from 'store';
@@ -19,16 +19,33 @@ import { LegendLevels } from './components/LegendLevels';
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyRadarProps {
   className?: string;
-  applicationState?: ApplicationStateStore;
-  technologyRadar?: TechnologyRadarStore;
+  groups?: Group[];
+  levels?: Level[];
+  technologies?: Technology[];
+  settings?: TechnologyRadarSettings;
+  focusedTechnology?: Technology;
+  selectedTechnology?: Technology;
+  selectedGroup?: Group;
+  selectGroup?: (group: Group) => void;
+  focusTechnology?: (technology: Technology) => void;
+  selectTechnology?: (technology: Technology) => void;
 }
 
 const BASE_TRANSFORM_ROTATE_DEGREES = -10;
 
 // ----------------------------------------------------------------------------- Implementation
-@consume(ApplicationStateContext, { bindTo: 'applicationState' })
-@consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
-export class TechnologyRadar extends Component<TechnologyRadarProps> {
+@consume(ApplicationStateContext, {
+  select: [
+    'focusedTechnology',
+    'selectedTechnology',
+    'selectedGroup',
+    'selectGroup',
+    'focusTechnology',
+    'selectTechnology'
+  ]
+})
+@consume(TechnologyRadarContext, { select: ['groups', 'levels', 'technologies', 'settings'] })
+export class TechnologyRadar extends PureComponent<TechnologyRadarProps> {
   elementRef: RefObject<HTMLDivElement>;
 
   constructor(props: TechnologyRadarProps) {
@@ -51,8 +68,8 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
   }
 
   render() {
-    const { groups, levels, technologies, settings } = this.props.technologyRadar;
-    const { focusedTechnology, selectedTechnology, selectedGroup } = this.props.applicationState;
+    const { groups, levels, technologies, settings } = this.props;
+    const { focusedTechnology, selectedTechnology, selectedGroup } = this.props;
 
     const modifiers = [
       Boolean(selectedTechnology) && 'c-technology-radar--selected-technology',
@@ -88,12 +105,12 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
                 key={ technology.id  }
                 className='c-technology-radar__item'
                 technology={ technology }
-                technologyRadar={ this.props.technologyRadar }
                 focused={ Boolean(focusedTechnology) && focusedTechnology.id === technology.id }
                 selected={ Boolean(selectedTechnology) && selectedTechnology === technology }
                 onSelect={ this.selectTechnologyHandler }
                 onMouseOver={ this.focusTechnologyHandler }
-                onMouseOut={ this.unfocusTechnologyHandler } />
+                onMouseOut={ this.unfocusTechnologyHandler }
+                { ...this.props } />
           ))}</div>
         </div>
       </div>
@@ -107,8 +124,8 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
       return;
     }
 
-    this.props.applicationState.selectGroup(null);
-    this.props.applicationState.selectTechnology(null);
+    this.props.selectGroup(null);
+    this.props.selectTechnology(null);
   }
 
   private selectGroupHandler = (group: Group, event: React.MouseEvent<SVGTextElement>) => {
@@ -116,26 +133,26 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
       return;
     }
 
-    this.props.applicationState.selectGroup(group);
-    this.props.applicationState.selectTechnology(null);
+    this.props.selectGroup(group);
+    this.props.selectTechnology(null);
 
     event.preventDefault();
   }
 
   private selectTechnologyHandler = (technology: Technology, event: React.MouseEvent<HTMLElement>): void => {
-    this.props.applicationState.selectTechnology(technology);
+    this.props.selectTechnology(technology);
 
     event.preventDefault();
   }
 
   private focusTechnologyHandler = (technology: Technology, event: React.MouseEvent<HTMLElement>): void => {
-    this.props.applicationState.focusTechnology(technology);
+    this.props.focusTechnology(technology);
 
     event.preventDefault();
   }
 
   private unfocusTechnologyHandler = (_, event: React.MouseEvent<HTMLElement>): void => {
-    this.props.applicationState.focusTechnology(null);
+    this.props.focusTechnology(null);
 
     event.preventDefault();
   }
@@ -144,7 +161,7 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
 
   // ----------------------------------------------------------------------------- Helpers methods
   private calculateFocusTransforms(): CSSProperties{
-    const { selectedTechnology, selectedGroup } = this.props.applicationState;
+    const { selectedTechnology, selectedGroup } = this.props;
 
     if (Boolean(selectedTechnology)) {
       return this.calculateFocusedTranfsformForSelectedTechnology();
@@ -163,10 +180,10 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
   }
 
   private calculateFocusedTranfsformForSelectedTechnology(): CSSProperties{
-    const { selectedTechnology } = this.props.applicationState;
+    const { selectedTechnology, groups, technologies, settings } = this.props;
 
-    const itemRotationDegrees = calculateTechnologyRotationDegrees(selectedTechnology, this.props.technologyRadar);
-    const itemOffsetPercent = calculateItemOffsetPercent(selectedTechnology, this.props.technologyRadar);
+    const itemRotationDegrees = calculateTechnologyRotationDegrees(selectedTechnology, groups, technologies);
+    const itemOffsetPercent = calculateItemOffsetPercent(selectedTechnology, technologies, settings);
 
     const rotationDegrees = 180 + 360 - itemRotationDegrees;
 
@@ -181,11 +198,11 @@ export class TechnologyRadar extends Component<TechnologyRadarProps> {
   }
 
   private calculateFocusedTranfsformForSelectedGroup(): CSSProperties{
-    const { selectedGroup } = this.props.applicationState;
-    const { groups } = this.props.technologyRadar;
+    const { selectedGroup } = this.props;
+    const { groups } = this.props;
 
     const groupBaseRotationDegrees = 360 / groups.length;
-    const groupRotationDegrees = calculateGroupRotationDegrees(selectedGroup, this.props.technologyRadar);
+    const groupRotationDegrees = calculateGroupRotationDegrees(selectedGroup, groups);
 
     const rotationDegrees = 180 + 360 - (groupRotationDegrees + 0.5 * groupBaseRotationDegrees);
 

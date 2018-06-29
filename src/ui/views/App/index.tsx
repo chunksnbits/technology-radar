@@ -1,7 +1,7 @@
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { MouseEvent } from 'react';
+import { MouseEvent, PureComponent } from 'react';
 
 import { ApplicationStateContext } from 'store';
 
@@ -15,21 +15,27 @@ import { Modal } from 'ui/components/Modal';
 import { AsyncComponent } from 'ui/components/AsyncComponent';
 import { BottomSheet } from 'ui/components/BottomSheet';
 
+import { debounce } from 'utils/debounce';
 import { consume } from 'utils/store';
 import { classNames, canUseDOM } from 'utils/dom';
 
 import './styles.scss';
-import { debounce } from 'utils/debounce';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface AppProps {
   className?: string;
-  applicationState?: ApplicationStateStore;
+  editMode?: boolean;
+  selectedTechnology?: Technology;
+  viewMode?: ViewMode;
+  editor?: boolean;
+  updateBreakpoint?: (width: number, height: number) => void;
+  selectTechnology?: (technology: Technology) => void;
+  setEditMode?: (value: boolean) => void;
 }
 
 // ----------------------------------------------------------------------------- Implementation
-@consume(ApplicationStateContext, { bindTo: 'applicationState' })
-export class App extends React.Component<AppProps> {
+@consume(ApplicationStateContext, { select: ['editMode', 'editor', 'selectedTechnology', 'viewMode', 'updateBreakpoint'] })
+export class App extends PureComponent<AppProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   componentDidMount() {
@@ -37,8 +43,10 @@ export class App extends React.Component<AppProps> {
       return;
     }
 
+    const { updateBreakpoint } = this.props;
+
     window.addEventListener('resize', this.windowResizeHandler);
-    this.props.applicationState.updateBreakpoint(window.innerWidth, window.innerHeight);
+    updateBreakpoint(window.innerWidth, window.innerHeight);
   }
 
   componentWillUnmount() {
@@ -50,7 +58,7 @@ export class App extends React.Component<AppProps> {
   }
 
   render() {
-    const { editMode, selectedTechnology, viewMode  } = this.props.applicationState;
+    const { editMode, selectedTechnology, viewMode  } = this.props;
 
     const modifiers = [
       selectedTechnology && 'c-app--selected-technology',
@@ -83,7 +91,7 @@ export class App extends React.Component<AppProps> {
           open={ editMode }
           type='sidebar'
           onClose={ this.setEditModeHandler }>{
-            this.props.applicationState.editor &&
+            this.props.editor &&
             <AsyncComponent onLoad={ () => import('ui/modules/SettingsPanel') }
               componentName='SettingsPanel'>
               Loading...
@@ -99,7 +107,7 @@ export class App extends React.Component<AppProps> {
   // ----------------------------------------------------------------------------- Event handler methods
   private windowResizeHandler = () => {
     debounce('app', () => {
-      this.props.applicationState.updateBreakpoint(window.innerWidth, window.innerHeight);
+      this.props.updateBreakpoint(window.innerWidth, window.innerHeight);
     });
   }
 
@@ -108,7 +116,7 @@ export class App extends React.Component<AppProps> {
       return;
     }
 
-    this.props.applicationState.selectTechnology(null);
+    this.props.selectTechnology(null);
   }
 
   private setEditModeHandler = () => {
@@ -116,6 +124,6 @@ export class App extends React.Component<AppProps> {
       return;
     }
 
-    this.props.applicationState.setEditMode(false);
+    this.props.setEditMode(false);
   }
 }

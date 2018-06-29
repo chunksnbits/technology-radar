@@ -1,7 +1,10 @@
 
 // ----------------------------------------------------------------------------- Implementation
-export function calculateTechnologyRotationDegrees(technology: Technology, technologyRadar: TechnologyRadarStore): number {
-  const { groups, technologies } = technologyRadar;
+export function calculateTechnologyRotationDegrees(
+    technology: Technology,
+    groups: Group[],
+    technologies: Technology[]
+  ): number {
 
   const index = calculateIndexInLevelAndGroup(technologies, technology);
   const count = calculateNumberOfItemsForLevelAndGroup(technologies, technology);
@@ -9,7 +12,7 @@ export function calculateTechnologyRotationDegrees(technology: Technology, techn
 
   // 1. Rotate item to it's group
   const groupBaseAngleDegree = 360 / groups.length;
-  const groupRotationDegrees = calculateGroupRotationDegrees(group, technologyRadar);
+  const groupRotationDegrees = calculateGroupRotationDegrees(group, groups);
 
   // 2. Rotate to item within group (compared to other items within that group + level segment).
   //
@@ -23,18 +26,19 @@ export function calculateTechnologyRotationDegrees(technology: Technology, techn
   return (groupRotationDegrees + itemRotationDegree + 0.5 * itemBaseAngleDegree) % 360;
 }
 
-export function calculateGroupRotationDegrees(group: Group, technologyRadar: TechnologyRadarStore): number {
-  const { groups } = technologyRadar;
-
+export function calculateGroupRotationDegrees(group: Group, groups: Group[]): number {
   const groupBaseAngleDegree = 360 / groups.length;
   const groupIndex = findGroupIndex(groups, group);
 
   return (groups.length - 1 - groupIndex) * groupBaseAngleDegree;
 }
 
-export function calculateItemOffsetPercent(technology: Technology, technologyRadar: TechnologyRadarStore): number {
-  const { innerRadiusPercent, outerRadiusPercent } = technologyRadar.settings;
-  const { technologies } = technologyRadar;
+export function calculateItemOffsetPercent(
+  technology: Technology,
+  technologies: Technology[],
+  settings: TechnologyRadarSettings
+): number {
+  const { innerRadiusPercent, outerRadiusPercent } = settings;
 
   const level = technology.level;
   const maxLevel = calculateMaxLevel(technologies);

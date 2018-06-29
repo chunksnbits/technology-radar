@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import * as React from 'react';
 
 import { classNames } from 'utils/dom';
@@ -16,7 +16,7 @@ export interface LogoProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class Logo extends Component<LogoProps> {
+export class Logo extends PureComponent<LogoProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {

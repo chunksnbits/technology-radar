@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import * as React from 'react';
 
 import { classNames } from 'utils/dom';
@@ -15,25 +15,39 @@ import { TechnologyListGroup } from './components/TechnologyListGroup';
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyListProps {
   className?: string;
-  technologyRadar?: TechnologyRadarStore;
-  applicationState?: ApplicationStateStore;
+  technologies?: Technology[];
+  groups?: Group[];
+  breakpoint?: Breakpoint;
+  focusedTechnology?: Technology;
+  selectedTechnology?: Technology;
+  selectedGroup?: Group;
+
+  selectTechnology?: (technology: Technology) => void;
+  focusTechnology?: (technology: Technology) => void;
 }
 
 // ----------------------------------------------------------------------------- Implementation
-@consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
-@consume(ApplicationStateContext, { bindTo: 'applicationState' })
-export class TechnologyList extends Component<TechnologyListProps> {
+@consume(TechnologyRadarContext, { select: ['technologies', 'groups'] })
+@consume(ApplicationStateContext, {
+  select: [
+    'breakpoint',
+    'focusedTechnology',
+    'selectedTechnology',
+    'selectedGroup',
+    'selectTechnology',
+    'focusTechnology'
+  ]
+})
+export class TechnologyList extends PureComponent<TechnologyListProps> {
   handlers: BoundHandlers<() => void> = {};
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render(): JSX.Element {
 
-    const modifiers = [
+    const modifiers = [];
 
-    ];
-
-    const { technologies, groups, } = this.props.technologyRadar;
-    const { breakpoint, focusedTechnology, selectedGroup, selectedTechnology } = this.props.applicationState;
+    const { technologies, groups } = this.props;
+    const { breakpoint, focusedTechnology, selectedGroup, selectedTechnology } = this.props;
 
     const focusable = breakpoint === 'large' && !Boolean(selectedGroup) && !Boolean(selectedTechnology);
     const grouped = Object.entries(this.groupTechnologies(technologies, groups, selectedGroup));
@@ -67,7 +81,7 @@ export class TechnologyList extends Component<TechnologyListProps> {
     const key = `select-technology-${technology.id}`;
 
     if (!this.handlers[key]) {
-      this.handlers[key] = () => this.props.applicationState.selectTechnology(technology);
+      this.handlers[key] = () => this.props.selectTechnology(technology);
     }
 
     return this.handlers[key];
@@ -77,7 +91,7 @@ export class TechnologyList extends Component<TechnologyListProps> {
     const key = `set-focused-technology-${technology.id}`;
 
     if (!this.handlers[key]) {
-      this.handlers[key] = () => this.props.applicationState.focusTechnology(technology);
+      this.handlers[key] = () => this.props.focusTechnology(technology);
     }
 
     return this.handlers[key];
@@ -87,7 +101,7 @@ export class TechnologyList extends Component<TechnologyListProps> {
     const key = `unset-focused-technology-${technology.id}`;
 
     if (!this.handlers[key]) {
-      this.handlers[key] = () => this.props.applicationState.focusTechnology(null);
+      this.handlers[key] = () => this.props.focusTechnology(null);
     }
 
     return this.handlers[key];

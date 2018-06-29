@@ -9,18 +9,15 @@ import {
   mockTechnology,
   mockGroup,
   mockSettings,
-  noop,
-  mockTechnologyRadarStore
+  noop
 } from 'mocks';
 
 // ----------------------------------------------------------------------------- Configuration
 const bundleProps = (props: any = {}) => {
   return {
-    technologyRadar: mockTechnologyRadarStore({
-      technologies: props.technologies || [mockTechnology()],
-      groups: props.groups || [mockGroup()],
-      settings: props.settings || mockSettings(),
-    }),
+    technologies: props.technologies || [mockTechnology()],
+    groups: props.groups || [mockGroup()],
+    settings: props.settings || mockSettings(),
     technology: props.technology || mockTechnology(),
     selected: props.selected || false,
     focused: props.focused || false,
@@ -64,16 +61,6 @@ it('does not crash if technology has not been assigned a group', () => {
 
   expect(element.exists).toBeTruthy();
   expect(element.find('.c-technology-item').length).toBe(0);
-});
-
-it('does not rerender if element and selected state remain unchanged', () => {
-  const technology = mockTechnology({ id: 'test', groupId: undefined });
-  const element = shallowWithProps({ technology, selected: false });
-
-  const render = spyOn(element.instance() as TechnologyItem, 'render');
-
-  element.setProps(bundleProps({ technology, selected: false }));
-  expect(render).not.toHaveBeenCalled();
 });
 
 it('does rerender if element changed', () => {

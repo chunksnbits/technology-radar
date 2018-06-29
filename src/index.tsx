@@ -40,5 +40,12 @@ if (rootElement.hasChildNodes()) {
   render(<Root />, rootElement);
 }
 
+
+if (process.env.NODE_ENV !== 'production') {
+  // tslint:disable-next-line:no-var-requires
+  const { whyDidYouUpdate } = require('why-did-you-update');
+  whyDidYouUpdate(React);
+}
+
 // ----------------------------------------------------------------------------- Implementation
 registerServiceWorker();

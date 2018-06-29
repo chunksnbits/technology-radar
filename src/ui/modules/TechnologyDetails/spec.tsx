@@ -13,16 +13,16 @@ const groups = [mockGroup({ id: 'any' })]
 const shallowWithState = (props: any = {}) => {
   return shallow(
     <TechnologyDetails
-      applicationState={ props.applicationState || {} }
-      technologyRadar={ props.technologyRadar || {} }/>
+      { ...props.applicationState || {} }
+      { ...props.technologyRadar || {} }/>
   )
 }
 
 const mountWithState = (props: any = {}) => {
   return mount(
     <TechnologyDetails
-      applicationState={ props.applicationState || {} }
-      technologyRadar={ props.technologyRadar || {} }/>
+      { ...props.applicationState || {} }
+      { ...props.technologyRadar || {} }/>
   )
 }
 

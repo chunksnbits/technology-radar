@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import * as React from 'react';
 
 import { ApplicationStateContext, TechnologyRadarContext } from 'store';
@@ -18,19 +18,22 @@ import { Logo } from 'ui/components/Logo';
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyDetailsProps {
   className?: string;
-  applicationState?: ApplicationStateStore;
-  technologyRadar?: TechnologyRadarStore;
+  groups?: Group[];
+  technologies?: Technology[];
+  selectedTechnology?: Technology;
+
+  selectTechnology?: (technology: Technology) => void;
+  selectGroup?: (group: Group) => void;
 }
 
 // ----------------------------------------------------------------------------- Implementation
-@consume(ApplicationStateContext, { bindTo: 'applicationState' })
-@consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
-export class TechnologyDetails extends Component<TechnologyDetailsProps> {
+@consume(ApplicationStateContext, { select: ['selectedTechnology', 'selectTechnology', 'selectGroup'] })
+@consume(TechnologyRadarContext, { select: ['groups', 'technologies'] })
+export class TechnologyDetails extends PureComponent<TechnologyDetailsProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const { selectedTechnology } = this.props.applicationState;
-    const { groups, technologies } = this.props.technologyRadar;
+    const { selectedTechnology, groups, technologies } = this.props;
 
     const active = Boolean(selectedTechnology);
 
@@ -83,8 +86,8 @@ export class TechnologyDetails extends Component<TechnologyDetailsProps> {
 
   // ----------------------------------------------------------------------------- Event handler methods
   selectGroupHandler = () => {
-    const { selectedTechnology, selectGroup, selectTechnology } = this.props.applicationState;
-    const { groups } = this.props.technologyRadar;
+    const { selectedTechnology, selectGroup, selectTechnology } = this.props;
+    const { groups } = this.props;
 
     const group = this.findGroupForTechnology(selectedTechnology, groups);
 
@@ -93,7 +96,7 @@ export class TechnologyDetails extends Component<TechnologyDetailsProps> {
   }
 
   selectTechnologyHandler = (technology: Technology) => {
-    const { selectTechnology } = this.props.applicationState;
+    const { selectTechnology } = this.props;
 
     selectTechnology(technology);
   }

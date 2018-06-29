@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component, ReactNode } from 'react';
+import { PureComponent, ReactNode } from 'react';
 import * as React from 'react';
 
 import { Button, TextField } from '@material-ui/core';
@@ -26,7 +26,7 @@ export interface GroupPanelProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class GroupPanel extends Component<GroupPanelProps> {
+export class GroupPanel extends PureComponent<GroupPanelProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {

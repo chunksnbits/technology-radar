@@ -93,19 +93,19 @@ export const shallowWithApplicationState = (
   element: ReactElement<any>,
   applicationState: any = {}
 ): ShallowWrapper<any, any> => {
-  return shallow(cloneElement(element, { applicationState }));
+  return shallow(cloneElement(element, { applicationState, ...applicationState }));
 }
 
 export const mountWithApplicationState = (
   element: ReactElement<any>,
   applicationState: any = {}
 ): ReactWrapper<any, any> => {
-  return mount(cloneElement(element, { applicationState }));
+  return mount(cloneElement(element, { applicationState, ...applicationState }));
 }
 
 export const renderWithApplicationState = (
   element: ReactElement<any>,
   applicationState: any = {}
 ): Cheerio => {
-  return render(cloneElement(element, { applicationState }));
+  return render(cloneElement(element, { applicationState, ...applicationState }));
 }

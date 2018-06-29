@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component } from 'react';
+import { Component, PureComponent } from 'react';
 import * as React from 'react';
 
 import { classNames } from 'utils/dom';
@@ -19,7 +19,7 @@ export interface AsyncComponentProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class AsyncComponent extends Component<AsyncComponentProps, AsyncComponentState> {
+export class AsyncComponent extends PureComponent<AsyncComponentProps, AsyncComponentState> {
 
   constructor(props: AsyncComponentProps) {
     super(props);

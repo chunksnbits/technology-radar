@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import * as React from 'react';
 
 import { Button } from '@material-ui/core';
@@ -26,7 +26,7 @@ export interface GroupsProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class Groups extends Component<GroupsProps> {
+export class Groups extends PureComponent<GroupsProps> {
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
     return (

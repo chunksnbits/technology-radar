@@ -10,11 +10,11 @@ import { GroupPanel } from './components/GroupPanel';
 import { TechnologyPanel } from './components/TechnologyPanel';
 
 const mountWithState = (props: any = {}) => {
-  return mount(<SettingsPanel technologyRadar={ props.technologyRadar || {} } />);
+  return mount(<SettingsPanel { ...props.technologyRadar || {} } />);
 }
 
 const shallowWithState = (props: any = {}) => {
-  return shallow(<SettingsPanel technologyRadar={ props.technologyRadar || {} } />);
+  return shallow(<SettingsPanel { ...props.technologyRadar || {} } />);
 }
 
 // ----------------------------------------------------------------------------- Implementation

@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import * as React from 'react';
 
 import { Button } from '@material-ui/core';
@@ -15,17 +15,20 @@ import './styles.scss';
 // ----------------------------------------------------------------------------- Configuration
 export interface HeaderProps {
   className?: string;
-  applicationState?: ApplicationStateStore;
+  logo?: string;
+  title?: string;
+  subtitle?: string;
+  reset?: () => void;
 }
 
 // ----------------------------------------------------------------------------- Implementation
 // tslint:disable-next-line:class-name
-@consume(ApplicationStateContext, { bindTo: 'applicationState' })
-export class Header extends Component<HeaderProps> {
+@consume(ApplicationStateContext, { select: ['logo', 'title', 'subtitle', 'reset'] })
+export class Header extends PureComponent<HeaderProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const { logo, title, subtitle, reset } = this.props.applicationState;
+    const { logo, title, subtitle, reset } = this.props;
 
     return (
       <header className={ classNames('c-header', this.props.className) } onClick={ reset }>

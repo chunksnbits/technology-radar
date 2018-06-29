@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import * as React from 'react';
 
 import { classNames } from 'utils/dom';
@@ -18,32 +18,20 @@ export interface TechnologyItemProps {
   technology: Technology;
   focused: boolean;
   selected: boolean;
-  technologyRadar: TechnologyRadarStore;
-  onSelect: (technology: Technology, event: React.MouseEvent<HTMLElement>) => any;
-  onMouseOver: (technology: Technology, event: React.MouseEvent<HTMLElement>) => any;
-  onMouseOut: (technology: Technology, event: React.MouseEvent<HTMLElement>) => any;
+  groups?: Group[];
+  technologies?: Technology[];
+  settings?: TechnologyRadarSettings;
+  onSelect?: (technology: Technology, event: React.MouseEvent<HTMLElement>) => any;
+  onMouseOver?: (technology: Technology, event: React.MouseEvent<HTMLElement>) => any;
+  onMouseOut?: (technology: Technology, event: React.MouseEvent<HTMLElement>) => any;
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class TechnologyItem extends Component<TechnologyItemProps> {
+export class TechnologyItem extends PureComponent<TechnologyItemProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
-  /**
-   * Custom rerender optimization.
-   *
-   * Rerender is restricted to state changes that take effect on this specific item.
-   * State changes that were used purely for initial render will be ignored.
-   */
-  shouldComponentUpdate(props: TechnologyItemProps) {
-    return props.selected !== this.props.selected ||
-      props.technology !== this.props.technology ||
-      props.focused !== this.props.focused;
-  }
-
   render() {
-    const { focused, selected, technology, technologyRadar } = this.props;
-    const { groups } = technologyRadar;
-
+    const { focused, selected, technology, groups } = this.props;
     if (!Boolean(groups)) {
       return null;
     }
@@ -91,15 +79,15 @@ export class TechnologyItem extends Component<TechnologyItemProps> {
 
   // ----------------------------------------------------------------------------- Helpers methods
   private calculateTransforms(props: TechnologyItemProps): { transform: string, width: string} {
-    const { technology, technologyRadar } = this.props;
+    const { technology, groups, technologies, settings } = this.props;
 
     if (typeof technology.groupId !== 'string') {
       return null
     }
 
     return {
-      transform: `rotateZ(${ calculateTechnologyRotationDegrees(technology, technologyRadar) }deg)`,
-      width: `${ calculateItemOffsetPercent(technology, technologyRadar) }%`,
+      transform: `rotateZ(${ calculateTechnologyRotationDegrees(technology, groups, technologies) }deg)`,
+      width: `${ calculateItemOffsetPercent(technology, technologies, settings) }%`,
     };
   }
 }

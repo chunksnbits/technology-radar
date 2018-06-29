@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import * as React from 'react';
 
 import { ApplicationStateContext, TechnologyRadarContext } from 'store';
@@ -17,20 +17,24 @@ import './styles.scss';
 // ----------------------------------------------------------------------------- Configuration
 export interface FooterProps {
   className?: string;
-  applicationState?: ApplicationStateStore;
-  technologyRadar?: TechnologyRadarStore;
+  editor?: boolean;
+  viewMode?: ViewMode;
+  owner?: boolean;
+  createNew?: () => void;
+  edit?: () => void;
+  toggleViewMode?: () => void;
 }
 
 // ----------------------------------------------------------------------------- Implementation
-@consume(ApplicationStateContext, { bindTo: 'applicationState' })
-@consume(TechnologyRadarContext, { bindTo: 'technologyRadar' })
-export class Footer extends Component<FooterProps> {
+@consume(ApplicationStateContext, { select: ['editor', 'viewMode', 'owner', 'toggleViewMode'] })
+@consume(TechnologyRadarContext, { select: ['createNew', 'edit'] })
+export class Footer extends PureComponent<FooterProps> {
 
   handlers: BoundHandlers<any> = {};
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const { editor, viewMode, owner } = this.props.applicationState;
+    const { editor, viewMode, owner } = this.props;
 
     return (
       <footer className={ classNames('c-footer', this.props.className) }>
@@ -53,14 +57,14 @@ export class Footer extends Component<FooterProps> {
 
   // ----------------------------------------------------------------------------- Helpers methods
   private createNewHandler = () => {
-    this.props.technologyRadar.createNew();
+    this.props.createNew();
   }
 
   private toggleEditModeHandler = () => {
-    this.props.technologyRadar.edit();
+    this.props.edit();
   }
 
   private toggleListViewHandler = () => {
-    this.props.applicationState.toggleViewMode();
+    this.props.toggleViewMode();
   }
 }

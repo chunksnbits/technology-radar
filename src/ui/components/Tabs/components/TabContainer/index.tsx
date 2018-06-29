@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import * as React from 'react';
 
 import { classNames } from 'utils/dom';
@@ -14,7 +14,7 @@ export interface TabContainerProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class TabBody extends Component<TabContainerProps> {
+export class TabBody extends PureComponent<TabContainerProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {

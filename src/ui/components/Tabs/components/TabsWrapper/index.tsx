@@ -1,7 +1,7 @@
 
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Children, Component } from 'react';
+import { Children, PureComponent } from 'react';
 import * as React from 'react';
 
 import { classNames } from 'utils/dom';
@@ -18,7 +18,7 @@ export interface TabsWrapperProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export class TabsWrapper extends Component<TabsWrapperProps> {
+export class TabsWrapper extends PureComponent<TabsWrapperProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
