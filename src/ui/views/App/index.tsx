@@ -34,7 +34,9 @@ export interface AppProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-@consume(ApplicationStateContext, { select: ['editMode', 'editor', 'selectedTechnology', 'viewMode', 'updateBreakpoint'] })
+@consume(ApplicationStateContext, {
+  select: ['editMode', 'editor', 'selectTechnology', 'selectedTechnology', 'viewMode', 'updateBreakpoint']
+})
 export class App extends PureComponent<AppProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
@@ -65,6 +67,7 @@ export class App extends PureComponent<AppProps> {
       `c-app--view-${ viewMode }`
     ];
 
+
     return (
       <main className={ classNames('c-app', ...modifiers) }>
         <Header />
@@ -76,9 +79,7 @@ export class App extends PureComponent<AppProps> {
         </section>
 
         <section className='c-app__content-wrapper c-app__content-wrapper--list'>
-          <div className='c-app__technology-list'>
-            <TechnologyList className='c-app__content c-app__technology-list-content' />
-          </div>
+          <TechnologyList className='c-app__content c-app__technology-list-content' />
         </section>
 
         <BottomSheet

@@ -1,4 +1,11 @@
 
+@import '~ui/components/Styles/breakpoints';
+@import '~ui/components/Styles/colors';
+
 .c-technology-list-group {
+  @include breakpoint-up(large) {
+    background: rgba($g-color__background, 0.5);
+  }
+
   display: block;
 }

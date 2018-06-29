@@ -14,18 +14,9 @@
   transform-origin: 0;
 
   pointer-events: none;
-
-  background: $g-color__border;
 }
 
 .c-technology-item__item {
-  // @include breakpoint-at(medium) {
-  //   @include height-at(medium) {
-  //     top: -0.5 * $c-group-indicator--size-medium;
-  //     right: -0.5 * $c-group-indicator--size-medium;
-  //   }
-  // }
-
   position: absolute;
 
   top: -0.5 * $c-group-indicator--size;

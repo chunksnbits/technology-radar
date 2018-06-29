@@ -21,6 +21,7 @@ export interface TechnologyListProps {
   focusedTechnology?: Technology;
   selectedTechnology?: Technology;
   selectedGroup?: Group;
+  viewMode?: ViewMode;
 
   selectTechnology?: (technology: Technology) => void;
   focusTechnology?: (technology: Technology) => void;
@@ -35,7 +36,8 @@ export interface TechnologyListProps {
     'selectedTechnology',
     'selectedGroup',
     'selectTechnology',
-    'focusTechnology'
+    'focusTechnology',
+    'viewMode'
   ]
 })
 export class TechnologyList extends PureComponent<TechnologyListProps> {
@@ -43,13 +45,19 @@ export class TechnologyList extends PureComponent<TechnologyListProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render(): JSX.Element {
+    const { breakpoint, focusedTechnology, selectedGroup, selectedTechnology, viewMode, technologies, groups } = this.props;
 
-    const modifiers = [];
+    const active = Boolean(selectedGroup) || Boolean(selectedTechnology);
+    const listView = (breakpoint === 'large' || viewMode === 'list')
+console.log('+++ ', active, listView, breakpoint);
+    const modifiers = [
+      !listView && 'c-technology-list--hidden',
+      active && 'c-technology-list--hidden'
+    ];
 
-    const { technologies, groups } = this.props;
-    const { breakpoint, focusedTechnology, selectedGroup, selectedTechnology } = this.props;
+    console.log('+++ ,', modifiers);
 
-    const focusable = breakpoint === 'large' && !Boolean(selectedGroup) && !Boolean(selectedTechnology);
+    const focusable = breakpoint === 'large' && active;
     const grouped = Object.entries(this.groupTechnologies(technologies, groups, selectedGroup));
 
     return (

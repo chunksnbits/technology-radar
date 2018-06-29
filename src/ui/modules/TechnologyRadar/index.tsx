@@ -57,10 +57,8 @@ export class TechnologyRadar extends PureComponent<TechnologyRadarProps> {
   /**
    * Adds performance optimization for render intensive tasks.
    */
-  getSnapshotBeforeUpdate() {
+  componentWillUpdate() {
     this.elementRef.current.classList.add('c-technology-radar--will-change');
-
-    return {};
   }
 
   componentDidUpdate() {
@@ -157,8 +155,6 @@ export class TechnologyRadar extends PureComponent<TechnologyRadarProps> {
     event.preventDefault();
   }
 
-
-
   // ----------------------------------------------------------------------------- Helpers methods
   private calculateFocusTransforms(): CSSProperties{
     const { selectedTechnology, selectedGroup } = this.props;
@@ -198,13 +194,12 @@ export class TechnologyRadar extends PureComponent<TechnologyRadarProps> {
   }
 
   private calculateFocusedTranfsformForSelectedGroup(): CSSProperties{
-    const { selectedGroup } = this.props;
-    const { groups } = this.props;
+    const { selectedGroup, groups } = this.props;
 
     const groupBaseRotationDegrees = 360 / groups.length;
     const groupRotationDegrees = calculateGroupRotationDegrees(selectedGroup, groups);
 
-    const rotationDegrees = 180 + 360 - (groupRotationDegrees + 0.5 * groupBaseRotationDegrees);
+    const rotationDegrees = 180 - (groupRotationDegrees + 0.5 * groupBaseRotationDegrees);
 
     return {
       transform: [

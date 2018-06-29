@@ -61,10 +61,12 @@ export class Ripple extends PureComponent<RippleProps> {
 
     if (this.props.position !== 'relative') {
       const touch = getPrimaryTouch(event);
+
       const position = {
         clientX: touch.clientX,
         clientY: touch.clientY,
       };
+
       const { x, y } = getPositionInElement(this.elementRef.current.parentElement, position);
 
       this.elementRef.current.style.transform = `translate(${ x }px, ${ y }px)`;

@@ -86,8 +86,7 @@ export class TechnologyDetails extends PureComponent<TechnologyDetailsProps> {
 
   // ----------------------------------------------------------------------------- Event handler methods
   selectGroupHandler = () => {
-    const { selectedTechnology, selectGroup, selectTechnology } = this.props;
-    const { groups } = this.props;
+    const { groups, selectedTechnology, selectGroup, selectTechnology } = this.props;
 
     const group = this.findGroupForTechnology(selectedTechnology, groups);
 

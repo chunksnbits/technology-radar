@@ -30,7 +30,7 @@ export function calculateGroupRotationDegrees(group: Group, groups: Group[]): nu
   const groupBaseAngleDegree = 360 / groups.length;
   const groupIndex = findGroupIndex(groups, group);
 
-  return (groups.length - 1 - groupIndex) * groupBaseAngleDegree;
+  return groupIndex * groupBaseAngleDegree;
 }
 
 export function calculateItemOffsetPercent(
