@@ -11,21 +11,21 @@
   }
 
   @include breakpoint-at(medium) {
-    padding: 100px 10px 25px;
+    padding: 70px 10px 25px;
   }
 
   @include transition--default(transform);
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 
   position: relative;
 
   width: 100%;
   height: 100%;
 
-  padding: 180px 5px 25px;
+  padding: 85px 5px 70px;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   background: $g-color--background;
