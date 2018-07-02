@@ -19,6 +19,8 @@ $c-group-indicator--border-width-medium: 1px;
 
   width: $c-group-indicator--size;
   height: $c-group-indicator--size;
+  min-width: $c-group-indicator--size;
+  min-height: $c-group-indicator--size;
 
   border-radius: $c-group-indicator--size;
   border: $c-group-indicator--border-width solid transparent;

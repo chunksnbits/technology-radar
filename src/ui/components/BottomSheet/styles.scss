@@ -17,6 +17,7 @@ $c-bottom-sheet__base--max-width: 530px;
   @include breakpoint-up(medium) {
     align-items: flex-end;
     max-height: 75vh;
+    height: auto;
   }
 
   @include transition--default(transform);

@@ -37,6 +37,8 @@ export class TechnologyListEntry extends PureComponent<TechnologyListEntryProps>
       return;
     }
 
+    console.log('+++ foc', this.props.focusable);
+
     if (this.props.focused) {
       this.elementRef.current.scrollIntoView({
         block: 'nearest',
@@ -58,7 +60,8 @@ export class TechnologyListEntry extends PureComponent<TechnologyListEntryProps>
         ref={ this.elementRef }>
         <Button role='flat'
           fullWidth={ true }
-          { ...buttonProps as any }>
+          { ...buttonProps as any }
+          className='c-technology-list-entry__button'>
           <GroupIndicator
             className='c-technology-list-entry__group-indicator'
             color={ group.color }

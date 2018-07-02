@@ -10,6 +10,10 @@ $c-technology-list__color--size: 14px;
   cursor: pointer;
 }
 
+.c-technology-list-entry__button.c-technology-list-entry__button {
+  justify-content: flex-start;
+}
+
 .c-technology-list-entry__label {
   @include breakpoint-up(large) {
     @include typo-copy--small;

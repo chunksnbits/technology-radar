@@ -8,8 +8,6 @@ import { canUseSessionStorage } from 'core/utils/dom';
 import { restoreState } from 'core/utils/store';
 import { merge } from 'core/utils/collection';
 
-import theme from 'public/theme.json';
-
 import { defaultState } from './constants';
 
 // ----------------------------------------------------------------------------- Configuration
@@ -37,8 +35,6 @@ export class ApplicationStateProvider
       focusTechnology: this.focusTechnology.bind(this),
       selectTechnology: this.selectTechnology.bind(this),
       selectGroup: this.selectGroup.bind(this),
-      setEditMode: this.setEditMode.bind(this),
-      setOwner: this.setOwner.bind(this),
       updateBreakpoint: this.updateBreakpoint.bind(this),
       toggleViewMode: this.toggleViewMode.bind(this),
     };
@@ -59,9 +55,9 @@ export class ApplicationStateProvider
   // ----------------------------------------------------------------------------- Action methods
   updateBreakpoint(width: number): void {
     this.setState(state => produce(state, (draftState: ApplicationState) => {
-      if (width < theme.breakpoints.medium) {
+      if (width < this.state.theme.breakpoints.medium) {
         draftState.breakpoint = 'small';
-      } else if (width < theme.breakpoints.large) {
+      } else if (width < this.state.theme.breakpoints.large) {
         draftState.breakpoint = 'medium';
       } else {
         draftState.breakpoint = 'large';
@@ -76,7 +72,6 @@ export class ApplicationStateProvider
     this.setState(state => produce(state, (draftState: ApplicationState) => {
       draftState.selectedTechnology = null;
       draftState.selectedGroup = null;
-      draftState.editMode = false;
 
       return draftState;
     }));
@@ -113,30 +108,6 @@ export class ApplicationStateProvider
 
     this.setState(state => produce(state, (draftState: ApplicationState) => {
       draftState.selectedGroup = selected;
-
-      return draftState;
-    }));
-  }
-
-  setOwner(value: boolean): void {
-    if (value === this.state.owner) {
-      return;
-    }
-
-    this.setState(state => produce(state, (draftState: ApplicationState) => {
-      draftState.owner = value;
-
-      return draftState;
-    }));
-  }
-
-  setEditMode(value: boolean): void {
-    if (value === this.state.editMode) {
-      return;
-    }
-
-    this.setState(state => produce(state, (draftState: ApplicationState) => {
-      draftState.editMode = value;
 
       return draftState;
     }));

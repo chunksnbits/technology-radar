@@ -1,0 +1,79 @@
+
+@import '~ui/components/Styles/animation';
+@import '~ui/components/Styles/breakpoints';
+@import '~ui/components/Styles/colors';
+@import './components/TechnologyItem/styles';
+
+$c-technology-graph__center-circle--size: 20px;
+
+.c-technology-graph--selected-technology {
+  @include breakpoint-down(small) {
+    transform: translate(22.5%, -22.5%);
+  }
+}
+
+.c-technology-graph {
+  @include breakpoint-up(medium) {
+    padding: 5.25vmin;
+  }
+
+  @include breakpoint-up(large) {
+    width: 100%;
+    height: 100%;
+  }
+
+  @include transition--default(transform);
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100vmin;
+  height: 100vmin;
+
+  padding: 7.25vmin;
+}
+
+.c-technology-graph--will-change {
+  will-change: transform;
+}
+
+.c-technology-graph::before {
+  content: '';
+
+  display: block;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-0.5 * $c-technology-graph__center-circle--size, -0.5 * $c-technology-graph__center-circle--size);
+
+  width: $c-technology-graph__center-circle--size;
+  height: $c-technology-graph__center-circle--size;
+  border-radius: $c-technology-graph__center-circle--size;
+  z-index: 2;
+
+  border: 1px solid darken($g-color__primary, 10);
+  background: $g-color__background;
+}
+
+.c-technology-graph__content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.c-technology-graph__legend,
+.c-technology-graph__technologies {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.c-technology-graph__legend {
+  pointer-events: none;
+}

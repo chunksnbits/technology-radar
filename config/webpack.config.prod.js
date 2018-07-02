@@ -8,13 +8,11 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
-const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const convertToSassMap = require('./sass/convert-to-sass-map');
 
 const { isDebugMode, onlyDefined } = require('./utils');
 
@@ -224,10 +222,7 @@ module.exports = {
                       },
                     },
                     {
-                      loader: require.resolve('sass-loader'),
-                      options: {
-                        data: `$g-theme: ${convertToSassMap(require('../public/theme.json'))};`
-                      }
+                      loader: require.resolve('sass-loader')
                     },
                   ],
                 },

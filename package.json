@@ -1,7 +1,8 @@
 {
   "name": "technology-radar",
   "version": "0.3.3",
-  "private": true,
+  "main": "lib/index.js",
+  "repository": "https://github.com/chunksnbits/technology-radar.git",
   "homepage": "https://chunksnbits.github.io/technology-radar",
   "dependencies": {
     "@material-ui/core": "^1.0.0",
@@ -16,17 +17,18 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "compile": "rimraf lib && tsc",
+    "compile": "rimraf lib && tsc && yarn copy:styles",
     "build": "node scripts/build.js --public-url /",
     "test": "node scripts/test.js --env=jsdom --watch",
     "serve": "serve -l 3001 -s build",
-    "prerelease": "yarn build && yarn lint && node scripts/test.js --env=jsdom",
+    "prerelease": "yarn lint && node scripts/test.js --env=jsdom && yarn build && yarn compile",
     "release": "standard-version",
     "predeploy": "rimraf dist && node scripts/build.js --dest dist && yarn snapshot",
     "deploy": "gh-pages -d dist",
     "commitlint": "commitlint -e $GIT_PARAMS",
     "lint": "tslint -p tsconfig.json && stylelint '**/*.scss'",
-    "snapshot": "yarn react-snap"
+    "snapshot": "yarn react-snap",
+    "copy:styles": "rsync -avq --include='*/' --include='*.scss' --exclude='*' 'src/' lib"
   },
   "reactSnap": {
     "source": "dist"
@@ -66,7 +68,7 @@
     "fs-extra": "6.0.1",
     "gh-pages": "^1.2.0",
     "html-webpack-plugin": "2.29.0",
-    "husky": "^1.0.0-rc.8",
+    "husky": "^0.14.3",
     "jest": "23.1.0",
     "json-loader": "^0.5.7",
     "node-sass": "^4.9.0",
@@ -104,7 +106,7 @@
   "jest": {
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}"
+      "src/**/*.{ts,tsx}"
     ],
     "coveragePathIgnorePatterns": [
       "typings.d.ts"
@@ -114,13 +116,12 @@
       "<rootDir>/config/jest/configureEnzyme.js"
     ],
     "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.(j|t)s?(x)",
-      "<rootDir>/src/**/?(*.)(spec|test).(j|t)s?(x)"
+      "<rootDir>/src/**/spec.ts?(x)"
     ],
     "testEnvironment": "node",
     "testURL": "http://localhost",
     "transform": {
-      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.(js|jsx|mjs)$": "<rootDir>/../../node_modules/babel-jest",
       "^.+\\.tsx?$": "<rootDir>/config/jest/typescriptTransform.js",
       "^.+\\.scss$": "<rootDir>/config/jest/cssTransform.js",
       "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
@@ -135,7 +136,8 @@
       ""
     ],
     "moduleNameMapper": {
-      "^react-native$": "react-native-web"
+      "^react-native$": "react-native-web",
+      "^core/(.*)$": "$1"
     },
     "moduleFileExtensions": [
       "web.ts",

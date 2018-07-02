@@ -55,7 +55,7 @@ export class TechnologyList extends PureComponent<TechnologyListProps> {
       active && 'c-technology-list--hidden'
     ];
 
-    const focusable = breakpoint === 'large' && active;
+    const focusable = breakpoint === 'large' && !active;
     const grouped = Object.entries(this.groupTechnologies(technologies, groups, selectedGroup));
 
     return (

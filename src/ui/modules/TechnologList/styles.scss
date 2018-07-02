@@ -33,7 +33,7 @@
 
 .c-technology-list--hidden {
   @include breakpoint-up(large) {
-    transform: translateX(35vw);
+    transform: translateX(50vw);
   }
 
   transform: translateX(101vw);

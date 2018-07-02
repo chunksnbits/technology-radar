@@ -9,12 +9,7 @@ export const mockApplicationState = (patch = {}) => Object.assign({}, {
   title: 'Any',
   logo: '//any.logo.svg',
   breakpoint: 'large',
-  editMode: false,
-  viewMode: 'list',
-  data: {
-    technologies: [],
-    groups: [],
-  }
+  viewMode: 'list'
 }, patch) as ApplicationState;
 
 export const mockApplicationStateStore = (patch = {}) => Object.assign({}, {

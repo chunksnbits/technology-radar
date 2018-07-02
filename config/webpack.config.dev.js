@@ -10,7 +10,6 @@ const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeM
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
-const convertToSassMap = require('./sass/convert-to-sass-map');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
@@ -195,10 +194,7 @@ module.exports = {
                 },
               },
               {
-                loader: require.resolve('sass-loader'),
-                options: {
-                  data: `$g-theme: ${convertToSassMap(require('../public/theme.json'))};`
-                }
+                loader: require.resolve('sass-loader')
               },
             ],
           },

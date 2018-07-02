@@ -59,7 +59,7 @@ declare module "public/data.json" {
   export default value;
 }
 
-declare module "public/theme.json" {
+declare module "core/theme.default.json" {
   const value: ApplicationTheme;
   export default value;
 }

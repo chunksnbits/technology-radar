@@ -1,21 +1,6 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "paths": {
-      "core/*": [
-        "./*"
-      ],
-      "public/*": [
-        "../private/*",
-        "../public/*"
-      ],
-      "mocks/*": [
-        "../test/mocks/*"
-      ],
-      "mocks": [
-        "../test/mocks/index.ts"
-      ]
-    },
+    "module": "commonjs"
   }
 }

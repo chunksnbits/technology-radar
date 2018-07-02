@@ -1,0 +1,10 @@
+export declare function calculateTechnologyRotationDegrees(technology: Technology, groups: Group[], technologies: Technology[]): number;
+export declare function calculateGroupRotationDegrees(group: Group, groups: Group[]): number;
+export declare function calculateItemOffsetPercent(technology: Technology, technologies: Technology[], settings: TechnologyRadarSettings): number;
+export declare function calculateMaxLevel(technologies: Technology[]): number;
+export declare function findGroupIndex(groups: Group[], group: Group): number;
+export declare function calculateNumberOfItemsForLevelAndGroup(technologies: Technology[], technology: Technology): number;
+export declare function calculateIndexInLevelAndGroup(technologies: Technology[], technology: Technology): number;
+export declare function findGroupForTechnology(groups: Group[], technology: Technology): Group;
+export declare function findTechnologiesForGroupAndLevel(technologies: Technology[], groupId: string, level: number): Technology[];
+export declare function indexOfTehnology(technologies: Technology[], technology: Technology): number;

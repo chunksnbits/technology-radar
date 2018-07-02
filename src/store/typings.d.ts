@@ -1,6 +1,6 @@
 
 declare type ApplicationStateStore = ApplicationState & ApplicationStateActions;
-declare type TechnologyRadarStore = TechnologyRadar & TechnologyRadarActions;
+declare type TechnologyRadarStore = TechnologyRadar;
 
 declare type Breakpoint = 'small' | 'medium' | 'large';
 declare type ViewMode = 'list' | 'radar';
@@ -16,11 +16,8 @@ declare interface ApplicationState {
   selectedTechnology?: Technology;
   selectedGroup?: Group;
 
-  editMode?: boolean;
-  editor?: boolean;
-  owner?: boolean;
-
   viewMode?: ViewMode;
+  theme: ApplicationTheme;
 }
 
 declare interface ApplicationStateActions {
@@ -30,8 +27,6 @@ declare interface ApplicationStateActions {
   selectTechnology: (selected: Technology) => void;
   selectGroup: (selected: Group) => void;
 
-  setOwner: (value: boolean) => void;
-  setEditMode: (value: boolean) => void;
   toggleViewMode: () => void;
 
   reset: () => void;
@@ -42,27 +37,10 @@ declare interface TechnologyRadar {
   groups?: Group[];
   levels?: Level[];
 
-  edited?: boolean;
   settings?: TechnologyRadarSettings;
 }
 
 declare interface TechnologyRadarSettings {
   innerRadiusPercent: number;
   outerRadiusPercent: number;
-}
-
-declare interface TechnologyRadarActions {
-  createNew: () => void;
-  edit: () => void;
-
-  addGroup: () => void;
-  addTechnology: (group: Group) => void;
-
-  updateGroup: (group: Group, key: string, value: any) => void;
-  updateTechnology: (technology: Technology, key: string, value: any) => void;
-
-  removeGroup: (group: Group) => void;
-  removeTechnology: (technology: Technology) => void;
-
-  clearAll: () => void;
 }

@@ -4,6 +4,7 @@
     "baseUrl": "src",
     "module": "esnext",
     "target": "es5",
+    "declaration": true,
     "lib": [
       "es2015",
       "es2016",
@@ -11,10 +12,8 @@
       "dom"
     ],
     "sourceMap": true,
-    "allowJs": true,
     "jsx": "react",
     "moduleResolution": "node",
-    "rootDir": "src",
     "paths": {
       "core/*": [
         "./*"
@@ -22,6 +21,12 @@
       "public/*": [
         "../private/*",
         "../public/*"
+      ],
+      "mocks/*": [
+        "../test/mocks/*"
+      ],
+      "mocks": [
+        "../test/mocks/index.ts"
       ]
     },
     "forceConsistentCasingInFileNames": true,
@@ -46,9 +51,7 @@
     "webpack",
     "jest",
     "lib",
-    "src/setupTests.ts",
-    "coverage",
-    "**/spec.tsx"
+    "coverage"
   ],
   "include": [
     "src",

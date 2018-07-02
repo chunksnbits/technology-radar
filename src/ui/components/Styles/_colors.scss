@@ -1,28 +1,28 @@
+@import '../../../theme.default';
 
-$g-theme--colors: map-get($g-theme, 'colors');
+$g-theme--colors: $theme__colors;
 
-$g-color__black: #000;
-$g-color__white: #fff;
+$g-color__black: $theme__colors--black;
+$g-color__white: $theme__colors--white;
 
-$g-color__background: map-get($g-theme--colors, 'base');
-$g-color__background--inverse: map-get($g-theme--colors, 'base-inverse');
+$g-color__background: $theme__colors--base;
+$g-color__background--inverse: $theme__colors--base-inverse;
 
-$g-color__border: map-get($g-theme--colors, 'dividers');
+$g-color__border: $theme__colors--dividers;
 $g-color__border--inverse: invert($g-color__border);
 $g-color__border--light: lighten($g-color__border, 10);
 
-$g-color__primary: map-get($g-theme--colors, 'primary');
-$g-color__primary--inverse: map-get($g-theme--colors, 'primary-inverse');
+$g-color__primary: $theme__colors--primary;
+$g-color__primary--inverse: $theme__colors--primary-inverse;
 $g-color__primary--hover: rgba($g-color__primary, 0.75);
 
-$g-color__secondary: map-get($g-theme--colors, 'secondary');
-$g-color__accent: map-get($g-theme--colors, 'accent');
-$g-color__highlight: map-get($g-theme--colors, 'highlight');
+$g-color__secondary: $theme__colors--secondary;
+$g-color__accent: $theme__colors--accent;
+$g-color__highlight: $theme__colors--highlight;
 
-$g-color__success: map-get($g-theme--colors, 'success');
-$g-color__error: map-get($g-theme--colors, 'error');
+$g-color__success: $theme__colors--success;
+$g-color__error: $theme__colors--error;
 
 $g-box-shadow--default: 0 0 1px 8px rgba($g-color__black, 0.25);
 
-$g-color__theme: map-get($g-theme--colors, 'theme');
-$g-color__focus--a11y: map-get($g-theme--colors, 'focus-a11y');
+$g-color__focus--a11y: $theme__colors--focus-a11y;
