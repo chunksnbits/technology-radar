@@ -151,7 +151,7 @@
     ],
     "globals": {
       "ts-jest": {
-        "tsConfigFile": "/Users/daneis/Workspace/diesunddas/technology-radar/packages/technology-radar/tsconfig.test.json"
+        "tsConfigFile": "./tsconfig.test.json"
       }
     }
   },
