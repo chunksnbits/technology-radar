@@ -29,13 +29,15 @@ it('initializes TechnologyRadarStoreProvider state',
     technologies: [mockTechnology()]
   });
 
-  expect(Array.isArray(element.state().technologies)).toBeTruthy();
-  expect(Array.isArray(element.state().groups)).toBeTruthy();
+  const state = element.state() as TechnologyRadarStore;
+
+  expect(Array.isArray(state.technologies)).toBeTruthy();
+  expect(Array.isArray(state.groups)).toBeTruthy();
 });
 
 it('applies initialState',
 () => {
-  const technologies = [mockTechnology()];
+  const technologies = [mockTechnology()];;
   const groups = [mockGroup()];
 
   const element = mountStore({
@@ -43,11 +45,13 @@ it('applies initialState',
     groups
   });
 
-  expect(element.state().technologies.length).toBe(1);
-  expect(element.state().technologies[0]).toEqual(technologies[0]);
+  const state = element.state() as TechnologyRadarStore;
 
-  expect(element.state().groups.length).toBe(1);
-  expect(element.state().groups[0]).toEqual(groups[0]);
+  expect(state.technologies.length).toBe(1);
+  expect(state.technologies[0]).toEqual(technologies[0]);
+
+  expect(state.groups.length).toBe(1);
+  expect(state.groups[0]).toEqual(groups[0]);
 });
 
 it('inializes edited data on setEditMode',
@@ -57,13 +61,15 @@ it('inializes edited data on setEditMode',
     technologies: [mockTechnology()]
   });
 
-  const [group] = element.state().groups;
+  const state = element.state() as TechnologyRadarStore;
 
-  element.state().updateGroup(group,
+  const [group] = state.groups;
+
+  state.updateGroup(group,
   'name',
   'Changed');
 
-  expect(element.state().groups[0].name).toEqual('Changed');
+  expect(state.groups[0].name).toEqual('Changed');
   expect(group.name).not.toEqual('Changed');
 });
 
@@ -74,12 +80,14 @@ it('updates group on updateGroup',
     technologies: [mockTechnology()]
   });
 
-  const [group] = element.state().groups;
-  element.state().updateGroup(group,
+  const state = element.state() as TechnologyRadarStore;
+
+  const [group] = state.groups;
+  state.updateGroup(group,
   'name',
   'Changed');
 
-  expect(element.state().groups[0].name).toEqual('Changed');
+  expect(state.groups[0].name).toEqual('Changed');
 });
 
 it('updates technologies on updateTechnology',
@@ -88,12 +96,14 @@ it('updates technologies on updateTechnology',
     technologies: [mockTechnology()]
   });
 
-  const [technology] = element.state().technologies;
-  element.state().updateTechnology(technology,
+  const state = element.state() as TechnologyRadarStore;
+
+  const [technology] = state.technologies;
+  state.updateTechnology(technology,
   'name',
   'Changed');
 
-  expect(element.state().technologies[0].name).toEqual('Changed');
+  expect(state.technologies[0].name).toEqual('Changed');
 });
 
 it('creates new technology radar on createNew',
@@ -103,12 +113,13 @@ it('creates new technology radar on createNew',
     technologies: [mockTechnology()]
   });
 
-  const state = (element.state() as TechnologyRadarActions);
+  const state = element.state() as TechnologyRadarStore;
+
   state.createNew();
 
-  expect(element.state().groups.length).toBeGreaterThan(0);
-  expect(element.state().technologies.length).toBeGreaterThan(0);
-  expect(element.state()).not.toEqual(state);
+  expect(state.groups.length).toBeGreaterThan(0);
+  expect(state.technologies.length).toBeGreaterThan(0);
+  expect(state).not.toEqual(state);
 });
 
 it('sets edit mode on createNew',
@@ -126,7 +137,7 @@ it('sets edit mode on createNew',
     technologies: [mockTechnology()]
   },  mockApplicationState);
 
-  const state = (element.state() as TechnologyRadarActions);
+  const state = element.state() as TechnologyRadarStore;
 
   state.createNew();
 });
@@ -146,7 +157,7 @@ it('sets owner on createNew',
     technologies: [mockTechnology()]
   }, mockApplicationState);
 
-  const state = (element.state() as TechnologyRadarActions);
+  const state = element.state() as TechnologyRadarStore;
 
   state.createNew();
 });
@@ -165,7 +176,7 @@ it('notifies application on edit',
     technologies: [mockTechnology()]
   }, mockApplicationState);
 
-  const state = (element.state() as TechnologyRadarActions);
+  const state = element.state() as TechnologyRadarStore;
 
   state.edit();
 });
@@ -177,9 +188,11 @@ it('adds group on addGroup',
     technologies: [mockTechnology()]
   });
 
-  element.state().addGroup();
+  const state = element.state() as TechnologyRadarStore;
 
-  expect(element.state().groups.length).toEqual(2);
+  state.addGroup();
+
+  expect(state.groups.length).toEqual(2);
 });
 
 it('adds technology on addTechnology',
@@ -189,9 +202,11 @@ it('adds technology on addTechnology',
     groups: [mockGroup()]
   });
 
-  element.state().addTechnology(element.state().groups[0]);
+  const state = element.state() as TechnologyRadarStore;
 
-  expect(element.state().technologies.length).toEqual(2);
+  state.addTechnology(state.groups[0]);
+
+  expect(state.technologies.length).toEqual(2);
 });
 
 it('removes all groups and technologies on clearAll',
@@ -201,8 +216,10 @@ it('removes all groups and technologies on clearAll',
     groups: [mockGroup()]
   });
 
-  element.state().clearAll();
+  const state = element.state() as TechnologyRadarStore;
 
-  expect(element.state().groups.length).toEqual(0);
-  expect(element.state().technologies.length).toEqual(0);
+  state.clearAll();
+
+  expect(state.groups.length).toEqual(0);
+  expect(state.technologies.length).toEqual(0);
 });

@@ -88,7 +88,9 @@ it('updates active group on toggleGroup', () => {
 
   panel.props.onToggle(group, true);
   element.update();
-  expect(element.state('activeGroup').id).toEqual(group.id);
+
+  const state = element.state() as any;
+  expect(state.activeTechnology.id).toEqual(group.id);
 
   panel.props.onToggle(null);
   element.update();
@@ -129,7 +131,9 @@ it('updates active technology on toggleTechnology', () => {
 
   panel.props.onToggle(technology);
   element.update();
-  expect(element.state('activeTechnology').id).toEqual(technology.id);
+
+  const state = element.state() as any;
+  expect(state.activeTechnology.id).toEqual(technology.id);
 
   panel.props.onToggle(null);
   element.update();
