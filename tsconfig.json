@@ -34,7 +34,12 @@
     "strictNullChecks": false,
     "experimentalDecorators": true,
     "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "plugins": [
+      {
+        "name": "typescript-lit-html-plugin"
+      }
+    ]
   },
   "exclude": [
     "node_modules",
