@@ -25,7 +25,7 @@ declare interface ApplicationState {
 
 declare interface ApplicationStateActions {
   focusTechnology: (focused: Technology) => void;
-  updateBreakpoint(width: number, height: number) => void;
+  updateBreakpoint: (width: number, height: number) => void;
 
   selectTechnology: (selected: Technology) => void;
   selectGroup: (selected: Group) => void;

@@ -2,12 +2,12 @@
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
 import { Button } from '@material-ui/core';
-import { classNames } from 'utils/dom';
+import { classNames } from 'core/utils/dom';
 
 import { createRef, MouseEventHandler, PureComponent, RefObject } from 'react';
 
 import './styles.scss';
-import { GroupIndicator } from 'ui/components/GroupIndicator';
+import { GroupIndicator } from 'core/ui/components/GroupIndicator';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyListEntryProps {

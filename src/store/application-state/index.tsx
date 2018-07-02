@@ -4,9 +4,9 @@ import * as React from 'react';
 import { createContext, PureComponent, Context } from 'react';
 import produce from 'immer';
 
-import { canUseSessionStorage } from 'utils/dom';
-import { restoreState } from 'utils/store';
-import { merge } from 'utils/collection';
+import { canUseSessionStorage } from 'core/utils/dom';
+import { restoreState } from 'core/utils/store';
+import { merge } from 'core/utils/collection';
 
 import theme from 'public/theme.json';
 

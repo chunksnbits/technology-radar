@@ -5,7 +5,7 @@ import * as React from 'react';
 import { SettingsPanel } from './index';
 import { mockTechnology, mockGroup } from 'mocks';
 import { mount, shallow } from 'enzyme';
-import { Tab, TabHeader } from 'ui/components/Tabs';
+import { Tab, TabHeader } from 'core/ui/components/Tabs';
 import { GroupPanel } from './components/GroupPanel';
 import { TechnologyPanel } from './components/TechnologyPanel';
 

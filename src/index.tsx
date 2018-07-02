@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { App } from 'ui/views/App';
+import { App } from 'core/ui/views/App';
 import registerServiceWorker from './registerServiceWorker';
 
 import './styles.scss';

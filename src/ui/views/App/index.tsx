@@ -3,21 +3,21 @@
 import * as React from 'react';
 import { MouseEvent, PureComponent } from 'react';
 
-import { ApplicationStateContext } from 'store';
+import { ApplicationStateContext } from 'core/store';
 
-import { TechnologyRadar } from 'ui/modules/TechnologyRadar';
-import { TechnologyList } from 'ui/modules/TechnologList';
-import { TechnologyDetails } from 'ui/modules/TechnologyDetails';
-import { Header } from 'ui/modules/Header';
-import { Footer } from 'ui/modules/Footer';
+import { TechnologyRadar } from 'core/ui/modules/TechnologyRadar';
+import { TechnologyList } from 'core/ui/modules/TechnologList';
+import { TechnologyDetails } from 'core/ui/modules/TechnologyDetails';
+import { Header } from 'core/ui/modules/Header';
+import { Footer } from 'core/ui/modules/Footer';
 
-import { Modal } from 'ui/components/Modal';
-import { AsyncComponent } from 'ui/components/AsyncComponent';
-import { BottomSheet } from 'ui/components/BottomSheet';
+import { Modal } from 'core/ui/components/Modal';
+import { AsyncComponent } from 'core/ui/components/AsyncComponent';
+import { BottomSheet } from 'core/ui/components/BottomSheet';
 
-import { debounce } from 'utils/debounce';
-import { consume } from 'utils/store';
-import { classNames, canUseDOM } from 'utils/dom';
+import { debounce } from 'core/utils/debounce';
+import { consume } from 'core/utils/store';
+import { classNames, canUseDOM } from 'core/utils/dom';
 
 import './styles.scss';
 
@@ -93,7 +93,7 @@ export class App extends PureComponent<AppProps> {
           type='sidebar'
           onClose={ this.setEditModeHandler }>{
             this.props.editor &&
-            <AsyncComponent onLoad={ () => import('ui/modules/SettingsPanel') }
+            <AsyncComponent onLoad={ () => import('core/ui/modules/SettingsPanel') }
               componentName='SettingsPanel'>
               Loading...
             </AsyncComponent>

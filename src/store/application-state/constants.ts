@@ -2,7 +2,7 @@ import * as logo from 'public/logo.svg';
 
 export const defaultState: ApplicationState = {
   title: 'Technology Radar',
-  logo,
+  logo: logo as any,
   breakpoint: null,
   owner: false,
   editor: false,

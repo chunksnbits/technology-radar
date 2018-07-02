@@ -4,11 +4,11 @@ import * as React from 'react';
 
 import { Fragment, PureComponent, ReactNode } from 'react';
 
-import { classNames } from 'utils/dom';
+import { classNames } from 'core/utils/dom';
 
 import './styles.scss';
 import { Button } from '@material-ui/core';
-import { Icon } from 'ui/components/Icon';
+import { Icon } from 'core/ui/components/Icon';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface BottomSheetProps {

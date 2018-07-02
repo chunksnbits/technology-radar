@@ -3,10 +3,10 @@
 import { Component } from 'react';
 import * as React from 'react';
 
-import { classNames } from 'utils/dom';
+import { classNames } from 'core/utils/dom';
 
-import { Ripple } from 'ui/components/Ripple';
-import { GroupIndicator } from 'ui/components/GroupIndicator';
+import { Ripple } from 'core/ui/components/Ripple';
+import { GroupIndicator } from 'core/ui/components/GroupIndicator';
 
 import { findGroupForTechnology, calculateTechnologyRotationDegrees, calculateItemOffsetPercent } from '../utils/math';
 

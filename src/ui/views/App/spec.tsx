@@ -5,9 +5,9 @@ import * as React from 'react';
 import { App } from './index';
 
 import { mockApplicationStateStore, shallowWithApplicationState } from 'mocks';
-import { Header } from 'ui/modules/Header';
-import { TechnologyRadar } from 'ui/modules/TechnologyRadar';
-import { Footer } from 'ui/modules/Footer';
+import { Header } from 'core/ui/modules/Header';
+import { TechnologyRadar } from 'core/ui/modules/TechnologyRadar';
+import { Footer } from 'core/ui/modules/Footer';
 
 // ----------------------------------------------------------------------------- Implementation
 it('renders without crashing', () => {

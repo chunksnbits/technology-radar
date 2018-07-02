@@ -3,10 +3,10 @@
 import { PureComponent } from 'react';
 import * as React from 'react';
 
-import { classNames } from 'utils/dom';
-import { consume } from 'utils/store/consume';
+import { classNames } from 'core/utils/dom';
+import { consume } from 'core/utils/store/consume';
 
-import { ApplicationStateContext, TechnologyRadarContext } from 'store';
+import { ApplicationStateContext, TechnologyRadarContext } from 'core/store';
 
 import './styles.scss';
 import { TechnologyListEntry } from './components/TechnologyListEntry';

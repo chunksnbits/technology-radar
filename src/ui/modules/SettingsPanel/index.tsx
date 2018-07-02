@@ -3,11 +3,11 @@
 import { PureComponent } from 'react';
 import * as React from 'react';
 
-import { TechnologyRadarContext } from 'store';
+import { TechnologyRadarContext } from 'core/store';
 
-import { consume } from 'utils/store';
-import { classNames } from 'utils/dom';
-import { Tabs, TabBody, TabHeader, Tab } from 'ui/components/Tabs';
+import { consume } from 'core/utils/store';
+import { classNames } from 'core/utils/dom';
+import { Tabs, TabBody, TabHeader, Tab } from 'core/ui/components/Tabs';
 
 import { Groups } from './components/Groups';
 import { Technologies } from './components/Technologies';

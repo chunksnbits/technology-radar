@@ -3,17 +3,17 @@
 import { PureComponent } from 'react';
 import * as React from 'react';
 
-import { ApplicationStateContext, TechnologyRadarContext } from 'store';
+import { ApplicationStateContext, TechnologyRadarContext } from 'core/store';
 
-import { consume } from 'utils/store';
-import { classNames } from 'utils/dom';
+import { consume } from 'core/utils/store';
+import { classNames } from 'core/utils/dom';
 
-import { GlobalBackground } from 'ui/components/GlobalBackground';
-import { TextButton } from 'ui/components/TextButton';
+import { GlobalBackground } from 'core/ui/components/GlobalBackground';
+import { TextButton } from 'core/ui/components/TextButton';
 import { TechnologyDetailsNavigation } from './components/TechnologyDetailsNavigation';
 
 import './styles.scss';
-import { Logo } from 'ui/components/Logo';
+import { Logo } from 'core/ui/components/Logo';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyDetailsProps {

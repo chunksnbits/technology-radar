@@ -4,7 +4,7 @@ import * as React from 'react';
 import { MouseEventHandler } from 'react';
 
 import './styles.scss';
-import { classNames } from 'utils/dom';
+import { classNames } from 'core/utils/dom';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface GroupIndicatorProps {

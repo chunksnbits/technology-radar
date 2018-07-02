@@ -4,7 +4,7 @@
 import { PureComponent, Props } from 'react';
 import * as React from 'react';
 
-import { classNames } from 'utils/dom';
+import { classNames } from 'core/utils/dom';
 
 import './styles.scss';
 import { Icon } from '../Icon';

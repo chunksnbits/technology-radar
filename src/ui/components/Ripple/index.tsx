@@ -3,7 +3,7 @@
 import { createRef, PureComponent, RefObject, MouseEvent, TouchEvent } from 'react';
 import * as React from 'react';
 
-import { classNames, getPrimaryTouch, getPositionInElement } from 'utils/dom';
+import { classNames, getPrimaryTouch, getPositionInElement } from 'core/utils/dom';
 
 import './styles.scss';
 

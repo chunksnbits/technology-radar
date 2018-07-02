@@ -49,6 +49,11 @@ declare module "*.scss" {
   export default value;
 }
 
+declare module "public/*.svg" {
+  const value: string;
+  export default value;
+}
+
 declare module "public/data.json" {
   const value: ApplicationConfig;
   export default value;

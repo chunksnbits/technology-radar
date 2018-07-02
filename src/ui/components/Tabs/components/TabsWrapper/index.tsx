@@ -4,7 +4,7 @@
 import { Children, PureComponent } from 'react';
 import * as React from 'react';
 
-import { classNames } from 'utils/dom';
+import { classNames } from 'core/utils/dom';
 
 import './styles.scss';
 import { Tabs } from '@material-ui/core';

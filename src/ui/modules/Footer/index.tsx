@@ -3,10 +3,10 @@
 import { PureComponent } from 'react';
 import * as React from 'react';
 
-import { ApplicationStateContext, TechnologyRadarContext } from 'store';
+import { ApplicationStateContext, TechnologyRadarContext } from 'core/store';
 
-import { consume } from 'utils/store';
-import { classNames } from 'utils/dom';
+import { consume } from 'core/utils/store';
+import { classNames } from 'core/utils/dom';
 
 import { ViewToggle } from './components/view-toggle';
 import { CreateNewAction } from './components/create-new-action';

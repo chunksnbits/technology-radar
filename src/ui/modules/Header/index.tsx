@@ -5,10 +5,10 @@ import * as React from 'react';
 
 import { Button } from '@material-ui/core';
 
-import { ApplicationStateContext } from 'store';
+import { ApplicationStateContext } from 'core/store';
 
-import { consume } from 'utils/store/consume';
-import { classNames } from 'utils/dom';
+import { consume } from 'core/utils/store/consume';
+import { classNames } from 'core/utils/dom';
 
 import './styles.scss';
 

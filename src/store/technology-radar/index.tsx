@@ -5,7 +5,7 @@ import { PureComponent, createContext, Context } from 'react';
 
 import produce from 'immer';
 
-import { consume } from 'utils/store';
+import { consume } from 'core/utils/store';
 
 import { ApplicationStateContext } from '../application-state';
 import { defaultState, defaultTechnology, defaultGroup } from './constants';

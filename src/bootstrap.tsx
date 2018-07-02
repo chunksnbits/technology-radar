@@ -3,8 +3,8 @@
 import * as React from 'react';
 import { render, hydrate } from 'react-dom';
 
-import { ApplicationStateProvider, TechnologyRadarProvider } from 'store';
-import { canUseDOM } from 'utils/dom';
+import { ApplicationStateProvider, TechnologyRadarProvider } from 'core/store';
+import { canUseDOM } from 'core/utils/dom';
 
 if (canUseDOM()) {
   import('what-input');

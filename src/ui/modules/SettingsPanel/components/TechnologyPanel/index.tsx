@@ -5,9 +5,9 @@ import * as React from 'react';
 
 import { Button, TextField, Select, MenuItem } from '@material-ui/core';
 
-import { classNames } from 'utils/dom';
-import { FormGroup } from 'ui/components/FormGroup';
-import { ExpansionPanel, ExpansionPanelHeader, ExpansionPanelBody } from 'ui/components/ExpansionPanel';
+import { classNames } from 'core/utils/dom';
+import { FormGroup } from 'core/ui/components/FormGroup';
+import { ExpansionPanel, ExpansionPanelHeader, ExpansionPanelBody } from 'core/ui/components/ExpansionPanel';
 
 import './styles.scss';
 
