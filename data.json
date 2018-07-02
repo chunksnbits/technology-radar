@@ -1,20 +1,20 @@
 {
   "$schema": "../data.schema.json",
   "application": {
-    "editor": false,
-    "title": "Technological Skills Radar",
-    "subtitle": "curated by Daniel Eissing"
+    "editor": true,
+    "title": "Technology Radar",
+    "subtitle": "Example Set"
   },
   "technologyRadar": {
     "levels": [{
-      "id": "explore",
-      "name": "Explore"
+     "id": "explore",
+     "name": "Explore"
     }, {
-      "id": "extend",
-      "name": "Extend"
+      "id": "trial",
+      "name": "Trial"
     }, {
-      "id": "use",
-      "name": "Use"
+      "id": "production",
+      "name": "Production"
     }],
     "settings": {
       "outerRadiusPercent": 50,
@@ -22,13 +22,13 @@
       "editable": true
     },
     "groups": [{
-      "id": "frameworks",
-      "name": "Languages + Frameworks",
-      "color": "#8BDAE0"
-    }, {
       "id": "tools",
       "name": "Tools",
       "color": "#FC6C73"
+    }, {
+      "id": "frameworks",
+      "name": "Languages + Frameworks",
+      "color": "#8BDAE0"
     }, {
       "id": "serverside",
       "name": "Serverside Programming",
@@ -44,62 +44,21 @@
         "name": "webpack.js.org",
         "href": "https://webpack.js.org/"
       },
-      "description": "Webpack is a flexible and powerful module bundler for building JavaScript applications. Thanks to a large community Webpack offers a big ecosystem of plugins and transpilers (loaders) that allow you to build and maintain exactly the workflow you need to realize your web project. Even though other bundlers and build tools are more well suited to realize smaller and focused projects or libraries, Webpack to me is still the best choice when it comes to developing small to large scale frontend projects for the web. Today I prefer to use some of the well curated tools build on top of Webpack, like AngularCLI or ReactCreateApp, for professional projects, since they are easier to understand, communicate and maintain together with the rest of developement team. But when that is not enough the current project requirements I am still happy to build a custom webpack configuration and add custom plugins myself to realize exactly the build step needed for the current task at hand."
-    }, {
-      "id": "Task",
-      "groupId": "tools",
-      "name": "Task runners | gulp | grunt",
-      "level": 3,
-      "logo": "gulp",
-      "website": {
-        "name": "gulpjs.com/",
-        "href": "https://gulpjs.com/"
-      },
-      "description": "With Webpack we have gotten a performant and flexible bundler+ to handle most of our application's build requirements. However most often there is still a need to control all the other steps neccessary to deliver a convenient developer experience when developing, releasing and deploying apps. All of the three choices I have worked with recently - (npm/node) scripts, gruntjs and gulp - can be the right choice if used in the right situation. However, I love what I see from gulp 4.0.0 and the introduction of explicit series and parallel commands that make it easier to implement just the flow you need. Bundled with async functions and node, gulp will be definitely the first task runner I will be looking at when planning my next project."
-    }, {
-      "id": "sentry",
-      "groupId": "tools",
-      "name": "Frontend Error Logging | Sentry",
-      "level": 2,
-      "logo": "sentry",
-      "website": {
-        "name": "sentry.io",
-        "href": "https://sentry.io/welcome/"
-      },
-      "description": "With RESTful interfaces, more critical aspects of the business logic are covered through the frontend. This makes it inevitable to incooperate some sort of frontend logging approach into your application. I've been using sentry.io for some of my private projects, and find it more than helpful to detecting potential issues before they even arise."
+      "description": "Enim aute veniam officia mollit dolor nulla dolor sunt esse excepteur aliqua sint magna ullamco. Reprehenderit labore nisi ullamco."
     }, {
       "id": "storybook",
       "groupId": "tools",
       "name": "Storybook",
       "level": 1,
       "logo": "storybook",
-      "website": {
-        "href": "https://storybook.js.org",
-        "name": "storybook.js.org"
-      },
-      "description": "Developing UI component libraries as a separated, indepdendent (living) styleguide is becoming more common in professional web development projects. With a growing list of applications and frameworks that support realizing UI component libraries - I've been able to work with Styleguide.js, Patternlab, Patternplate and Vmware's Clarity in the past - Storybook looks to be one of the most interesting choices for building and maintaining UI component libraries. Storybook allows you freedom of choice of using it as part of a standalone application or integrate it into an existing codebase. With a good community, that provides a constant flow of plugins and extensions, realinzing even complex requirements like test-integration looks easy. The library itself is well defined through 'stories', that offer a fun and convenient interface to curate component samples. Early experiments have been very promising, so I am looking forward to using this as part of all kinds of technology stacks."
-    }, {
-      "id": "ladr",
-      "groupId": "tools",
-      "name": "Lightweight Architecture Decision Records",
-      "level": 1,
-      "logo": "ladr",
-      "website": {
-        "href": "http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions",
-        "name": "introduction post"
-      },
-      "description": "Taken straight from the latest version of Thoughtwork's technology radar, lightweight architecture decision records seem like an obvious should-have. Decision records are basic readme files (supported by some toolin if you choose so) that life in your codebase. For each new architectural decision, incl. but definitely not limited to architectural choices, choice of libraries or frameworks, programming approaches you create a decision file for that. The main benefits for me are manyfold. It adds transparency to how your project and application setup is made up and what the decision process behind that decision was. It gives new members joining the project an entry point to look at and see what is going on. And last but not least, it gives you a place to go to work out (and discuss) your decisions even before you make them. Taking it out for a spin on a recent project we ended up collecting alternatives for the decision we faced right in the document. Having this allowed to have something concrete to look at when discussing and making the decision. And recording said deicision afterwards was pretty much copy and paste."
+      "description": "Enim aute veniam officia mollit dolor nulla dolor sunt esse excepteur aliqua sint magna ullamco. Reprehenderit labore nisi ullamco laborum et qui fugiat voluptate proident. Culpa eu non nostrud elit id nulla ut veniam amet ut enim. Anim non dolor nisi consequat elit officia labore ad magna labore incididunt eiusmod. Minim mollit eiusmod et elit laboris ex sint. Laborum velit fugiat duis ex est in veniam ex voluptate culpa irure. Enim aute veniam officia mollit dolor nulla dolor sunt esse excepteur aliqua sint magna ullamco. Reprehenderit labore nisi ullamco laborum et qui fugiat voluptate proident. Culpa eu non nostrud elit id nulla ut veniam amet ut enim. Anim non dolor nisi consequat elit officia labore ad magna labore incididunt eiusmod. Minim mollit eiusmod et elit laboris ex sint. Laborum velit fugiat duis ex est in veniam ex voluptate culpa irure. Enim aute veniam officia mollit dolor nulla dolor sunt esse excepteur aliqua sint magna ullamco. Reprehenderit labore nisi ullamco laborum et qui fugiat voluptate proident. Culpa eu non nostrud elit id nulla ut veniam amet ut enim. Anim non dolor nisi consequat elit officia labore ad magna labore incididunt eiusmod. Minim mollit eiusmod et elit laboris ex sint. Laborum velit fugiat duis ex est in veniam ex voluptate culpa irure. Enim aute veniam officia mollit dolor nulla dolor sunt esse excepteur aliqua sint magna ullamco. Reprehenderit labore nisi ullamco laborum et qui fugiat voluptate proident. Culpa eu non nostrud elit id nulla ut veniam amet ut enim. Anim non dolor nisi consequat elit officia labore ad magna labore incididunt eiusmod. Minim mollit eiusmod et elit laboris ex sint. Laborum velit fugiat duis ex est in veniam ex voluptate culpa irure."
     }, {
       "id": "pwa",
       "groupId": "frameworks",
-      "name": "Offline first + PWAs",
+      "name": "PWA",
       "level": 2,
       "logo": "pwa",
-      "website": {
-        "href": "https://developers.google.com/web/progressive-web-apps/",
-        "name": "developers.google.com/web/progressive-web-apps"
-      },
-      "description": "Progressive Web Apps (PWA) are regular web applications that offer some of the benefits of native mobile applications like offline availabilitz. Service worker are the core technology used to realize browserside caching and offline capability for your webpage. Persisting your state into some form of front-end data-storage (like Hoodie, PouchDB or plaing localStorage) completes your user's offline experience. Most frameworks make it easy to offer service worker integrations out of the box, but creating a fully offline capable web application presents it challenges when it comes to synchronization and fallback handling. Even though, with Safari adding support for service workers, providing some basic PWA techniques seems like a no-brainer. Going the full offline-first route, is a consideration that in my oppinion should at least be considered."
+      "description": "Enim aute veniam officia mollit dolor nulla dolor sunt esse excepteur aliqua sint magna ullamco. Reprehenderit labore nisi ullamco laborum et qui fugiat voluptate proident. Culpa eu non nostrud elit id nulla ut veniam amet ut enim. Anim non dolor nisi consequat elit officia labore ad magna labore incididunt eiusmod. Minim mollit eiusmod et elit laboris ex sint. Laborum velit fugiat duis ex est in veniam ex voluptate culpa irure."
     }, {
       "id": "angular",
       "groupId": "frameworks",
@@ -110,168 +69,91 @@
         "name": "angular.io",
         "href": "https://angular.io/"
       },
-      "description": "Angular is a well curated set of libraries to realize single page applications. Angular has been the framework that I have grown most accustomed to through my professional line of work. Where other frameworks might be faster, Angular would be my choice when it comes to building middle to large scale web apps, especially when working with a team of mixed experience levels. In comparison Angular is less flexible and is less performance, esp. when it comes to requirements like serverside rendering, but its clear separation of controller, view and styling, as well as a strong typescript integration make it easier to achieve an good base level in code structure and quality. On top Angular has introduced in my view the hest ReactiveX library in RxJS into the frontend world, that makes dealing with complex data structures fun again. Looking forward the reorientation towards building libraries on based on native Web Compoments looks like it will Angular to become a choice for using Angular together with some of the most popular CMS systems like Adobe's AEM."
+      "description": "Enim aute veniam officia mollit dolor nulla dolor sunt esse excepteur aliqua sint magna ullamco. Reprehenderit labore nisi ullamco laborum et qui fugiat voluptate proident. Culpa eu non nostrud elit id nulla ut veniam amet ut enim. Anim non dolor nisi consequat elit officia labore ad magna labore incididunt eiusmod. Minim mollit eiusmod et elit laboris ex sint. Laborum velit fugiat duis ex est in veniam ex voluptate culpa irure."
     }, {
       "id": "reactjs",
       "groupId": "frameworks",
       "name": "ReactJs",
-      "level": 3,
+      "level": 2,
       "logo": "reactjs",
-      "website": {
-        "href": "https://reactjs.org/",
-        "name": "reactjs.org"
-      },
-      "description": "ReactJs is a library for building user interfaces. Where Angular feels like a full-size sedan, ReactJs is the well established sports car in the JavaScript library world - faster, more flexible and more powerful, but also harder to control. ReactJs teases you with its strong foundations in the coding site and has been a driver in the establishment of architectural concepts like reactive programming into the frontend world. And every other release of the framework seems now to add interesting stuff for developers to toy with, like declarative error handling with error boundaries or well designed features like contexts and portals. Due to it being solely build on top of JavaScript, realization of deferred loading of pages and components and serverside rendering is a breeze especially compared to other frameworks."
-    }, {
-      "id": "hyperapp",
-      "groupId": "frameworks",
-      "name": "Hyperapp",
-      "level": 1,
-      "logo": "hyperapp",
-      "website": {
-        "href": "https://hyperapp.js.org/",
-        "name": "hyperapp.js.org/"
-      },
-      "description": "Hyperapp is one of the miriad of choices available in the world of 'smaller', 'simpler' and 'faster' 1kb frontend libraries / frameworks alternatives to React and Angular. Hyperapp is a pragmatic, functional framework that focuses and limits itself to (simplified) state management, virtual DOM and lifecycle events to produce you a rendered state. Thanks to JSX it feels just about familiar enough to React folks to get started right away. Keeping it to the basics, it still feels lightweight enough to be just the fun and painless reprieve you might are looking for in a framework to use on your smale-scale side-project."
+      "description": "Enim aute veniam officia mollit dolor nulla dolor sunt esse excepteur aliqua sint magna ullamco. Reprehenderit labore nisi ullamco laborum et qui fugiat voluptate proident. Culpa eu non nostrud elit id nulla ut veniam amet ut enim. Anim non dolor nisi consequat elit officia labore ad magna labore incididunt eiusmod. Minim mollit eiusmod et elit laboris ex sint. Laborum velit fugiat duis ex est in veniam ex voluptate culpa irure."
     }, {
       "id": "vuejs",
       "groupId": "frameworks",
       "name": "VueJs",
       "level": 1,
       "logo": "vuejs",
-      "website": {
-        "href": "https://vuejs.org/",
-        "name": "vuejs.org"
-      },
-      "description": "VueJs is a versatile and performant JavaScript library for building component based web interfaces. VueJs for me seems to fall somewhere in the middle between Angular and ReactJs, with more flexibility in your architectural and framework choices, while also offering a stronger templating support through declarative rendering and templater binding. Eveen though I haven't been able to to use it in professional and personal projectst as much as I'd like for now, my first demos and proof of concepts have left me hungry for giving the language a more extensive look in upcoming projects in the very near future."
-    }, {
-      "id": "web-components",
-      "groupId": "frameworks",
-      "name": "(Native) Web components",
-      "level": 1,
-      "logo": "web-components",
-      "website": {
-        "href": "https://www.webcomponents.org/",
-        "name": "webcomponents.org"
-      },
-      "description": "The concept of (if possible) native, framework and library independent web components has teased us for a very long time now. I loved the idea from the very beginning and was convinced that this would change how developers approach web development in a verz short amount of time. Looking at Polymer very early on I felt just as deflated as most of the web developer world and turned to Angular, React and the likes instead. But web components are back and making a comeback. With Angular introducing native web components as one possible build target, some announced changes to the Polymer product line on the latest Google IO conference and the growing focus on design systems and component libraries at the core of modern web developement, it seems just around time to give native web components the 2nd chance they deserver and figure out ways to use them in production, especially since they look like an obvious solution to facing us when dealing issues of multi-framework architectures, technology migrations and issues with integrating interactive snippets into static content management systems like Adobe's AEM"
+      "description": "Enim aute veniam officia mollit dolor nulla dolor sunt esse excepteur aliqua sint magna ullamco. Reprehenderit labore nisi ullamco laborum et qui fugiat voluptate proident. Culpa eu non nostrud elit id nulla ut veniam amet ut enim. Anim non dolor nisi consequat elit officia labore ad magna labore incididunt eiusmod. Minim mollit eiusmod et elit laboris ex sint. Laborum velit fugiat duis ex est in veniam ex voluptate culpa irure."
     }, {
       "id": "amp",
       "groupId": "frameworks",
       "name": "AMP",
       "level": 1,
       "logo": "amp",
-      "website":  {
-        "href": "https://www.ampproject.org/",
-        "name": "ampproject.org"
-      },
-      "description": "Advanced Mobile Pages is a set of components and rules focused on delivering fast loading (mobile) web pages. AMP achieves this through a set of verifiable (there is a validator) rules, that force the developer to keep the critical render path free of secondary content. The result feels incredibly fast, especially on devices with slow connections (you will notice the difference when waiting for subway on your commute home...). Even though AMP feels limiting to web developers used to building single page apps, it offers the perfect solution to heavy load content sites. Looking beyond the hood, there is plenty of stuff to learn from the ideas and concepts incooperated in AMP to make the blog posts and youtube videos published around the release of AMP a must-watch for every web-developer trying to learn some tricks around the performance optimization for their web pages."
+      "description": "Enim aute veniam officia mollit dolor nulla dolor sunt esse excepteur aliqua sint magna ullamco. Reprehenderit labore nisi ullamco laborum et qui fugiat voluptate proident. Culpa eu non nostrud elit id nulla ut veniam amet ut enim. Anim non dolor nisi consequat elit officia labore ad magna labore incididunt eiusmod. Minim mollit eiusmod et elit laboris ex sint. Laborum velit fugiat duis ex est in veniam ex voluptate culpa irure."
     }, {
       "id": "typescript",
       "groupId": "frameworks",
       "name": "Typescript",
       "level": 3,
       "logo": "typescript",
-      "website": {
-        "href": "https://www.typescriptlang.org/",
-        "name": "typescriptlang.org"
-      },
-      "description": "Typescript is a typed superset of JavaScript that compiles back to JavaScript. Offering a number of useful extensions like type definitions and checking and early support for upcoming Ecmascript features like async / await and decorators, it can enrich the web development experience, especially with medium to large scale codebases and when dealing with a multifaceted team. The main benefit to me is, that Typescript offers the low-effort approach to documenting your codebase just by adding types and interfaces that make it more convenient to navigate through a legacy codebase."
-    }, {
-      "id": "unit",
-      "groupId": "frameworks",
-      "name": "Unit Testing - Jest, Karma, Mocha",
-      "level": 2,
-      "logo": "jest",
-      "website": {
-        "href": "https://facebook.github.io/jest/",
-        "name": "facebook.github.io/jest"
-      },
-      "description": "Looking at the mindset towards unit-testing shows a lot about how much Javascript has grown as software engineering tool over the last couple of years. Thanks to some outstanding out-of-the-box solutions for each of the major frameworks, adding unit-tests has become easy enough that every web application should have them. Even though I am not totally convinced yet of the benefits of TDD, I am a propponent of creating some baseline tests with each now component. The golden rule is to add a test whenver you find an edge-case or bug. Doing this will hardly slow down feature development, while still adding the benefit of feeling confident about your newly build legacy codebase once you face the first, surely to come change."
-    }, {
-      "id": "protractor",
-      "groupId": "frameworks",
-      "name": "E2E testing - Protractor, Cypress",
-      "level": 2,
-      "logo": "cypress",
-      "website": {
-        "href": "https://www.cypress.io/",
-        "name": "www.cypress.io"
-      },
-      "description": "Whereas unit tests lay the groundwork to ensure a working codebase, E2E ensure the stability of the glue holding your application together. Working with frameworks like Proctractor and webdriver.io I have fastly developed a love-hate relationship with both. Both offer a synchronized control flow out of the box, that prevents browser communication issues from failing your tests. But since in both cases assertions are still evaluated asap, they are still very fragile when it comes to testing an app's changing state. One alternative I am looking to use here is cypress, that promises to close exactly this "
+      "description": "Enim aute veniam officia mollit dolor nulla dolor sunt esse excepteur aliqua sint magna ullamco. Reprehenderit labore nisi ullamco laborum et qui fugiat voluptate proident. Culpa eu non nostrud elit id nulla ut veniam amet ut enim. Anim non dolor nisi consequat elit officia labore ad magna labore incididunt eiusmod. Minim mollit eiusmod et elit laboris ex sint. Laborum velit fugiat duis ex est in veniam ex voluptate culpa irure."
     }, {
       "id": "ecmascript",
       "groupId": "frameworks",
       "name": "Ecmascript",
       "level": 3,
       "logo": "ecmascript",
-      "website": {
-        "href": "https://github.com/tc39",
-        "name": "github.com/tc39"
-      },
-      "description": "After the big steps of ES5 and the vast expansion of the core language and system library with ES2015 the Javacript language core has become a language well suited for deleloping well engineered software. Following the constant flow of language changes to be introduced on a yearly basis through the TC39, it becomes vital and interesting to follow what is going to become part of the native browser core now and in the near future. Since Microsoft is alos adopting a faster update policy with it's flagshiop Internet Explorer browser having a strong understanding of the the core language featuers is vital. On top of that and thanks to a large active community - JavaScript according to some well publicized Github contribution statistics is the most used programming language today - JavaScript has also beecome a driver in the championing programming principles like funcional programming or reactive archtictures, which makes the language a perfect choice for developing for the web."
+      "description": "Enim aute veniam officia mollit dolor nulla dolor sunt esse excepteur aliqua sint magna ullamco. Reprehenderit labore nisi ullamco laborum et qui fugiat voluptate proident. Culpa eu non nostrud elit id nulla ut veniam amet ut enim. Anim non dolor nisi consequat elit officia labore ad magna labore incididunt eiusmod. Minim mollit eiusmod et elit laboris ex sint. Laborum velit fugiat duis ex est in veniam ex voluptate culpa irure."
     }, {
       "id": "html5",
       "groupId": "frameworks",
       "name": "HTML / CSS",
       "level": 3,
       "logo": "html5",
-      "description": "HTML and CSS are the building blocks of my tech stack. They lay the ground works for implementing rich, responsive user experiences on the web. With acesibility becoming a stronger focus point in realizing those interfaces keeping in touch with new developments, like the introduction of the native <dialog> element is important."
-    }, {
-      "id": "nodejs",
-      "groupId": "serverside",
-      "name": "NodeJs",
-      "level": 2,
-      "logo": "nodejs",
-      "website": {
-        "href": "https://nodejs.org/en/",
-        "name": "nodejs.org"
-      },
-      "description": "NodeJs is a runtime environment for running JavaScript on almost every device. Most commonly refered to in serverside applications, NodeJs itself has been a vital part of the frontend build ecosystem for years now. Having a good understanding of the the JavaScript language and some core NodeJs libraries is important and allows to you to become more flexible when setting up and maintaining build customizable build prooceses for frontend projects. On top of that NodeJs is a great option now to stretch beyond the obvious website ecosystem into IoT, machine learning or language based services, e.g., using AWSLambda for Alexa skills."
+      "description": "Enim aute veniam officia mollit dolor nulla dolor sunt esse excepteur aliqua sint magna ullamco. Reprehenderit labore nisi ullamco laborum et qui fugiat voluptate proident. Culpa eu non nostrud elit id nulla ut veniam amet ut enim. Anim non dolor nisi consequat elit officia labore ad magna labore incididunt eiusmod. Minim mollit eiusmod et elit laboris ex sint. Laborum velit fugiat duis ex est in veniam ex voluptate culpa irure."
     }, {
       "id": "awsLambda",
       "groupId": "serverside",
       "name": "AWS Lambda",
       "level": 1,
       "logo": "awsLambda",
-      "website": {
-        "href": "https://aws.amazon.com/lambda",
-        "name": "aws.amazon.com/lambda"
-      },
-      "description": "AWS Lambda allows developers to run serverside code without thinking about servers and server applications. AWS Lambda makes it easy to realize serverside functionality while focusing just on the implementation side, while many of the other concerns of developing functionality on the server, like security or scaling, are being supported or taking care of for you. Especially when the serverside is only a minor concern in your application architecture AWSLambda seems like the perfect way to go. Beyond that the focus on small, well separated microservices, and how to implement them through the service offers a great guideline for implemeting more customized server solutions as well."
+      "description": "Enim aute veniam officia mollit dolor nulla dolor sunt esse excepteur aliqua sint magna ullamco. Reprehenderit labore nisi ullamco laborum et qui fugiat voluptate proident. Culpa eu non nostrud elit id nulla ut veniam amet ut enim. Anim non dolor nisi consequat elit officia labore ad magna labore incididunt eiusmod. Minim mollit eiusmod et elit laboris ex sint. Laborum velit fugiat duis ex est in veniam ex voluptate culpa irure."
     }, {
       "id": "serverless",
       "groupId": "serverside",
       "name": "Serverless",
       "level": 1,
       "logo": "serverless",
-      "website": {
-        "href": "https://serverless.com/",
-        "name": "serverless.com"
-      },
-      "description": "Serverless is a no-frisk, low maintenance toolkit for developing, deploying and operating serverless architectures. The infrastructure and tools provided through the Serverless have been a much needed metaset on top of the services provided through the major cloud operatoers, like Amazon AWS, Google Cloud or Microsoft Azure. Using serverless makes it easier to develop and configure my server based applications, hiding and streamlining most of the complex options made available by the cloud services used."
+      "description": "Enim aute veniam officia mollit dolor nulla dolor sunt esse excepteur aliqua sint magna ullamco. Reprehenderit labore nisi ullamco laborum et qui fugiat voluptate proident. Culpa eu non nostrud elit id nulla ut veniam amet ut enim. Anim non dolor nisi consequat elit officia labore ad magna labore incididunt eiusmod. Minim mollit eiusmod et elit laboris ex sint. Laborum velit fugiat duis ex est in veniam ex voluptate culpa irure."
+    }, {
+      "id": "nodejs",
+      "groupId": "serverside",
+      "name": "NodeJs",
+      "level": 2,
+      "logo": "nodejs",
+      "description": "Enim aute veniam officia mollit dolor nulla dolor sunt esse excepteur aliqua sint magna ullamco. Reprehenderit labore nisi ullamco laborum et qui fugiat voluptate proident. Culpa eu non nostrud elit id nulla ut veniam amet ut enim. Anim non dolor nisi consequat elit officia labore ad magna labore incididunt eiusmod. Minim mollit eiusmod et elit laboris ex sint. Laborum velit fugiat duis ex est in veniam ex voluptate culpa irure."
     }, {
       "id": "awsAppsync",
       "groupId": "serverside",
       "name": "AWS AppSync",
       "level": 1,
       "logo": "awsAppsync",
-      "website": {
-        "href": "https://aws.amazon.com/appsync/",
-        "name": "aws.amazon.com/appsync"
-      },
-      "description": "AppSync allows you to easily configure and run GraphQL interfaces within the AWS service ecosystem. When exploring GraphQL and making my first steps in implementing it for my own projects, AppSync has become my preferred choice for now to realize the serverside portion of the API. Thanks to good integrations into other parts of the AWS service landscape, especially Lambda functions and DynamoDB, and some nice and easy to configure tools, I am looking forward to using the service even more for realizing future projects based on GraphQL."
+      "description": "Enim aute veniam officia mollit dolor nulla dolor sunt esse excepteur aliqua sint magna ullamco. Reprehenderit labore nisi ullamco laborum et qui fugiat voluptate proident. Culpa eu non nostrud elit id nulla ut veniam amet ut enim. Anim non dolor nisi consequat elit officia labore ad magna labore incididunt eiusmod. Minim mollit eiusmod et elit laboris ex sint. Laborum velit fugiat duis ex est in veniam ex voluptate culpa irure."
+    }, {
+      "id": "awsDynamoDb",
+      "groupId": "serverside",
+      "name": "AWS DynamoDb",
+      "level": 1,
+      "logo": "aws",
+      "description": "Enim aute veniam officia mollit dolor nulla dolor sunt esse excepteur aliqua sint magna ullamco. Reprehenderit labore nisi ullamco laborum et qui fugiat voluptate proident. Culpa eu non nostrud elit id nulla ut veniam amet ut enim. Anim non dolor nisi consequat elit officia labore ad magna labore incididunt eiusmod. Minim mollit eiusmod et elit laboris ex sint. Laborum velit fugiat duis ex est in veniam ex voluptate culpa irure."
     }, {
       "id": "graphql",
       "groupId": "serverside",
       "name": "GraphQL",
       "level": 1,
       "logo": "graphql",
-      "website": {
-        "href": "https://graphql.org/",
-        "name": "graphql.org"
-      },
-      "description": "GraphQL is a query language for your API. GraphQL applies some of the principles of Database queries with a well defined set of query language features to provided an interiguing alternative to the REST API interfaces most commonly used today. Some of the key benefits are that it allows the consuming side to define exactly the subset of data it needs for displaying information to the user in any kind of client application. This seems to make it an intriguing API choice especially when thinking about multi-device architectures or microfrontends, while unifying the queryside for all devices."
+      "description": "Enim aute veniam officia mollit dolor nulla dolor sunt esse excepteur aliqua sint magna ullamco. Reprehenderit labore nisi ullamco laborum et qui fugiat voluptate proident. Culpa eu non nostrud elit id nulla ut veniam amet ut enim. Anim non dolor nisi consequat elit officia labore ad magna labore incididunt eiusmod. Minim mollit eiusmod et elit laboris ex sint. Laborum velit fugiat duis ex est in veniam ex voluptate culpa irure."
     }]
   }
 }
