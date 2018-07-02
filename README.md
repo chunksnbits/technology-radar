@@ -3,7 +3,7 @@
 
 This project creates a simple technology radar reflecting technologies and skills that describe your current and future interests in an area of interest.
 
-See [https://chunksnbits.github.io/com-chunksnbits-technology-radar](https://chunksnbits.github.io/com-chunksnbits-technology-radar) for a running demo, based on my personal settings.
+See [https://chunksnbits.github.io/technology-radar](https://chunksnbits.github.io/technology-radar) for a running demo, based on my personal settings.
 
 Inspired by [ThoughtWorks' TechnologyRadar publications](https://www.thoughtworks.com/de/radar).
 

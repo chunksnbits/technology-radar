@@ -1,8 +1,8 @@
 {
-  "name": "com-chunksnbits-technology-radar",
+  "name": "technology-radar",
   "version": "0.3.2",
   "private": true,
-  "homepage": "https://chunksnbits.github.io/com-chunksnbits-technology-radar",
+  "homepage": "https://chunksnbits.github.io/technology-radar",
   "dependencies": {
     "@material-ui/core": "^1.0.0",
     "immer": "^1.3.0",
@@ -151,7 +151,7 @@
     ],
     "globals": {
       "ts-jest": {
-        "tsConfigFile": "/Users/daneis/Workspace/diesunddas/homepage/com-chunksnbits-technology-radar/tsconfig.test.json"
+        "tsConfigFile": "/Users/daneis/Workspace/diesunddas/technology-radar/packages/technology-radar/tsconfig.test.json"
       }
     }
   },
