@@ -1,6 +1,6 @@
 {
   "name": "technology-radar",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "private": true,
   "homepage": "https://chunksnbits.github.io/technology-radar",
   "dependencies": {
