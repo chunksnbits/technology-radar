@@ -3,7 +3,7 @@
 export function calculateTechnologyRotationDegrees(
     technology: Technology,
     groups: Group[],
-    technologies: Technology[]
+    technologies: Technology[],
   ): number {
 
   const index = calculateIndexInLevelAndGroup(technologies, technology);
@@ -36,7 +36,7 @@ export function calculateGroupRotationDegrees(group: Group, groups: Group[]): nu
 export function calculateItemOffsetPercent(
   technology: Technology,
   technologies: Technology[],
-  settings: TechnologyRadarSettings
+  settings: TechnologyRadarSettings,
 ): number {
   const { innerRadiusPercent, outerRadiusPercent } = settings;
 

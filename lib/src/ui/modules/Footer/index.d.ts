@@ -1,7 +1,8 @@
 import { PureComponent } from 'react';
-import './styles.scss';
+import { Classes } from 'jss';
 export interface FooterProps {
     className?: string;
+    classes?: Classes;
     viewMode?: ViewMode;
     toggleViewMode?: () => void;
 }

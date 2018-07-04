@@ -1,0 +1,6 @@
+{
+  "$schema": "../schemas/layout.schema.json",
+  "small": 0,
+  "medium": 767,
+  "large": 1023
+}

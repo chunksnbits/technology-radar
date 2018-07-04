@@ -1,7 +1,8 @@
 import { PureComponent, ReactNode } from 'react';
-import './styles.scss';
+import { Classes } from 'jss';
 export interface FormGroupProps {
     readonly children: ReactNode;
+    classes?: Classes;
     className?: string;
     label?: string;
     name?: string;

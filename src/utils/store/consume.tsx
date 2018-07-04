@@ -12,14 +12,14 @@ export interface BoundComponentOptions {
 function bindProps(options: BoundComponentOptions): BoundSelectors<any, any> {
   if (Boolean(options.bindTo)) {
     return {
-      [options.bindTo]: value => value
+      [options.bindTo]: value => value,
     }
   }
 
   return options.select.reduce((result, key) => {
     return {
       ...result,
-      [key]: value => value[key]
+      [key]: value => value[key],
     }
   }, {});
 }
@@ -28,7 +28,7 @@ function evaluateBindings(bindings: BoundSelectors<any, any>, props: React.Props
   return Object.entries(bindings).reduce((result, [key, selectorFnc]) => {
     return {
       ...result,
-      [key]: selectorFnc(props)
+      [key]: selectorFnc(props),
     };
   }, {});
 }

@@ -1,5 +1,5 @@
 {
-  "$schema": "../data.schema.json",
+  "$schema": "../schemas/data.schema.json",
   "application": {
     "editor": true,
     "title": "Technology Radar",

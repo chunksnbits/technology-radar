@@ -1,6 +1,6 @@
 
 declare type ApplicationStateStore = ApplicationState & ApplicationStateActions;
-declare type TechnologyRadarStore = TechnologyRadar;
+declare type TechnologyRadarStore = TechnologyRadarState;
 
 declare type Breakpoint = 'small' | 'medium' | 'large';
 declare type ViewMode = 'list' | 'radar';
@@ -10,19 +10,15 @@ declare interface ApplicationState {
   subtitle?: string;
   logo?: string;
 
-  breakpoint?: Breakpoint,
-
   focusedTechnology?: Technology;
   selectedTechnology?: Technology;
   selectedGroup?: Group;
 
   viewMode?: ViewMode;
-  theme: ApplicationTheme;
 }
 
 declare interface ApplicationStateActions {
   focusTechnology: (focused: Technology) => void;
-  updateBreakpoint: (width: number, height: number) => void;
 
   selectTechnology: (selected: Technology) => void;
   selectGroup: (selected: Group) => void;
@@ -32,7 +28,7 @@ declare interface ApplicationStateActions {
   reset: () => void;
 }
 
-declare interface TechnologyRadar {
+declare interface TechnologyRadarState {
   technologies?: Technology[];
   groups?: Group[];
   levels?: Level[];

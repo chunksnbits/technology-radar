@@ -3,28 +3,33 @@
 import { PureComponent } from 'react';
 import * as React from 'react';
 
-import { classNames } from 'core/utils/dom';
+import { Classes } from 'jss';
 
-import './styles.scss';
+import { styled, classNames } from 'core/utils';
+
+import { styles } from './styles.jss';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TabContainerProps {
   className?: string;
+  classes: Classes;
   active: boolean;
 }
 
 // ----------------------------------------------------------------------------- Implementation
+@styled(styles)
 export class TabBody extends PureComponent<TabContainerProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
+    const { classes } = this.props;
 
     const modifiers = [
-      this.props.active && 'c-tab-container--active'
+      this.props.active && classes.tabContainerActive,
     ];
 
     return (
-      <div className={ classNames('c-tab-container', this.props.className, ...modifiers) }>
+      <div className={ classNames(classes.root, this.props.className, ...modifiers) }>
         { this.props.children }
       </div>
     );

@@ -1,13 +1,17 @@
 import { PureComponent, ReactNode } from 'react';
 import * as React from 'react';
-import './styles.scss';
+import { Classes } from 'jss';
 export interface GlobalBackgroundProps {
-    children: ReactNode;
+    children?: ReactNode;
+    classes?: Classes;
+    theme?: ApplicationTheme;
     className?: string;
     position?: 'above' | 'below' | 'auto';
 }
+export declare class GlobalBackgroundRoot extends PureComponent<GlobalBackgroundProps> {
+    render(): JSX.Element;
+}
 export declare class GlobalBackground extends PureComponent<GlobalBackgroundProps> {
-    private rootClassName;
     render(): React.ReactPortal;
     private renderContent;
 }

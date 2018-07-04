@@ -1,14 +1,15 @@
-import { PureComponent } from 'react';
+import { PureComponent, ReactNode } from 'react';
 import * as React from 'react';
-import './styles.scss';
+import { Classes } from 'jss';
 export interface TabsWrapperProps {
     className?: string;
+    classes?: Classes;
     fixed?: boolean;
     sticky?: boolean;
 }
 export declare class TabsWrapper extends PureComponent<TabsWrapperProps> {
     render(): JSX.Element;
-    readonly tabsHeader: React.ReactChild[];
-    readonly tabsBody: React.ReactChild[];
-    readonly activeTabIndex: number;
+    getTabsHeader(children: ReactNode): React.ReactChild[];
+    getTabsBody(children: ReactNode): React.ReactChild[];
+    getActiveTabIndex(children: ReactNode): number;
 }

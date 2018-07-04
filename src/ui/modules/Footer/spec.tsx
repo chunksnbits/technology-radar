@@ -1,15 +1,29 @@
 import 'mocks/replace-consume';
+import 'mocks/mock-jss';
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { Footer } from './index';
+import { shallow } from 'enzyme';
 
-import { mockApplicationState, shallowWithApplicationState } from 'mocks';
+import { createClasses, noop } from 'mocks';
+
+import { Footer, FooterProps } from './index';
 import { ViewToggle } from './components/view-toggle';
+import { styles } from './styles.jss';
+
+// ----------------------------------------------------------------------------- Configuration
+const classes = createClasses(styles);
+
+const withProps = (props: Partial<FooterProps> = {}): FooterProps => ({
+  viewMode: 'radar',
+  toggleViewMode: noop,
+  ...classes,
+  ...props,
+});
 
 // ----------------------------------------------------------------------------- Implementation
 it('renders without crashing', () => {
-  const element = shallowWithApplicationState(<Footer />, mockApplicationState());
+  const element = shallow(<Footer { ...withProps() }/>);
 
   expect(element.exists).toBeTruthy();
   element.unmount();
@@ -17,6 +31,6 @@ it('renders without crashing', () => {
 
 
 it('renders toggle view button', () => {
-  const element = shallowWithApplicationState(<Footer />, Object.assign(mockApplicationState(), { viewMode: 'list' }));
+  const element = shallow(<Footer { ...withProps({ viewMode: 'list' }) } />);
   expect(element.find(ViewToggle).props().viewMode).toEqual('list');
 });

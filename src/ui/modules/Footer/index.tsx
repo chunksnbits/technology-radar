@@ -3,38 +3,39 @@
 import { PureComponent } from 'react';
 import * as React from 'react';
 
+import { Classes } from 'jss';
+
 import { ApplicationStateContext } from 'core/store';
 
-import { consume } from 'core/utils/store';
-import { classNames } from 'core/utils/dom';
+import { classNames, consume, styled } from 'core/utils';
 
 import { ViewToggle } from './components/view-toggle';
 
-import './styles.scss';
+import { styles } from './styles.jss';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface FooterProps {
   className?: string;
+  classes?: Classes;
   viewMode?: ViewMode;
   toggleViewMode?: () => void;
 }
 
 // ----------------------------------------------------------------------------- Implementation
 @consume(ApplicationStateContext, { select: ['viewMode', 'toggleViewMode'] })
+@styled(styles)
 export class Footer extends PureComponent<FooterProps> {
 
   handlers: BoundHandlers<any> = {};
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const { viewMode } = this.props;
+    const { viewMode, classes } = this.props;
 
     return (
-      <footer className={ classNames('c-footer', this.props.className) }>
-        <div className='c-footer__actions'>
-          <ViewToggle viewMode={ viewMode }
-            onClick={ this.toggleListViewHandler }
-            className='c-footer__action c-footer__action--togle-view' />
+      <footer className={ classNames(classes.root, this.props.className) }>
+        <div className={ classes.footerActions }>
+          <ViewToggle viewMode={ viewMode } onClick={ this.toggleListViewHandler } />
         </div>
       </footer>
     );

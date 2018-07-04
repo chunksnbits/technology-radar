@@ -1,7 +1,9 @@
 import { PureComponent } from 'react';
-import './styles.scss';
+import { Classes } from 'jss';
 export interface IconProps {
     className?: string;
+    color?: string;
+    classes?: Classes;
     name: string;
     size?: number | string;
 }

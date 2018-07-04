@@ -1,45 +1,53 @@
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-
 import { Fragment, PureComponent, ReactNode } from 'react';
 
-import { classNames } from 'core/utils/dom';
+import { Classes } from 'jss';
 
-import './styles.scss';
+import { classNames, styled } from 'core/utils';
+
 import { Button } from '@material-ui/core';
-import { Icon } from 'core/ui/components/Icon';
+import { Icon } from '../Icon';
+
+import { styles } from './styles.jss';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface BottomSheetProps {
   children: ReactNode;
   className?: string;
+  classes?: Classes;
+  theme?: ApplicationTheme;
   active?: boolean;
   onClose: (event: React.MouseEvent<HTMLElement>) => any;
 }
 
 // ----------------------------------------------------------------------------- Implementation
+@styled(styles)
 export class BottomSheet extends PureComponent<BottomSheetProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
+    const { classes, active, className, children, onClose } = this.props;
+
     const modifiers = [
-      this.props.active && `c-bottom-sheet--active`
+      active && classes.rootActive,
     ];
 
     return (
       <Fragment>
-        <div className={ classNames('c-bottom-sheet', this.props.className, ...modifiers) }>
-          <nav className='c-bottom-sheet__nav'>
-            <Button onClick={ this.props.onClose }
-              className='c-bottom-sheet__nav-action c-bottom-sheet__nav-action--close'
+        <div className={ classNames(classes.root, className, ...modifiers) }>
+          <nav className={ classes.navigation }>
+            <Button
+              onClick={ onClose }
+              className={ classNames(classes.navigationAction, classes.navgationActionClose) }
               variant='flat'>
-              <Icon name='close' className='c-bottom-sheet__nav-action-icon' />
+              <Icon name='close' className={ classes.navigationActionIcon } />
             </Button>
           </nav>
 
-          <section className='c-bottom-sheet__content'>
-            { this.props.children }
+          <section className={ classes.content }>
+            { children }
           </section>
         </div>
       </Fragment>

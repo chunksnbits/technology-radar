@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "required": [
+    "$schema",
+    "small",
+    "medium",
+    "large"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "number"
+    },
+    "small": {
+      "type": "number"
+    },
+    "medium": {
+      "type": "number"
+    },
+    "large": {
+      "type": "number"
+    }
+  }
+}

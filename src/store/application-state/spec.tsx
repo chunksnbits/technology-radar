@@ -21,11 +21,9 @@ it('applies initialState', () => {
   const [selectedTechnology] = technologies;
   const [selectedGroup] = groups;
 
-  const element = shallow(<ApplicationStateProvider initialState={{
+  const element = shallow(<ApplicationStateProvider state={{
     selectedTechnology,
     selectedGroup,
-    breakpoint: 'large',
-    theme: null
   }} />);
 
   const state = element.state() as ApplicationStateStore;

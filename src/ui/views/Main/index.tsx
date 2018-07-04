@@ -5,69 +5,53 @@ import { MouseEvent, PureComponent } from 'react';
 
 import { ApplicationStateContext } from 'core/store';
 
-import { TechnologyGraph, TechnologyList, TechnologyDetails, Header, Footer } from 'core/ui/modules';
-import { BottomSheet } from 'core/ui/components/BottomSheet';
-import { consume, debounce, classNames, canUseDOM } from 'core/utils';
+import { Classes } from 'jss';
 
-import './styles.scss';
+import { TechnologyGraph, TechnologyList, TechnologyDetails, Header, Footer } from 'core/ui/modules';
+import { AspectRatio, BottomSheet } from 'core/ui/components';
+import { consume, classNames, styled, capitalize } from 'core/utils';
+
+import { styles } from './styles.jss';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface MainViewProps {
   className?: string;
+  classes?: Classes;
   editor?: boolean;
   selectedTechnology?: Technology;
   viewMode?: ViewMode;
-  updateBreakpoint?: (width: number, height: number) => void;
   selectTechnology?: (technology: Technology) => void;
 }
 
 // ----------------------------------------------------------------------------- Implementation
 @consume(ApplicationStateContext, {
-  select: ['selectTechnology', 'selectedTechnology', 'viewMode', 'updateBreakpoint']
+  select: ['selectTechnology', 'selectedTechnology', 'viewMode'],
 })
+@styled(styles)
 export class MainView extends PureComponent<MainViewProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
-  componentDidMount() {
-    if (!canUseDOM()) {
-      return;
-    }
-
-    const { updateBreakpoint } = this.props;
-
-    window.addEventListener('resize', this.windowResizeHandler);
-    updateBreakpoint(window.innerWidth, window.innerHeight);
-  }
-
-  componentWillUnmount() {
-    if (!canUseDOM()) {
-      return;
-    }
-
-    window.removeEventListener('resize', this.windowResizeHandler);
-  }
-
   render() {
-    const { selectedTechnology, viewMode  } = this.props;
+    const { selectedTechnology, viewMode, classes  } = this.props;
 
     const modifiers = [
-      selectedTechnology && 'c-technology-radar--selected-technology',
-      `c-technology-radar--view-${ viewMode }`
+      selectedTechnology && classes.technologyRadarSelectedTechnology,
+      classes[`technologyRadarView${ capitalize(viewMode) }`],
     ];
 
-
     return (
-      <main className={ classNames('c-technology-radar', ...modifiers) }>
+      <main className={ classNames(classes.root, ...modifiers) }>
         <Header />
 
-        <section className='c-technology-radar__content-wrapper c-technology-radar__content-wrapper--radar'>
-          <div className='c-technology-radar__technology-radar'>
-            <TechnologyGraph className='c-technology-radar__content c-technology-radar__technology-radar-content' />
+        <section className={ classNames(classes.technologyRadarContentWrapper, classes.technologyRadarContentWrapperRadar) }>
+          <div className={ classes.technologyRadarTechnologyRadar }>
+            <AspectRatio className={ classes.technologyGraphAspectRatio} ratio={ 1 } />
+            <TechnologyGraph className={ classNames(classes.technologyRadarContent, classes.technologyRadarTechnologyRadarContent) }/>
           </div>
         </section>
 
-        <section className='c-technology-radar__content-wrapper c-technology-radar__content-wrapper--list'>
-          <TechnologyList className='c-technology-radar__content c-technology-radar__technology-list-content' />
+        <section className={ classNames(classes.technologyRadarContentWrapper, classes.technologyRadarContentWrapperList) }>
+          <TechnologyList className={ classNames(classes.technologyRadarContent, classes.technologyRadarTechnologyListContent) }/>
         </section>
 
         <BottomSheet
@@ -81,12 +65,6 @@ export class MainView extends PureComponent<MainViewProps> {
   }
 
   // ----------------------------------------------------------------------------- Event handler methods
-  private windowResizeHandler = () => {
-    debounce('app', () => {
-      this.props.updateBreakpoint(window.innerWidth, window.innerHeight);
-    });
-  }
-
   private technologyDetailsClosedHandler = (event: MouseEvent<HTMLElement>) => {
     if (event.defaultPrevented) {
       return;

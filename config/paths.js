@@ -49,7 +49,7 @@ module.exports = {
   appPrivate: resolveApp('private'),
   staticPaths: [resolveApp('public'), resolveApp('private')],
   appHtml: resolveApp('public/index.html'),
-  appIndexJs: resolveApp('src/main.tsx'),
+  appIndexJs: resolveApp('src/render.tsx'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
   yarnLockFile: resolveApp('yarn.lock'),

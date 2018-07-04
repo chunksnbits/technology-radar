@@ -6,34 +6,27 @@ import { PureComponent, createContext, Context } from 'react';
 import { consume } from 'core/utils/store';
 
 import { ApplicationStateContext } from '../application-state';
-import { defaultState } from './constants';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyRadarProviderProps {
-  initialState?: TechnologyRadar;
-  applicationState?: ApplicationState & ApplicationStateActions;
+  state?: any;
 }
 
-export const TechnologyRadarContext: Context<TechnologyRadarProvider> = createContext({} as any);
+export const TechnologyRadarContext: Context<TechnologyRadarProviderComponent> = createContext({} as any);
 
 // ----------------------------------------------------------------------------- Implementation
-@consume(ApplicationStateContext, { bindTo: 'applicationState' })
-export class TechnologyRadarProvider extends PureComponent<TechnologyRadarProviderProps, TechnologyRadarStore> {
-
-  constructor(props: TechnologyRadarProviderProps) {
-    super(props);
-    const initialState = Object.assign({}, defaultState, props.initialState || {});
-
-    this.state = {
-      ...initialState,
-
-      technologies: this.sortTechnologies(initialState.technologies, initialState.groups)
-    };
-  }
+export class TechnologyRadarProviderComponent extends PureComponent<TechnologyRadarProviderProps, TechnologyRadarStore> {
 
   render() {
+    const { technologies, groups } = this.props.state;
+
+    const state = {
+      ...this.props.state,
+      technologies: this.sortTechnologies(technologies, groups),
+    };
+
     return (
-      <TechnologyRadarContext.Provider value={ Object.assign({}, this.state, this) }>
+      <TechnologyRadarContext.Provider value={ Object.assign({}, state, this) }>
         { this.props.children }
       </TechnologyRadarContext.Provider>
     );
@@ -58,3 +51,9 @@ export class TechnologyRadarProvider extends PureComponent<TechnologyRadarProvid
     return groups.findIndex(acc => acc.id === technology.groupId);
   }
 }
+
+// ----------------------------------------------------------------------------- Export
+// tslint:disable-next-line:max-classes-per-file
+@consume(ApplicationStateContext, { bindTo: 'applicationState' })
+export class TechnologyRadarProvider extends TechnologyRadarProviderComponent {}
+

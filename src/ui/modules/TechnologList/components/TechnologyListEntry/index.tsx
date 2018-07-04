@@ -1,17 +1,20 @@
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { Button } from '@material-ui/core';
-import { classNames } from 'core/utils/dom';
-
 import { createRef, MouseEventHandler, PureComponent, RefObject } from 'react';
 
-import './styles.scss';
-import { GroupIndicator } from 'core/ui/components/GroupIndicator';
+import { Button } from '@material-ui/core';
+import { Classes } from 'jss';
+
+import { styled, classNames } from 'core/utils';
+import { GroupIndicator } from 'core/ui/components';
+
+import { styles } from './styles.jss';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyListEntryProps {
   className?: string;
+  classes?: Classes;
   technology: Technology;
   group: Group;
   focused: boolean;
@@ -22,6 +25,7 @@ export interface TechnologyListEntryProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
+@styled(styles)
 export class TechnologyListEntry extends PureComponent<TechnologyListEntryProps> {
 
   elementRef: RefObject<HTMLLIElement>;
@@ -37,37 +41,37 @@ export class TechnologyListEntry extends PureComponent<TechnologyListEntryProps>
       return;
     }
 
-    console.log('+++ foc', this.props.focusable);
-
     if (this.props.focused) {
       this.elementRef.current.scrollIntoView({
         block: 'nearest',
         inline: 'nearest',
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
   }
 
   render() {
-    const { className, focusable, technology, group, focused, ...buttonProps } = this.props;
+    const { className, classes, focusable, technology, group, focused, ...buttonProps } = this.props;
 
     const modifiers = [
-      focused && 'c-technology-list-entry--focused'
+      focused && classes.technologyListEntryFocused,
     ];
 
     return (
-      <li className={ classNames('c-technology-list-entry', className, ...modifiers) }
+      <li className={ classNames(classes.root, className, ...modifiers) }
+        style={{
+        }}
         ref={ this.elementRef }>
         <Button role='flat'
           fullWidth={ true }
           { ...buttonProps as any }
-          className='c-technology-list-entry__button'>
+          className={ classes.technologyListEntryButton }>
           <GroupIndicator
-            className='c-technology-list-entry__group-indicator'
+            className={ classes.technologyListEntryGroupIndicator }
             color={ group.color }
             focused={ focused } />
 
-          <span className='c-technology-list-entry__label'>
+          <span className={ classes.technologyListEntryLabel }>
             { technology.name }
           </span>
         </Button>

@@ -37,9 +37,6 @@
     "plugin/selector-bem-pattern": {
       "componentName": "^[-a-z]+$",
       "componentSelectors": "^.{componentName}(?:__[-a-z]+)?(?:--[-a-z]+)?$"
-    },
-    "selector-type-no-unknown": [true, {
-      "ignoreTypes": ["/^\\[?audi/"]
-    }],
+    }
   }
 }

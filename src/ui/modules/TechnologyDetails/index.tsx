@@ -3,21 +3,21 @@
 import { PureComponent } from 'react';
 import * as React from 'react';
 
+import { Classes } from 'jss';
+
 import { ApplicationStateContext, TechnologyRadarContext } from 'core/store';
 
-import { consume } from 'core/utils/store';
-import { classNames } from 'core/utils/dom';
+import { styled, consume, classNames } from 'core/utils';
 
-import { GlobalBackground } from 'core/ui/components/GlobalBackground';
-import { TextButton } from 'core/ui/components/TextButton';
+import { GlobalBackground, TextButton, Logo } from 'core/ui/components';
 import { TechnologyDetailsNavigation } from './components/TechnologyDetailsNavigation';
 
-import './styles.scss';
-import { Logo } from 'core/ui/components/Logo';
+import { styles } from './styles.jss';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyDetailsProps {
   className?: string;
+  classes?: Classes;
   groups?: Group[];
   technologies?: Technology[];
   selectedTechnology?: Technology;
@@ -29,54 +29,56 @@ export interface TechnologyDetailsProps {
 // ----------------------------------------------------------------------------- Implementation
 @consume(ApplicationStateContext, { select: ['selectedTechnology', 'selectTechnology', 'selectGroup'] })
 @consume(TechnologyRadarContext, { select: ['groups', 'technologies'] })
+@styled(styles)
 export class TechnologyDetails extends PureComponent<TechnologyDetailsProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const { selectedTechnology, groups, technologies } = this.props;
+    const { selectedTechnology, groups, technologies, classes } = this.props;
 
     const active = Boolean(selectedTechnology);
 
     const modifiers = [
-      active && 'c-technology-details--active'
+      active && classes.technologyDetailsActive,
     ];
 
     const group = this.findGroupForTechnology(selectedTechnology, groups);
 
     return (
-      <div className={ classNames('c-technology-details', this.props.className, ...modifiers) }>
+      <div className={ classNames(classes.root, this.props.className, ...modifiers) }>
         {
           active && Boolean(selectedTechnology.logo) &&
           <GlobalBackground>
-            <Logo className='c-technology-details__logo'
+            <Logo className={ classes.technologyDetailsLogo }
               name={ selectedTechnology.logo }
               color={ group && group.color } />
           </GlobalBackground>
         }
-        <div className='c-technology-details__content'>
-          <div className='c-technology-details__title'>
-            <h3 className='c-technology-details__name'>
+        <div className={ classes.technologyDetailsContent }>
+          <div className={ classes.technologyDetailsTitle }>
+            <h3 className={ classes.technologyDetailsName }>
               { selectedTechnology && selectedTechnology.name }
             </h3>
 
-            <TextButton onClick={ this.selectGroupHandler } className='c-technology-details__group'>
-              <span className='c-technology-details__group-color'
+            <TextButton onClick={ this.selectGroupHandler } className={ classes.technologyDetailsGroup }>
+              <span className={ classes.technologyDetailsGroupColor }
                 style={{
-                  borderColor: Boolean(group) ? group.color : 'transparent'
+                  borderColor: Boolean(group) ? group.color : 'transparent',
                 }} />
 
-              <span className='c-technology-details__group-name'>
+              <span className={ classes.technologyDetailsGroupName }>
                 { Boolean(group) ? group.name : null }
               </span>
             </TextButton>
           </div>
 
-          <p className='c-technology-details__description'>
+          <p className={ classes.technologyDetailsDescription }>
             { selectedTechnology && selectedTechnology.description }
           </p>
         </div>
 
         <TechnologyDetailsNavigation
+          className={ classes.technologyDetailsNavigation }
           selectedTechnology={ selectedTechnology }
           technologies={ technologies }
           onSelect={ this.selectTechnologyHandler } />

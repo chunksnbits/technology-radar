@@ -1,1 +1,0 @@
-{"version":3,"file":"last.js","sourceRoot":"","sources":["../../../src/utils/collection/last.ts"],"names":[],"mappings":";;AACA,+FAA+F;AAC/F,cAAqB,UAAiB;IACpC,IAAI,CAAC,OAAO,CAAC,UAAU,CAAC,IAAI,OAAO,UAAU,CAAC,MAAM,KAAK,QAAQ,EAAE;QACjE,OAAO,IAAI,CAAC;KACb;IAED,OAAO,UAAU,CAAC,UAAU,CAAC,MAAM,CAAC,CAAC;AACvC,CAAC;AAND,oBAMC"}

@@ -1,7 +1,11 @@
-/// <reference types="react" />
+import { PureComponent } from 'react';
+import { Classes } from 'jss';
 export interface ViewToggleProps {
     className?: string;
+    classes?: Classes;
     viewMode: ViewMode;
     onClick: () => void;
 }
-export declare const ViewToggle: ({ viewMode, className, onClick }: ViewToggleProps) => JSX.Element;
+export declare class ViewToggle extends PureComponent<ViewToggleProps> {
+    render(): JSX.Element;
+}

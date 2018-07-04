@@ -1,0 +1,9 @@
+{
+  "$schema": "../schemas/theme.schema.json",
+  "base": "rgba(255, 255, 255, 1)",
+  "secondary": "rgba(175, 175, 175, 1)",
+  "accent": "rgba(139, 218, 224, 1)",
+  "primary": "rgba(2, 22, 12, 1)",
+  "a11y": "#9c27b0",
+  "itemSize": 3
+}

@@ -1,7 +1,8 @@
-import { MouseEventHandler } from 'react';
-import './styles.scss';
+import { MouseEventHandler, PureComponent } from 'react';
+import { Classes } from 'jss';
 export interface GroupIndicatorProps {
     className?: string;
+    classes?: Classes;
     color: string;
     focused: boolean;
     large?: boolean;
@@ -9,4 +10,6 @@ export interface GroupIndicatorProps {
     onMouseOver?: MouseEventHandler<HTMLSpanElement>;
     onMouseOut?: MouseEventHandler<HTMLSpanElement>;
 }
-export declare const GroupIndicator: (props: GroupIndicatorProps) => JSX.Element;
+export declare class GroupIndicator extends PureComponent<GroupIndicatorProps> {
+    render(): JSX.Element;
+}

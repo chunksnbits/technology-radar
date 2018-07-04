@@ -6,19 +6,23 @@ import * as React from 'react';
 import { ApplicationStateContext, TechnologyRadarContext } from 'core/store';
 
 import { consume } from 'core/utils/store';
-import { classNames } from 'core/utils/dom';
+import { styled, classNames } from 'core/utils';
+
+import { Classes } from 'jss';
 
 import { TechnologyItem } from './components/TechnologyItem';
 
-import './styles.scss';
 import { calculateTechnologyRotationDegrees, calculateItemOffsetPercent, calculateGroupRotationDegrees } from './components/utils/math';
 import { LegendGroupLabels } from './components/LegendGroupLabels';
 import { LegendGroupSeparators } from './components/LegendGroupSeparators';
 import { LegendLevels } from './components/LegendLevels';
 
+import { styles } from './styles.jss';
+
 // ----------------------------------------------------------------------------- Configuration
-export interface TechnologyRadarProps {
+export interface TechnologyGraphProps {
   className?: string;
+  classes?: Classes;
   groups?: Group[];
   levels?: Level[];
   technologies?: Technology[];
@@ -41,14 +45,15 @@ const BASE_TRANSFORM_ROTATE_DEGREES = -10;
     'selectedGroup',
     'selectGroup',
     'focusTechnology',
-    'selectTechnology'
-  ]
+    'selectTechnology',
+  ],
 })
 @consume(TechnologyRadarContext, { select: ['groups', 'levels', 'technologies', 'settings'] })
-export class TechnologyGraph extends PureComponent<TechnologyRadarProps> {
+@styled(styles)
+export class TechnologyGraph extends PureComponent<TechnologyGraphProps> {
   elementRef: RefObject<HTMLDivElement>;
 
-  constructor(props: TechnologyRadarProps) {
+  constructor(props: TechnologyGraphProps) {
     super(props);
     this.elementRef = createRef();
   }
@@ -58,31 +63,34 @@ export class TechnologyGraph extends PureComponent<TechnologyRadarProps> {
    * Adds performance optimization for render intensive tasks.
    */
   componentWillUpdate() {
-    this.elementRef.current.classList.add('c-technology-graph--will-change');
+    this.elementRef.current.classList.add(this.props.classes.technologyGraphWillChange);
   }
 
   componentDidUpdate() {
-    this.elementRef.current.classList.remove('c-technology-graph--will-change');
+    this.elementRef.current.classList.remove(this.props.classes.technologyGraphWillChange);
   }
 
   render() {
-    const { groups, levels, technologies, settings } = this.props;
+    const { groups, levels, technologies, settings, classes } = this.props;
     const { focusedTechnology, selectedTechnology, selectedGroup } = this.props;
 
+
     const modifiers = [
-      Boolean(selectedTechnology) && 'c-technology-graph--selected-technology',
-      Boolean(selectedGroup) && 'c-technology-graph--selected-group',
+      Boolean(selectedTechnology) && classes.technologyGraphSelectedTechnology,
+      Boolean(selectedGroup) && classes.technologyGraphSelectedGroup,
     ];
 
     const transforms = this.calculateFocusTransforms();
 
     return (
-      <div className={ classNames('c-technology-graph', this.props.className, ...modifiers) }
-        style={ transforms }
+      <div className={ classNames(classes.root, this.props.className, ...modifiers) }
+        style={{
+          ...transforms,
+        }}
         onClick={ this.deselectHandler }
         ref={ this.elementRef }>
-        <div className='c-technology-graph__content'>
-          <div className='c-technology-graph__legend'>
+        <div className={ classes.technologyGraphContent }>
+          <div className={ classes.technologyGraphLegend }>
             <LegendGroupLabels
               groups={ groups }
               onSelect={ this.selectGroupHandler } />
@@ -97,18 +105,20 @@ export class TechnologyGraph extends PureComponent<TechnologyRadarProps> {
               levels={ levels } />
           </div>
 
-          <div className='c-technology-graph__technologies'>{
+          <div className={ classes.technologyGraphTechnologies }>{
             technologies.map((technology) => (
               <TechnologyItem
                 key={ technology.id  }
-                className='c-technology-graph__item'
+                className={ classes.technologyGraphTechnologyItem }
                 technology={ technology }
                 focused={ Boolean(focusedTechnology) && focusedTechnology.id === technology.id }
                 selected={ Boolean(selectedTechnology) && selectedTechnology === technology }
+                groups={ groups }
+                technologies={ technologies }
+                settings={ settings }
                 onSelect={ this.selectTechnologyHandler }
                 onMouseOver={ this.focusTechnologyHandler }
-                onMouseOut={ this.unfocusTechnologyHandler }
-                { ...this.props } />
+                onMouseOut={ this.unfocusTechnologyHandler } />
           ))}</div>
         </div>
       </div>
@@ -171,7 +181,7 @@ export class TechnologyGraph extends PureComponent<TechnologyRadarProps> {
         'scale3d(1, 1, 1)',
         'translate3d(0, 0, 0)',
         `rotate3d(0, 0, 1, ${ BASE_TRANSFORM_ROTATE_DEGREES }deg)`,
-      ].join(' ')
+      ].join(' '),
     };
   }
 
@@ -189,7 +199,7 @@ export class TechnologyGraph extends PureComponent<TechnologyRadarProps> {
         `rotate3d(0, 0, 1, ${ -1 * rotationDegrees }deg)`,
         `translate3d(${ itemOffsetPercent * 0.9 }%, 0, 0)`,
         `rotate3d(0, 0, 1, ${ rotationDegrees }deg)`,
-      ].join(' ')
+      ].join(' '),
     }
   }
 
@@ -207,7 +217,7 @@ export class TechnologyGraph extends PureComponent<TechnologyRadarProps> {
         `rotate3d(0, 0, 1, ${ -1 * rotationDegrees }deg)`,
         `translate3d(25%, 0, 0)`,
         `rotate3d(0, 0, 1, ${ rotationDegrees }deg)`,
-      ].join(' ')
+      ].join(' '),
     }
   }
 }

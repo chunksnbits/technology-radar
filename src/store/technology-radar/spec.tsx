@@ -3,53 +3,38 @@ import 'mocks/replace-consume';
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
 
-import { TechnologyRadarProvider } from './index';
-import { ApplicationStateProvider } from '../application-state';
-import { mockTechnology, mockGroup } from 'mocks';
+import { TechnologyRadarProviderComponent } from './index';
+import { mockTechnology, mockGroup, mockApplicationState } from 'mocks';
 import { shallow } from 'enzyme';
 
-// ----------------------------------------------------------------------------- Configuration
-function mountStore(initialState = {},
-applicationState = null) {
-  if (applicationState === null) {
-    applicationState = shallow(<ApplicationStateProvider />).state();
-  }
-
-  return shallow(<TechnologyRadarProvider
-    initialState={ initialState }
-    applicationState={ applicationState }
-  />);
-}
-
-// ----------------------------------------------------------------------------- Implementation
-it('initializes TechnologyRadarStoreProvider state',
-() => {
-  const element = mountStore({
+// ---------------------------------------------------------------------------- Implementation
+it('initializes TechnologyRadarStoreProvider state', () => {
+  const initialState = {
     groups: [mockGroup()],
-    technologies: [mockTechnology()]
-  });
+    technologies: [mockTechnology()],
+  };
 
-  const state = element.state() as TechnologyRadarStore;
+  const element = shallow(<TechnologyRadarProviderComponent state={ initialState } { ...mockApplicationState() } />);
+
+  const state = element.props().value as TechnologyRadarStore;
 
   expect(Array.isArray(state.technologies)).toBeTruthy();
   expect(Array.isArray(state.groups)).toBeTruthy();
 });
 
-it('applies initialState',
-() => {
-  const technologies = [mockTechnology()];;
-  const groups = [mockGroup()];
+it('applies initialState', () => {
+  const initialState = {
+    groups: [mockGroup()],
+    technologies: [mockTechnology()],
+  };
 
-  const element = mountStore({
-    technologies,
-    groups
-  });
+  const element = shallow(<TechnologyRadarProviderComponent state={ initialState } { ...mockApplicationState() } />);
 
-  const state = element.state() as TechnologyRadarStore;
+  const state = element.props().value as TechnologyRadarStore;
 
   expect(state.technologies.length).toBe(1);
-  expect(state.technologies[0]).toEqual(technologies[0]);
+  expect(state.technologies[0]).toEqual(initialState.technologies[0]);
 
   expect(state.groups.length).toBe(1);
-  expect(state.groups[0]).toEqual(groups[0]);
+  expect(state.groups[0]).toEqual(initialState.groups[0]);
 });

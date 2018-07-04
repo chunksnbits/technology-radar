@@ -23,12 +23,29 @@ declare interface Level {
 
 declare interface ApplicationConfig {
   application: ApplicationState;
-  technologyRadar: TechnologyRadar;
+  technologyRadar: TechnologyRadarState;
 }
 
+declare interface ScreenSize {
+  width: number;
+  height: number;
+}
+
+declare type DeviceOrientation = 'landscape' | 'portrait';
+
 declare interface ApplicationTheme {
-  breakpoints: { [key: string]: number };
-  colors: { [key: string]: string };
+  base: string;
+  primary: string;
+  secondary: string;
+  backgroundTextContent?: string;
+  textContent?: string;
+  itemSize?: number;
+}
+
+declare interface LayoutBreakpoints {
+  small: number;
+  medium: number;
+  large: number;
 }
 
 declare interface BoundHandlers<T> {
@@ -59,8 +76,13 @@ declare module "public/data.json" {
   export default value;
 }
 
-declare module "core/theme.default.json" {
+declare module "public/theme.default.json" {
   const value: ApplicationTheme;
+  export default value;
+}
+
+declare module "public/layout.default.json" {
+  const value: LayoutBreakpoints;
   export default value;
 }
 

@@ -1,99 +1,85 @@
 import 'mocks/replace-consume';
+import 'mocks/mock-jss';
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { shallow, mount } from 'enzyme';
-import { mockTechnology, mockGroup, mockTechnologyRadarStore, mockApplicationStateStore } from 'mocks';
+import { shallow } from 'enzyme';
+import { mockTechnology, mockGroup, extractSelectors } from 'mocks';
 
-import { TechnologyDetails } from './index';
+import { TechnologyDetails, TechnologyDetailsProps } from './index';
+import { createClasses } from 'mocks';
+
+import { styles } from './styles.jss';
 
 // ----------------------------------------------------------------------------- Configuration
-const groups = [mockGroup({ id: 'any' })]
+const classes = createClasses(styles);
+const selectors = extractSelectors(classes);
 
-const shallowWithState = (props: any = {}) => {
-  return shallow(
-    <TechnologyDetails
-      { ...props.applicationState || {} }
-      { ...props.technologyRadar || {} }/>
-  )
-}
-
-const mountWithState = (props: any = {}) => {
-  return mount(
-    <TechnologyDetails
-      { ...props.applicationState || {} }
-      { ...props.technologyRadar || {} }/>
-  )
+const withProps = (props: Partial<TechnologyDetailsProps> = {}): TechnologyDetailsProps => {
+  return {
+    classes,
+    groups: [mockGroup({ id: 'any' })],
+    technologies: [mockTechnology()],
+    selectedTechnology: null,
+    ...props,
+  };
 }
 
 // ----------------------------------------------------------------------------- Implementation
 it('renders without crashing', () => {
-  const element = shallowWithState({
-    technologyRadar: {
-      groups,
-    },
-    applicationState: {
-      selectedTechnology: null
-    }
-  });
+  const element = shallow(<TechnologyDetails { ...withProps() } />);
 
   expect(element.length).toBe(1);
 });
 
 
 it('renders title', () => {
-  const element = shallowWithState({
-    applicationState: {
-      selectedTechnology: mockTechnology()
-    },
-    technologyRadar: {
-      groups,
-    }
-  });
-
-  expect(element.find('.c-technology-details__name').text()).toBe('Any');
+  const element = shallow(
+    <TechnologyDetails { ...withProps({ selectedTechnology: mockTechnology({ name: 'Test', groupId: 'any' }) }) } />,
+  );
+  expect(element.find(selectors.technologyDetailsName).text()).toBe('Test');
 });
 
 it('renders description', () => {
-  const element = shallowWithState({
-    technologyRadar: {
-      groups,
-    },
-    applicationState: {
-      selectedTechnology: mockTechnology({ description: 'Description', groupId: 'any' })
-    }
-  });
-
-  expect(element.find('.c-technology-details__description').text()).toBe('Description');
+  const selectedTechnology = mockTechnology({ description: 'Description', groupId: 'any' });
+  const element = shallow(
+    <TechnologyDetails {
+      ...withProps({
+        selectedTechnology,
+        technologies: [selectedTechnology],
+      })
+    } />,
+  );
+  expect(element.find(selectors.technologyDetailsDescription).text()).toBe('Description');
 });
 
 it('renders group name', () => {
-  const technology = mockTechnology({ id: test, groupId: 'any' });
+  const selectedTechnology = mockTechnology({ id: 'test', groupId: 'any' });
 
-  const element = mountWithState({
-    technologyRadar: mockTechnologyRadarStore({
-      technologies: [technology, mockTechnology(), mockTechnology()],
-      groups: [mockGroup({ id: 'any', name: 'Group' })],
-    }),
-    applicationState: mockApplicationStateStore({
-      selectedTechnology: technology
-    })
-  });
+  const element = shallow(
+    <TechnologyDetails {
+      ...withProps({
+        selectedTechnology,
+        technologies: [selectedTechnology, mockTechnology(), mockTechnology()],
+        groups: [mockGroup({ id: 'any', name: 'Group' })],
+      })
+    } />,
+  );
 
-  expect(element.find('.c-technology-details__group-name').text()).toBe('Group');
+  expect(element.find(selectors.technologyDetailsGroupName).text()).toBe('Group');
 });
 
 it('renders group coloor', () => {
-  const element = shallowWithState({
-    technologyRadar: {
-      groups: [mockGroup({ id: 'any', name: 'Group' })],
-    },
-    applicationState: {
-      selectedTechnology: mockTechnology({ groupId: 'any', color: 'red' })
-    }
-  });
+  const element = shallow(
+    <TechnologyDetails {
+      ...withProps({
+        groups: [mockGroup({ id: 'any', name: 'Group', color: 'red' })],
+        selectedTechnology: mockTechnology({ groupId: 'any' }),
+      })
+    } />,
+  );
 
-  const color = element.find('.c-technology-details__group-color');
+  const color = element.find(selectors.technologyDetailsGroupColor);
 
   expect(color.getElement().props.style.borderColor).toBe('red');
 });

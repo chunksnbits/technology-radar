@@ -3,18 +3,20 @@
 import { Component } from 'react';
 import * as React from 'react';
 
-import { classNames } from 'core/utils/dom';
+import { Classes } from 'jss';
 
-import { Ripple } from 'core/ui/components/Ripple';
-import { GroupIndicator } from 'core/ui/components/GroupIndicator';
+import { classNames, styled } from 'core/utils';
+
+import { Ripple, GroupIndicator } from 'core/ui/components';
 
 import { findGroupForTechnology, calculateTechnologyRotationDegrees, calculateItemOffsetPercent } from '../utils/math';
 
-import './styles.scss';
+import { styles } from './styles.jss';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyItemProps {
   className?: string;
+  classes?: Classes;
   technology: Technology;
   focused: boolean;
   selected: boolean;
@@ -27,6 +29,7 @@ export interface TechnologyItemProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
+@styled(styles)
 export class TechnologyItem extends Component<TechnologyItemProps> {
   // ----------------------------------------------------------------------------- Lifecycle methods
   shouldComponentUpdate(props: TechnologyItemProps): boolean {
@@ -37,7 +40,8 @@ export class TechnologyItem extends Component<TechnologyItemProps> {
   }
 
   render() {
-    const { focused, selected, technology, groups } = this.props;
+    const { classes, className, focused, selected, technology, groups } = this.props;
+
     if (!Boolean(groups)) {
       return null;
     }
@@ -49,17 +53,17 @@ export class TechnologyItem extends Component<TechnologyItemProps> {
     }
 
     const modifiers = [
-      selected && 'c-technology-item--selected',
+      selected && classes.technologyItemSelected,
     ];
 
     return (
       <div
-        className={ classNames('c-technology-item', this.props.className, ...modifiers) }
+        className={ classNames(classes.root, className, ...modifiers) }
         style={ this.calculateTransforms(this.props) }
         custom-attribute={ [technology.name, selected].join(', ') }>
         <Ripple position='relative'>
           <GroupIndicator
-            className='c-technology-item__item'
+            className={ classes.technologyItemItem }
             color={ group.color }
             focused={ focused }
             onClick={ this.propagateSelect }

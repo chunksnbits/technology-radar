@@ -1,7 +1,8 @@
 import { PureComponent } from 'react';
-import './styles.scss';
+import { Classes } from 'jss';
 export interface TechnologyListProps {
     className?: string;
+    classes?: Classes;
     technologies?: Technology[];
     groups?: Group[];
     breakpoint?: Breakpoint;

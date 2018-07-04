@@ -27,7 +27,7 @@ export class AsyncComponent extends PureComponent<AsyncComponentProps, AsyncComp
     const promise = props.onLoad().then(this.initialize.bind(this));
 
     this.state = {
-      promise
+      promise,
     };
   }
 
@@ -35,7 +35,7 @@ export class AsyncComponent extends PureComponent<AsyncComponentProps, AsyncComp
   render() {
     if (Boolean(this.state.promise)) {
       const modifiers = [
-        'c-async-settings-panel--pending'
+        'c-async-settings-panel--pending',
       ];
 
       return (
@@ -53,7 +53,7 @@ export class AsyncComponent extends PureComponent<AsyncComponentProps, AsyncComp
   private initialize(component) {
     this.setState(() => ({
       promise: null,
-      component: this.props.componentName ? component[this.props.componentName] : component
+      component: this.props.componentName ? component[this.props.componentName] : component,
     }));
   }
 }

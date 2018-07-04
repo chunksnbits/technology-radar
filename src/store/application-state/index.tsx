@@ -1,18 +1,22 @@
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { createContext, PureComponent, Context } from 'react';
+import { createContext, Component, Context } from 'react';
 import produce from 'immer';
 
 import { canUseSessionStorage } from 'core/utils/dom';
 import { restoreState } from 'core/utils/store';
-import { merge } from 'core/utils/collection';
+import { mergeAll } from 'core/utils/collection';
 
 import { defaultState } from './constants';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface ApplicationStateProps {
-  initialState?: ApplicationState;
+  state?: ApplicationState;
+  screen?: {
+    width: number,
+    height: number,
+  }
 }
 
 const SESSION_STORAGE_KEY = 'cnb--application-state';
@@ -20,54 +24,32 @@ const SESSION_STORAGE_KEY = 'cnb--application-state';
 export const ApplicationStateContext: Context<ApplicationState & ApplicationStateActions> = createContext({} as any);
 
 export class ApplicationStateProvider
-  extends PureComponent<ApplicationStateProps, ApplicationState & ApplicationStateActions>
+  extends Component<ApplicationStateProps, ApplicationState & ApplicationStateActions>
   implements ApplicationStateActions
 {
   constructor(props: ApplicationStateProps) {
     super(props);
 
-    const initialState = merge(defaultState, props.initialState);
-
     this.state = {
-      ...initialState,
+      ...mergeAll(defaultState, props.state || {}, this.restoreState()),
 
       reset: this.reset.bind(this),
       focusTechnology: this.focusTechnology.bind(this),
       selectTechnology: this.selectTechnology.bind(this),
       selectGroup: this.selectGroup.bind(this),
-      updateBreakpoint: this.updateBreakpoint.bind(this),
       toggleViewMode: this.toggleViewMode.bind(this),
-    };
-  }
-
-  componentWillMount() {
-    this.restoreState();
+    }
   }
 
   render() {
     return (
-      <ApplicationStateContext.Provider value={ this.state }>
+      <ApplicationStateContext.Provider value={ { ...this.props.state, ...this.state } }>
         { this.props.children }
       </ApplicationStateContext.Provider>
     );
   }
 
   // ----------------------------------------------------------------------------- Action methods
-  updateBreakpoint(width: number): void {
-    this.setState(state => produce(state, (draftState: ApplicationState) => {
-      if (width < this.state.theme.breakpoints.medium) {
-        draftState.breakpoint = 'small';
-      } else if (width < this.state.theme.breakpoints.large) {
-        draftState.breakpoint = 'medium';
-      } else {
-        draftState.breakpoint = 'large';
-      }
-
-
-      return draftState;
-    }));
-  }
-
   reset(): void {
     this.setState(state => produce(state, (draftState: ApplicationState) => {
       draftState.selectedTechnology = null;
@@ -121,13 +103,12 @@ export class ApplicationStateProvider
     }));
   }
 
-  private restoreState(): void {
+  // ----------------------------------------------------------------------------- Helpers methods
+  private restoreState(): ApplicationState | {} {
     if (!canUseSessionStorage()) {
-      return;
+      return {};
     }
 
-    this.setState(state => produce(state, (draftState: ApplicationState) => {
-      return Object.assign(draftState, restoreState(SESSION_STORAGE_KEY) || {});
-    }));
+    return restoreState(SESSION_STORAGE_KEY) || {};
   }
 }

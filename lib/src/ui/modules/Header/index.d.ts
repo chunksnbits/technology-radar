@@ -1,7 +1,8 @@
 import { PureComponent } from 'react';
-import './styles.scss';
+import { Classes } from 'jss';
 export interface HeaderProps {
     className?: string;
+    classes?: Classes;
     logo?: string;
     title?: string;
     subtitle?: string;

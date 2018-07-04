@@ -5,15 +5,21 @@ import * as React from 'react';
 import { Fragment, PureComponent, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
-import { classNames, canUseDOM } from 'core/utils/dom';
-
-import './styles.scss';
 import { Button } from '@material-ui/core';
-import { Icon } from 'core/ui/components/Icon';
+import { Classes } from 'jss';
+
+import { styled, classNames, canUseDOM } from 'core/utils';
+
+import { Icon } from '../Icon';
+
+import { styles } from './styles.jss';
 
 // ----------------------------------------------------------------------------- Configuration
+const MODAL_ID = 'modal-anchor';
+
 export interface ModalProps {
-  children: ReactNode;
+  children?: ReactNode;
+  classes?: Classes;
   className?: string;
   open?: boolean;
   type?: 'sidebar';
@@ -22,15 +28,19 @@ export interface ModalProps {
   onCloseOutside?: (event: React.MouseEvent<HTMLElement>) => any;
 }
 
+export function ModalRoot() {
+  return <div id={ MODAL_ID } />;
+}
+
 // ----------------------------------------------------------------------------- Implementation
+@styled(styles)
 export class Modal extends PureComponent<ModalProps> {
-
-  private rootClassName: string = 'c-modal';
-
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
+    const container = document.getElementById(MODAL_ID);
+
     // tslint:disable-next-line:no-console
-    if (this.props.position !== 'parent' && (!canUseDOM() || document.getElementById('g-modal') === null)) {
+    if (this.props.position !== 'parent' && (!canUseDOM() || container === null)) {
       return null;
     }
 
@@ -38,33 +48,34 @@ export class Modal extends PureComponent<ModalProps> {
       return this.renderDialog(this.props);
     }
 
-    return createPortal(this.renderDialog(this.props), document.getElementById('g-modal'));
+    return createPortal(this.renderDialog(this.props), container);
   }
 
   // ----------------------------------------------------------------------------- Helpers methods
   private renderDialog(props: ModalProps) {
+    const { classes, open, onClose, type, children } = props;
+
     const modifiers = [
-      typeof this.props.type === 'string' && `c-modal--${ this.props.type }`,
-      this.props.open && `c-modal--opened`
+      typeof type === 'string' && `c-modal--${ type }`,
+      open && classes.modalOpened,
     ];
 
     return (
-      <Fragment>
-        {
-          this.isShowBackdrop() && <div className='c-modal__backdrop' onClick={ this.props.onClose } />
+      <Fragment>{
+          this.isShowBackdrop() && <div className={ classes.modalBackdrop } onClick={ onClose } />
         }
-        <div className={ classNames(this.rootClassName, props.className, ...modifiers) }>
-          <dialog className='c-modal__dialog' open={ Boolean(props.open) }>
-            <nav className='c-modal__nav'>
-              <Button onClick={ this.props.onClose }
-                className='c-modal__nav-action c-modal__nav-action--close'
+        <div className={ classNames(classes.root, props.className, ...modifiers) }>
+          <dialog className={ classes.modalDialog } open={ Boolean(props.open) }>
+            <nav className={ classes.modalNav }>
+              <Button onClick={ onClose }
+                className={ classNames(classes.modalNavAction, classes.modalNavActionClose) }
                 variant='flat'>
-                <Icon name='close' className='c-modal__nav-action-icon' />
+                <Icon name='close' className={ classes.modalNavActionIcon } />
               </Button>
             </nav>
 
-            <section className='c-modal__content'>
-              { props.children }
+            <section className={ classes.modalContent }>
+              { children }
             </section>
           </dialog>
         </div>

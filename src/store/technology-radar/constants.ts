@@ -4,7 +4,7 @@ import { uuid } from 'core/utils/uuid';
 export const defaultColors = [
   'rgba(173, 255, 47, 1)',   // greenyellow
   'rgba(0, 255, 255, 1)',    // cyan
-  'rgba(255, 0, 255, 1)'     // magenta
+  'rgba(255, 0, 255, 1)',     // magenta
 ];
 
 export const defaultTechnology = (group: Group, id: string = uuid()): Technology => ({
@@ -13,7 +13,7 @@ export const defaultTechnology = (group: Group, id: string = uuid()): Technology
   description: '',
   logo: '',
   groupId: group.id,
-  level: 0
+  level: 0,
 });
 
 export const defaultGroup = (group: number, id: string = uuid()) => ({
@@ -21,7 +21,7 @@ export const defaultGroup = (group: number, id: string = uuid()) => ({
   id,
   group,
   description: '',
-  color: '#FF0000'
+  color: '#FF0000',
 });
 
 export const defaultState = () => {
@@ -34,7 +34,7 @@ export const defaultState = () => {
   const technologies = [
     Object.assign(defaultTechnology(groups[0]), { name: 'Add you first technology to first group', level: 1 }),
     Object.assign(defaultTechnology(groups[1]), { name: 'Add technologies to second group', level: 3 }),
-    Object.assign(defaultTechnology(groups[2]), { name: 'Add more technologies', level: 2 })
+    Object.assign(defaultTechnology(groups[2]), { name: 'Add more technologies', level: 2 }),
   ]
 
   return {
@@ -45,7 +45,7 @@ export const defaultState = () => {
       editable: false,
       edited: false,
       innerRadiusPercent: 0,
-      outerRadiusPercent: 50
-    }
+      outerRadiusPercent: 50,
+    },
   };
 };

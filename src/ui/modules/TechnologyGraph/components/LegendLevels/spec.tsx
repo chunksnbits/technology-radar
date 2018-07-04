@@ -1,34 +1,43 @@
+import 'mocks/mock-jss';
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
 import { shallow } from 'enzyme';
 
-import { mockTechnology, mockLevel } from 'mocks';
+import { mockTechnology, mockLevel, createClasses, extractSelectors } from 'mocks';
 
 import { LegendLevels } from './index';
+
+import { styles } from './styles.jss';
+
+// ----------------------------------------------------------------------------- Configuration
+const classes = createClasses(styles);
+const selectors = extractSelectors(classes);
 
 // ----------------------------------------------------------------------------- Implementation
 it('renders element', () => {
   const element = shallow(
     <LegendLevels
+      classes={ classes }
       technologies={ [mockTechnology(), mockTechnology({ level: 2 })] }
       innerRadiusPercent={ 10 }
       outerRadiusPercent={ 50 }
-      levels={ [mockLevel(), mockLevel()] } />
+      levels={ [mockLevel(), mockLevel()] } />,
   );
 
   expect(element.exists()).toBeTruthy();
-  expect(element.find('.c-legend-levels').length).toBe(1);
+  expect(element.find(selectors.root).length).toBe(1);
 });
 
 it('renders levels', () => {
   const element = shallow(
     <LegendLevels
+      classes={ classes }
       technologies={ [mockTechnology(), mockTechnology({ level: 2 })] }
       innerRadiusPercent={ 10 }
       outerRadiusPercent={ 50 }
-      levels={ [mockLevel(), mockLevel()] } />
+      levels={ [mockLevel(), mockLevel()] } />,
   );
 
-  expect(element.find('.c-legend-levels__level').length).toBe(2);
+  expect(element.find(selectors.legendLevelsLevel).length).toBe(2);
 });

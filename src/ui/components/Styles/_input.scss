@@ -1,8 +1,0 @@
-
-@mixin what-input($input-types...) {
-  @each $input in $input-types {
-    [data-whatinput=#{$input}] & {
-      @content;
-    }
-  }
-}

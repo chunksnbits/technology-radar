@@ -1,7 +1,8 @@
 import { MouseEventHandler, PureComponent, RefObject } from 'react';
-import './styles.scss';
+import { Classes } from 'jss';
 export interface TechnologyListEntryProps {
     className?: string;
+    classes?: Classes;
     technology: Technology;
     group: Group;
     focused: boolean;

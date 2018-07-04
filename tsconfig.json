@@ -51,7 +51,8 @@
     "webpack",
     "jest",
     "lib",
-    "coverage"
+    "coverage",
+    "test"
   ],
   "include": [
     "src",

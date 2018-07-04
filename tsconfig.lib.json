@@ -48,7 +48,7 @@
     "coverage",
     "**/spec.ts",
     "**/spec.tsx",
-    "test/**/*"
+    "test"
   ],
   "include": [
     "src",

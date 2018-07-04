@@ -3,14 +3,18 @@
 import { PureComponent } from 'react';
 import * as React from 'react';
 
-import { classNames } from 'core/utils/dom';
+import { Classes } from 'jss';
 
-import './styles.scss';
+import { styled, classNames } from 'core/utils';
+
 import { calculateMaxLevel } from '../utils/math';
+
+import { styles } from './styles.jss';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface LegendLevelsProps {
   className?: string;
+  classes?: Classes;
   innerRadiusPercent: number;
   outerRadiusPercent: number;
   technologies: Technology[];
@@ -18,11 +22,12 @@ export interface LegendLevelsProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
+@styled(styles)
 export class LegendLevels extends PureComponent<LegendLevelsProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const { innerRadiusPercent, outerRadiusPercent, technologies, levels } = this.props;
+    const { innerRadiusPercent, outerRadiusPercent, technologies, levels, classes } = this.props;
 
     const modifiers = [];
 
@@ -34,19 +39,19 @@ export class LegendLevels extends PureComponent<LegendLevelsProps> {
     };
 
     return (
-      <div className={ classNames('c-legend-levels', this.props.className, ...modifiers) }>{
+      <div className={ classNames(classes.root, this.props.className, ...modifiers) }>{
         levels.map((_, index) =>
           <div
             key={ index.toString() }
-            className='c-legend-levels__level'
+            className={ classes.legendLevelsLevel }
             style={{
               height: `${ size(index) }%`,
               width: `${ size(index) }%`,
             }}>
-            <span className='c-legend-levels__level-label'>
+            <span className={ classes.legendLevelsLevelLabel }>
               { levels[Math.max(0, maxLevel - index - 1)].name }
             </span>
-          </div>
+          </div>,
         )
       }</div>
     );

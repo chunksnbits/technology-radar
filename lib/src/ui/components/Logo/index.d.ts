@@ -1,7 +1,8 @@
 import { PureComponent } from 'react';
-import './styles.scss';
+import { Classes } from 'jss';
 export interface LogoProps {
     className?: string;
+    classes?: Classes;
     name: string;
     color?: string;
 }

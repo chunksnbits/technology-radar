@@ -168,7 +168,9 @@ module.exports = {
           {
             test: /\.s?css$/,
             use: [
-              require.resolve('style-loader'),
+              {
+                loader: require.resolve('react-web-component-style-loader')
+              },
               {
                 loader: require.resolve('css-loader'),
                 options: {

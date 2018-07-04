@@ -2,20 +2,23 @@
 // ----------------------------------------------------------------------------- Dependencies
 import { createRef, PureComponent, RefObject, MouseEvent, TouchEvent } from 'react';
 import * as React from 'react';
+import { Classes } from 'jss';
 
-import { classNames, getPrimaryTouch, getPositionInElement } from 'core/utils/dom';
+import { styled, classNames, getPrimaryTouch, getPositionInElement } from 'core/utils';
 
-import './styles.scss';
+import { styles } from './styles.jss';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface RippleProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> {
   className?: string;
+  classes?: Classes;
   position?: 'relative' | 'exact' | undefined;  // defaults to 'exact'
 }
 
 const ANIMATION_DURATION_LIFELINE_TIMEOUT = 2000;
 
 // ----------------------------------------------------------------------------- Implementation
+@styled(styles)
 export class Ripple extends PureComponent<RippleProps> {
 
   private elementRef: RefObject<HTMLDivElement>;
@@ -28,20 +31,18 @@ export class Ripple extends PureComponent<RippleProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const modifiers = [
-      `c-ripple--${ this.props.position || 'exact' }`
-    ];
+    const { className, children, classes } = this.props;
 
     return (
-      <div className={ classNames('c-ripple', this.props.className, ...modifiers) }
+      <div className={ classNames(classes.root, className) }
         onMouseDown={ this.applyRippleHandler }
         onTouchStart={ this.applyRippleHandler }
         { ...this.props as any }>
-        <div className='c-ripple__ripple' ref={this.elementRef}>
-          <div className='c-ripple__element' />
+        <div className={ classes.ripple } ref={this.elementRef}>
+          <div className={ classes.rippleElement} />
         </div>
 
-        { this.props.children }
+        { children }
       </div>
     );
   }
@@ -50,8 +51,8 @@ export class Ripple extends PureComponent<RippleProps> {
   private applyRippleHandler = (event: MouseEvent<HTMLDivElement> | TouchEvent<HTMLDivElement>) => {
     const parent = this.elementRef.current.parentElement;
 
-    parent.classList.remove('c-ripple--active');
-    parent.classList.remove('c-ripple--will-change');
+    parent.classList.remove(this.props.classes.rippleActive);
+    parent.classList.remove(this.props.classes.rippleWillChange);
 
     requestAnimationFrame(() => this.applyRipple(event));
   }
@@ -77,7 +78,7 @@ export class Ripple extends PureComponent<RippleProps> {
 
   private registerReset(parentElement: HTMLElement): void {
     const resetTransitionHandler = () => {
-      parentElement.classList.remove('c-ripple--active');
+      parentElement.classList.remove(this.props.classes.rippleActive);
       parentElement.addEventListener('transitionend', resetTransitionHandler);
     };
 
@@ -85,7 +86,7 @@ export class Ripple extends PureComponent<RippleProps> {
     // In case the touchend gets stuck
     setTimeout(resetTransitionHandler, ANIMATION_DURATION_LIFELINE_TIMEOUT);
 
-    parentElement.classList.add('c-ripple--will-change');
-    requestAnimationFrame(() => parentElement.classList.add('c-ripple--active'));
+    parentElement.classList.add(this.props.classes.rippleWillChange);
+    requestAnimationFrame(() => parentElement.classList.add(this.props.classes.rippleActive));
   }
 }

@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { PureComponent, ReactNode } from 'react';
-import './styles.scss';
+import { Classes } from 'jss';
 export interface ModalProps {
     children: ReactNode;
+    classes?: Classes;
     className?: string;
     open?: boolean;
     type?: 'sidebar';
@@ -10,8 +11,8 @@ export interface ModalProps {
     onClose: (event: React.MouseEvent<HTMLElement>) => any;
     onCloseOutside?: (event: React.MouseEvent<HTMLElement>) => any;
 }
+export declare function ModalRoot(): JSX.Element;
 export declare class Modal extends PureComponent<ModalProps> {
-    private rootClassName;
     render(): React.ReactPortal | JSX.Element;
     private renderDialog;
     private isShowBackdrop;

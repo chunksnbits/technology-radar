@@ -2,14 +2,16 @@
 // ----------------------------------------------------------------------------- Dependencies
 import { PureComponent, MouseEventHandler, ReactNode } from 'react';
 import * as React from 'react';
+import { Classes } from 'jss';
 
-import { classNames } from 'core/utils/dom';
+import { classNames, styled } from 'core/utils';
 
-import './styles.scss';
+import { styles } from './styles.jss';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface LegendGroupLabelsProps {
   className?: string;
+  classes?: Classes;
   groups: Group[];
   onSelect: (group: Group, event: React.MouseEvent<SVGTextElement>) => any;
 }
@@ -19,37 +21,37 @@ export interface LegendGroupLabelsProps {
 //
 const SVG_ROTATION_SOURCE_ADJUSTMENT_DEGREES = -180;
 
+const LABEL_PATH_ID = 'c-legend-group-labels__text-path';
+
 // ----------------------------------------------------------------------------- Implementation
+@styled(styles)
 export class LegendGroupLabels extends PureComponent<LegendGroupLabelsProps> {
 
   handlers: BoundHandlers<MouseEventHandler<SVGTextElement>> = {};
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-
-    const modifiers = [];
-
-    const { groups } = this.props;
+    const { groups, classes } = this.props;
 
     if (!Boolean(groups)) {
       return null;
     }
 
     return (
-      <div className={ classNames('c-legend-group-labels', this.props.className, ...modifiers) }>
-        <svg viewBox='0 0 100 100' className='c-legend-group-labels__element'>
+      <div className={ classNames(classes.root, this.props.className) }>
+        <svg viewBox='0 0 100 100' className={ classes.legendGroupLabelsElement }>
           <defs>
             <path d={ 'M0,50a50,50 0 1,0 100,0a50,50 0 1,0 -100,0' } fill='none' />
           </defs>
 
-          <path d={ 'M0,50a50,50 0 1,0 100,0a50,50 0 1,0 -100,0' } id='c-legend-group-labels__text-path' fill='none' />
+          <path d={ 'M0,50a50,50 0 1,0 100,0a50,50 0 1,0 -100,0' } id={ LABEL_PATH_ID } fill='none' />
 
           <g
-            className='c-legend-group-labels__group'
+            className={ classes.legendGroupLabelsGroup }
             style={{
-              transform: `rotateZ(${ SVG_ROTATION_SOURCE_ADJUSTMENT_DEGREES + (360 / groups.length)  }deg)`
+              transform: `rotateZ(${ SVG_ROTATION_SOURCE_ADJUSTMENT_DEGREES + (360 / groups.length)  }deg)`,
             }}>
-            { this.renderLabels(groups) }
+            { this.renderLabels(groups, classes) }
           </g>
         </svg>
       </div>
@@ -70,7 +72,7 @@ export class LegendGroupLabels extends PureComponent<LegendGroupLabelsProps> {
   }
 
   // ----------------------------------------------------------------------------- Helpers methods
-  private renderLabels(groups: Group[]): ReactNode {
+  private renderLabels(groups: Group[], classes: Classes): ReactNode {
     const baseAngleDegree = 360 / groups.length;
     const circumference = 2 * Math.PI * 50;
     const offset = circumference / groups.length;
@@ -80,16 +82,16 @@ export class LegendGroupLabels extends PureComponent<LegendGroupLabelsProps> {
       return (
         <text
           key={ group.id }
-          className='c-legend-group-labels__label'
+          className={ classes.legendGroupLabelsLabel }
           style={{
             transform: [
-              `rotateZ(${index * baseAngleDegree + 0.5 * baseAngleDegree}deg)`
-            ].join(' ')
+              `rotateZ(${index * baseAngleDegree + 0.5 * baseAngleDegree}deg)`,
+            ].join(' '),
           }}
           onClick={ this.bindSelectGroupHandler(group) }>
           <textPath
             alignmentBaseline='baseline'
-            xlinkHref='#c-legend-group-labels__text-path'
+            xlinkHref={ `#${ LABEL_PATH_ID }` }
             startOffset={ String(offset) }>
             { group.name }
           </textPath>

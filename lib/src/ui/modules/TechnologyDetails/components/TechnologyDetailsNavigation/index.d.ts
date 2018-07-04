@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
-import './styles.scss';
+import { Classes } from 'jss';
 export interface TechnologyDetailsNavigationProps {
     className?: string;
+    classes?: Classes;
     technologies: Technology[];
     selectedTechnology: Technology;
     onSelect: (technology: Technology, event: React.MouseEvent<HTMLElement>) => any;
