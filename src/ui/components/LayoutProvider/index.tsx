@@ -70,7 +70,7 @@ export class LayoutProvider extends PureComponent<LayoutProviderProps, LayoutPro
 
   // ----------------------------------------------------------------------------- Helpers methods
   private windowResizeHandler = () => {
-    debounce('app', () => {
+    debounce('laoutProvider', () => {
       this.setState(() => ({
         active: this.detectActiveBreakpoint(this.getScreenSize(), this.state.layout),
       }));
@@ -85,8 +85,8 @@ export class LayoutProvider extends PureComponent<LayoutProviderProps, LayoutPro
     const root = offsetRoot(this.elementRef.current);
 
     return {
-      width: root.clientWidth,
-      height: root.clientHeight,
+      width: (root as Element).clientWidth || (root as Window).innerWidth,
+      height: (root as Element).clientHeight || (root as Window).innerWidth,
     };
   }
 

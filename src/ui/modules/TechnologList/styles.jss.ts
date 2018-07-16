@@ -8,7 +8,7 @@ export const styles = (theme) => ({
       maxWidth: '600px',
     }),
 
-    ...transitionDefault('transform'),
+    ...transitionDefault('transform', { delay: '0.25s' }),
 
     display: 'flex',
     flexDirection: 'column',
@@ -23,6 +23,9 @@ export const styles = (theme) => ({
   technologyListItems: {
     height: '100%',
     overflow: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
 
   technologyListHidden: {

@@ -4,6 +4,7 @@ export const styles = (theme) => ({
   root: {
     borderLeft: '1px solid transparent',
     cursor: 'pointer',
+    height: 'auto',
   },
 
   technologyListEntryButton: {

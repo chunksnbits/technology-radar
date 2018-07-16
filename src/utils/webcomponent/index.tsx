@@ -39,7 +39,7 @@ export function webcomponent<T>(): (component: ComponentClass<T> | StatelessComp
         const AnyComponent = WrappedComponent as any;
 
         return (
-          <div ref={ this.elementRef }>
+          <div ref={ this.elementRef } className='g-webcomponent-root'>
             <AnyComponent { ...this.state } />
           </div>
         );

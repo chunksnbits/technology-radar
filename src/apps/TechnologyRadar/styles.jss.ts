@@ -20,6 +20,18 @@ export const styles = {
         fontSize: `${ remBaseSize }px`,
     },
 
+    'technology-radar > div': {
+      height: '100%',
+    },
+
+    ':host > div': {
+      height: '100%',
+    },
+
+    '.g-webcomponent-root, .g-styles-root, .g-layout': {
+      height: '100%',
+    },
+
     'html, body, technology-radar': {
       height: '100%',
       overflow: 'hidden',

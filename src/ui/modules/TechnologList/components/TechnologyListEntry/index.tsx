@@ -42,11 +42,10 @@ export class TechnologyListEntry extends PureComponent<TechnologyListEntryProps>
     }
 
     if (this.props.focused) {
-      this.elementRef.current.scrollIntoView({
-        block: 'nearest',
-        inline: 'nearest',
-        behavior: 'smooth',
-      });
+      // scrollIntoView(this.elementRef.current, {
+      //   block: 'nearest',
+      //   behavior: 'smooth',
+      // });
     }
   }
 

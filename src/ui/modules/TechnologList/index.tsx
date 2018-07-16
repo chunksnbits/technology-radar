@@ -6,7 +6,7 @@ import * as React from 'react';
 import { Classes } from 'jss';
 
 import { classNames, consume, styled } from 'core/utils';
-import { LayoutProviderContext } from 'core/ui/components';
+import { LayoutProviderContext, LayoutProviderState } from 'core/ui/components';
 import { ApplicationStateContext, TechnologyRadarContext } from 'core/store';
 
 import { TechnologyListEntry } from './components/TechnologyListEntry';
@@ -20,7 +20,7 @@ export interface TechnologyListProps {
   classes?: Classes;
   technologies?: Technology[];
   groups?: Group[];
-  breakpoint?: Breakpoint;
+  breakpoint?: LayoutProviderState;
   focusedTechnology?: Technology;
   selectedTechnology?: Technology;
   selectedGroup?: Group;
@@ -61,14 +61,14 @@ export class TechnologyList extends PureComponent<TechnologyListProps> {
     } = this.props;
 
     const active = Boolean(selectedGroup) || Boolean(selectedTechnology);
-    const listView = (breakpoint === 'large' || viewMode === 'list')
+    const listView = viewMode === 'list';
 
     const modifiers = [
       !listView && classes.technologyListHidden,
       active && classes.technologyListHidden,
     ];
 
-    const focusable = breakpoint === 'large' && !active;
+    const focusable = breakpoint.active !== 'small' && !active && listView;
     const grouped = Object.entries(this.groupTechnologies(technologies, groups, selectedGroup));
 
     return (

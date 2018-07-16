@@ -2,17 +2,17 @@ language: node_js
 node_js:
   - "lts/*"
 stages:
-  - compile
-  - build
+  - lint
   - test
-  - deploy
+  - build
+  - compile
 jobs:
   include:
+    - stage: lint
+      script: yarn lint
     - stage: compile
       script: yarn compile
     - stage: build
       script: yarn build
     - stage: test
       script: yarn test
-    - stage: deploy
-      script: yarn deploy

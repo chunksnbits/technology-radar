@@ -12,8 +12,8 @@ if (canUseDOM()) {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export function bootstrapWecomponent(AppElement: any, tagName: string): void {
-  create(<AppElement />, tagName);
+export function bootstrapWecomponent(element: JSX.Element, tagName: string): void {
+  create(element, tagName);
 
   if (process.env.NODE_ENV !== 'production') {
     // tslint:disable-next-line:no-var-requires
@@ -23,11 +23,11 @@ export function bootstrapWecomponent(AppElement: any, tagName: string): void {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export function bootstrap(AppElement: any, rootElement: HTMLElement): void {
+export function bootstrap(element: JSX.Element, rootElement: HTMLElement): void {
   if (rootElement.hasChildNodes()) {
-    hydrate(<AppElement />, rootElement);
+    hydrate(element, rootElement);
   } else {
-    render(<AppElement />, rootElement);
+    render(element, rootElement);
   }
 
   if (process.env.NODE_ENV !== 'production') {

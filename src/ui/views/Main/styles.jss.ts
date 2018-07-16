@@ -17,7 +17,7 @@ export const styles = {
     flexWrap: 'nowrap',
     position: 'relative',
     width: '100%',
-    maxWidth: '100vmin',
+    maxWidth: '100vh',
     margin: '0 auto',
     pointerEvents: 'none',
   },
@@ -49,6 +49,7 @@ export const styles = {
     right: 0,
     width: '100%',
     height: '100%',
+    maxWidth: '100vw',
     justifyContent: 'flex-start',
   },
 

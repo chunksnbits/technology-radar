@@ -16,11 +16,6 @@ export const ThemeProviderContext: Context<CustomThemeProvider> = createContext(
 
 // ----------------------------------------------------------------------------- Implementation
 export class CustomThemeProvider extends PureComponent<ThemeProviderProps, ThemeProviderState> {
-
-   static defaultProps = {
-      theme: require('public/theme.default.json'),
-   };
-
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
     return (

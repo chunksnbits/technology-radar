@@ -1,5 +1,5 @@
 
-import { layoutWide, transitionDefault, zIndex, rgba, backgroundColor, textColor } from '../Styles';
+import { layoutWide, transitionDefault, zIndex, rgba, backgroundColor, textColor, stripUnit } from '../Styles';
 
 const bottomSheetMargin = '5px';
 const bottomSheetPadding = '15px';
@@ -39,6 +39,7 @@ export const styles = (theme: ApplicationTheme) => ({
   content: {
     ...layoutWide({
       maxWidth: bottomSheetMaxWidth,
+      maxHeight: `calc(100vh - ${ stripUnit(bottomSheetMargin) * 2 }px)`,
     }),
 
     display: 'flex',

@@ -43,11 +43,11 @@ function createTransition(name: string, options: CssTransitionProperties = trans
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export function transitionDefault(...names: string[]) {
+export function transitionDefault(...names: Array<string | Partial<CssTransitionProperties>>) {
   const options = typeof names[names.length - 1] === 'object' ? names.pop() : transitionDefaults;
 
   return {
-    transition: names.map(name => createTransition(name, options as CssTransitionProperties)).join(', '),
+    transition: names.map(name => createTransition(name as string, options as CssTransitionProperties)).join(', '),
   };
 }
 

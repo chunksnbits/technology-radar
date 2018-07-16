@@ -8,7 +8,7 @@ export const styles = (theme: ApplicationTheme) => ({
       padding: '5.25vmin',
     }),
 
-    ...transitionDefault('transform'),
+    ...transitionDefault('transform', { delay: '0s' }),
 
     display: 'flex',
     alignItems: 'center',

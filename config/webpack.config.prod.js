@@ -60,7 +60,11 @@ module.exports = {
   // You can exclude the *.map files from the build during deployment.
   devtool: shouldUseSourceMap ? 'source-map' : false,
   // In production, we only want to load the polyfills and the app code.
-  entry: [require.resolve('./polyfills'), paths.appIndexJs],
+  entry: {
+    polyfills: require.resolve('./polyfills'),
+    main: paths.appIndexJs,
+    webcomponent: paths.appWebcomponentIndexJs,
+  },
   output: {
     // The build folder.
     path: paths.appBuild,
@@ -263,6 +267,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
+      excludeChunks: ['webcomponent'],
+      chunksSortMode: (chunk, other) => {
+        const chunkOrder = ['polyfill', 'main'];
+
+        return chunkOrder.indexOf(chunk.names[0]) - chunkOrder.indexOf(other.names[0]);
+      },
       minify: {
         removeComments: true,
         collapseWhitespace: true,

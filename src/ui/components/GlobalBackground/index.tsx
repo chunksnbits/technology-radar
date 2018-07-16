@@ -11,7 +11,7 @@ import { classNames, canUseDOM, styled } from 'core/utils';
 import { styles } from './styles.jss';
 
 // ----------------------------------------------------------------------------- Configuration
-const ANCHOR_ID = 'g-global-background';
+export const GLOBAL_BACKGROUND_ANCHOR_ID = 'g-global-background';
 
 export interface GlobalBackgroundProps {
   children?: ReactNode;
@@ -27,7 +27,7 @@ export class GlobalBackgroundRoot extends PureComponent<GlobalBackgroundProps> {
     const { classes } = this.props;
 
     return (
-      <div id={ ANCHOR_ID } className={ classes.globalBackgroundAnchor } />
+      <div id={ GLOBAL_BACKGROUND_ANCHOR_ID } className={ classes.globalBackgroundAnchor } />
     );
   }
 }
@@ -44,8 +44,12 @@ export class GlobalBackground extends PureComponent<GlobalBackgroundProps> {
 
     const { position } = this.props;
 
+    const root = document.querySelector('technology-radar').shadowRoot ?
+      document.querySelector('technology-radar').shadowRoot :
+      document;
+
     try {
-      const container = document.querySelector(`technology-radar::shadow #${ANCHOR_ID}`);
+      const container = root.querySelector(`#${GLOBAL_BACKGROUND_ANCHOR_ID}`);
 
       if (container === null) {
         console.warn('[GLOBAL_BACKGROUND] <GlobalBackgroundRoot /> element not found. Be sure to attach.');

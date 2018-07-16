@@ -53,15 +53,15 @@ export class JssBridge extends PureComponent<JssBridgeProps, JssBridgeState> {
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
     return (
-      <div ref={ this.elementRef }>{
+      <div ref={ this.elementRef } className='g-styles-root'>{
         Boolean(this.state.jss) &&
           <Fragment>
             <CssBaseline />
 
             <JssProvider jss={ this.state.jss } generateClassName={ classNameGenerator }>
-              <div>
+              <Fragment>
                 { this.props.children }
-              </div>
+              </Fragment>
             </JssProvider>
           </Fragment>
       }</div>

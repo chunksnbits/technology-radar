@@ -1,5 +1,6 @@
 
-export function offsetRoot(element: HTMLElement): Element {
+// ----------------------------------------------------------------------------- Implementation
+export function offsetRoot(element: HTMLElement): Element | Window {
   let root = element as any;
 
   do {
@@ -7,5 +8,9 @@ export function offsetRoot(element: HTMLElement): Element {
   }
   while (Boolean(root.parentNode));
 
-  return root.host ? root.host : root;
+  if (Boolean(root.host)) {
+    return root.host;
+  }
+
+  return window;
 };

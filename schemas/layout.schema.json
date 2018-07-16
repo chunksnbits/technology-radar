@@ -9,7 +9,7 @@
   "additionalProperties": false,
   "properties": {
     "$schema": {
-      "type": "number"
+      "type": "string"
     },
     "small": {
       "type": "number"

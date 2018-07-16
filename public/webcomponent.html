@@ -26,12 +26,14 @@
     <style>
       html,
       body,
-      .technology-radar {
+      technology-radar {
+        display: block;
         height: 100%;
         margin: 0;
         padding: 0;
       }
     </style>
+
   </head>
   <body>
     <noscript>
@@ -39,5 +41,25 @@
     </noscript>
 
     <technology-radar></technology-radar>
+
+    <script>
+      const technologyRadar = document.querySelector('technology-radar');
+
+      const theme = {
+        primary: 'black',
+        secondary: 'grey',
+        base: 'white'
+      };
+
+      fetch("%PUBLIC_URL%/data.json")
+        .then(response => response.json())
+        .then((data) => {
+          console.log('+++ data', data);
+          technologyRadar.setAttribute('data', JSON.stringify(data.technologyRadar));
+          technologyRadar.setAttribute('config', JSON.stringify(data.application));
+          technologyRadar.setAttribute('theme', JSON.stringify(theme));
+        });
+    </script>
+
   </body>
 </html>
