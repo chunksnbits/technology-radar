@@ -14,7 +14,7 @@ export const styles = (theme: ApplicationTheme) => ({
     width: '141.421vmax', // sqrt(100^2 + 100^2)
 
     height: '1px',
-    background: theme.primary,
+    background: theme.accent || theme.primary,
 
     transformOrigin: 'center',
   },

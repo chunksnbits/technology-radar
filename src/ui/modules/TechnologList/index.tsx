@@ -5,9 +5,9 @@ import * as React from 'react';
 
 import { Classes } from 'jss';
 
-import { classNames, consume, styled } from 'core/utils';
-import { LayoutProviderContext, LayoutProviderState } from 'core/ui/components';
-import { ApplicationStateContext, TechnologyRadarContext } from 'core/store';
+import { classNames, consume, styled } from 'utils';
+import { LayoutContext } from 'store';
+import { ApplicationStateContext, TechnologyRadarContext } from 'store';
 
 import { TechnologyListEntry } from './components/TechnologyListEntry';
 import { TechnologyListGroup } from './components/TechnologyListGroup';
@@ -20,7 +20,7 @@ export interface TechnologyListProps {
   classes?: Classes;
   technologies?: Technology[];
   groups?: Group[];
-  breakpoint?: LayoutProviderState;
+  activeBreakpoint?: Breakpoint;
   focusedTechnology?: Technology;
   selectedTechnology?: Technology;
   selectedGroup?: Group;
@@ -31,7 +31,7 @@ export interface TechnologyListProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
-@consume(LayoutProviderContext, { bindTo: 'breakpoint' })
+@consume(LayoutContext, { select: ['activeBreakpoint'] })
 @consume(TechnologyRadarContext, { select: ['technologies', 'groups'] })
 @consume(ApplicationStateContext, {
   select: [
@@ -50,7 +50,7 @@ export class TechnologyList extends PureComponent<TechnologyListProps> {
   // ----------------------------------------------------------------------------- Lifecycle methods
   render(): JSX.Element {
     const {
-      breakpoint,
+      activeBreakpoint,
       focusedTechnology,
       selectedGroup,
       selectedTechnology,
@@ -68,7 +68,7 @@ export class TechnologyList extends PureComponent<TechnologyListProps> {
       active && classes.technologyListHidden,
     ];
 
-    const focusable = breakpoint.active !== 'small' && !active && listView;
+    const focusable = activeBreakpoint !== 'small' && !active && listView;
     const grouped = Object.entries(this.groupTechnologies(technologies, groups, selectedGroup));
 
     return (
@@ -128,6 +128,10 @@ export class TechnologyList extends PureComponent<TechnologyListProps> {
 
   // ----------------------------------------------------------------------------- Helpers methods
   private groupTechnologies(technologies: Technology[], groups: Group[], selectedGroup: Group): GroupedTechnologies {
+    if (!Boolean(groups)) {
+      return {};
+    }
+
     return groups.reduce((result, group) => {
       return {
         ...result,

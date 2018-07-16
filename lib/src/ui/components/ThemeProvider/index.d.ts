@@ -7,8 +7,5 @@ export interface ThemeProviderState {
 }
 export declare const ThemeProviderContext: Context<CustomThemeProvider>;
 export declare class CustomThemeProvider extends PureComponent<ThemeProviderProps, ThemeProviderState> {
-    static defaultProps: {
-        theme: any;
-    };
     render(): JSX.Element;
 }

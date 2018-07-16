@@ -1,4 +1,44 @@
 
+
+
+declare interface ApplicationConfig {
+  title?: string;
+  subtitle?: string;
+  logo?: string;
+}
+
+declare interface ApplicationData {
+  technologies?: Technology[];
+  groups?: Group[];
+  levels?: Level[];
+}
+
+declare interface TechnologyRadarSettings {
+  innerRadiusPercent: number;
+  outerRadiusPercent: number;
+}
+
+declare interface LayoutBreakpoints {
+  small: number;
+  medium: number;
+  large: number;
+}
+
+declare interface ApplicationTheme {
+  itemBorderSize: number;
+  base: string;
+  primary: string;
+  secondary: string;
+  accent: string;
+  backgroundTextContent?: string;
+  textContent?: string;
+}
+
+declare interface ApplicationLayout {
+  breakpoints: LayoutBreakpoints;
+  technologyRadar: TechnologyRadarSettings;
+}
+
 declare interface Technology {
   id?: string;
   name: string;
@@ -21,32 +61,12 @@ declare interface Level {
   name: string;
 }
 
-declare interface ApplicationConfig {
-  application: ApplicationState;
-  technologyRadar: TechnologyRadarState;
-}
-
 declare interface ScreenSize {
   width: number;
   height: number;
 }
 
 declare type DeviceOrientation = 'landscape' | 'portrait';
-
-declare interface ApplicationTheme {
-  base: string;
-  primary: string;
-  secondary: string;
-  backgroundTextContent?: string;
-  textContent?: string;
-  itemSize?: number;
-}
-
-declare interface LayoutBreakpoints {
-  small: number;
-  medium: number;
-  large: number;
-}
 
 declare interface BoundHandlers<T> {
   [key: string]: T;
@@ -71,18 +91,23 @@ declare module "public/*.svg" {
   export default value;
 }
 
-declare module "public/data.json" {
+declare module "public/application-config.json" {
   const value: ApplicationConfig;
   export default value;
 }
 
-declare module "public/theme.default.json" {
+declare module "public/data.json" {
+  const value: ApplicationData;
+  export default value;
+}
+
+declare module "public/theme.json" {
   const value: ApplicationTheme;
   export default value;
 }
 
-declare module "public/layout.default.json" {
-  const value: LayoutBreakpoints;
+declare module "public/layout.json" {
+  const value: ApplicationLayout;
   export default value;
 }
 

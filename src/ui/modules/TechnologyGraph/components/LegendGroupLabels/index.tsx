@@ -4,7 +4,7 @@ import { PureComponent, MouseEventHandler, ReactNode } from 'react';
 import * as React from 'react';
 import { Classes } from 'jss';
 
-import { classNames, styled } from 'core/utils';
+import { classNames, styled } from 'utils';
 
 import { styles } from './styles.jss';
 

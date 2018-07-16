@@ -11,6 +11,6 @@ export * from './Modal';
 export * from './Ripple';
 export * from './JssBridge';
 export * from './Tabs';
-export * from './LayoutProvider';
+export * from './LayoutMonitor';
 export * from './TextButton';
 export * from './ThemeProvider';

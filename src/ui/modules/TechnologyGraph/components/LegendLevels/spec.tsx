@@ -6,7 +6,7 @@ import { shallow } from 'enzyme';
 
 import { mockTechnology, mockLevel, createClasses, extractSelectors } from 'mocks';
 
-import { LegendLevels } from './index';
+import { LegendLevels } from '.';
 
 import { styles } from './styles.jss';
 
@@ -20,8 +20,10 @@ it('renders element', () => {
     <LegendLevels
       classes={ classes }
       technologies={ [mockTechnology(), mockTechnology({ level: 2 })] }
-      innerRadiusPercent={ 10 }
-      outerRadiusPercent={ 50 }
+      settings={{
+        innerRadiusPercent: 10,
+        outerRadiusPercent: 50,
+      }}
       levels={ [mockLevel(), mockLevel()] } />,
   );
 
@@ -34,8 +36,10 @@ it('renders levels', () => {
     <LegendLevels
       classes={ classes }
       technologies={ [mockTechnology(), mockTechnology({ level: 2 })] }
-      innerRadiusPercent={ 10 }
-      outerRadiusPercent={ 50 }
+      settings={{
+        innerRadiusPercent: 10,
+        outerRadiusPercent: 50,
+      }}
       levels={ [mockLevel(), mockLevel()] } />,
   );
 

@@ -8,7 +8,7 @@ import { createPortal } from 'react-dom';
 import { Button } from '@material-ui/core';
 import { Classes } from 'jss';
 
-import { styled, classNames, canUseDOM } from 'core/utils';
+import { styled, classNames, canUseDOM } from 'utils';
 
 import { Icon } from '../Icon';
 

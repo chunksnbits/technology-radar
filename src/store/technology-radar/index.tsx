@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { PureComponent, createContext, Context } from 'react';
 
-import { consume } from 'core/utils/store';
+import { consume } from 'utils/store';
 
 import { ApplicationStateContext } from '../application-state';
 
@@ -34,6 +34,10 @@ export class TechnologyRadarProviderComponent extends PureComponent<TechnologyRa
 
   // ----------------------------------------------------------------------------- Helpers methods
   private sortTechnologies(technologies: Technology[], groups: Group[]): Technology[] {
+    if (!Boolean(technologies)) {
+      return [];
+    }
+
     return technologies.sort((technology, other) => {
       if (technology.groupId !== other.groupId) {
         return this.groupIndex(groups, technology) - this.groupIndex(groups, other);

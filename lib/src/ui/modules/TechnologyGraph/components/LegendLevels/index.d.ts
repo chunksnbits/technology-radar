@@ -3,8 +3,7 @@ import { Classes } from 'jss';
 export interface LegendLevelsProps {
     className?: string;
     classes?: Classes;
-    innerRadiusPercent: number;
-    outerRadiusPercent: number;
+    settings: TechnologyRadarSettings;
     technologies: Technology[];
     levels: Level[];
 }

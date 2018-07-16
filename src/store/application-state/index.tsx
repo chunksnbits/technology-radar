@@ -4,9 +4,9 @@ import * as React from 'react';
 import { createContext, Component, Context } from 'react';
 import produce from 'immer';
 
-import { canUseSessionStorage } from 'core/utils/dom';
-import { restoreState } from 'core/utils/store';
-import { mergeAll } from 'core/utils/collection';
+import { canUseSessionStorage } from 'utils/dom';
+import { restoreState } from 'utils/store';
+import { mergeAll } from 'utils/collection';
 
 import { defaultState } from './constants';
 
@@ -43,7 +43,7 @@ export class ApplicationStateProvider
 
   render() {
     return (
-      <ApplicationStateContext.Provider value={ { ...this.props.state, ...this.state } }>
+      <ApplicationStateContext.Provider value={ this.state }>
         { this.props.children }
       </ApplicationStateContext.Provider>
     );

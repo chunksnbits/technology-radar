@@ -6,7 +6,7 @@ import { shallow } from 'enzyme';
 
 import { createClasses } from 'mocks';
 
-import { FormGroup } from './index';
+import { FormGroup } from '.';
 
 import { styles } from './styles.jss';
 

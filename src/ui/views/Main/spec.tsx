@@ -6,11 +6,11 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 
 import { createClasses, noop, mockTechnology } from 'mocks';
-import { Header } from 'core/ui/modules/Header';
-import { TechnologyGraph } from 'core/ui/modules/TechnologyGraph';
-import { Footer } from 'core/ui/modules/Footer';
+import { Header } from '../../modules/Header';
+import { TechnologyGraph } from '../../modules/TechnologyGraph';
+import { Footer } from '../../modules/Footer';
 
-import { MainView, MainViewProps } from './index';
+import { MainView, MainViewProps } from '.';
 
 import { styles } from './styles.jss';
 

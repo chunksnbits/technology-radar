@@ -5,7 +5,7 @@ import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import { createClasses, extractSelectors } from 'mocks';
 
-import { Modal } from './index';
+import { Modal } from '.';
 
 import { styles } from './styles.jss';
 

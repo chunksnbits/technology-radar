@@ -1,5 +1,5 @@
-export declare const styles: {
-    technologyItem: {
+export declare const styles: (theme: any) => {
+    root: {
         display: string;
         justifyContent: string;
         position: string;

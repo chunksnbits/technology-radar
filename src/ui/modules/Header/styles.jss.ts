@@ -1,7 +1,6 @@
 import {
   typoFontWeightLight,
-  typoCopy,
-  layoutWide,
+    layoutWide,
   typoGroupHeading,
   typoBlockHeading,
   typoFontWeightRegular,
@@ -41,8 +40,16 @@ export const styles = (theme) =>  ({
   },
 
   headerLogo: {
+    ...layoutWide({
+      width: '22px',
+      marginRight: '4px',
+      marginTop: '-1px',
+    }),
+
     display: 'inline-flex',
-    width: '6.2vmin',
+    width: '22px',
+    marginRight: '2px',
+    marginTop: '-4px',
   },
 
   headerName: {
@@ -65,16 +72,18 @@ export const styles = (theme) =>  ({
     display: 'inline-block',
     fontWeight: typoFontWeightLight,
     lineHeight: 1,
+    textAlign: 'start',
   },
 
   headerSubtitle: {
     ...layoutWide({
-      ...typoCopy(),
+      ...typoCopySmall(),
     }),
 
     ...typoCopySmall(),
 
     fontWeight: typoFontWeightRegular,
     textTransform: 'none',
+    textAlign: 'start',
   },
 });

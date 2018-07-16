@@ -2,6 +2,7 @@ export declare const styles: (theme: any) => {
     root: {
         borderLeft: string;
         cursor: string;
+        height: string;
     };
     technologyListEntryButton: {
         justifyContent: string;

@@ -3,7 +3,7 @@
 import { PureComponent, Children, cloneElement, ReactNode } from 'react';
 import * as React from 'react';
 
-import { classNames, styled } from 'core/utils';
+import { classNames, styled } from 'utils';
 import { styles } from './styles.jss';
 import { Classes } from 'jss';
 

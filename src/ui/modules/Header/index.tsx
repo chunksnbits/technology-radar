@@ -6,8 +6,8 @@ import * as React from 'react';
 import { Button } from '@material-ui/core';
 import { Classes } from 'jss';
 
-import { ApplicationStateContext } from 'core/store';
-import { consume, classNames, styled } from 'core/utils';
+import { ApplicationStateContext } from 'store';
+import { consume, classNames, styled } from 'utils';
 
 import { styles } from './styles.jss';
 
@@ -25,7 +25,6 @@ export interface HeaderProps {
 @consume(ApplicationStateContext, { select: ['logo', 'title', 'subtitle', 'reset'] })
 @styled(styles)
 export class Header extends PureComponent<HeaderProps> {
-
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
     const { logo, title, subtitle, reset, classes } = this.props;
@@ -38,9 +37,7 @@ export class Header extends PureComponent<HeaderProps> {
           TouchRippleProps={{
             root: classes.ripple,
           } as any}>
-          { logo && (
-            <img className={ classes.headerLogo } src={ logo } />
-          )}
+          <img className={ classes.headerLogo } src={ logo || require('public/logo.svg') } />
           <div className={ classes.headerName }>
             { title && (
               <h1 className={ classes.headerTitle }>

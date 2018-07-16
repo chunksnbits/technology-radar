@@ -1,4 +1,4 @@
-import { layoutWide, remSize, typoDefault, zIndex } from 'core/ui/components/Styles';
+import { layoutWide, remSize, typoDefault, zIndex } from '../../../../components/Styles';
 
 export const styles = (theme: ApplicationTheme) => ({
   root: {

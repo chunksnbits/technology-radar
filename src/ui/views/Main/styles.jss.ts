@@ -1,4 +1,4 @@
-import { layoutWide, transitionDefault } from 'core/ui/components/Styles';
+import { layoutWide, transitionDefault } from '../../components/Styles';
 
 export const styles = {
   root: {

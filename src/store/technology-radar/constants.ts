@@ -1,5 +1,5 @@
 
-import { uuid } from 'core/utils/uuid';
+import { uuid } from 'utils/uuid';
 
 export const defaultColors = [
   'rgba(173, 255, 47, 1)',   // greenyellow

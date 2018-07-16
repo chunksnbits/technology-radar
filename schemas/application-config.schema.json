@@ -1,0 +1,26 @@
+{
+  "type": "object",
+  "required": [
+    "$schema",
+    "title",
+    "subtitle"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "logo": {
+      "type": "string"
+    },
+    "editor": {
+      "type": "boolean"
+    }
+  }
+}

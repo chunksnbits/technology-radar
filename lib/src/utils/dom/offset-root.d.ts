@@ -1,1 +1,1 @@
-export declare function offsetRoot(element: HTMLElement): Element;
+export declare function offsetRoot(element: HTMLElement): Element | Window;

@@ -2,16 +2,18 @@
   "type": "object",
   "required": [
     "$schema",
+    "itemBorderSize",
     "primary",
     "secondary",
-    "accent",
-    "base",
-    "a11y"
+    "base"
   ],
   "additionalProperties": false,
   "properties": {
     "$schema": {
       "type": "string"
+    },
+    "itemBorderSize": {
+      "type": "number"
     },
     "primary": {
       "type": "string"
@@ -30,12 +32,6 @@
     },
     "textContent": {
       "type": "string"
-    },
-    "a11y": {
-      "type": "string"
-    },
-    "itemSize": {
-      "type": "number"
     }
   }
 }

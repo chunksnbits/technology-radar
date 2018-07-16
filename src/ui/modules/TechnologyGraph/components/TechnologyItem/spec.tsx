@@ -4,7 +4,7 @@ import 'mocks/mock-jss';
 import * as React from 'react';
 import { shallow, render } from 'enzyme';
 
-import { TechnologyItem, TechnologyItemProps } from './index';
+import { TechnologyItem, TechnologyItemProps } from '.';
 
 import {
   mockTechnology,

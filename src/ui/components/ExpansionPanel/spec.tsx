@@ -3,7 +3,7 @@ import 'mocks/mock-jss';
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { ExpansionPanel, ExpansionPanelHeader, ExpansionPanelBody, ExpansionPanelFooter, ExpansionPanelProps } from './index';
+import { ExpansionPanel, ExpansionPanelHeader, ExpansionPanelBody, ExpansionPanelFooter, ExpansionPanelProps } from '.';
 import { noop, createClasses, extractSelectors } from 'mocks';
 import { styles } from './styles.jss';
 

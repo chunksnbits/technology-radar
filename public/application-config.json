@@ -1,0 +1,6 @@
+{
+  "$schema": "../schemas/application-config.schema.json",
+  "editor": false,
+  "title": "Technology Radar",
+  "subtitle": "Example Set"
+}

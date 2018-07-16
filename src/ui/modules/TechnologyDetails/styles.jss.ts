@@ -24,7 +24,7 @@ export const styles = (theme: ApplicationTheme) => ({
   },
 
   technologyDetailsLogo: {
-    ...animationDefault('logo-appear', { delay: '0.25s' }),
+    ...animationDefault('logo-appear', { delay: '0.1s' }),
 
     position: 'absolute',
     zIndex: -1,

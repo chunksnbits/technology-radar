@@ -1,6 +1,6 @@
 
 // ----------------------------------------------------------------------------- Dependencies
-import { canUseSessionStorage } from 'core/utils/dom';
+import { canUseSessionStorage } from '../dom';
 
 // ----------------------------------------------------------------------------- Implementation
 export function restoreState<T>(key: string): T {

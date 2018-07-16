@@ -6,7 +6,7 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { mockTechnology, mockGroup, extractSelectors } from 'mocks';
 
-import { TechnologyDetails, TechnologyDetailsProps } from './index';
+import { TechnologyDetails, TechnologyDetailsProps } from '.';
 import { createClasses } from 'mocks';
 
 import { styles } from './styles.jss';

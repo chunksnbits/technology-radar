@@ -2,7 +2,7 @@ import * as React from 'react';
 import { PureComponent, ReactNode } from 'react';
 import { Classes } from 'jss';
 export interface ModalProps {
-    children: ReactNode;
+    children?: ReactNode;
     classes?: Classes;
     className?: string;
     open?: boolean;

@@ -1,5 +1,5 @@
 
-import { typoCopySmall, rgba } from 'core/ui/components/Styles';
+import { typoCopySmall, rgba } from '../../../../components/Styles';
 
 export const styles = (theme: ApplicationTheme) => {
 return {
@@ -26,7 +26,7 @@ return {
       borderStyle: 'solid',
       borderRadius: '100vmin',
       color: theme.secondary,
-      borderColor: rgba(theme.primary, 0.4),
+      borderColor: rgba(theme.accent || theme.primary, 0.4),
     },
 
     legendLevelsLevelLabel: {

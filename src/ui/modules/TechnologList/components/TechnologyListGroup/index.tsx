@@ -5,7 +5,7 @@ import { ReactNode, PureComponent } from 'react';
 
 import { Classes } from 'jss';
 
-import { styled } from 'core/utils';
+import { styled } from 'utils';
 
 import { styles } from './styles.jss';
 

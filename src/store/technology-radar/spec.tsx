@@ -3,7 +3,7 @@ import 'mocks/replace-consume';
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
 
-import { TechnologyRadarProviderComponent } from './index';
+import { TechnologyRadarProviderComponent } from '.';
 import { mockTechnology, mockGroup, mockApplicationState } from 'mocks';
 import { shallow } from 'enzyme';
 

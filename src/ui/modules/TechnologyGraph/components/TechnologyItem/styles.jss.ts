@@ -1,8 +1,8 @@
 
-import { zIndex, stripUnit } from 'core/ui/components/Styles';
-import { groupIndicatorSize } from 'core/ui/components/GroupIndicator/styles.jss';
+import { zIndex, stripUnit } from '../../../../components/Styles';
+import { itemSize } from '../../../../components/GroupIndicator/styles.jss';
 
-export const styles = {
+export const styles = (theme) => ({
   root: {
     display: 'flex',
     justifyContent: 'flex-end',
@@ -16,10 +16,10 @@ export const styles = {
   },
   technologyItemItem: {
     position: 'absolute',
-    top: -0.5 * stripUnit(groupIndicatorSize),
-    right: -0.5 * stripUnit(groupIndicatorSize),
+    top: -0.5 * stripUnit(itemSize(theme)),
+    right: -0.5 * stripUnit(itemSize(theme)),
     zIndex: zIndex.technoloogyRadarItem,
     pointerEvents: 'all',
     cursor: 'pointer',
   },
-}
+});

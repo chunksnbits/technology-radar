@@ -5,9 +5,9 @@ import * as React from 'react';
 
 import { Classes } from 'jss';
 
-import { ApplicationStateContext } from 'core/store';
+import { ApplicationStateContext } from 'store';
 
-import { classNames, consume, styled } from 'core/utils';
+import { classNames, consume, styled } from 'utils';
 
 import { ViewToggle } from './components/view-toggle';
 

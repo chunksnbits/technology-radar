@@ -6,8 +6,8 @@ import { createRef, MouseEventHandler, PureComponent, RefObject } from 'react';
 import { Button } from '@material-ui/core';
 import { Classes } from 'jss';
 
-import { styled, classNames } from 'core/utils';
-import { GroupIndicator } from 'core/ui/components';
+import { styled, classNames } from 'utils';
+import { GroupIndicator } from '../../../../components';
 
 import { styles } from './styles.jss';
 

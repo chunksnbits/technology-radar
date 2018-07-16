@@ -1,4 +1,4 @@
-import { layoutWide, transitionDefault, stripUnit, rgba } from 'core/ui/components/Styles';
+import { layoutWide, transitionDefault, stripUnit, rgba } from '../../components/Styles';
 
 const technologyGraphCenterCircleSize = '20px';
 
@@ -8,7 +8,7 @@ export const styles = (theme: ApplicationTheme) => ({
       padding: '5.25vmin',
     }),
 
-    ...transitionDefault('transform', { delay: '0s' }),
+    ...transitionDefault('transform'),
 
     display: 'flex',
     alignItems: 'center',
@@ -31,7 +31,7 @@ export const styles = (theme: ApplicationTheme) => ({
       zIndex: 2,
       borderWidth: '1px',
       borderStyle: 'solid',
-      borderColor: rgba(theme.primary, 0.9),
+      borderColor: rgba(theme.accent || theme.primary, 0.9),
       background: theme.base,
     },
   },

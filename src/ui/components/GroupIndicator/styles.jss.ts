@@ -1,28 +1,32 @@
 
-export const groupIndicatorSize = '18px';
+export const groupIndicatorSize = 12;
+
+export const itemSize = (theme: ApplicationTheme) => {
+  return `${ groupIndicatorSize + 2 * Math.max(theme.itemBorderSize, 1) }px`;
+}
 
 const borderWidth = (theme: ApplicationTheme) => {
-  return theme.itemSize ? `${ Math.max(theme.itemSize, 1) }px` : '2px';
+  return theme.itemBorderSize ? `${ Math.max(theme.itemBorderSize, 1) }px` : '2px';
 }
 
 const borderWidthHighlight = (theme: ApplicationTheme) => {
-  return theme.itemSize ? `${ Math.max(theme.itemSize, 1) }px` : '2px';
+  return theme.itemBorderSize ? `${ Math.max(theme.itemBorderSize, 1) }px` : '2px';
 }
 
 const borderWidthActive = (theme: ApplicationTheme) => {
-  return theme.itemSize ? `${ Math.max(theme.itemSize + 2, 1) }px` : '4px';
+  return theme.itemBorderSize ? `${ Math.max(theme.itemBorderSize + 2, 1) }px` : '4px';
 }
 
 const borderWidthActiveHighlight = (theme: ApplicationTheme) => {
-  return theme.itemSize ? `${  Math.max(theme.itemSize + 2, 1) }px` : '4px';
+  return theme.itemBorderSize ? `${  Math.max(theme.itemBorderSize + 2, 1) }px` : '4px';
 }
 
 const offsetHighlight = (theme: ApplicationTheme) => {
-  return theme.itemSize ? `${ -1 * Math.max(theme.itemSize, 1) }px` : '-2px';
+  return theme.itemBorderSize ? `${ -1 * Math.max(theme.itemBorderSize, 1) }px` : '-2px';
 }
 
 const offsetHighlightActive = (theme: ApplicationTheme) => {
-  return theme.itemSize ? `${ -1 * Math.max(theme.itemSize + 2, 1) }px` : '-4px';
+  return theme.itemBorderSize ? `${ -1 * Math.max(theme.itemBorderSize + 2, 1) }px` : '-4px';
 }
 
 export const styles = (theme: ApplicationTheme) => ({
@@ -30,14 +34,14 @@ export const styles = (theme: ApplicationTheme) => ({
   groupIndicator: {
     display: 'inlineBlock',
     position: 'relative',
-    width: theme.itemSize,
-    height: groupIndicatorSize,
-    minWidth: groupIndicatorSize,
-    minHeight: groupIndicatorSize,
-    borderRadius: groupIndicatorSize,
+    width: theme.itemBorderSize,
+    height: itemSize(theme),
+    minWidth: itemSize(theme),
+    minHeight: itemSize(theme),
+    borderRadius: itemSize(theme),
     border: `${ borderWidth(theme) } solid transparent`,
     outline: 'none',
-    background: 'none',
+    background: theme.base,
 
     '&::before': {
       content: '""',
@@ -47,7 +51,7 @@ export const styles = (theme: ApplicationTheme) => ({
       bottom: offsetHighlight(theme),
       left: offsetHighlight(theme),
       zIndex: 2,
-      borderRadius: groupIndicatorSize,
+      borderRadius: itemSize(theme),
       border: `${ borderWidthHighlight(theme) } solid transparent`,
       borderRightColor: 'rgba(255, 255, 255, 1.0)',
       opacity: 0.5,

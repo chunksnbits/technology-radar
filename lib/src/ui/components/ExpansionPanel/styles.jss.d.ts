@@ -1,5 +1,5 @@
 export declare const styles: {
-    header: {
+    expansionPanelHeader: {
         display: string;
         flexDirection: string;
         alignItems: string;
@@ -12,7 +12,7 @@ export declare const styles: {
         padding: string;
         cursor: string;
     };
-    headerTitle: {
+    expansionPanelHeaderTitle: {
         display: string;
         flex: string;
         alignItems: string;
@@ -21,7 +21,7 @@ export declare const styles: {
         fontSize: string;
         lineHeight: number;
     };
-    iconicon: {
+    expansionPanelIcon: {
         display: string;
         alignItems: string;
         width: string;
@@ -29,14 +29,14 @@ export declare const styles: {
         transform: string;
         transition: string;
     };
-    expansionPanelActiveUIon: {
+    expansionPanelActive: {
         transform: string;
+        '$expansionPanelBody': {
+            display: string;
+        };
     };
-    body: {
+    expansionPanelBody: {
         display: string;
         padding: string;
-    };
-    expansionPanelActiveBody: {
-        display: string;
     };
 };

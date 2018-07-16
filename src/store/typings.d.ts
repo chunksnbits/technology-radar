@@ -1,20 +1,27 @@
 
 declare type ApplicationStateStore = ApplicationState & ApplicationStateActions;
-declare type TechnologyRadarStore = TechnologyRadarState;
+declare type LayoutStore = LayoutState & LayoutActions;
+declare type TechnologyRadarStore = ApplicationData;
 
 declare type Breakpoint = 'small' | 'medium' | 'large';
 declare type ViewMode = 'list' | 'radar';
 
-declare interface ApplicationState {
-  title?: string;
-  subtitle?: string;
-  logo?: string;
-
+declare interface ApplicationState extends ApplicationConfig {
   focusedTechnology?: Technology;
   selectedTechnology?: Technology;
   selectedGroup?: Group;
 
   viewMode?: ViewMode;
+}
+
+declare interface LayoutState extends ApplicationLayout {
+  activeBreakpoint: Breakpoint;
+  orientation: DeviceOrientation;
+}
+
+declare interface LayoutActions {
+  setActiveBreakpoint: (breakpoint: Breakpoint) => void;
+  setDeviceOrientation: (orientation: DeviceOrientation) => void;
 }
 
 declare interface ApplicationStateActions {
@@ -26,17 +33,4 @@ declare interface ApplicationStateActions {
   toggleViewMode: () => void;
 
   reset: () => void;
-}
-
-declare interface TechnologyRadarState {
-  technologies?: Technology[];
-  groups?: Group[];
-  levels?: Level[];
-
-  settings?: TechnologyRadarSettings;
-}
-
-declare interface TechnologyRadarSettings {
-  innerRadiusPercent: number;
-  outerRadiusPercent: number;
 }

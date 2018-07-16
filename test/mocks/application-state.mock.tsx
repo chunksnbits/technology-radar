@@ -11,10 +11,9 @@ export const mockApplicationState = (patch: Partial<ApplicationState> = {}) => (
   ...patch,
 });
 
-export const mockTechnologyRadar = (patch: Partial<TechnologyRadarState> = {}): TechnologyRadarState => ({
+export const mockTechnologyRadar = (patch: Partial<ApplicationData> = {}): ApplicationData => ({
   technologies: [mockTechnology()],
   groups: [mockGroup()],
-  settings: mockSettings(),
   ...patch,
 });
 
@@ -40,6 +39,16 @@ export const mockGroup = (patch: Partial<Group> = {}) => ({
   name: 'Any',
   color: 'red',
   description: null,
+  ...patch,
+});
+
+export const mockLayout =  (patch: Partial<ApplicationLayout> = {}): ApplicationLayout => ({
+  technologyRadar: mockSettings(),
+  breakpoints: {
+    small: 0,
+    medium: 1000,
+    large: 2000,
+  },
   ...patch,
 });
 

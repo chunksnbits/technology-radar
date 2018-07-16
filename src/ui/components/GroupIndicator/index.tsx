@@ -5,7 +5,7 @@ import { MouseEventHandler, PureComponent } from 'react';
 
 import { Classes } from 'jss';
 
-import { classNames } from 'core/utils/dom';
+import { classNames } from 'utils/dom';
 import { styled } from 'utils';
 
 import { styles } from './styles.jss';

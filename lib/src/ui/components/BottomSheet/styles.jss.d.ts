@@ -29,7 +29,8 @@ export declare const styles: (theme: ApplicationTheme) => {
         padding: string;
         color: string;
         background: string;
-        border: string;
+        boxShadow: string;
+        border: number;
     };
     navigation: {
         position: string;
@@ -40,12 +41,14 @@ export declare const styles: (theme: ApplicationTheme) => {
         pointerEvents: string;
     };
     navigationAction: {
-        pointerEvents: string;
-        minWidth: number;
         height: string;
         width: string;
+        minWidth: number;
+        margin: string;
         borderRadius: string;
-        '&, &:hover, &:focus': {
+        pointerEvents: string;
+        background: string;
+        '&:hover, &:focus': {
             background: string;
         };
     };

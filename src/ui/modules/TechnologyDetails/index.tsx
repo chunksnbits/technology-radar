@@ -5,11 +5,11 @@ import * as React from 'react';
 
 import { Classes } from 'jss';
 
-import { ApplicationStateContext, TechnologyRadarContext } from 'core/store';
+import { ApplicationStateContext, TechnologyRadarContext } from 'store';
 
-import { styled, consume, classNames } from 'core/utils';
+import { styled, consume, classNames } from 'utils';
 
-import { GlobalBackground, TextButton, Logo } from 'core/ui/components';
+import { GlobalBackground, TextButton, Logo } from '../../components';
 import { TechnologyDetailsNavigation } from './components/TechnologyDetailsNavigation';
 
 import { styles } from './styles.jss';

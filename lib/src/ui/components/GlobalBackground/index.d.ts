@@ -1,6 +1,7 @@
 import { PureComponent, ReactNode } from 'react';
 import * as React from 'react';
 import { Classes } from 'jss';
+export declare const GLOBAL_BACKGROUND_ANCHOR_ID = "g-global-background";
 export interface GlobalBackgroundProps {
     children?: ReactNode;
     classes?: Classes;

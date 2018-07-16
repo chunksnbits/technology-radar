@@ -7,7 +7,7 @@ import { shallow } from 'enzyme';
 
 import { createClasses, noop } from 'mocks';
 
-import { Footer, FooterProps } from './index';
+import { Footer, FooterProps } from '.';
 import { ViewToggle } from './components/view-toggle';
 import { styles } from './styles.jss';
 

@@ -4,7 +4,7 @@ import { createRef, PureComponent, RefObject, MouseEvent, TouchEvent } from 'rea
 import * as React from 'react';
 import { Classes } from 'jss';
 
-import { styled, classNames, getPrimaryTouch, getPositionInElement } from 'core/utils';
+import { styled, classNames, getPrimaryTouch, getPositionInElement } from 'utils';
 
 import { styles } from './styles.jss';
 

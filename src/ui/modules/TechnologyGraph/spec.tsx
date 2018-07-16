@@ -8,8 +8,8 @@ import { shallow, render } from 'enzyme';
 import {
   mockTechnology,
   mockGroup,
-  mockSettings,
   mockLevel,
+  mockLayout,
 } from 'mocks';
 
 import { LegendGroupLabels } from './components/LegendGroupLabels';
@@ -17,7 +17,7 @@ import { TechnologyItem } from './components/TechnologyItem';
 import { LegendLevels } from './components/LegendLevels';
 import { LegendGroupSeparators } from './components/LegendGroupSeparators';
 
-import { TechnologyGraph, TechnologyGraphProps } from './index';
+import { TechnologyGraph, TechnologyGraphProps } from '.';
 import { createClasses, extractSelectors } from 'mocks/styled.mock';
 import { styles } from './styles.jss';
 
@@ -29,7 +29,7 @@ function withProps(props: TechnologyGraphProps): TechnologyGraphProps {
   return {
     technologies: [mockTechnology()],
     groups: [mockGroup()],
-    settings: mockSettings(),
+    layout: mockLayout(),
 
     ...classes,
     ...props,
@@ -94,11 +94,12 @@ it('applies base rotation', () => {
   const group = mockGroup();
 
   const element = render(
-    <TechnologyGraph { ...withProps({
-      technologies: [mockTechnology({ groupId: group.id }), mockTechnology({ groupId: group.id })],
-      groups: [group],
-      levels: [mockLevel(), mockLevel()],
-      settings: mockSettings(),
+    <TechnologyGraph {
+      ...withProps({
+        technologies: [mockTechnology({ groupId: group.id }), mockTechnology({ groupId: group.id })],
+        groups: [group],
+        levels: [mockLevel(), mockLevel()],
+        layout: mockLayout(),
       })
     } />,
   );

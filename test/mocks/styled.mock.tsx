@@ -10,7 +10,7 @@ export const mockTheme = {
   accent: 'rgba(139, 218, 224, 1)',
   base: 'rgba(2, 22, 12, 1)',
   a11y: '#9c27b0',
-  itemSize: 3,
+  itemBorderSize: 3,
 };
 
 // ----------------------------------------------------------------------------- Configuration

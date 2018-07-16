@@ -5,7 +5,7 @@ import * as React from 'react';
 
 import { Classes } from 'jss';
 
-import { styled, classNames } from 'core/utils';
+import { styled, classNames } from 'utils';
 
 import * as logoSrc from 'public/logo.symbols.svg';
 import { styles } from './styles.jss';

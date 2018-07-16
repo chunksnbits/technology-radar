@@ -5,7 +5,7 @@ import { Fragment, PureComponent, ReactNode } from 'react';
 
 import { Classes } from 'jss';
 
-import { classNames, styled } from 'core/utils';
+import { classNames, styled } from 'utils';
 
 import { Button } from '@material-ui/core';
 import { Icon } from '../Icon';

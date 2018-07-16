@@ -2,23 +2,55 @@
   "type": "object",
   "required": [
     "$schema",
-    "small",
-    "medium",
-    "large"
+    "technologyRadar",
+    "breakpoints"
   ],
   "additionalProperties": false,
   "properties": {
     "$schema": {
       "type": "string"
     },
-    "small": {
-      "type": "number"
+    "technologyRadar": {
+      "type": "object",
+      "required": [
+        "innerRadiusPercent",
+        "outerRadiusPercent"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "innerRadiusPercent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 50,
+          "default": 10
+        },
+        "outerRadiusPercent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 50,
+          "default": 50
+        }
+      }
     },
-    "medium": {
-      "type": "number"
-    },
-    "large": {
-      "type": "number"
+    "breakpoints": {
+      "type": "object",
+      "required": [
+        "small",
+        "medium",
+        "large"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "small": {
+          "type": "number"
+        },
+        "medium": {
+          "type": "number"
+        },
+        "large": {
+          "type": "number"
+        }
+      }
     }
   }
 }

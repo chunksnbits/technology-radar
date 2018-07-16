@@ -1,4 +1,4 @@
 
-export * from './application-state.mock';
-export * from './generic.mock';
-export * from './styled.mock';
+export * from 'mocks/application-state.mock';
+export * from 'mocks/generic.mock';
+export * from 'mocks/styled.mock';

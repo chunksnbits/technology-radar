@@ -1,1 +1,1 @@
-export {};
+import 'mocks/mock-jss';

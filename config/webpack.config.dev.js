@@ -11,6 +11,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const entries = require('./utils').entries;
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -29,15 +30,19 @@ module.exports = {
   // You may want 'eval' instead if you prefer to see the compiled output in DevTools.
   // See the discussion in https://github.com/facebookincubator/create-react-app/issues/343.
   devtool: 'cheap-module-source-map',
-  // These are the "entry points" to our application.
-  // This means they will be the "root" imports that are included in JS bundle.
-  // The first two entry points enable "hot" CSS and auto-refreshes for JS.
-  entry: {
-    polyfill: require.resolve('./polyfills'),
-    hot: require.resolve('react-dev-utils/webpackHotDevClient'),
-    main: paths.appIndexJs,
-    webcomponent: paths.webcomponentIndexJs,
-  },
+  // App entry points, use --apps=... to filter apps to render, e.g., --apps=main,webcomponent for all
+  entry: entries({
+    main: [
+      require.resolve('./polyfills'),
+      require.resolve('react-dev-utils/webpackHotDevClient'),
+      paths.appIndexJs
+    ],
+    webcomponent: [
+      require.resolve('./polyfills'),
+      require.resolve('react-dev-utils/webpackHotDevClient'),
+      paths.webcomponentIndexJs
+    ],
+  }),
   output: {
     // Add /* filename */ comments to generated require()s in the output.
     pathinfo: true,

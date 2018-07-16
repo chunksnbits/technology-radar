@@ -12,6 +12,7 @@ export declare const styles: (theme: ApplicationTheme) => {
         display: string;
         flexDirection: string;
         justifyContent: string;
+        marginBottom: string;
     };
     footerActionIcon: {
         width: string;

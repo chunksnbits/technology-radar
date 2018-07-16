@@ -1,4 +1,5 @@
-export declare const groupIndicatorSize = "18px";
+export declare const groupIndicatorSize = 12;
+export declare const itemSize: (theme: ApplicationTheme) => string;
 export declare const styles: (theme: ApplicationTheme) => {
     groupIndicator: {
         display: string;

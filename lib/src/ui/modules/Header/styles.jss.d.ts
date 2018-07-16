@@ -24,6 +24,8 @@ export declare const styles: (theme: any) => {
     headerLogo: {
         display: string;
         width: string;
+        marginRight: string;
+        marginTop: string;
     };
     headerName: {
         display: string;
@@ -36,12 +38,14 @@ export declare const styles: (theme: any) => {
         display: string;
         fontWeight: string;
         lineHeight: number;
+        textAlign: string;
         fontFamily: string;
         fontSize: string;
     };
     headerSubtitle: {
         fontWeight: string;
         textTransform: string;
+        textAlign: string;
         fontSize: string;
         fontFamily: string;
         lineHeight: number;

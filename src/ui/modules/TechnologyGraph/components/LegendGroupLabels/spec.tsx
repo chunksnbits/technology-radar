@@ -2,7 +2,7 @@ import 'mocks/mock-jss';
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { LegendGroupLabels } from './index';
+import { LegendGroupLabels } from '.';
 import { shallow } from 'enzyme';
 import { mockGroup, noop, createClasses, extractSelectors } from 'mocks';
 

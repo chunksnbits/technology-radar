@@ -7,8 +7,8 @@ import { Classes } from 'jss';
 
 import { Button } from '@material-ui/core';
 
-import { classNames, styled } from 'core/utils';
-import { Icon } from 'core/ui/components';
+import { classNames, styled } from 'utils';
+import { Icon } from '../../../../components';
 
 import { styles } from './styles.jss';
 

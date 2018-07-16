@@ -7,7 +7,7 @@ import { createPortal } from 'react-dom';
 import * as React from 'react';
 import { Classes } from 'jss';
 
-import { classNames, canUseDOM, styled } from 'core/utils';
+import { classNames, canUseDOM, styled } from 'utils';
 import { styles } from './styles.jss';
 
 // ----------------------------------------------------------------------------- Configuration

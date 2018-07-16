@@ -13,6 +13,8 @@ export declare const styles: (theme: any) => {
     technologyListItems: {
         height: string;
         overflow: string;
+        display: string;
+        flexDirection: string;
     };
     technologyListHidden: {
         transform: string;

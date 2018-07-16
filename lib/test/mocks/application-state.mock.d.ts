@@ -1,13 +1,22 @@
-/// <reference types="cheerio" />
-import { ReactElement } from 'react';
-export declare const mockApplicationState: (patch?: {}) => ApplicationState;
-export declare const mockApplicationStateStore: (patch?: {}) => ApplicationState & ApplicationStateActions;
-export declare const mockTechnologyRadar: (patch?: {}) => TechnologyRadarState;
-export declare const mockTechnologyRadarStore: (patch?: {}) => TechnologyRadarState;
-export declare const mockTechnology: (patch?: {}) => Technology;
-export declare const mockLevel: (patch?: {}) => Level;
-export declare const mockGroup: (patch?: {}) => Group;
-export declare const mockSettings: (patch?: {}) => TechnologyRadarSettings;
-export declare const shallowWithApplicationState: any;
-export declare const mountWithApplicationState: any;
-export declare const renderWithApplicationState: (element: ReactElement<any>, applicationState?: any) => Cheerio;
+export declare const mockApplicationState: (patch?: Partial<ApplicationState>) => {
+    focusedTechnology?: Technology;
+    selectedTechnology?: Technology;
+    selectedGroup?: Group;
+    viewMode: string;
+    title: string;
+    subtitle?: string;
+    logo: string;
+    breakpoint: string;
+};
+export declare const mockTechnologyRadar: (patch?: Partial<ApplicationData>) => ApplicationData;
+export declare const mockTechnology: (patch?: Partial<Technology>) => Technology;
+export declare const mockLevel: (patch?: Partial<Level>) => Level;
+export declare const mockGroup: (patch?: Partial<Group>) => {
+    id: string;
+    group: number;
+    name: string;
+    description: string;
+    color: string;
+};
+export declare const mockLayout: (patch?: Partial<ApplicationLayout>) => ApplicationLayout;
+export declare const mockSettings: (patch?: Partial<TechnologyRadarSettings>) => TechnologyRadarSettings;

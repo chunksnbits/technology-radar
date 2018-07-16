@@ -5,7 +5,7 @@ export interface TechnologyListProps {
     classes?: Classes;
     technologies?: Technology[];
     groups?: Group[];
-    breakpoint?: Breakpoint;
+    activeBreakpoint?: Breakpoint;
     focusedTechnology?: Technology;
     selectedTechnology?: Technology;
     selectedGroup?: Group;

@@ -6,7 +6,7 @@ export interface TechnologyGraphProps {
     groups?: Group[];
     levels?: Level[];
     technologies?: Technology[];
-    settings?: TechnologyRadarSettings;
+    layout?: ApplicationLayout;
     focusedTechnology?: Technology;
     selectedTechnology?: Technology;
     selectedGroup?: Group;

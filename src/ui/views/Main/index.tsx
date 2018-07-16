@@ -3,13 +3,13 @@
 import * as React from 'react';
 import { MouseEvent, PureComponent } from 'react';
 
-import { ApplicationStateContext } from 'core/store';
+import { ApplicationStateContext } from 'store';
 
 import { Classes } from 'jss';
 
-import { TechnologyGraph, TechnologyList, TechnologyDetails, Header, Footer } from 'core/ui/modules';
-import { AspectRatio, BottomSheet } from 'core/ui/components';
-import { consume, classNames, styled, capitalize } from 'core/utils';
+import { TechnologyGraph, TechnologyList, TechnologyDetails, Header, Footer } from '../../modules';
+import { AspectRatio, BottomSheet } from '../../components';
+import { consume, classNames, styled, capitalize } from 'utils';
 
 import { styles } from './styles.jss';
 

@@ -1,17 +1,18 @@
 
-
+// ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
 
-import { bootstrapWecomponent } from 'core/utils/bootstrap';
-import { Webcomponent } from 'core/apps';
-import registerServiceWorker from './registerServiceWorker';
+import { bootstrapWebComponent, registerServiceWorker } from 'utils';
+import { Webcomponent, TechnologyRadarProps } from 'ui/views';
 
-const defaults = {
+// ----------------------------------------------------------------------------- Configuration
+const defaults: TechnologyRadarProps = {
   layout: require('public/layout.json'),
   theme: require('public/theme.json'),
-  config: null,
+  applicationConfig: null,
   data: null,
 };
 
-bootstrapWecomponent(<Webcomponent { ...defaults } />, 'technology-radar');
+// ----------------------------------------------------------------------------- Implementation
+bootstrapWebComponent(<Webcomponent { ...defaults } />, 'technology-radar');
 registerServiceWorker();

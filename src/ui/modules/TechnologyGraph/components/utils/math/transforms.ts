@@ -46,8 +46,6 @@ export function calculateItemOffsetPercent(
   const count = calculateNumberOfItemsForLevelAndGroup(technologies, technology);
   const index = calculateIndexInLevelAndGroup(technologies, technology);
 
-  // const { index, count, level, maxLevel, innerRadiusPercent, outerRadiusPercent } = transformProperties;
-
   // Invert level, i.e., the greater the level the nearer the item is to the center
   const invertedLevel = (maxLevel + 1) - level;
 

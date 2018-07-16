@@ -3,7 +3,7 @@
 import { Component, PureComponent } from 'react';
 import * as React from 'react';
 
-import { classNames } from 'core/utils/dom';
+import { classNames } from 'utils/dom';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface AsyncComponentState {

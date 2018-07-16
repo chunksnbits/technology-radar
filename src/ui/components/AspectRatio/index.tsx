@@ -5,30 +5,30 @@ import * as React from 'react';
 
 import { Classes } from 'jss';
 
+import { LayoutContext } from 'store';
 import { classNames, styled, consume } from 'utils';
 
 import { styles } from './styles.jss';
-import { LayoutProviderContext, Layout } from '../LayoutProvider';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface AspectRatioProps {
   className?: string;
   classes?: Classes;
-  layout?: Layout;
+  orientation?: DeviceOrientation;
   ratio: number;
 }
 
 // ----------------------------------------------------------------------------- Implementation
+@consume(LayoutContext, { select: ['orientation'] })
 @styled(styles)
-@consume(LayoutProviderContext, { bindTo: 'layout' })
 export class AspectRatio extends PureComponent<AspectRatioProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const { ratio, className, classes, layout } = this.props;
+    const { ratio, className, classes, orientation } = this.props;
 
     const modificators = [
-      layout.orientation === 'landscape' ? classes.aspectRatioLandscape : classes.aspectRatioPortrait,
+      orientation === 'landscape' ? classes.aspectRatioLandscape : classes.aspectRatioPortrait,
     ]
 
     return (

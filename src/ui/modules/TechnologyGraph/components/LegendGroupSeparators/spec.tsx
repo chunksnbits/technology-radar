@@ -6,7 +6,7 @@ import { shallow } from 'enzyme';
 
 import { mockGroup, createClasses, extractSelectors } from 'mocks';
 
-import { LegendGroupSeparators } from './index';
+import { LegendGroupSeparators } from '.';
 
 import { styles } from './styles.jss';
 

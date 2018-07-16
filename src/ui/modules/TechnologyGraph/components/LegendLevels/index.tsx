@@ -5,7 +5,7 @@ import * as React from 'react';
 
 import { Classes } from 'jss';
 
-import { styled, classNames } from 'core/utils';
+import { styled, classNames } from 'utils';
 
 import { calculateMaxLevel } from '../utils/math';
 
@@ -15,8 +15,7 @@ import { styles } from './styles.jss';
 export interface LegendLevelsProps {
   className?: string;
   classes?: Classes;
-  innerRadiusPercent: number;
-  outerRadiusPercent: number;
+  settings: TechnologyRadarSettings;
   technologies: Technology[];
   levels: Level[];
 }
@@ -27,7 +26,12 @@ export class LegendLevels extends PureComponent<LegendLevelsProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const { innerRadiusPercent, outerRadiusPercent, technologies, levels, classes } = this.props;
+    if (!Boolean(this.props.settings)) {
+      return null;
+    }
+
+    const { technologies, levels, classes } = this.props;
+    const { innerRadiusPercent, outerRadiusPercent } = this.props.settings;
 
     const modifiers = [];
 

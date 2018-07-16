@@ -33,6 +33,7 @@ export declare const styles: {
         right: number;
         width: string;
         height: string;
+        maxWidth: string;
         justifyContent: string;
     };
     technologyRadarTechnologyRadarContent: {

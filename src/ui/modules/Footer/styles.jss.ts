@@ -34,11 +34,11 @@ export const styles = (theme: ApplicationTheme) => ({
     opacity: 0.8,
     pointerEvents: 'all',
     color: theme.primary,
-    backgroundColor: rgba(theme.primary, 0),
+    backgroundColor: rgba(theme.accent || theme.primary, 0),
 
     '&:hover': {
       opacity: 1,
-      backgroundColor: rgba(theme.primary, 1),
+      backgroundColor: rgba(theme.accent || theme.primary, 1),
       color: theme.base,
 
       span: {

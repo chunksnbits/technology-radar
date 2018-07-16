@@ -1,7 +1,7 @@
 
 export const defaultState: ApplicationState = {
   title: 'Technology Radar',
-  logo: require('public/logo.svg'),
+  logo: null,
   focusedTechnology: null,
   selectedTechnology: null,
   selectedGroup: null,

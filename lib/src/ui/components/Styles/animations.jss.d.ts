@@ -1,4 +1,4 @@
-export declare function transitionDefault(...names: string[]): {
+export declare function transitionDefault(...names: Array<string | Partial<CssTransitionProperties>>): {
     transition: string;
 };
 export declare function transitionFaster(...names: string[]): {

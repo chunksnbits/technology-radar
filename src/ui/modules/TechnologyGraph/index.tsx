@@ -3,10 +3,10 @@
 import { PureComponent, CSSProperties, RefObject, createRef } from 'react';
 import * as React from 'react';
 
-import { ApplicationStateContext, TechnologyRadarContext } from 'core/store';
+import { ApplicationStateContext, LayoutContext, TechnologyRadarContext } from 'store';
 
-import { consume } from 'core/utils/store';
-import { styled, classNames } from 'core/utils';
+import { consume } from 'utils/store';
+import { styled, classNames } from 'utils';
 
 import { Classes } from 'jss';
 
@@ -26,7 +26,7 @@ export interface TechnologyGraphProps {
   groups?: Group[];
   levels?: Level[];
   technologies?: Technology[];
-  settings?: TechnologyRadarSettings;
+  layout?: ApplicationLayout;
   focusedTechnology?: Technology;
   selectedTechnology?: Technology;
   selectedGroup?: Group;
@@ -48,7 +48,8 @@ const BASE_TRANSFORM_ROTATE_DEGREES = -10;
     'selectTechnology',
   ],
 })
-@consume(TechnologyRadarContext, { select: ['groups', 'levels', 'technologies', 'settings'] })
+@consume(TechnologyRadarContext, { select: ['groups', 'levels', 'technologies'] })
+@consume(LayoutContext, { bindTo: 'layout' })
 @styled(styles)
 export class TechnologyGraph extends PureComponent<TechnologyGraphProps> {
   elementRef: RefObject<HTMLDivElement>;
@@ -71,9 +72,8 @@ export class TechnologyGraph extends PureComponent<TechnologyGraphProps> {
   }
 
   render() {
-    const { groups, levels, technologies, settings, classes } = this.props;
+    const { layout, groups, levels, technologies, classes } = this.props;
     const { focusedTechnology, selectedTechnology, selectedGroup } = this.props;
-
 
     const modifiers = [
       Boolean(selectedTechnology) && classes.technologyGraphSelectedTechnology,
@@ -100,8 +100,7 @@ export class TechnologyGraph extends PureComponent<TechnologyGraphProps> {
 
             <LegendLevels
               technologies={ technologies }
-              innerRadiusPercent={ settings.innerRadiusPercent }
-              outerRadiusPercent={ settings.outerRadiusPercent }
+              settings={ layout.technologyRadar }
               levels={ levels } />
           </div>
 
@@ -115,7 +114,7 @@ export class TechnologyGraph extends PureComponent<TechnologyGraphProps> {
                 selected={ Boolean(selectedTechnology) && selectedTechnology === technology }
                 groups={ groups }
                 technologies={ technologies }
-                settings={ settings }
+                settings={ layout.technologyRadar }
                 onSelect={ this.selectTechnologyHandler }
                 onMouseOver={ this.focusTechnologyHandler }
                 onMouseOut={ this.unfocusTechnologyHandler } />
@@ -186,10 +185,10 @@ export class TechnologyGraph extends PureComponent<TechnologyGraphProps> {
   }
 
   private calculateFocusedTranfsformForSelectedTechnology(): CSSProperties{
-    const { selectedTechnology, groups, technologies, settings } = this.props;
+    const { selectedTechnology, groups, technologies, layout } = this.props;
 
     const itemRotationDegrees = calculateTechnologyRotationDegrees(selectedTechnology, groups, technologies);
-    const itemOffsetPercent = calculateItemOffsetPercent(selectedTechnology, technologies, settings);
+    const itemOffsetPercent = calculateItemOffsetPercent(selectedTechnology, technologies, layout.technologyRadar);
 
     const rotationDegrees = 180 + 360 - itemRotationDegrees;
 

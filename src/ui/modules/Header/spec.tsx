@@ -3,7 +3,7 @@ import 'mocks/mock-jss';
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { Header } from './index';
+import { Header } from '.';
 import { shallow } from 'enzyme';
 
 import { mockApplicationState, createClasses, extractSelectors } from 'mocks';
@@ -40,10 +40,4 @@ it('renders logo if availble', () => {
   const element = shallow(<Header classes={ classes } { ...mockApplicationState() } />);
 
   expect(element.find(selectors.headerLogo).length).toEqual(1);
-});
-
-it('does not render logo if not availble', () => {
-  const element = shallow(<Header classes={ classes } { ...mockApplicationState({ logo: null }) } />);
-
-  expect(element.find(selectors.headerLogo).length).toEqual(0);
 });
