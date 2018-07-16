@@ -1,4 +1,5 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![Travis build status](https://travis-ci.org/chunksnbits/technology-radar.svg?branch=master)](https://travis-ci.org/chunksnbits/technology-radar)
 
 # Technology radar
 

@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - "lts/*"
+stages:
+  - compile
+  - build
+  - test
+  - deploy
+jobs:
+  include:
+    - stage: compile
+      script: yarn compile
+    - stage: build
+      script: yarn build
+    - stage: test
+      script: yarn test
+    - stage: deploy
+      script: yarn deploy
