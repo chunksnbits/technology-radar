@@ -1,6 +1,6 @@
 {
   "name": "technology-radar",
-  "version": "0.3.3",
+  "version": "1.0.0",
   "main": "lib/index.js",
   "license": "MIT",
   "repository": "https://github.com/chunksnbits/technology-radar.git",

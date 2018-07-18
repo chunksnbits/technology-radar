@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/chunksnbits/technology-radar/compare/v0.3.1...v1.0.0) (2018-07-18)
+
+
+### Chores
+
+* **system:** adds library build as output ([7a03699](https://github.com/chunksnbits/technology-radar/commit/7a03699))
+
+
+### Features
+
+* **webcomponent:** adds webcomponent as build target ([5d50fde](https://github.com/chunksnbits/technology-radar/commit/5d50fde))
+* **webcomponent:** splits build for webcomponent + standalone app ([f6e23bc](https://github.com/chunksnbits/technology-radar/commit/f6e23bc))
+
+
+### BREAKING CHANGES
+
+* **system:** output format changed
+
+
+
 <a name="0.3.3"></a>
 ## [0.3.3](https://github.com/chunksnbits/technology-radar/compare/v0.3.1...v0.3.3) (2018-07-02)
 
