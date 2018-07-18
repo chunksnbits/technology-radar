@@ -1,14 +1,10 @@
 {
-  "static/js/0.250dae76.chunk.js": "/technology-radar/static/js/0.250dae76.chunk.js",
-  "static/js/0.250dae76.chunk.js.map": "/technology-radar/static/js/0.250dae76.chunk.js.map",
-  "static/js/1.874b96ad.chunk.js": "/technology-radar/static/js/1.874b96ad.chunk.js",
-  "static/js/1.874b96ad.chunk.js.map": "/technology-radar/static/js/1.874b96ad.chunk.js.map",
-  "main.js": "/technology-radar/static/js/main.99a5819c.js",
-  "main.css": "/technology-radar/static/css/main.dcef0d6c.css",
-  "main.js.map": "/technology-radar/static/js/main.99a5819c.js.map",
-  "main.css.map": "/technology-radar/static/css/main.dcef0d6c.css.map",
-  "static/media/logo.svg": "/technology-radar/static/media/logo.5d5d9eef.svg",
-  "static/media/logo.symbols.svg": "/technology-radar/static/media/logo.symbols.cea7c605.svg",
+  "static/js/0.5d8120d5.chunk.js": "/technology-radar/static/js/0.5d8120d5.chunk.js",
+  "static/js/0.5d8120d5.chunk.js.map": "/technology-radar/static/js/0.5d8120d5.chunk.js.map",
+  "main.js": "/technology-radar/static/js/main.a1bf4afe.js",
+  "main.js.map": "/technology-radar/static/js/main.a1bf4afe.js.map",
   "static/media/icon.symbols.svg": "/technology-radar/static/media/icon.symbols.e341956a.svg",
+  "static/media/logo.symbols.svg": "/technology-radar/static/media/logo.symbols.cea7c605.svg",
+  "static/media/logo.svg": "/technology-radar/static/media/logo.8d0bda7a.svg",
   "index.html": "/technology-radar/index.html"
 }
