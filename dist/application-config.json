@@ -1,0 +1,6 @@
+{
+  "$schema": "../schemas/application-config.schema.json",
+  "editor": false,
+  "title": "Technological Skills Radar",
+  "subtitle": "curated by Daniel Eissing"
+}

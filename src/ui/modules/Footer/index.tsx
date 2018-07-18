@@ -3,67 +3,45 @@
 import { PureComponent } from 'react';
 import * as React from 'react';
 
-import { ApplicationStateContext, TechnologyRadarContext } from 'store';
+import { Classes } from 'jss';
 
-import { consume } from 'utils/store';
-import { classNames } from 'utils/dom';
+import { ApplicationStateContext } from 'store';
+
+import { classNames, consume, styled } from 'utils';
 
 import { ViewToggle } from './components/view-toggle';
-import { CreateNewAction } from './components/create-new-action';
-import { EditModeToggle } from './components/edit-mode-toggle';
 
-import './styles.scss';
+import { styles } from './styles.jss';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface FooterProps {
   className?: string;
-  editor?: boolean;
+  classes?: Classes;
   viewMode?: ViewMode;
-  owner?: boolean;
-  createNew?: () => void;
-  edit?: () => void;
   toggleViewMode?: () => void;
 }
 
 // ----------------------------------------------------------------------------- Implementation
-@consume(ApplicationStateContext, { select: ['editor', 'viewMode', 'owner', 'toggleViewMode'] })
-@consume(TechnologyRadarContext, { select: ['createNew', 'edit'] })
+@consume(ApplicationStateContext, { select: ['viewMode', 'toggleViewMode'] })
+@styled(styles)
 export class Footer extends PureComponent<FooterProps> {
 
   handlers: BoundHandlers<any> = {};
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const { editor, viewMode, owner } = this.props;
+    const { viewMode, classes } = this.props;
 
     return (
-      <footer className={ classNames('c-footer', this.props.className) }>
-        <div className='c-footer__actions'>
-          <ViewToggle viewMode={ viewMode }
-            onClick={ this.toggleListViewHandler }
-            className='c-footer__action c-footer__action--togle-view' />
-
-          <CreateNewAction show={ owner }
-            onClick={ this.createNewHandler }
-            className='c-footer__action c-footer__action--create-new' />
-
-          <EditModeToggle show={ editor }
-            onClick={ this.toggleEditModeHandler }
-            className='c-footer__action c-footer__action--toggle-edit' />
+      <footer className={ classNames(classes.root, this.props.className) }>
+        <div className={ classes.footerActions }>
+          <ViewToggle viewMode={ viewMode } onClick={ this.toggleListViewHandler } />
         </div>
       </footer>
     );
   }
 
   // ----------------------------------------------------------------------------- Helpers methods
-  private createNewHandler = () => {
-    this.props.createNew();
-  }
-
-  private toggleEditModeHandler = () => {
-    this.props.edit();
-  }
-
   private toggleListViewHandler = () => {
     this.props.toggleViewMode();
   }

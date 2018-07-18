@@ -3,48 +3,57 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 
-import { classNames } from 'utils/dom';
+import { Classes } from 'jss';
 
-import './styles.scss';
 import { Button } from '@material-ui/core';
-import { Icon } from 'ui/components/Icon';
+
+import { classNames, styled } from 'utils';
+import { Icon } from '../../../../components';
+
+import { styles } from './styles.jss';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyDetailsNavigationProps {
   className?: string;
+  classes?: Classes;
   technologies: Technology[];
   selectedTechnology: Technology;
   onSelect: (technology: Technology, event: React.MouseEvent<HTMLElement>) => any;
 }
 
 // ----------------------------------------------------------------------------- Implementation
+@styled(styles)
 export class TechnologyDetailsNavigation extends PureComponent<TechnologyDetailsNavigationProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    const modifiers = [];
+    const { classes, className, selectedTechnology } = this.props;
 
-    if (!this.props.selectedTechnology) {
+    if (!selectedTechnology) {
       return null;
     }
 
     return (
-      <div className={ classNames('c-technology-details-navigation', this.props.className, ...modifiers) }>
+      <div className={ classNames(classes.root, className) }>
         <Button onClick={ this.propagateSelectPrevHandler }
           variant='flat'
           size='small'
-          className='c-technology-details-navigation__action c-technology-details-navigation__action--prev'>
+          className={ classNames(classes.technologyDetailsNavigationAction, classes.technologyDetailsNavigationActionPrev) }>
           <Icon name='navigate-prev'
-            className='c-technology-details-navigation__action-icon' />
-          { this.getPrev().name }
+            className={ classes.technologyDetailsNavigationActionIcon } />
+          <span className={ classes.technologyDetailsNavigationActionLabel }>
+            { this.getPrev().name }
+          </span>
         </Button>
         <Button onClick={ this.propagateSelectNextHandler }
           variant='flat'
           size='small'
-          className='c-technology-details-navigation__action c-technology-details-navigation__action--next'>
-          { this.getNext().name }
+          className={ classNames(classes.technologyDetailsNavigationAction, classes.technologyDetailsNavigationActionNext) }>
+          <span className={ classes.technologyDetailsNavigationActionLabel }>
+            { this.getNext().name }
+          </span>
           <Icon name='navigate-next'
-            className='c-technology-details-navigation__action-icon' />
+            className={ classes.technologyDetailsNavigationActionIcon } />
         </Button>
       </div>
     );

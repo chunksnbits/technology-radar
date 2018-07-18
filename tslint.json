@@ -4,7 +4,8 @@
     "exclude": [
       "config/**/*.js",
       "node_modules/**/*.ts",
-      "dist/**/*.*"
+      "dist/**/*.*",
+      "lib/**/*.*"
     ]
   },
   "rules": {
@@ -15,6 +16,8 @@
     "object-literal-sort-keys": false,
     "quotemark": [true, "single"],
     "ban-types": false,
-    "no-use-before-declare": false
+    "no-use-before-declare": false,
+    "no-console": [true, "log", "debug", "time", "timeEnd", "trace"],
+    "trailing-comma": [true, {"multiline": "always", "singleline": "never"}]
   }
 }

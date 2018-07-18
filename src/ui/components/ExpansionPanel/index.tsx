@@ -3,11 +3,20 @@
 // ----------------------------------------------------------------------------- Dependencies
 import { PureComponent, Props } from 'react';
 import * as React from 'react';
+import { Classes } from 'jss';
 
-import { classNames } from 'utils/dom';
+import { styled, classNames } from 'utils';
 
-import './styles.scss';
 import { Icon } from '../Icon';
+import { styles } from './styles.jss';
+
+// ----------------------------------------------------------------------------- Configuration
+export interface ExpansionPanelProps {
+  className?: string;
+  classes?: Classes;
+  active: boolean;
+  onToggle: Function;
+}
 
 export class ExpansionPanelHeader extends PureComponent<Props<void>> {
   render() { return this.props.children; }
@@ -19,47 +28,42 @@ export class ExpansionPanelFooter extends PureComponent<Props<void>> {
   render() { return this.props.children; }
 }
 
-// ----------------------------------------------------------------------------- Configuration
-export interface ExpansionPanelProps {
-  className?: string;
-  active: boolean;
-  onToggle: Function;
-}
-
 // ----------------------------------------------------------------------------- Implementation
+@styled(styles)
 export class ExpansionPanel extends PureComponent<ExpansionPanelProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
+    const { children, className, classes } = this.props
 
     const modifiers = [
-      this.props.active && 'c-expansion-panel--active'
+      this.props.active && classes.expansionPanelActive,
     ];
 
-    const children = React.Children.toArray(this.props.children);
+    const allChildren = React.Children.toArray(children);
 
-    const header = children.filter((child: any) => child.type === ExpansionPanelHeader);
-    const body = children.filter((child: any) => child.type === ExpansionPanelBody);
-    const footer = children.filter((child: any) => child.type === ExpansionPanelFooter);
+    const header = allChildren.filter((child: any) => child.type === ExpansionPanelHeader);
+    const body = allChildren.filter((child: any) => child.type === ExpansionPanelBody);
+    const footer = allChildren.filter((child: any) => child.type === ExpansionPanelFooter);
 
     return (
-      <div className={ classNames('c-expansion-panel', this.props.className, ...modifiers) }>
+      <div className={ classNames(classes.expansionPanel, className, ...modifiers) }>
         {
           header.length > 0 && (
-            <button className='c-expansion-panel__header' onClick={ this.propagateToggle }>
-              <div className='c-expansion-panel__header-title'>
+            <button className={ classes.expansionPanelHeader } onClick={ this.propagateToggle }>
+              <div className={ classes.expansionPanelHeaderTitle }>
                 { header }
               </div>
-              <Icon name='arrow-down' className='c-expansion-panel__icon' />
+              <Icon name='arrow-down' className={ classes.expansionPanelIcon } />
             </button>
           )
         }{
           body.length > 0 && (
-            <div className='c-expansion-panel__body'>{ body }</div>
+            <div className={ classes.expansionPanelBody }>{ body }</div>
           )
         }{
           footer.length > 0 && (
-            <div className='c-expansion-panel__footer'>{ footer }</div>
+            <div className={ classes.expansionPanelFooter }>{ footer }</div>
           )
         }
       </div>
@@ -69,5 +73,4 @@ export class ExpansionPanel extends PureComponent<ExpansionPanelProps> {
   private propagateToggle = () => {
     return this.props.onToggle(!this.props.active);
   }
-
 }

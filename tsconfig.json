@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "outDir": "build/dist",
+    "outDir": "lib",
     "baseUrl": "src",
     "module": "esnext",
     "target": "es5",
+    "declaration": true,
     "lib": [
       "es2015",
       "es2016",
@@ -11,11 +12,12 @@
       "dom"
     ],
     "sourceMap": true,
-    "allowJs": true,
     "jsx": "react",
     "moduleResolution": "node",
-    "rootDir": "src",
     "paths": {
+      "core/*": [
+        "./*"
+      ],
       "public/*": [
         "../private/*",
         "../public/*"
@@ -48,7 +50,13 @@
     "acceptance-tests",
     "webpack",
     "jest",
-    "src/setupTests.ts",
-    "coverage"
+    "lib",
+    "coverage",
+    "test"
+  ],
+  "include": [
+    "src",
+    "public",
+    "private"
   ]
 }

@@ -1,0 +1,56 @@
+{
+  "type": "object",
+  "required": [
+    "$schema",
+    "technologyRadar",
+    "breakpoints"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "technologyRadar": {
+      "type": "object",
+      "required": [
+        "innerRadiusPercent",
+        "outerRadiusPercent"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "innerRadiusPercent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 50,
+          "default": 10
+        },
+        "outerRadiusPercent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 50,
+          "default": 50
+        }
+      }
+    },
+    "breakpoints": {
+      "type": "object",
+      "required": [
+        "small",
+        "medium",
+        "large"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "small": {
+          "type": "number"
+        },
+        "medium": {
+          "type": "number"
+        },
+        "large": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

@@ -1,20 +1,22 @@
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
-import { createContext, PureComponent, Context } from 'react';
+import { createContext, Component, Context } from 'react';
 import produce from 'immer';
 
 import { canUseSessionStorage } from 'utils/dom';
 import { restoreState } from 'utils/store';
-import { merge } from 'utils/collection';
-
-import theme from 'public/theme.json';
+import { mergeAll } from 'utils/collection';
 
 import { defaultState } from './constants';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface ApplicationStateProps {
-  initialState?: ApplicationState;
+  state?: ApplicationState;
+  screen?: {
+    width: number,
+    height: number,
+  }
 }
 
 const SESSION_STORAGE_KEY = 'cnb--application-state';
@@ -22,30 +24,21 @@ const SESSION_STORAGE_KEY = 'cnb--application-state';
 export const ApplicationStateContext: Context<ApplicationState & ApplicationStateActions> = createContext({} as any);
 
 export class ApplicationStateProvider
-  extends PureComponent<ApplicationStateProps, ApplicationState & ApplicationStateActions>
+  extends Component<ApplicationStateProps, ApplicationState & ApplicationStateActions>
   implements ApplicationStateActions
 {
   constructor(props: ApplicationStateProps) {
     super(props);
 
-    const initialState = merge(defaultState, props.initialState);
-
     this.state = {
-      ...initialState,
+      ...mergeAll(defaultState, props.state || {}, this.restoreState()),
 
       reset: this.reset.bind(this),
       focusTechnology: this.focusTechnology.bind(this),
       selectTechnology: this.selectTechnology.bind(this),
       selectGroup: this.selectGroup.bind(this),
-      setEditMode: this.setEditMode.bind(this),
-      setOwner: this.setOwner.bind(this),
-      updateBreakpoint: this.updateBreakpoint.bind(this),
       toggleViewMode: this.toggleViewMode.bind(this),
-    };
-  }
-
-  componentWillMount() {
-    this.restoreState();
+    }
   }
 
   render() {
@@ -57,26 +50,10 @@ export class ApplicationStateProvider
   }
 
   // ----------------------------------------------------------------------------- Action methods
-  updateBreakpoint(width: number): void {
-    this.setState(state => produce(state, (draftState: ApplicationState) => {
-      if (width < theme.breakpoints.medium) {
-        draftState.breakpoint = 'small';
-      } else if (width < theme.breakpoints.large) {
-        draftState.breakpoint = 'medium';
-      } else {
-        draftState.breakpoint = 'large';
-      }
-
-
-      return draftState;
-    }));
-  }
-
   reset(): void {
     this.setState(state => produce(state, (draftState: ApplicationState) => {
       draftState.selectedTechnology = null;
       draftState.selectedGroup = null;
-      draftState.editMode = false;
 
       return draftState;
     }));
@@ -118,30 +95,6 @@ export class ApplicationStateProvider
     }));
   }
 
-  setOwner(value: boolean): void {
-    if (value === this.state.owner) {
-      return;
-    }
-
-    this.setState(state => produce(state, (draftState: ApplicationState) => {
-      draftState.owner = value;
-
-      return draftState;
-    }));
-  }
-
-  setEditMode(value: boolean): void {
-    if (value === this.state.editMode) {
-      return;
-    }
-
-    this.setState(state => produce(state, (draftState: ApplicationState) => {
-      draftState.editMode = value;
-
-      return draftState;
-    }));
-  }
-
   toggleViewMode(): void {
     this.setState(state => produce(state, (draftState: ApplicationState) => {
       draftState.viewMode = draftState.viewMode === 'list' ? 'radar' : 'list';
@@ -150,13 +103,12 @@ export class ApplicationStateProvider
     }));
   }
 
-  private restoreState(): void {
+  // ----------------------------------------------------------------------------- Helpers methods
+  private restoreState(): ApplicationState | {} {
     if (!canUseSessionStorage()) {
-      return;
+      return {};
     }
 
-    this.setState(state => produce(state, (draftState: ApplicationState) => {
-      return Object.assign(draftState, restoreState(SESSION_STORAGE_KEY) || {});
-    }));
+    return restoreState(SESSION_STORAGE_KEY) || {};
   }
 }

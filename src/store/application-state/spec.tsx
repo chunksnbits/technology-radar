@@ -2,7 +2,7 @@
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
 
-import { ApplicationStateProvider } from './index';
+import { ApplicationStateProvider } from '.';
 import { mockTechnology, mockGroup } from 'mocks';
 import { shallow } from 'enzyme';
 
@@ -21,22 +21,15 @@ it('applies initialState', () => {
   const [selectedTechnology] = technologies;
   const [selectedGroup] = groups;
 
-  const element = shallow(<ApplicationStateProvider initialState={{
+  const element = shallow(<ApplicationStateProvider state={{
     selectedTechnology,
     selectedGroup,
-    breakpoint: 'large',
-    editMode: true,
-    editor: true,
-    owner: false
   }} />);
 
   const state = element.state() as ApplicationStateStore;
 
   expect(state.selectedTechnology).toEqual(selectedTechnology);
   expect(state.selectedGroup).toEqual(selectedGroup);
-  expect(state.editMode).toEqual(true);
-  expect(state.editor).toEqual(true);
-  expect(state.owner).toEqual(false);
 });
 
 it('updates selectedTechnology on selectTechnology', () => {
@@ -67,26 +60,4 @@ it('updates selectedGroup on selectGroup', () => {
   const updatedState = element.state() as ApplicationStateStore;
 
   expect(updatedState.selectedGroup.id).toBe(selected.id);
-});
-
-it('updates editMode on setEditMode', () => {
-  const element = shallow(<ApplicationStateProvider initialState={{ editMode: false }} />);
-  const state = element.state() as ApplicationStateStore;
-
-  state.setEditMode(true);
-
-  const updatedState = element.state() as ApplicationStateStore;
-
-  expect(updatedState.editMode).toEqual(true);
-});
-
-it('updates owner on setOwner', () => {
-  const element = shallow(<ApplicationStateProvider initialState={{ owner: false }} />);
-  const state = element.state() as ApplicationStateStore;
-
-  state.setOwner(true);
-
-  const updatedState = element.state() as ApplicationStateStore;
-
-  expect(updatedState.owner).toEqual(true);
 });

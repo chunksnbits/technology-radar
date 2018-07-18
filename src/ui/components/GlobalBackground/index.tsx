@@ -1,46 +1,78 @@
+// tslint:disable:max-classes-per-file
 
 // ----------------------------------------------------------------------------- Dependencies
 import { PureComponent, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
 import * as React from 'react';
+import { Classes } from 'jss';
 
-import { classNames, canUseDOM } from 'utils/dom';
-
-import './styles.scss';
+import { classNames, canUseDOM, styled } from 'utils';
+import { styles } from './styles.jss';
 
 // ----------------------------------------------------------------------------- Configuration
+export const GLOBAL_BACKGROUND_ANCHOR_ID = 'g-global-background';
+
 export interface GlobalBackgroundProps {
-  children: ReactNode;
+  children?: ReactNode;
+  classes?: Classes;
+  theme?: ApplicationTheme;
   className?: string;
   position?: 'above' | 'below' | 'auto';
 }
 
-// ----------------------------------------------------------------------------- Implementation
-export class GlobalBackground extends PureComponent<GlobalBackgroundProps> {
+@styled(styles)
+export class GlobalBackgroundRoot extends PureComponent<GlobalBackgroundProps> {
+  render() {
+    const { classes } = this.props;
 
-  private rootClassName: string = 'g-global-background';
+    return (
+      <div id={ GLOBAL_BACKGROUND_ANCHOR_ID } className={ classes.globalBackgroundAnchor } />
+    );
+  }
+}
+
+// ----------------------------------------------------------------------------- Implementation
+@styled(styles)
+export class GlobalBackground extends PureComponent<GlobalBackgroundProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
-    if (!canUseDOM() || document.getElementById(this.rootClassName) === null) {
+    if (!canUseDOM()) {
       return null;
     }
 
-    const container = document.getElementById('g-global-background');
+    const { position } = this.props;
 
-    container.classList.add(`g-global-backgound--${ this.props.position || 'auto' }`)
+    const root = document.querySelector('technology-radar').shadowRoot ?
+      document.querySelector('technology-radar').shadowRoot :
+      document;
 
-    return createPortal(this.renderContent(), container);
+    try {
+      const container = root.querySelector(`#${GLOBAL_BACKGROUND_ANCHOR_ID}`);
+
+      if (container === null) {
+        console.warn('[GLOBAL_BACKGROUND] <GlobalBackgroundRoot /> element not found. Be sure to attach.');
+        return null;
+      }
+
+      container.classList.add(`c-global-background--${ position || 'auto' }`)
+
+      return createPortal(this.renderContent(), container);
+    } catch (error) {
+      console.warn('[GLOBAL_BACKGROUND] Failed to access global background.');
+    }
+
+    return null;
   }
 
   // ----------------------------------------------------------------------------- Helpers methods
   private renderContent() {
-    const modifiers = [];
+    const { classes, className, children } = this.props;
 
     return (
-      <div className={ classNames(this.rootClassName, this.props.className, ...modifiers) }>
-        { this.props.children }
+      <div className={ classNames(classes.globalBackground, className) }>
+        { children }
       </div>
     );
   }

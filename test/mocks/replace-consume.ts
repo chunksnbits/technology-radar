@@ -22,5 +22,5 @@
 jest.mock('utils/store/consume', () => ({
   consume: function consume(): any {
     return (WrappedComponent: any) => WrappedComponent;
-  }
+  },
 }));

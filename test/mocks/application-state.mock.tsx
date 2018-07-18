@@ -1,111 +1,59 @@
 
-import { cloneElement, ReactElement } from 'react';
-
-import { ShallowWrapper, mount, shallow, ReactWrapper, render } from 'enzyme';
+// ----------------------------------------------------------------------------- Dependencies
 import { uuid } from 'utils/uuid';
-import { noop } from './generic.mock';
 
-export const mockApplicationState = (patch = {}) => Object.assign({}, {
+// ----------------------------------------------------------------------------- Implementation
+export const mockApplicationState = (patch: Partial<ApplicationState> = {}) => ({
   title: 'Any',
   logo: '//any.logo.svg',
   breakpoint: 'large',
-  editMode: false,
   viewMode: 'list',
-  data: {
-    technologies: [],
-    groups: [],
-  }
-}, patch) as ApplicationState;
+  ...patch,
+});
 
-export const mockApplicationStateStore = (patch = {}) => Object.assign({}, {
-  focusedTechnology: null,
-  focusTechnology: noop,
-  selectedTechnology: null,
-  selectTechnology: noop,
-  selectGroup: noop,
-  reset: noop,
-
-  breakpoint: 'large',
-  updateBreakpoint: noop,
-
-  setOwner: noop,
-  setEditMode: noop,
-  toggleViewMode: noop,
-
-  ...mockApplicationState(patch),
-}, patch) as ApplicationStateStore;
-
-export const mockTechnologyRadar = (patch = {}) => Object.assign({}, {
+export const mockTechnologyRadar = (patch: Partial<ApplicationData> = {}): ApplicationData => ({
   technologies: [mockTechnology()],
   groups: [mockGroup()],
+  ...patch,
+});
 
-  edited: false,
-  settings: mockSettings(),
-}, patch) as TechnologyRadarStore;
-
-export const mockTechnologyRadarStore = (patch = {}) => Object.assign({}, {
-  createNew: noop,
-  edit: noop,
-
-  addGroup: noop,
-  addTechnology: noop,
-
-  updateGroup: noop,
-  updateTechnology: noop,
-
-  removeGroup: noop,
-  removeTechnology: noop,
-
-  clearAll: noop,
-
-  ...mockTechnologyRadar(patch),
-}, patch) as TechnologyRadarStore;
-
-export const mockTechnology = (patch = {}) => Object.assign({}, {
+export const mockTechnology = (patch: Partial<Technology> = {}): Technology => ({
   id: uuid(),
   name: 'Any',
   groupId: null,
   level: 2,
-  group: 3,
   logo: '//any.logo.svg',
-  description: null
-}, patch) as Technology;
+  description: null,
+  ...patch,
+});
 
-export const mockLevel = (patch = {}) => Object.assign({}, {
+export const mockLevel = (patch: Partial<Level> = {}): Level => ({
   id: uuid(),
-  name: 'Any'
-}, patch) as Level;
+  name: 'Any',
+  ...patch,
+});
 
-export const mockGroup = (patch = {}) => Object.assign({}, {
+export const mockGroup = (patch: Partial<Group> = {}) => ({
   id: uuid(),
   group: 0,
   name: 'Any',
   color: 'red',
-  description: null
-}, patch) as Group;
+  description: null,
+  ...patch,
+});
 
-export const mockSettings = (patch = {}) => Object.assign({}, {
+export const mockLayout =  (patch: Partial<ApplicationLayout> = {}): ApplicationLayout => ({
+  technologyRadar: mockSettings(),
+  breakpoints: {
+    small: 0,
+    medium: 1000,
+    large: 2000,
+  },
+  ...patch,
+});
+
+export const mockSettings = (patch: Partial<TechnologyRadarSettings> = {}): TechnologyRadarSettings => ({
   innerRadiusPercent: 10,
-  outerRadiusPercent: 50
-}, patch) as TechnologyRadarSettings;
-
-export const shallowWithApplicationState = (
-  element: ReactElement<any>,
-  applicationState: any = {}
-): ShallowWrapper<any, any> => {
-  return shallow(cloneElement(element, { applicationState, ...applicationState }));
-}
-
-export const mountWithApplicationState = (
-  element: ReactElement<any>,
-  applicationState: any = {}
-): ReactWrapper<any, any> => {
-  return mount(cloneElement(element, { applicationState, ...applicationState }));
-}
-
-export const renderWithApplicationState = (
-  element: ReactElement<any>,
-  applicationState: any = {}
-): Cheerio => {
-  return render(cloneElement(element, { applicationState, ...applicationState }));
-}
+  outerRadiusPercent: 50,
+  ...patch,
+});

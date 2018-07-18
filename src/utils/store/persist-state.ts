@@ -1,4 +1,4 @@
-import { canUseSessionStorage } from 'utils/dom';
+import { canUseSessionStorage } from '../dom';
 
 export function persistState<T>(key: string, data: T): void {
   if (!canUseSessionStorage()) {

@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "required": [
+    "$schema",
+    "itemBorderSize",
+    "primary",
+    "secondary",
+    "base"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "itemBorderSize": {
+      "type": "number"
+    },
+    "primary": {
+      "type": "string"
+    },
+    "secondary": {
+      "type": "string"
+    },
+    "accent": {
+      "type": "string"
+    },
+    "base": {
+      "type": "string"
+    },
+    "backgroundTextContent": {
+      "type": "string"
+    },
+    "textContent": {
+      "type": "string"
+    }
+  }
+}

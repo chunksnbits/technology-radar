@@ -10,8 +10,8 @@ const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeM
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
-const convertToSassMap = require('./sass/convert-to-sass-map');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const entries = require('./utils').entries;
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -30,36 +30,26 @@ module.exports = {
   // You may want 'eval' instead if you prefer to see the compiled output in DevTools.
   // See the discussion in https://github.com/facebookincubator/create-react-app/issues/343.
   devtool: 'cheap-module-source-map',
-  // These are the "entry points" to our application.
-  // This means they will be the "root" imports that are included in JS bundle.
-  // The first two entry points enable "hot" CSS and auto-refreshes for JS.
-  entry: [
-    // We ship a few polyfills by default:
-    require.resolve('./polyfills'),
-    // Include an alternative client for WebpackDevServer. A client's job is to
-    // connect to WebpackDevServer by a socket and get notified about changes.
-    // When you save a file, the client will either apply hot updates (in case
-    // of CSS changes), or refresh the page (in case of JS changes). When you
-    // make a syntax error, this client will display a syntax error overlay.
-    // Note: instead of the default WebpackDevServer client, we use a custom one
-    // to bring better experience for Create React App users. You can replace
-    // the line below with these two lines if you prefer the stock client:
-    // require.resolve('webpack-dev-server/client') + '?/',
-    // require.resolve('webpack/hot/dev-server'),
-    require.resolve('react-dev-utils/webpackHotDevClient'),
-    // Finally, this is your app's code:
-    paths.appIndexJs,
-    // We include the app code last so that if there is a runtime error during
-    // initialization, it doesn't blow up the WebpackDevServer client, and
-    // changing JS code would still trigger a refresh.
-  ],
+  // App entry points, use --apps=... to filter apps to render, e.g., --apps=main,webcomponent for all
+  entry: entries({
+    main: [
+      require.resolve('./polyfills'),
+      require.resolve('react-dev-utils/webpackHotDevClient'),
+      paths.appIndexJs
+    ],
+    webcomponent: [
+      require.resolve('./polyfills'),
+      require.resolve('react-dev-utils/webpackHotDevClient'),
+      paths.webcomponentIndexJs
+    ],
+  }),
   output: {
     // Add /* filename */ comments to generated require()s in the output.
     pathinfo: true,
     // This does not produce a real file. It's just the virtual path that is
     // served by WebpackDevServer in development. This is the JS bundle
     // containing code from all our entry points, and the Webpack runtime.
-    filename: 'static/js/bundle.js',
+    filename: 'static/js/[name].js',
     // There are also additional JS chunk files if you use code splitting.
     chunkFilename: 'static/js/[name].chunk.js',
     // This is the URL that app is served from. We use "/" in development.
@@ -169,7 +159,9 @@ module.exports = {
           {
             test: /\.s?css$/,
             use: [
-              require.resolve('style-loader'),
+              {
+                loader: require.resolve('react-web-component-style-loader')
+              },
               {
                 loader: require.resolve('css-loader'),
                 options: {
@@ -195,10 +187,7 @@ module.exports = {
                 },
               },
               {
-                loader: require.resolve('sass-loader'),
-                options: {
-                  data: `$g-theme: ${convertToSassMap(require('../public/theme.json'))};`
-                }
+                loader: require.resolve('sass-loader')
               },
             ],
           },
@@ -234,6 +223,26 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
+      filename: 'index.html',
+      excludeChunks: ['webcomponent'],
+      chunksSortMode: (chunk, other) => {
+        const chunkOrder = ['polyfill', 'hot', 'main'];
+
+        return chunkOrder.indexOf(chunk.names[0]) - chunkOrder.indexOf(other.names[0]);
+      },
+    }),
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: paths.webcomponentHtml,
+      filename: 'webcomponent.html',
+      excludeChunks: ['main'],
+      chunksSortMode: (chunk, other) => {
+        const chunkOrder = ['polyfill', 'hot', 'webcomponent'];
+
+        // console.log('+++ chunk', chunks.names[0], other.names[0]);
+
+        return chunkOrder.indexOf(chunk.names[0]) - chunkOrder.indexOf(other.names[0]);
+      },
     }),
     // Add module names to factory functions so they appear in browser profiler.
     new webpack.NamedModulesPlugin(),

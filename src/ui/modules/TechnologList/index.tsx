@@ -3,21 +3,24 @@
 import { PureComponent } from 'react';
 import * as React from 'react';
 
-import { classNames } from 'utils/dom';
-import { consume } from 'utils/store/consume';
+import { Classes } from 'jss';
 
+import { classNames, consume, styled } from 'utils';
+import { LayoutContext } from 'store';
 import { ApplicationStateContext, TechnologyRadarContext } from 'store';
 
-import './styles.scss';
 import { TechnologyListEntry } from './components/TechnologyListEntry';
 import { TechnologyListGroup } from './components/TechnologyListGroup';
+
+import { styles } from './styles.jss';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TechnologyListProps {
   className?: string;
+  classes?: Classes;
   technologies?: Technology[];
   groups?: Group[];
-  breakpoint?: Breakpoint;
+  activeBreakpoint?: Breakpoint;
   focusedTechnology?: Technology;
   selectedTechnology?: Technology;
   selectedGroup?: Group;
@@ -28,44 +31,54 @@ export interface TechnologyListProps {
 }
 
 // ----------------------------------------------------------------------------- Implementation
+@consume(LayoutContext, { select: ['activeBreakpoint'] })
 @consume(TechnologyRadarContext, { select: ['technologies', 'groups'] })
 @consume(ApplicationStateContext, {
   select: [
-    'breakpoint',
     'focusedTechnology',
     'selectedTechnology',
     'selectedGroup',
     'selectTechnology',
     'focusTechnology',
-    'viewMode'
-  ]
+    'viewMode',
+  ],
 })
+@styled(styles)
 export class TechnologyList extends PureComponent<TechnologyListProps> {
   handlers: BoundHandlers<() => void> = {};
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render(): JSX.Element {
-    const { breakpoint, focusedTechnology, selectedGroup, selectedTechnology, viewMode, technologies, groups } = this.props;
+    const {
+      activeBreakpoint,
+      focusedTechnology,
+      selectedGroup,
+      selectedTechnology,
+      viewMode,
+      technologies,
+      groups,
+      classes,
+    } = this.props;
 
     const active = Boolean(selectedGroup) || Boolean(selectedTechnology);
-    const listView = (breakpoint === 'large' || viewMode === 'list')
+    const listView = viewMode === 'list';
 
     const modifiers = [
-      !listView && 'c-technology-list--hidden',
-      active && 'c-technology-list--hidden'
+      !listView && classes.technologyListHidden,
+      active && classes.technologyListHidden,
     ];
 
-    const focusable = breakpoint === 'large' && active;
+    const focusable = activeBreakpoint !== 'small' && !active && listView;
     const grouped = Object.entries(this.groupTechnologies(technologies, groups, selectedGroup));
 
     return (
-      <div className={ classNames('c-technology-list', this.props.className, ...modifiers) }>
-        <ul className='c-technology-list__items'>{
+      <div className={ classNames(classes.root, this.props.className, ...modifiers) }>
+        <ul className={ classes.technologyListItems }>{
           grouped.map(([groupId, groupedTechnologies]) => (
             <TechnologyListGroup key={ groupId }>{
               groupedTechnologies.reverse().map(technology => (
                 <TechnologyListEntry
-                  className={ this.isHidden(groupId, selectedGroup) && 'c-technology-list__item--hidden' }
+                  className={ this.isHidden(groupId, selectedGroup) && classes.technologyListItemHidden }
                   key={ technology.id }
                   focusable={ focusable }
                   technology={ technology }
@@ -115,10 +128,14 @@ export class TechnologyList extends PureComponent<TechnologyListProps> {
 
   // ----------------------------------------------------------------------------- Helpers methods
   private groupTechnologies(technologies: Technology[], groups: Group[], selectedGroup: Group): GroupedTechnologies {
+    if (!Boolean(groups)) {
+      return {};
+    }
+
     return groups.reduce((result, group) => {
       return {
         ...result,
-        [group.id]: technologies.filter(technology => technology.groupId === group.id)
+        [group.id]: technologies.filter(technology => technology.groupId === group.id),
       };
     }, {});
   }

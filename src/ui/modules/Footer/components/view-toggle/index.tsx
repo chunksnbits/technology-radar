@@ -1,13 +1,20 @@
 
 // ----------------------------------------------------------------------------- Dependencies
 import * as React from 'react';
+import { PureComponent } from 'react';
+
 import { Button } from '@material-ui/core';
-import { Icon } from 'ui/components/Icon';
-import { classNames } from 'utils/dom';
+import { Classes } from 'jss';
+
+import { classNames, styled } from 'utils';
+import { Icon } from '../../../../components';
+
+import { styles } from '../../styles.jss';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface ViewToggleProps {
   className?: string;
+  classes?: Classes;
   viewMode: ViewMode;
   onClick: () => void;
 }
@@ -15,20 +22,27 @@ export interface ViewToggleProps {
 const viewToggleOptions = {
   list: {
     icon: 'radar',
-    label: 'Show radar view'
+    label: 'Show radar view',
   },
   radar: {
     icon: 'list',
-    label: 'Show list view'
-  }
+    label: 'Show list view',
+  },
 }
 
 // ----------------------------------------------------------------------------- Implementation
-export const ViewToggle = ({ viewMode, className, onClick }: ViewToggleProps) => (
-  <Button className={ classNames('c-view-toggle', className) } onClick={ onClick }>
-    <Icon name={ viewToggleOptions[viewMode].icon } />
-    <span>{
-      viewToggleOptions[viewMode].label
-    }</span>
-  </Button>
-);
+@styled(styles)
+export class ViewToggle extends PureComponent<ViewToggleProps> {
+  render() {
+    const { viewMode, className, onClick, classes } = this.props;
+
+    return (
+      <Button className={ classNames(classes.footerAction, classes.viewToggle, className) } onClick={ onClick }>
+        <Icon className={ classes.footerActionIcon } name={ viewToggleOptions[viewMode].icon } />
+        <span>{
+          viewToggleOptions[viewMode].label
+        }</span>
+      </Button>
+    );
+  }
+}

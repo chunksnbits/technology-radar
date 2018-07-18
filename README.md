@@ -1,3 +1,5 @@
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![Travis build status](https://travis-ci.org/chunksnbits/technology-radar.svg?branch=master)](https://travis-ci.org/chunksnbits/technology-radar)
 
 # Technology radar
 
@@ -14,185 +16,155 @@ See description below for how to setup the project in your developement environm
 ## Table of Contents
 
 - [Getting started](#getting-started)
-- [Project setup](#project-setup)
-- [Release](#release)
-- [Content editing](#content-editing)
-- [Testing](#testing)
+  - [Release to Github Pages](#release-to-github-pages)
+  - [Webcomponent](#webcomponent)
+  - [Custom Build](#custom-build)
 
 ## Getting started
 
-The project uses [yarn](https://yarnpkg.com/lang/en/) as a package manageer.
-See webpage for installation instructions.
+There are currently 2 ways for you to release your own version of the technology radar - release to Github Pages or integration into your own page using the webcomponent build.
 
-To start the project run:
+The Github Pages version will a release a full-page, standalone application that solely includes your technology radar.
+The webcomponent build will allow you to integrate the radar into your app, i.e., will allow you to set size, position and layout as you need it.
 
-`yarn install`
+Both approaches will allow you to provide some customization to the output.
 
-followed by:
+### Release to Github Pages
 
-`yarn start`
+In order to release to Github Pages, you'll need to:
 
-This will open [http://localhost:3000](http://localhost:3000) in your browser.
+1. fork this repository
+2. update the `homepage` entry in the [package.json](./package.json) file
+2. update your skills map by either
+  - update the [data.json](./public/data.json) file in the `public` folder or
+  - checkout the repository and create a `data.json` file in the `private` folder
+See [format options](#data-format) for details on the formatting of the data file.
+3. update the the application settings of your technology-radar by editing the [application-config.json](./public/application-config.json) located in the `public` folder
+4. (optional) update the look and feel of your technology-radar by adjusting one or both of
+  - [theme.json](./public/theme.json)
+  - [layout.json](./public/layout.json)
 
-*Note* All instructions can also be done through `npm` directly. Replace all `yarn` instructions with `npm run` to run tasks directly through npm.
+After you have updated the radar you can run:
 
-## Project setup
-### Folder Structure
-
-The application is structured as follows
-
+```bash
+yarn start
 ```
-private
-  [data.json]
-  ...
-public/
-  data.json
-  index.html
-  theme.json
-  favicon.ico
-  ... additional assets
-src/
-  store/
+to test your settings locally. Running the start command will launch a development version on [localhost](http://localhost:3000).
 
-  ui/
-    components/
-      ...
-    modules/
-      ...
-      TechnologyRadar
-        components/
-          ...
-        index.tsx
-        styles.scss
-        spec.tsx
+If you are satisfied with your settings run
 
-    views/
-      App
-  utils/
-
-  styles.scss
-  index.tsx
-  typings.d.ts
-  registerServiceWorker.ts
+```bash
+yarn deploy
 ```
 
-Some notes on the setup
+to release your technology-radar to Github pages. By default the release will be hosted at: https://<% your_github_name %>.github.io/technology-radar/
 
-* App-wide definitions for this application can be found in styles.scss, resp. typings.d.ts in the `src` root folder.
-* Definitions should be placed under `public` or `private`. Both folders are considered when resolving static resources
-  - The `private` folder is not tracked through git and can be used to define local data, i.e., for testing, individual settings that should not be published
+In order to change the release target, change the `homepage` entry in your [package.json](./package.json).
 
-* The `ui/views` folder holds the main views (think of pages) of the application
-  - the main application entry point is located in `src/views/App`
-* The `ui/modules` folder holds components implementing the business logic of the application
-  - modules might define subcomponents, that split the business case into smaller chunks
-  - modules are connected to the store, i.e., they can acccess and alter the global state
-* The `ui/components` folder holds generic, possibly reusable interface components
-  - As far as possible components are defined as React PureComponents
-  - Components are solely defined through input / output, i.e., they consume input variables and propagate changes through calling callbacks.
-  - They are not direcly connected to the store
+### Webcomponent
 
-## Content editing
+If you prefer to include the technology radar into an existing web page or web application project you can use the `webcomponent` render.
 
-Update the file `public/data.json` to create a technology radar based on your personal interests and skills.
-The [json schema](http://json-schema.org/) for this file can be found in the project root. See your IDEs documentation on how to enable support for schema verification.
+In order to use the technology radar as a webcomponent you'll need to:
 
-The format defines the following data structures
+1. Import the webcomponent js into your html page (must be imported before the tag).
 
-### App
-
-Holds generic application settings:
-
-```
-"application": {
-  "editor"        ## Enables edit mode
-  "title"         ## Application title
-  "subtitle"      ## Application subtitle
-}
+```html
+<script src="https://cdn.jsdelivr.net/gh/chunksnbits/technology-radar@latest/dist/webcomponent.js"
 ```
 
-### Technology radar
+2. Place the `technology-radar` tag into your template
 
-Holds the main data model for you technology radar, separated into:
-
-```
-"technologyRadar": {
-  "levels"
-  "groups"
-  "technologies"
-}
+```html
+<technology-radar></technology-radar>
 ```
 
-#### Levels
+3. Initialize the webcomponent with data, e.g.:
 
-Level define the proficiancy / level of interest you have developed for this technology.
-Levels are defined through:
+```html
+<script>
+  const technologyRadar = document.querySelector('technology-radar');
 
-```
-"levels": [{
-  "id"          ## unique ID for this level
-  "name"        ## display name
-}]
-```
+  const theme = {
+    primary: 'black',
+    secondary: 'grey',
+    base: 'white'
+  };
 
-#### Groups
-
-Groups bind a set of technologies into related blocks. The are defined through:
-
-```
-"groups": [{
-  "id"          ## unique ID for this group
-  "name"        ## display name
-  "color"       ## display color
-}]
-```
-
-#### Technologies
-
-Technologies describe the skills, techniques and frameworks that are used by you or have come onto your radar for feature considerartions.
-Define technologies through:
-
-```
-"technologies": [{
-  "id"          ## unique ID for this skill
-  "groupId"     ## foreign key of the group this skill is attached to
-  "name"        ## display name
-  "level"       ## foreign key of the level this skill is attached to
-  "logo"        ## url poointing to the (preferarble svg) logo
-  "website"
-    "name"      ## display name for this technology's website
-    "href"      ## link target for this technolgy's website
-  },
-  "description" ## description text
-}]
-
+  fetch("/my-local-data/data.json")
+    .then(response => response.json())
+    .then((data) => {
+      console.log('+++ data', data);
+      technologyRadar.setAttribute('data', JSON.stringify(data.technologyRadar));
+      technologyRadar.setAttribute('config', JSON.stringify(data.applicationConfig));
+      technologyRadar.setAttribute('theme', JSON.stringify(theme));
+    });
+</script>
 ```
 
-## Release
+**NOTE** Data transfer between to the webcomponent is done using string values, so be sure to `JSON.stringify` your data objects before passing them into the webcomponent.
 
-### Build the project
+Alternatively you can pass the input data directly into the wecomponent by using the corresponding attributes:
 
-You can build the project using `yarn build`.
-This creates a static application build in the `dist` folder and can be deployed to any server-setup of your choosing
+```html
+<technology-radar data="{ 'technologies': { ... } }" config="{ 'title': '...' , ... }"></technology-radar>
+```
+## Data formats
 
-### Build for github pages
+**Note** All data formats are defined through [json schema definitions](http://json-schema.org/). Be sure to add schema support to your IDE of choice to help you define the format.
 
-**NOTE** Before deployment, ensure to update field `homepage` in package.json to your github pages path.
+**Note** Settings are mandatory, unless marked as *optional*
 
-Run `yarn deploy` to create a version of this app for github pages. This will create a static, prerendered build and create and publish a branch called `gh-pages` that will automatically be deploy to [github pages](https://pages.github.com/).
+### application-config.json
 
-## Testing
+- **title** (string) - The title of your technology-radar. Will appear in the first line of the header
+- **subtitle** (string) - The subtitle of your instance. Will appear below the title
+- **logo** (string, *optional*) - Allows to set a logo outside the project structure (i.e., using an absolute path). If left empty will show the `public/logo.svg` file. Replace this file to change the logo within your fork.
 
-Running `npm test`. launches the test runner in the interactive watch mode.
-See the section about [running tests](#running-tests) for more information.
+### data.json
 
-### Writing tests
+Data displayed in a technology radar is structured as a list of `technolgies`, grouped into `groups` and divided into different `levels` of proficiency.
+The `data.json` provides the necessary definitions for all three concepts.
 
-This application uses [Jest](https://facebook.github.io/jest/) as its test runner.
-See webpage for additional details on general how to write tests using Jest.
+- **levels** (Level[])
+  - id (string) - an unique id for the level
+  - name (string) - the display name to use for the level
+- **groups** (Group[])
+  - id (string) - an unique id for the group
+  - name (string) - the display name to use for the group
+  - color (string) - a hex or rgb(a) color code. All technologies within that group will be displayed using that color
+- **technologies** (Technology[])
+  - id (string) - an unique id for the technology
+  - groupId (string) - the id of the group this technology is associated with
+  - levelId (string) - the id of the level this technology is associated with
+  - name (string) - the display name to use for the technology
 
-The browser environment is simulated thanks to [jsdom](https://github.com/tmpvar/jsdom), i.e., global variables like document and window are safe to use.
+### layout.json, *optional*
 
-### Adding tests
+- **technologyRadar** (TechnologyRadarSettings)
+  - **innerRadiusPercent** (number) - defines a free area in the middle of the technology radar. Assures that a minimal distance can be maintained even if multiple items are defined in the area closest to the center (minimum: 0, maximum: 50, default: 10)
+  - **outerRadiusPercent** (number) - defines the outer radius of the radar (minimum: 0, maximum: 50, default: 50)
+- **breakpoints** (LayoutBreakpoints)
+  - **small** (string) - defines a layout breakpoint for smaller devices (e.g., smartphones)
+  - **medium** (string) - defines a layout breakpoint for medium devices (e.g., tablet, small desktops)
+  - **large** (string) - defines a layout breakpoint for larger devices (e.g., desktop)
 
-Any file ending with `.spec.tsx?` is added to the test suite.
+### theme.json, *optional*
+  - **itemBorderSize** (number) - defines the border size for a technology item - allows to ensure visibility depending on the color of **base**
+  - **primary** (string) - a hex or rgb(a) color code - the primary color used for texts
+  - **secondary** (string) - a hex or rgb(a) color code - defines the secondary color tone, primary used for borders, shadows
+  - **accent** (string) - a hex or rgba(a) color code - primarily used for separators and buttons
+  - **base** (string) - a hex or rgb(a) color code - defines the background / base color for the radar
+  - **backgroundTextContent** (string, *optional*) - a hex or rgb(a) color code. Can be used to customize the background for the technology-radar details dialog, e.g., when using a darker base tone
+  - **textContent** (string, *optional*) - a hex or rgb(a) color code. Should be provided if the **backgroundTextContent** value is set
+
+## Contributing
+
+Found a bug or missing a feature? Please open a issue directly in this repository.
+If you already identified the issue and can provide a fix, please open a pull request with reference to the issue.
+
+For submitting issues, please make sure to follow the [issues template](https://github.com/chunksnbits/technology-radar/issues/new).
+
+### Development
+
+If you want contribute to this repository see the [development guide](./DEVELOPMENT.md) for details on how to start, test and build the project, as well as a general introduction into the application structure.

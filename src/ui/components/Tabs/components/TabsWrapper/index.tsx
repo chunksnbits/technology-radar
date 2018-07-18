@@ -1,59 +1,68 @@
 
 
 // ----------------------------------------------------------------------------- Dependencies
-import { Children, PureComponent } from 'react';
+import { Children, PureComponent, ReactNode } from 'react';
 import * as React from 'react';
 
-import { classNames } from 'utils/dom';
+import { styled, classNames } from 'utils';
 
-import './styles.scss';
 import { Tabs } from '@material-ui/core';
+import { Classes } from 'jss';
+
 import { TabBody } from '../TabContainer';
+
+import { styles } from './styles.jss';
 
 // ----------------------------------------------------------------------------- Configuration
 export interface TabsWrapperProps {
   className?: string;
+  classes?: Classes;
   fixed?: boolean;
   sticky?: boolean;
 }
 
 // ----------------------------------------------------------------------------- Implementation
+@styled(styles)
 export class TabsWrapper extends PureComponent<TabsWrapperProps> {
 
   // ----------------------------------------------------------------------------- Lifecycle methods
   render() {
+    const { children, className, classes, sticky, fixed } = this.props;
+
     const modifiers = [
-      this.props.sticky && 'c-tabs-wrapper--sticky',
-      this.props.fixed && 'c-tabs-wrapper--fixed'
+      sticky && classes.tabsWrapperSticky,
+      fixed && classes.tabsWrapperFixed,
     ]
 
     return (
-      <div className={ classNames('c-tabs-wrapper', this.props.className, ...modifiers) }>
-        <div className='c-tabs-wrapper__header'>
-          { this.tabsHeader }
+      <div className={ classNames(classes.root, className, ...modifiers) }>
+        <div className={ classes.tabsWrapperHeader }
+          style={{
+          }}>
+          { this.getTabsHeader(children) }
         </div>
 
-        <div className='c-tabs-wrapper__body'
+        <div className={ classes.tabsWrapperBody }
           style={{
-            transform: `translateX(${ this.activeTabIndex * -100}%)`
+            transform: `translateX(${ this.getActiveTabIndex(children) * -100}%)`,
           }
         }>
-          { this.tabsBody }
+          { this.getTabsBody(children) }
         </div>
       </div>
     );
   }
 
   // ----------------------------------------------------------------------------- Helpers methods
-  get tabsHeader() {
-    return Children.toArray(this.props.children).filter(child => (child as any).type === Tabs);
+  getTabsHeader(children: ReactNode) {
+    return Children.toArray(children).filter(child => (child as any).type === Tabs);
   }
 
-  get tabsBody() {
-    return Children.toArray(this.props.children).filter(child => (child as any).type === TabBody);
+  getTabsBody(children: ReactNode) {
+    return Children.toArray(children).filter(child => (child as any).type === TabBody);
   }
 
-  get activeTabIndex() {
-    return this.tabsBody.findIndex(tab => (tab as any).props.active);
+  getActiveTabIndex(children: ReactNode) {
+    return this.getTabsBody(children).findIndex(tab => (tab as any).props.active);
   }
 }
