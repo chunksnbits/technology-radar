@@ -15,8 +15,8 @@
     "serve": "serve -l 3001 -s dist",
     "prerelease": "yarn lint && node scripts/test.js --env=jsdom && yarn build:release && yarn compile",
     "release": "standard-version",
-    "predeploy": "rimraf dist && node scripts/build.js --dest=dist && yarn react-snap",
-    "deploy": "gh-pages -d dist",
+    "predeploy": "rimraf build && node scripts/build.js && yarn react-snap",
+    "deploy": "gh-pages -d build",
     "commitlint": "commitlint -e $GIT_PARAMS",
     "lint": "tslint -p tsconfig.json --fix"
   },
@@ -167,7 +167,7 @@
     "extends": "react-app"
   },
   "reactSnap": {
-    "source": "dist"
+    "source": "build"
   },
   "husky": {
     "hooks": {

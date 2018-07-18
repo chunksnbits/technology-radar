@@ -1,6 +1,8 @@
 'use strict';
 
 // ----------------------------------------------------------------------------- Dependencies
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 const buildConfig = require('./webpack.config.build');
 const paths = require('./paths');
 
@@ -23,5 +25,33 @@ module.exports = Object.assign({}, buildConfig, {
   entry: {
     polyfills: require.resolve('./polyfills'),
     webcomponent: paths.webcomponentIndexJs,
-  }
+  },
+
+  plugins: buildConfig.plugins
+    .filter(plugin => !(plugin instanceof HtmlWebpackPlugin))
+    .concat([
+      new HtmlWebpackPlugin({
+        inject: true,
+        template: paths.webcomponentHtml,
+        excludeChunks: ['main'],
+        filename: 'index.html',
+        chunksSortMode: (chunk, other) => {
+          const chunkOrder = ['polyfill', 'webcomponent'];
+
+          return chunkOrder.indexOf(chunk.names[0]) - chunkOrder.indexOf(other.names[0]);
+        },
+        minify: {
+          removeComments: true,
+          collapseWhitespace: true,
+          removeRedundantAttributes: true,
+          useShortDoctype: true,
+          removeEmptyAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          keepClosingSlash: true,
+          minifyJS: true,
+          minifyCSS: true,
+          minifyURLs: true,
+        },
+      })
+    ])
 });
